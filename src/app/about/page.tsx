@@ -1,30 +1,28 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "About Us | Bizarre Lineage Wiki",
-    description: "Learn more about Bizarre Lineage Wiki, a fan-made optimizer for adjusting and testing your Roblox setups.",
+  title: "About Volleyball Legends Wiki",
+  description:
+    "About Volleyball Legends Wiki, a fan-made search-first hub for codes, styles, abilities, and update tracking.",
 };
 
 export default function AboutPage() {
-    return (
-        <div className="container mx-auto px-4 py-16 max-w-3xl prose prose-invert">
-            <h1 className="text-4xl font-heading font-extrabold text-white mb-8">About Bizarre Lineage Wiki</h1>
-
-            <p className="text-muted leading-relaxed mb-6">
-                Bizarre Lineage Wiki is an independent, fan-made utility website designed to help players of the Roblox game <strong>Bizarre Lineage</strong> optimize their in-game builds. Our goal is to provide a unified dataset format, allowing players to experiment with different Stands, Fighting Styles, and Sub-Abilities without wasting their difficult-to-obtain Stand Arrows.
-            </p>
-
-            <h2 className="text-2xl font-bold text-white mt-12 mb-4">Features & Data Sourcing</h2>
-            <p className="text-muted leading-relaxed mb-6">
-                Move names, obtain methods, and core progression notes are cross-checked against the public official Bizarre Lineage Trello board. Rankings, planner scores, recommended builds, and matchup notes are site-maintained community data rather than official balance values.
-            </p>
-
-            <div className="bg-surface border border-white/10 rounded-xl p-6 my-8">
-                <h3 className="text-xl font-bold text-white mb-2">Non-Affiliation Disclaimer</h3>
-                <p className="text-sm text-muted">
-                    Bizarre Lineage Wiki is a community resource and is strictly <strong>not affiliated with, endorsed by, or connected to Roblox Corporation or the developers of Bizarre Lineage</strong>. All game assets, names, and concepts are the property of their respective owners. We do not use any proprietary code from the game itself.
-                </p>
-            </div>
+  return (
+    <div className="container mx-auto max-w-4xl px-4 py-16">
+      <div className="rounded-[2rem] border border-border bg-surface/80 p-8">
+        <h1 className="text-4xl font-heading font-black text-white md:text-5xl">
+          About Volleyball Legends Wiki
+        </h1>
+        <p className="mt-5 text-base leading-7 text-muted md:text-lg">
+          Volleyball Legends Wiki is a fan-made content and tools hub built around the search intents players already have: codes, styles, abilities, tier lists, update pages, and lightweight decision tools.
+        </p>
+        <p className="mt-4 text-sm leading-7 text-muted">
+          The site deliberately separates <strong className="text-white">official links</strong> from <strong className="text-white">community-confirmed notes</strong> and <strong className="text-white">site-generated tools</strong>. That source labeling is the main quality control system for the entire project.
+        </p>
+        <div className="mt-8 rounded-[2rem] border border-white/10 bg-background/65 p-6 text-sm leading-6 text-muted">
+          Volleyball Legends Wiki is not affiliated with Roblox, the Volleyball Legends developers, Fandom, or any third-party community tracker.
         </div>
-    );
+      </div>
+    </div>
+  );
 }

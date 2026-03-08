@@ -11,12 +11,17 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        surface: "#121212", // Slightly lighter than background for cards
-        border: "rgba(255, 255, 255, 0.05)",
+        surface: "var(--surface)",
+        border: "var(--border)",
         accent: {
           blue: "#3b82f6",
           indigo: "#6366f1",
         },
+        "accent-navy": "var(--accent-navy)",
+        "accent-orange": "var(--accent-orange)",
+        "accent-teal": "var(--accent-teal)",
+        "accent-gold": "var(--accent-gold)",
+        "surface-raised": "var(--surface-raised)",
         muted: "#9ca3af",
       },
       fontFamily: {

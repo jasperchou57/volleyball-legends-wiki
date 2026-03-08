@@ -1,10 +1,14 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Your Build Vault — Saved Bizarre Lineage Builds",
-    description: "View, export, and compare your saved Bizarre Lineage builds. All data is stored locally in your browser for privacy.",
+  title: "Legacy Redirect",
+  description: "Legacy route redirect.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function VaultLayout({ children }: { children: React.ReactNode }) {
-    return <>{children}</>;
+  return <>{children}</>;
 }

@@ -1,10 +1,14 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Compare Bizarre Lineage Builds — Side-by-Side Analysis",
-    description: "Compare two Bizarre Lineage builds side-by-side. See PvP, PvE, Survival, Mobility, and Cost score differences at a glance.",
+  title: "Legacy Redirect",
+  description: "Legacy route redirect.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function CompareLayout({ children }: { children: React.ReactNode }) {
-    return <>{children}</>;
+  return <>{children}</>;
 }

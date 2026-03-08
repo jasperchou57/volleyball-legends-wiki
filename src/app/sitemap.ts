@@ -1,58 +1,68 @@
 import { MetadataRoute } from "next";
-import standsData from "@/data/stands.json";
-import stylesData from "@/data/fighting-styles.json";
-import subsData from "@/data/sub-abilities.json";
-
-const BASE_URL = "https://bizarrelineage.com";
+import { abilities, featuredStyles, siteConfig, updates } from "@/data/volleyball";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const now = new Date();
+  const now = new Date();
+  const base = siteConfig.domain;
 
-    // Static pages
-    const staticRoutes: MetadataRoute.Sitemap = [
-        { url: BASE_URL, lastModified: now, changeFrequency: "daily", priority: 1.0 },
-        { url: `${BASE_URL}/tier-list`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-        { url: `${BASE_URL}/build-planner`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-        { url: `${BASE_URL}/stands`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-        { url: `${BASE_URL}/codes`, lastModified: now, changeFrequency: "daily", priority: 0.8 },
-        { url: `${BASE_URL}/vault`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-        { url: `${BASE_URL}/compare`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
-        { url: `${BASE_URL}/fighting-styles`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-        { url: `${BASE_URL}/sub-abilities`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-        { url: `${BASE_URL}/guides/leveling`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-        { url: `${BASE_URL}/guides/prestige`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-        { url: `${BASE_URL}/guides`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-        { url: `${BASE_URL}/guides/stats`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-        { url: `${BASE_URL}/guides/stand-chances`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-        { url: `${BASE_URL}/guides/best-builds`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-        { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-        { url: `${BASE_URL}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
-        { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
-    ];
+  const staticRoutes: MetadataRoute.Sitemap = [
+    { url: base, lastModified: now, changeFrequency: "daily", priority: 1 },
+    { url: `${base}/codes`, lastModified: now, changeFrequency: "daily", priority: 0.95 },
+    { url: `${base}/haikyuu-legends-codes`, lastModified: now, changeFrequency: "daily", priority: 0.82 },
+    { url: `${base}/styles`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/abilities`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${base}/updates`, lastModified: now, changeFrequency: "daily", priority: 0.85 },
+    { url: `${base}/tier-list`, lastModified: now, changeFrequency: "weekly", priority: 0.82 },
+    { url: `${base}/tier-list/styles`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${base}/tier-list/abilities`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${base}/tier-list/spiker`, lastModified: now, changeFrequency: "weekly", priority: 0.78 },
+    { url: `${base}/tier-list/setter`, lastModified: now, changeFrequency: "weekly", priority: 0.76 },
+    { url: `${base}/tier-list/libero`, lastModified: now, changeFrequency: "weekly", priority: 0.76 },
+    { url: `${base}/tier-list/blocker`, lastModified: now, changeFrequency: "weekly", priority: 0.74 },
+    { url: `${base}/guides`, lastModified: now, changeFrequency: "weekly", priority: 0.75 },
+    { url: `${base}/guides/beginner`, lastModified: now, changeFrequency: "monthly", priority: 0.76 },
+    { url: `${base}/guides/controls`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },
+    { url: `${base}/guides/how-to-spike`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },
+    { url: `${base}/guides/how-to-serve`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },
+    { url: `${base}/guides/how-to-set`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/guides/tutorial`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },
+    { url: `${base}/guides/best-binds`, lastModified: now, changeFrequency: "monthly", priority: 0.68 },
+    { url: `${base}/guides/fps-settings`, lastModified: now, changeFrequency: "monthly", priority: 0.68 },
+    { url: `${base}/guides/ranks`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },
+    { url: `${base}/guides/discord`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },
+    { url: `${base}/guides/player-cards`, lastModified: now, changeFrequency: "monthly", priority: 0.66 },
+    { url: `${base}/guides/top-100`, lastModified: now, changeFrequency: "monthly", priority: 0.66 },
+    { url: `${base}/guides/trello`, lastModified: now, changeFrequency: "monthly", priority: 0.68 },
+    { url: `${base}/guides/pity-system`, lastModified: now, changeFrequency: "monthly", priority: 0.74 },
+    { url: `${base}/tools`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${base}/tools/style-compare`, lastModified: now, changeFrequency: "weekly", priority: 0.72 },
+    { url: `${base}/tools/update-countdown`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${base}/tools/reroll-advisor`, lastModified: now, changeFrequency: "weekly", priority: 0.68 },
+    { url: `${base}/wiki`, lastModified: now, changeFrequency: "weekly", priority: 0.74 },
+    { url: `${base}/about`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${base}/contact`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+  ];
 
-    // Dynamic Stand pages (highest SEO value)
-    const standRoutes: MetadataRoute.Sitemap = standsData.map((stand) => ({
-        url: `${BASE_URL}/stands/${stand.id}`,
-        lastModified: now,
-        changeFrequency: "weekly" as const,
-        priority: 0.8,
-    }));
+  const styleRoutes: MetadataRoute.Sitemap = featuredStyles.map((style) => ({
+    url: `${base}/styles/${style.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.84,
+  }));
 
-    // Dynamic Fighting Style pages
-    const styleRoutes: MetadataRoute.Sitemap = stylesData.map((style) => ({
-        url: `${BASE_URL}/fighting-styles/${style.id}`,
-        lastModified: now,
-        changeFrequency: "monthly" as const,
-        priority: 0.6,
-    }));
+  const abilityRoutes: MetadataRoute.Sitemap = abilities.map((ability) => ({
+    url: `${base}/abilities/${ability.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.78,
+  }));
 
-    // Dynamic Sub-Ability pages
-    const subRoutes: MetadataRoute.Sitemap = subsData.map((sub) => ({
-        url: `${BASE_URL}/sub-abilities/${sub.id}`,
-        lastModified: now,
-        changeFrequency: "monthly" as const,
-        priority: 0.6,
-    }));
+  const updateRoutes: MetadataRoute.Sitemap = updates.map((update) => ({
+    url: `${base}/updates/${update.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
 
-    return [...staticRoutes, ...standRoutes, ...styleRoutes, ...subRoutes];
+  return [...staticRoutes, ...styleRoutes, ...abilityRoutes, ...updateRoutes];
 }

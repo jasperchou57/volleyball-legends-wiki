@@ -3,18 +3,40 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ffffff;
+  --background: #081521;
+  --foreground: #f5f9ff;
+  --surface: #102438;
+  --surface-raised: #163149;
+  --border: rgba(166, 190, 214, 0.16);
+  --accent-navy: #123c67;
+  --accent-orange: #ff6a2b;
+  --accent-teal: #2cc7b8;
+  --accent-gold: #ffd166;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
   background-color: var(--background);
-  /* The ForgeOre style subtle grid pattern */
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+    radial-gradient(circle at top left, rgba(255, 106, 43, 0.16), transparent 28%),
+    radial-gradient(circle at top right, rgba(44, 199, 184, 0.14), transparent 32%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: auto, auto, 44px 44px, 44px 44px;
+  min-height: 100vh;
+}
+
+a {
+  text-underline-offset: 0.2em;
+}
+
+::selection {
+  background: rgba(255, 106, 43, 0.28);
+  color: #fff7f2;
 }
 
 @layer utilities {

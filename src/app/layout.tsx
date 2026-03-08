@@ -7,10 +7,16 @@ import { Footer } from "@/components/layout/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+const analyticsId = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
-  title: "Bizarre Lineage Wiki - Tier List, Codes & Best Builds (2026)",
-  description: "The ultimate Bizarre Lineage wiki & tools hub. Tier list, active codes, Stand builds, PvP guides. Updated for the latest meta. (Also: bizare lineage, bizzare lineage).",
+  metadataBase: new URL("https://volleyballlegends.wiki"),
+  title: {
+    default: "Volleyball Legends Wiki - Codes, Styles, Tier List & Updates",
+    template: "%s | Volleyball Legends Wiki",
+  },
+  description:
+    "Volleyball Legends Wiki tracks codes, styles, abilities, ranked notes, update guides, and lightweight tools for Roblox Volleyball Legends.",
 };
 
 export default function RootLayout({
@@ -19,20 +25,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable} dark`}>
+    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-M7LZME8PZ6"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-M7LZME8PZ6');
-          `}
-        </Script>
+        {analyticsId ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${analyticsId}');
+              `}
+            </Script>
+          </>
+        ) : null}
       </head>
       <body className="font-sans antialiased text-white min-h-screen flex flex-col bg-background">
         <Navbar />

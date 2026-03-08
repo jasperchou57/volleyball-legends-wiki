@@ -1,35 +1,24 @@
 import Link from "next/link";
 import Script from "next/script";
-import { Search, Target, ArrowRight, Zap, Gift, ChevronDown } from "lucide-react";
-import standsData from "@/data/stands.json";
-
-const faqData = [
-  {
-    question: "What is the best Stand in Bizarre Lineage for PvP?",
-    answer: "On this site's community ranking, Made in Heaven, Whitesnake, and C-Moon currently sit near the top for PvP. Those placements are local planner notes, not official balance data.",
-  },
-  {
-    question: "Are there any active Bizarre Lineage codes right now?",
-    answer: "We do not currently list any verified official codes. The public official Trello links to the official Discord, Roblox group, and game page, which are the safest places to verify future code announcements.",
-  },
-  {
-    question: "How do I get a specific Stand like Whitesnake or Made in Heaven?",
-    answer: "The public Trello confirms that you unlock your first Stand with a Stand Arrow. Lucky Arrow does not raise Stand rarity; it guarantees a random skin on your current Stand. Evolution stands such as Made in Heaven follow their own quest or evolution paths on the official Trello.",
-  },
-  {
-    question: "What is the best fighting style and sub-ability combo?",
-    answer: "The best combo depends on your Stand and playstyle. In this site's planner data, Boxing is the safest all-round fighting style, while Hamon and Vampire are frequent community recommendations. Use the planner to compare local estimates side by side.",
-  },
-  {
-    question: "How does the Build Planner scoring system work?",
-    answer: "Our build planner estimates a Stand + Fighting Style + Sub-Ability combo across 5 dimensions: PvP, PvE, Survival, Mobility, and Cost Efficiency. The numbers come from the site's local dataset and weighting rules, not from official game balance values.",
-  },
-];
+import { ArrowRight, Clock3, Gamepad2, Gift, Swords, TrendingUp, Trophy, Wrench } from "lucide-react";
+import {
+  abilities,
+  activeCodes,
+  featuredStyles,
+  guideCards,
+  homepageFaq,
+  mainQueryChips,
+  siteConfig,
+  toolCards,
+  trendingQueryChips,
+  updates,
+} from "@/data/volleyball";
+import { UpdateCountdown } from "@/components/volleyball/UpdateCountdown";
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqData.map((item) => ({
+  mainEntity: homepageFaq.map((item) => ({
     "@type": "Question",
     name: item.question,
     acceptedAnswer: {
@@ -39,183 +28,302 @@ const faqSchema = {
   })),
 };
 
-const popularLinks = [
-  { label: "Whitesnake Build Guide", href: "/stands/whitesnake" },
-  { label: "Made in Heaven Guide", href: "/stands/made-in-heaven" },
-  { label: "Best PvP Stands", href: "/tier-list" },
-  { label: "The World High Voltage", href: "/stands/the-world-high-voltage" },
-  { label: "Star Platinum vs The World", href: "/stands/star-platinum" },
-  { label: "King Crimson Build", href: "/stands/king-crimson" },
-  { label: "C-Moon Awakening", href: "/stands/c-moon" },
-  { label: "Boxing Style Guide", href: "/fighting-styles/boxing" },
-  { label: "Hamon Sub-Ability", href: "/sub-abilities/hamon" },
-  { label: "Leveling Guide (1-50)", href: "/guides/leveling" },
-  { label: "Prestige Requirements", href: "/guides/prestige" },
-  { label: "Stats Guide", href: "/guides/stats" },
-  { label: "Stand Chances & Rarity", href: "/guides/stand-chances" },
-  { label: "Best Builds", href: "/guides/best-builds" },
-  { label: "All Stand Tier Rankings", href: "/tier-list" },
+const spotlightCards = [
+  {
+    title: "Volleyball Legends Codes",
+    description: "The main traffic page: fresh codes, release timestamps, and official-channel verification notes.",
+    href: "/codes",
+    icon: Gift,
+  },
+  {
+    title: "Update 60: Kijo",
+    description: "Breakout update coverage for the biggest rising query in the last 24 hours.",
+    href: "/updates/update-60-kijo",
+    icon: TrendingUp,
+  },
+  {
+    title: "Styles Wiki",
+    description: "High-demand style pages for Kijo, Jinko, Ronin, Taichou, Timeskip Kyamo, Akari, and more.",
+    href: "/styles",
+    icon: Swords,
+  },
+  {
+    title: "Ability Pages",
+    description: "Lead Feet, Curve Spike, Extra Touch, Divine Strength, Steel Block, and more.",
+    href: "/abilities",
+    icon: Wrench,
+  },
 ];
 
 export default function Home() {
-  const trendingStands = standsData.slice(0, 3);
-
   return (
     <>
       <Script
-        id="faq-schema"
+        id="homepage-faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <div className="flex flex-col items-center px-4 py-16 md:py-24 max-w-5xl mx-auto">
-        {/* Hero Section */}
-        <div className="text-center space-y-6 mb-12 w-full max-w-3xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold tracking-tight text-white text-balance">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue to-accent-indigo">Bizarre Lineage</span> Tier List &amp; Codes
-          </h1>
-          <p className="text-lg md:text-xl text-muted text-balance mx-auto">
-            Cross-check official Trello move data, compare site-maintained planner rankings, and verify official links before you spend your resources.
-          </p>
-        </div>
 
-        {/* Primary Actions */}
-        <div className="w-full max-w-2xl space-y-6 mb-16">
-          <div className="relative group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-muted group-focus-within:text-accent-blue transition-colors" />
+      <div className="container mx-auto px-4 pb-20 pt-10 md:pt-16">
+        <section className="relative overflow-hidden rounded-[2rem] border border-border bg-gradient-to-br from-surface to-[#0b1826] px-6 py-10 shadow-[0_30px_90px_rgba(8,21,33,0.38)] md:px-10 md:py-14">
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent-orange via-accent-gold to-accent-teal" />
+          <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 rounded-full border border-accent-orange/25 bg-accent-orange/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-accent-orange">
+                <Clock3 className="h-4 w-4" />
+                Weekly Saturday spike window
+              </div>
+
+              <div className="space-y-4">
+                <h1 className="max-w-4xl text-4xl font-heading font-black tracking-tight text-white md:text-6xl">
+                  Volleyball Legends Codes, Styles, Tier List & Update Guides
+                </h1>
+                <p className="max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
+                  A query-first hub for the biggest Volleyball Legends search intents: codes, styles, abilities, ranked notes, and fast update coverage. Built to answer what players are already typing into Google.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/codes"
+                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_44px_rgba(255,106,43,0.28)] transition hover:translate-y-[-1px]"
+                >
+                  Get Codes
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/styles"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/25"
+                >
+                  Browse Styles
+                </Link>
+                <Link
+                  href={siteConfig.officialLinks.discord}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-transparent px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-white/25 hover:text-white"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Official Discord
+                </Link>
+              </div>
+
+              <div className="flex flex-wrap gap-2 pt-2">
+                {mainQueryChips.map((chip) => (
+                  <Link
+                    key={chip.label}
+                    href={chip.href}
+                    className="rounded-full border border-white/10 bg-background/45 px-4 py-2 text-sm text-slate-200 transition hover:border-white/25 hover:text-white"
+                  >
+                    {chip.label}
+                  </Link>
+                ))}
+              </div>
             </div>
-            <Link href="/stands" className="block">
-              <input
-                type="text"
-                readOnly
-                className="block w-full pl-12 pr-4 py-4 bg-surface border border-border rounded-xl text-white placeholder-muted focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all shadow-lg cursor-pointer"
-                placeholder="Search for a Stand (e.g. Whitesnake, Made in Heaven)..."
-              />
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
+              <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Codes tracked</p>
+                <p className="mt-3 text-4xl font-heading font-black text-accent-orange">{activeCodes.length}</p>
+                <p className="mt-2 text-sm leading-6 text-muted">Split into fresh update codes and older still-circulating codes that need fast in-game verification.</p>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Styles live</p>
+                <p className="mt-3 text-4xl font-heading font-black text-accent-teal">{featuredStyles.length}</p>
+                <p className="mt-2 text-sm leading-6 text-muted">A growing directory of high-intent style pages. Community wiki pages currently track 36 styles overall.</p>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Abilities tracked</p>
+                <p className="mt-3 text-4xl font-heading font-black text-accent-gold">{abilities.length}</p>
+                <p className="mt-2 text-sm leading-6 text-muted">Coverage now includes the core ability roster plus newer search-driven pages like Lead Feet.</p>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Update cadence</p>
+                <p className="mt-3 text-2xl font-heading font-black text-white">{siteConfig.updateSchedule}</p>
+                <p className="mt-2 text-sm leading-6 text-muted">A dedicated countdown tool keeps the Saturday posting workflow front and center.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {spotlightCards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <Link
+                key={card.href}
+                href={card.href}
+                className="group rounded-3xl border border-border bg-surface/80 p-6 transition hover:border-white/20 hover:bg-surface-raised/80"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="rounded-2xl border border-white/10 bg-background/60 p-3">
+                    <Icon className="h-6 w-6 text-accent-orange" />
+                  </div>
+                  <ArrowRight className="h-5 w-5 text-muted transition group-hover:translate-x-1 group-hover:text-white" />
+                </div>
+                <h2 className="mt-5 text-2xl font-heading font-bold text-white">{card.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-muted">{card.description}</p>
+              </Link>
+            );
+          })}
+        </section>
+
+        <section className="mt-14">
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted">Rising queries</p>
+              <h2 className="mt-2 text-3xl font-heading font-bold text-white">What players are searching right now</h2>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {trendingQueryChips.map((chip) => (
+              <Link
+                key={chip.label}
+                href={chip.href}
+                className="rounded-full border border-white/10 bg-surface/70 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-accent-orange/40 hover:text-white"
+              >
+                {chip.label}
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-14">
+          <UpdateCountdown />
+        </section>
+
+        <section className="mt-14">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted">Top landing pages</p>
+              <h2 className="mt-2 text-3xl font-heading font-bold text-white">Featured style pages</h2>
+            </div>
+            <Link href="/styles" className="text-sm font-semibold text-accent-teal transition hover:text-white">
+              View all styles
             </Link>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link href="/build-planner" className="flex items-center justify-between p-6 bg-gradient-to-br from-surface to-[#1a1a1a] border border-border rounded-xl hover:border-accent-blue/50 group transition-all">
-              <div className="flex flex-col">
-                <span className="text-lg font-bold text-white group-hover:text-accent-blue transition-colors">Build Planner</span>
-                <span className="text-sm text-muted">Create and score your setup</span>
-              </div>
-              <ArrowRight className="h-5 w-5 text-muted group-hover:text-accent-blue transition-transform group-hover:translate-x-1" />
-            </Link>
-
-            <Link href="/tier-list" className="flex items-center justify-between p-6 bg-gradient-to-br from-surface to-[#1a1a1a] border border-border rounded-xl hover:border-accent-indigo/50 group transition-all">
-              <div className="flex flex-col">
-                <span className="text-lg font-bold text-white group-hover:text-accent-indigo transition-colors">Tier List</span>
-                <span className="text-sm text-muted">Community ranking view</span>
-              </div>
-              <ArrowRight className="h-5 w-5 text-muted group-hover:text-accent-indigo transition-transform group-hover:translate-x-1" />
-            </Link>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {featuredStyles.slice(0, 6).map((style) => (
+              <Link
+                key={style.slug}
+                href={`/styles/${style.slug}`}
+                className="group rounded-3xl border border-border bg-surface/80 p-6 transition hover:border-white/20 hover:bg-surface-raised/80"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="inline-flex rounded-full border border-white/10 bg-background/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+                      {style.rarity} · {style.role}
+                    </div>
+                    <h3 className="mt-4 text-2xl font-heading font-bold text-white">{style.name}</h3>
+                  </div>
+                  <div className="rounded-full border border-accent-orange/20 bg-accent-orange/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent-orange">
+                    Tier {style.communityTier}
+                  </div>
+                </div>
+                <p className="mt-4 text-sm leading-6 text-muted">{style.summary}</p>
+                <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-slate-200">
+                  <div className="rounded-2xl border border-white/10 bg-background/65 p-3">
+                    <p className="text-xs uppercase tracking-[0.18em] text-muted">Offense</p>
+                    <p className="mt-1 text-xl font-heading font-bold text-white">{style.scores.offense}/10</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-background/65 p-3">
+                    <p className="text-xs uppercase tracking-[0.18em] text-muted">Control</p>
+                    <p className="mt-1 text-xl font-heading font-bold text-white">{style.scores.control}/10</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
-        </div>
+        </section>
 
-        {/* Codes Banner */}
-        <div className="w-full max-w-2xl mb-16">
-          <Link href="/codes" className="flex items-center justify-between p-5 bg-gradient-to-br from-surface to-[#1a1a1a] border border-border rounded-xl hover:border-yellow-500/40 group transition-all">
-            <div className="flex items-center gap-3">
-              <Gift className="h-5 w-5 text-yellow-400/70" />
-              <div className="flex flex-col">
-                <span className="text-base font-bold text-white group-hover:text-yellow-400 transition-colors">Bizarre Lineage Codes</span>
-                <span className="text-sm text-muted">Verified status + official links</span>
+        <section className="mt-14 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted">Update coverage</p>
+                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Saturday update notes</h2>
               </div>
+              <Clock3 className="h-6 w-6 text-accent-orange" />
             </div>
-            <ArrowRight className="h-5 w-5 text-muted group-hover:text-yellow-400 group-hover:translate-x-1 transition-all" />
-          </Link>
-        </div>
-
-        {/* How It Works */}
-        <div className="w-full max-w-3xl mb-16">
-          <h2 className="text-2xl font-heading font-bold text-white text-center mb-8">How the Build Planner Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-accent-blue/10 border border-accent-blue/20 flex items-center justify-center text-accent-blue font-bold text-lg">1</div>
-              <h3 className="font-bold text-white">Pick a Stand</h3>
-              <p className="text-sm text-muted">Choose from 17 Stands in this site&apos;s local dataset. Each entry keeps official move names but uses site-maintained planner scores.</p>
-            </div>
-            <div className="text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-accent-indigo/10 border border-accent-indigo/20 flex items-center justify-center text-accent-indigo font-bold text-lg">2</div>
-              <h3 className="font-bold text-white">Select Style &amp; Sub</h3>
-              <p className="text-sm text-muted">Pair your Stand with a fighting style (Boxing, Kendo, Karate) and a sub-ability (Hamon, Vampire, Cyborg) to test planner combinations.</p>
-            </div>
-            <div className="text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 font-bold text-lg">3</div>
-              <h3 className="font-bold text-white">Get Your Score</h3>
-              <p className="text-sm text-muted">See planner estimates across 5 dimensions, save them to your Vault, and compare local build profiles side by side.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Trending Stands */}
-        <div className="w-full space-y-8 mb-16">
-          <h2 className="text-2xl font-heading font-bold text-white text-center">Best Bizarre Lineage Stands (Trending)</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {trendingStands.map((stand) => (
-              <Link key={stand.id} href={`/stands/${stand.id}`} className="block group">
-                <div className="bg-surface border border-border rounded-xl p-6 h-full hover:border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold text-white group-hover:text-accent-blue transition-colors">{stand.name}</h3>
-                    <span className="px-2 py-1 text-xs font-mono font-bold uppercase rounded-full bg-accent-blue/10 text-accent-blue border border-accent-blue/20">
-                      Planner {stand.tier.overall}
+            <div className="mt-6 space-y-4">
+              {updates.map((update) => (
+                <Link
+                  key={update.slug}
+                  href={`/updates/${update.slug}`}
+                  className="block rounded-3xl border border-white/10 bg-background/65 p-5 transition hover:border-white/20"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <h3 className="text-xl font-heading font-bold text-white">{update.title}</h3>
+                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-muted">
+                      {update.published}
                     </span>
                   </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-muted">
-                      <Target className="h-4 w-4" /> Damage Score: <span className="text-white font-medium">{stand.scores.damage}/10</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-muted">
-                      <Zap className="h-4 w-4" /> Suggested Style: <span className="text-white font-medium capitalize">{stand.recommendedStyles[0]}</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
+                  <p className="mt-3 text-sm leading-6 text-muted">{update.summary}</p>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Popular Searches — internal link block for crawl paths */}
-        <div className="w-full max-w-3xl mb-16">
-          <h2 className="text-2xl font-heading font-bold text-white text-center mb-6">Popular Bizarre Lineage Guides</h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            {popularLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="px-4 py-2 text-sm font-medium text-muted bg-surface border border-border rounded-full hover:border-accent-blue/50 hover:text-white transition-all"
-              >
-                {link.label}
-              </Link>
-            ))}
+          <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted">Guides & tools</p>
+                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Pages built for retention</h2>
+              </div>
+              <Trophy className="h-6 w-6 text-accent-teal" />
+            </div>
+
+            <div className="mt-6 space-y-4">
+              {guideCards.slice(0, 4).map((guide) => (
+                <Link
+                  key={guide.href}
+                  href={guide.href}
+                  className="block rounded-3xl border border-white/10 bg-background/65 p-5 transition hover:border-white/20"
+                >
+                  <h3 className="text-lg font-heading font-bold text-white">{guide.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted">{guide.description}</p>
+                </Link>
+              ))}
+
+              {toolCards.map((tool) => (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className="block rounded-3xl border border-accent-teal/20 bg-accent-teal/10 p-5 transition hover:border-accent-teal/40"
+                >
+                  <h3 className="text-lg font-heading font-bold text-white">{tool.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-200">{tool.description}</p>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
 
-        {/* FAQ Section */}
-        <div className="w-full max-w-3xl mb-16">
-          <h2 className="text-2xl font-heading font-bold text-white text-center mb-8">Bizarre Lineage FAQ</h2>
+        <section className="mt-14 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
+          <div className="mb-8 max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted">SEO foundation</p>
+            <h2 className="mt-2 text-3xl font-heading font-bold text-white">Home page FAQ</h2>
+            <p className="mt-3 text-sm leading-6 text-muted">
+              These answers reinforce the site structure and source policy instead of pretending everything is official data.
+            </p>
+          </div>
           <div className="space-y-4">
-            {faqData.map((item, i) => (
-              <details key={i} className="group bg-surface border border-border rounded-xl overflow-hidden">
-                <summary className="flex items-center justify-between p-5 cursor-pointer list-none">
-                  <span className="font-medium text-white pr-4">{item.question}</span>
-                  <ChevronDown className="h-5 w-5 text-muted flex-shrink-0 group-open:rotate-180 transition-transform" />
+            {homepageFaq.map((item) => (
+              <details key={item.question} className="rounded-3xl border border-white/10 bg-background/65 p-5">
+                <summary className="cursor-pointer list-none text-lg font-semibold text-white">
+                  {item.question}
                 </summary>
-                <div className="px-5 pb-5 text-sm text-muted leading-relaxed">
-                  {item.answer}
-                </div>
+                <p className="mt-3 max-w-3xl text-sm leading-6 text-muted">{item.answer}</p>
               </details>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Patch freshness note */}
-        <div className="w-full max-w-2xl text-center">
-          <p className="text-xs text-muted/60">
-            Move names, obtain methods, and progression notes are cross-checked against the public official Trello board. Rankings and planner scores on this site are community-maintained notes.
-          </p>
-        </div>
+        <section className="mt-10 flex flex-wrap items-center gap-4 rounded-3xl border border-border bg-background/45 px-6 py-4 text-sm text-muted">
+          <Gamepad2 className="h-5 w-5 text-accent-orange" />
+          <span>Official links: Roblox listing and Discord.</span>
+          <span>Community data: styles, abilities, pity notes, and many update-specific stat sheets.</span>
+          <span>Site tools: compare, reroll advice, and tier grouping.</span>
+        </section>
       </div>
     </>
   );

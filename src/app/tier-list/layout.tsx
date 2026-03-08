@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Bizarre Lineage Tier List: Best Stands for PvP & PvE (2026)",
-    description: "The definitive Bizarre Lineage Stand tier list. Filter by PvP, PvE, or overall power. See which Stands dominate the current meta.",
+  title: "Volleyball Legends Tier List",
+  description:
+    "Volleyball Legends tier list hub for styles, abilities, and role-based rankings built from community notes and site-maintained grouping.",
 };
 
 export default function TierListLayout({ children }: { children: React.ReactNode }) {
-    return <>{children}</>;
+  return <>{children}</>;
 }
