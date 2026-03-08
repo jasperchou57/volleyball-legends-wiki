@@ -7,7 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
-const analyticsId = process.env.NEXT_PUBLIC_GA_ID;
+const analyticsId = process.env.NEXT_PUBLIC_GA_ID ?? "G-XP6YLZ9JHQ";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://volleyballlegends.wiki"),
@@ -27,22 +27,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <head>
-        {analyticsId ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${analyticsId}');
-              `}
-            </Script>
-          </>
-        ) : null}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${analyticsId}');
+          `}
+        </Script>
       </head>
       <body className="font-sans antialiased text-white min-h-screen flex flex-col bg-background">
         <Navbar />
