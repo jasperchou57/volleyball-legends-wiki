@@ -75,9 +75,9 @@ export default function Home() {
               </div>
 
               <div className="space-y-4">
-                <h1 className="max-w-4xl text-4xl font-heading font-black tracking-tight text-white md:text-6xl">
-                  Volleyball Legends Codes, Styles, Tier List & Update Guides
-                </h1>
+            <h1 className="max-w-4xl text-4xl font-heading font-black tracking-tight text-white md:text-6xl">
+              Volleyball Legends Wiki: Codes, Styles, Tier List & Update Guides
+            </h1>
                 <p className="max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
                   A query-first hub for the biggest Volleyball Legends search intents: codes, styles, abilities, ranked notes, and fast update coverage. Built to answer what players are already typing into Google.
                 </p>
