@@ -5,15 +5,16 @@ import { ChevronRight } from "lucide-react";
 import { abilities, featuredStyles, getAbility } from "@/data/volleyball";
 
 type PageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
   return abilities.map((ability) => ({ slug: ability.slug }));
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const ability = getAbility(params.slug);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const ability = getAbility(slug);
   if (!ability) {
     return {};
   }
@@ -24,8 +25,9 @@ export function generateMetadata({ params }: PageProps): Metadata {
   };
 }
 
-export default function AbilityDetailPage({ params }: PageProps) {
-  const ability = getAbility(params.slug);
+export default async function AbilityDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const ability = getAbility(slug);
 
   if (!ability) {
     notFound();

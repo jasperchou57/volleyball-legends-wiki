@@ -6,15 +6,16 @@ import { featuredStyles, getUpdate, updates } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 
 type PageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
   return updates.map((update) => ({ slug: update.slug }));
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const update = getUpdate(params.slug);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const update = getUpdate(slug);
 
   if (!update) {
     return {};
@@ -26,8 +27,9 @@ export function generateMetadata({ params }: PageProps): Metadata {
   };
 }
 
-export default function UpdateDetailPage({ params }: PageProps) {
-  const update = getUpdate(params.slug);
+export default async function UpdateDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const update = getUpdate(slug);
 
   if (!update) {
     notFound();

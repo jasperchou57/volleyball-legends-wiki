@@ -81,7 +81,7 @@ export const siteConfig = {
   updateSchedule: "Weekly Saturdays at 11:30 AM ET",
   officialLinks: {
     discord: "https://discord.com/servers/volleyball-legends-1328110081136398427",
-    roblox: "https://www.roblox.com/games/73956553001240/UPD-Volleyball-Legends",
+    roblox: "https://www.roblox.com/games/73956553001240/Volleyball-Legends",
   },
 };
 

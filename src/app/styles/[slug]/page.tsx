@@ -6,15 +6,16 @@ import { featuredStyles, getStyle, abilities } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 
 type PageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
   return featuredStyles.map((style) => ({ slug: style.slug }));
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const style = getStyle(params.slug);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const style = getStyle(slug);
 
   if (!style) {
     return {};
@@ -59,8 +60,9 @@ function getWatchoutLines(slug: string) {
   return lines.slice(0, 4);
 }
 
-export default function StyleDetailPage({ params }: PageProps) {
-  const style = getStyle(params.slug);
+export default async function StyleDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const style = getStyle(slug);
 
   if (!style) {
     notFound();
