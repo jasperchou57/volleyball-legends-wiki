@@ -36,14 +36,14 @@ const spotlightCards = [
     icon: Gift,
   },
   {
-    title: "Update 60: Kijo",
-    description: "Breakout update coverage for the biggest rising query in the last 24 hours.",
-    href: "/updates/update-60-kijo",
+    title: "Update 65: Season 14 & Shield Breaker",
+    description: "Ranked reset, new Shield Breaker mechanic, Easter event. Note: Encho went permanently unobtainable at the 4/11 reset.",
+    href: "/updates/update-65-season-14",
     icon: TrendingUp,
   },
   {
     title: "Styles Wiki",
-    description: "High-demand style pages for Kijo, Jinko, Ronin, Taichou, Timeskip Kyamo, Akari, and more.",
+    description: "High-demand style pages for Encho, Twins, Mikage, Kijo, Jinko, Ronin, Taichou, and more.",
     href: "/styles",
     icon: Swords,
   },

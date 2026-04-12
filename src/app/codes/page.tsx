@@ -5,7 +5,7 @@ import { activeCodes, siteConfig, updates } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 
 export const metadata: Metadata = {
-  title: "Volleyball Legends Codes (March 2026)",
+  title: "Volleyball Legends Codes (April 2026) — Update 65",
   description:
     "Track Volleyball Legends codes, recent update codes, reward notes, and the fastest official places to verify fresh drops.",
   alternates: {
@@ -125,6 +125,9 @@ export default function CodesPage() {
               <Link href="/updates" className="block rounded-3xl border border-white/10 bg-background/65 p-4 text-white transition hover:border-white/25">
                 Update Tracker
               </Link>
+              <Link href="/codes/expired" className="block rounded-3xl border border-white/10 bg-background/65 p-4 text-white transition hover:border-white/25">
+                Expired codes archive
+              </Link>
             </div>
           </div>
         </div>
@@ -211,7 +214,7 @@ export default function CodesPage() {
             description: "Convert fresh spins into a keep-or-roll decision instead of spending blindly.",
           },
           {
-            href: "/updates/update-60-kijo",
+            href: "/updates/update-65-season-14",
             title: "Read the live patch first",
             description: "Check whether the current update actually introduced a style worth chasing.",
           },

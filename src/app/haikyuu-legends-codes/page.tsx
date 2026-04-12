@@ -34,7 +34,7 @@ export default function HaikyuuLegendsCodesPage() {
           <Link href="/codes" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">
             Open Current Codes Page
           </Link>
-          <Link href="/updates/update-60-kijo" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
+          <Link href="/updates/update-65-season-14" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
             Read Latest Update
           </Link>
         </div>

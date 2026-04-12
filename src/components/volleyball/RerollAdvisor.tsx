@@ -95,7 +95,7 @@ export function RerollAdvisor() {
 
     return [
       { href: "/codes", title: "Use today's codes first", description: "If you're going to push now, maximize the stack before you start spending." },
-      { href: "/updates/update-60-kijo", title: "Review the live banner", description: "Double-check whether the current update really justifies a reroll window." },
+      { href: "/updates/update-65-season-14", title: "Review the live banner", description: "Double-check whether the current update really justifies a reroll window." },
       { href: "/tools/style-compare", title: "Compare before you commit", description: "Make sure the style you're chasing is meaningfully better than what you already have." },
     ];
   }, [advice.headline]);

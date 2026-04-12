@@ -6,7 +6,7 @@ import { featuredStyles } from "@/data/volleyball";
 export const metadata: Metadata = {
   title: "Volleyball Legends Styles Wiki",
   description:
-    "Browse Volleyball Legends style pages for Kijo, Jinko, Ronin, Taichou, Timeskip Kyamo, Akari, and more with community snapshots and search-first summaries.",
+    "Browse Volleyball Legends style pages for Encho, Twins, Mikage, Kijo, Jinko, Ronin, Taichou, and more with community snapshots and search-first summaries.",
 };
 
 export default function StylesPage() {
