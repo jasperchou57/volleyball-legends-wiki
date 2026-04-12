@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { featuredStyles, getStyle, abilities } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
+import { RadarChart } from "@/components/volleyball/RadarChart";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -122,18 +123,34 @@ export default async function StyleDetailPage({ params }: PageProps) {
 
           <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
             <h2 className="text-2xl font-heading font-bold text-white">Community snapshot</h2>
-            <div className="mt-6 space-y-4">
-              {Object.entries(style.scores).map(([label, value]) => (
-                <div key={label}>
-                  <div className="mb-1 flex items-center justify-between text-xs uppercase tracking-[0.18em] text-muted">
-                    <span>{label}</span>
-                    <span className="text-white">{value}/10</span>
+            <p className="mt-2 text-sm leading-6 text-muted">
+              Five-axis radar comparing {style.name}&rsquo;s offensive pressure, ball control, defense, mobility, and mechanical difficulty. Values are community-tracked and should be treated as relative rather than absolute.
+            </p>
+            <div className="mt-5 grid gap-6 md:grid-cols-[1fr_1fr]">
+              <div className="flex items-center justify-center">
+                <RadarChart
+                  axes={[
+                    { label: "Offense", value: style.scores.offense },
+                    { label: "Control", value: style.scores.control },
+                    { label: "Defense", value: style.scores.defense },
+                    { label: "Mobility", value: style.scores.mobility },
+                    { label: "Difficulty", value: style.scores.difficulty },
+                  ]}
+                />
+              </div>
+              <div className="space-y-3">
+                {Object.entries(style.scores).map(([label, value]) => (
+                  <div key={label}>
+                    <div className="mb-1 flex items-center justify-between text-xs uppercase tracking-[0.18em] text-muted">
+                      <span>{label}</span>
+                      <span className="text-white">{value}/10</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-white/5">
+                      <div className="h-2 rounded-full bg-gradient-to-r from-accent-orange to-accent-teal" style={{ width: `${value * 10}%` }} />
+                    </div>
                   </div>
-                  <div className="h-2 rounded-full bg-white/5">
-                    <div className="h-2 rounded-full bg-gradient-to-r from-accent-orange to-accent-teal" style={{ width: `${value * 10}%` }} />
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>

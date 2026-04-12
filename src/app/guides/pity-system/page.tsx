@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { PityProbabilityChart } from "@/components/volleyball/PityProbabilityChart";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Pity System Guide (Update 65)",
@@ -135,6 +136,26 @@ export default function PitySystemGuidePage() {
             <p key={row.track}><strong className="text-slate-200">{row.track}:</strong> {row.note}</p>
           ))}
         </div>
+      </section>
+
+      <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
+        <h2 className="text-2xl font-heading font-bold text-white">Cumulative probability curve</h2>
+        <p className="mt-2 text-sm leading-6 text-muted">
+          How likely are you to have pulled at least one Secret by spin N? The curves below plot cumulative odds for the Secret track at baseline rates and at 2x Luck event rates, along with the Evo track as a comparison point. Dashed vertical lines mark the pity ceilings — on these spins, the game guarantees a drop regardless of luck.
+        </p>
+        <div className="mt-5 rounded-3xl border border-white/10 bg-background/65 p-4">
+          <PityProbabilityChart
+            maxSpins={200}
+            curves={[
+              { label: "Secret (baseline 0.5%)", color: "#F97316", rate: 0.005, pity: 200 },
+              { label: "Secret (2x event 1%)", color: "#22D3EE", rate: 0.01, pity: 100 },
+              { label: "Evo (2x event 0.5%)", color: "#A78BFA", rate: 0.005, pity: 200 },
+            ]}
+          />
+        </div>
+        <p className="mt-3 text-xs leading-6 text-muted">
+          The curves level off at the vertical dashed lines (the hard-pity thresholds). Note how the 2x Luck event Secret curve reaches 50% probability at roughly 70 spins instead of 140 — that is why stacking spins into an event is roughly four times more efficient than burning them at baseline.
+        </p>
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
