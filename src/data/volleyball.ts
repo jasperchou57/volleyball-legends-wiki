@@ -1,5 +1,5 @@
 export type SourceTier = "Official" | "Community" | "Site";
-export type StyleRarity = "Common" | "Rare" | "Legendary" | "Godly" | "Secret" | "Ultra";
+export type StyleRarity = "Common" | "Rare" | "Legendary" | "Godly" | "Secret" | "Ultra" | "Evo";
 export type Role = "Spiker" | "Setter" | "Libero" | "All-Rounder" | "Blocker";
 export type CommunityTier = "S" | "A" | "B" | "C";
 
@@ -24,6 +24,13 @@ export interface CodeEntry {
   reward: string;
   releaseDate: string;
   status: "Active" | "Verify";
+}
+
+export interface ExpiredCodeEntry {
+  code: string;
+  reward: string;
+  releaseDate: string;
+  expiredNote?: string;
 }
 
 export interface StyleEntry {
@@ -93,76 +100,147 @@ export const mainQueryChips: QueryChip[] = [
   { label: "volleyball legends ranks", href: "/guides/ranks" },
   { label: "volleyball legends controls", href: "/guides/controls" },
   { label: "volleyball legends pity", href: "/guides/pity-system" },
-  { label: "volleyball legends kijo", href: "/styles/kijo" },
+  { label: "volleyball legends update 65", href: "/updates/update-65-season-14" },
+  { label: "volleyball legends season 14", href: "/updates/update-65-season-14" },
+  { label: "volleyball legends encho", href: "/styles/encho" },
 ];
 
 export const trendingQueryChips: QueryChip[] = [
-  { label: "kijo", href: "/styles/kijo" },
-  { label: "kijo stats", href: "/styles/kijo" },
-  { label: "codes volleyball legends update 60", href: "/updates/update-60-kijo" },
-  { label: "lead feet volleyball legends", href: "/abilities/lead-feet" },
-  { label: "volleyball legends style compare", href: "/tools/style-compare" },
-  { label: "volleyball legends codes today", href: "/codes" },
+  { label: "volleyball legends codes update 65", href: "/codes" },
+  { label: "season 14", href: "/updates/update-65-season-14" },
+  { label: "shield breaker", href: "/updates/update-65-season-14" },
+  { label: "tournament week", href: "/updates/update-64-tournament-week" },
+  { label: "challenger tokens", href: "/updates/update-64-tournament-week" },
+  { label: "encho evo rarity", href: "/updates/update-63-encho-evo" },
+  { label: "easter update code", href: "/codes" },
+  { label: "twins return", href: "/updates/update-64-tournament-week" },
 ];
 
 export const activeCodes: CodeEntry[] = [
   {
-    code: "UPDATE_60",
+    code: "UPDATE_65",
     reward: "5 Lucky Style Spins",
-    releaseDate: "March 7, 2026",
+    releaseDate: "April 11, 2026",
     status: "Active",
   },
   {
-    code: "KIJO",
+    code: "SEASON_14",
     reward: "5 Lucky Style Spins",
-    releaseDate: "March 7, 2026",
+    releaseDate: "April 11, 2026",
     status: "Active",
   },
   {
-    code: "SUPER_TILTS",
+    code: "EASTER_UPDATE",
     reward: "5 Lucky Ability Spins",
-    releaseDate: "March 7, 2026",
+    releaseDate: "April 11, 2026",
     status: "Active",
   },
   {
-    code: "UPDATE_59",
+    code: "UPDATE_64",
     reward: "5 Lucky Style Spins",
-    releaseDate: "March 1, 2026",
-    status: "Verify",
+    releaseDate: "April 4, 2026",
+    status: "Active",
   },
   {
-    code: "TAICHOU_2026",
+    code: "TOURNAMENTS",
     reward: "5 Lucky Style Spins",
-    releaseDate: "March 1, 2026",
-    status: "Verify",
+    releaseDate: "April 4, 2026",
+    status: "Active",
   },
   {
-    code: "DUELS",
+    code: "CHALLENGER",
     reward: "5 Lucky Ability Spins",
-    releaseDate: "March 1, 2026",
-    status: "Verify",
+    releaseDate: "April 4, 2026",
+    status: "Active",
   },
   {
-    code: "UPDATE_58",
+    code: "UPDATE_63",
     reward: "5 Lucky Style Spins",
-    releaseDate: "February 22, 2026",
+    releaseDate: "March 28, 2026",
     status: "Verify",
   },
   {
-    code: "RONIN",
+    code: "EVO_RARITY",
     reward: "5 Lucky Style Spins",
-    releaseDate: "February 22, 2026",
+    releaseDate: "March 28, 2026",
     status: "Verify",
   },
   {
-    code: "THUNDER_SPIKE",
+    code: "STRETCH",
     reward: "5 Lucky Ability Spins",
-    releaseDate: "February 22, 2026",
+    releaseDate: "March 28, 2026",
+    status: "Verify",
+  },
+  {
+    code: "UPDATE_61",
+    reward: "5 Lucky Style Spins",
+    releaseDate: "March 14, 2026",
+    status: "Verify",
+  },
+  {
+    code: "SEASON_13",
+    reward: "5 Lucky Style Spins",
+    releaseDate: "March 14, 2026",
+    status: "Verify",
+  },
+  {
+    code: "STPATRICKS_DAY",
+    reward: "5 Lucky Ability Spins",
+    releaseDate: "March 14, 2026",
     status: "Verify",
   },
 ];
 
+export const expiredCodes: ExpiredCodeEntry[] = [
+  { code: "UPDATE_60", reward: "5 Lucky Style Spins", releaseDate: "March 7, 2026", expiredNote: "Released with Update 60 (Kijo)." },
+  { code: "KIJO", reward: "5 Lucky Style Spins", releaseDate: "March 7, 2026", expiredNote: "Launch code for the Kijo limited Secret." },
+  { code: "SUPER_TILTS", reward: "5 Lucky Ability Spins", releaseDate: "March 7, 2026", expiredNote: "Teased the new Super Tilt mechanic." },
+  { code: "UPDATE_59", reward: "5 Lucky Style Spins", releaseDate: "March 1, 2026", expiredNote: "Update 59 (Taichou 2026, Duels)." },
+  { code: "TAICHOU_2026", reward: "5 Lucky Style Spins", releaseDate: "March 1, 2026" },
+  { code: "DUELS", reward: "5 Lucky Ability Spins", releaseDate: "March 1, 2026", expiredNote: "Celebrated the 1v1 Duels mode." },
+  { code: "UPDATE_58", reward: "5 Lucky Style Spins", releaseDate: "February 22, 2026" },
+  { code: "RONIN", reward: "5 Lucky Style Spins", releaseDate: "February 22, 2026", expiredNote: "Launch code for Ronin." },
+  { code: "THUNDER_SPIKE", reward: "5 Lucky Ability Spins", releaseDate: "February 22, 2026" },
+  { code: "UPDATE_56", reward: "5 Lucky Style Spins", releaseDate: "February 7, 2026", expiredNote: "Update 56 (Jinko Return, Lead Feet)." },
+  { code: "LEAD_FEET", reward: "5 Lucky Ability Spins", releaseDate: "February 7, 2026" },
+  { code: "LIMITED_ABILITY", reward: "5 Lucky Ability Spins", releaseDate: "February 7, 2026" },
+];
+
 export const featuredStyles: StyleEntry[] = [
+  {
+    slug: "encho",
+    name: "Encho",
+    rarity: "Evo",
+    role: "All-Rounder",
+    communityTier: "S",
+    summary: "The game's first-ever Evo rarity style. An All-Rounder with the Stretch mechanic that extends arms mid-air for a larger hitbox on blocks, spikes, serves and sets.",
+    signature: "Stretch: arms extend mid-air to dramatically enlarge the active hitbox, letting Encho reach balls no other style can touch.",
+    whyPlayersSearch: "Encho was the first style released at the new Evo rarity introduced in Update 63, making it a milestone lookup. Drop rate on Lucky Spins was roughly 0.25% during its window — far rarer than Secret — and it went permanently unobtainable on April 11, 2026 at 11:30 AM ET.",
+    availability: "Permanently unobtainable. Encho left the game at the Update 65 / Season 14 reset on April 11, 2026 at 11:30 AM ET. If you did not roll it during the Update 63 window, it is gone for good.",
+    sourceTier: "Community",
+    bestAbilities: ["redirection-jump", "magnetic-pull", "divine-strength"],
+    bestRoles: ["All-Rounder", "Blocker", "Spiker"],
+    searchTerms: ["encho volleyball legends", "encho stats", "encho evo rarity", "how to get encho", "is encho still obtainable"],
+    scores: { offense: 9, control: 9, defense: 9, mobility: 7, difficulty: 8 },
+    stats: { Block: 90, Bump: 80, Dive: 75, Jump: 95, Serve: 85, Set: 80, Speed: 65, Spike: 90, Tilt: 80 },
+  },
+  {
+    slug: "twins",
+    name: "Twins",
+    rarity: "Secret",
+    role: "All-Rounder",
+    communityTier: "S",
+    summary: "Dual-character limited Secret style that rotates back into the pool during Tournament Week and similar event windows.",
+    signature: "Twins use swap-based plays: community writeups describe coordinated positioning and shared ability triggers between the two characters.",
+    whyPlayersSearch: "Twins is a returning limited Secret that draws heavy search traffic every time its return window is announced. Most recently returned during Update 64 Tournament Week and left again on April 11, 2026 at 11:30 AM ET.",
+    availability: "Returning limited. Last rotated into the game during Update 64 (April 4 — April 11, 2026). Not currently obtainable as of Update 65; watch the event calendar for the next rotation.",
+    sourceTier: "Community",
+    bestAbilities: ["team-spirit", "lead-feet", "redirection-jump"],
+    bestRoles: ["All-Rounder", "Spiker"],
+    searchTerms: ["twins volleyball legends", "twins return", "twins stats", "when do twins come back volleyball legends"],
+    scores: { offense: 9, control: 8, defense: 7, mobility: 8, difficulty: 8 },
+    stats: { Block: 70, Bump: 70, Dive: 70, Jump: 90, Serve: 80, Set: 70, Speed: 80, Spike: 90, Tilt: 80 },
+  },
   {
     slug: "kijo",
     name: "Kijo",
@@ -172,7 +250,7 @@ export const featuredStyles: StyleEntry[] = [
     summary: "High-skill secret spiker built around charged super tilts and explosive point-ending pressure.",
     signature: "Hold a tilt direction to charge a super tilt that sends the ball much farther left or right.",
     whyPlayersSearch: "Kijo is the current breakout query because Update 60 introduced her as a limited secret style with a brand-new super tilt mechanic.",
-    availability: "Limited through March 21, 2026 at 11:30 AM ET according to recent community guides.",
+    availability: "Originally released in Update 60 (March 7, 2026) as a limited Secret. Her launch window has closed; track the returning-limited watchlist for her next rotation.",
     sourceTier: "Community",
     bestAbilities: ["lead-feet", "redirection-jump", "shield-breaker"],
     bestRoles: ["Spiker"],
@@ -563,7 +641,7 @@ export const featuredStyles: StyleEntry[] = [
     summary: "Secret blocker with max block and jump plus strong tilt conversion for players who want front-row control first.",
     signature: "Mikage uses dominant blocking and sharp tilt routes to shut down predictable attacks and punish weak spacing.",
     whyPlayersSearch: "Mikage is a strong long-tail page because players specifically search blocker-first secret styles instead of generic offensive rankings.",
-    availability: "Legacy limited Secret style in community style history pages.",
+    availability: "Returned in Update 62 (March 21, 2026) and left again on April 4, 2026 at 11:30 AM ET. Watch for the next return window.",
     sourceTier: "Community",
     bestAbilities: ["steel-block", "rolling-thunder", "divine-strength"],
     bestRoles: ["Blocker", "Spiker"],
@@ -762,6 +840,84 @@ export const abilities: AbilityEntry[] = [
 
 export const updates: UpdateEntry[] = [
   {
+    slug: "update-65-season-14",
+    title: "Volleyball Legends Update 65: Season 14, Shield Breaker & Easter Event",
+    published: "2026-04-11",
+    summary: "Update 65 resets ranked for Season 14, adds a new Shield Breaker offensive mechanic, and drops a limited Easter event alongside three fresh codes.",
+    sourceTier: "Community",
+    highlights: [
+      "Season 14 launch: ranked ELO reset, new seasonal rewards, and fresh leaderboard race.",
+      "New offensive mechanic: Shield Breaker — changes how blockers and attackers interact at the net.",
+      "Easter event runs alongside the update with a dedicated event code.",
+      "Encho (the first-ever Evo rarity style from Update 63) went permanently unobtainable at 11:30 AM ET on April 11, 2026 — if you missed it, you missed it.",
+      "Codes surfaced alongside the update: UPDATE_65, SEASON_14, EASTER_UPDATE.",
+    ],
+    codes: ["UPDATE_65", "SEASON_14", "EASTER_UPDATE"],
+    focusStyles: ["kijo", "encho"],
+  },
+  {
+    slug: "update-64-tournament-week",
+    title: "Volleyball Legends Update 64: Tournament Week, Challenger Tokens & Twins Return",
+    published: "2026-04-04",
+    summary: "Update 64 introduced a recurring Tournament Week system, a brand new Challenger Tokens currency and Tournament Shop, plus the Twins return and another 48-hour 2x Luck window.",
+    sourceTier: "Community",
+    highlights: [
+      "Tournament Week: twice-daily 2-hour tournaments on a rotating map pool (Beach, Pro Beach, Christmas Court).",
+      "New currency — Challenger Tokens — earned per tournament win and bonus-awarded by leaderboard position.",
+      "New Tournament Shop lets you spend Challenger Tokens on titles, Lucky spins, gems, and a new jersey.",
+      "Twins returned as a limited style until April 11, 2026 at 11:30 AM ET.",
+      "2x Lucky event April 4–6: Secret pity halved 200 → 100, Secret rates doubled 0.5% → 1%, Evo pity 400 → 200, Evo rates 0.25% → 0.5%.",
+      "Lucky Style/Ability spin handout: 12 free spins over April 4 from 10:30 AM to 12:30 PM ET.",
+      "Codes: UPDATE_64, TOURNAMENTS, CHALLENGER.",
+    ],
+    codes: ["UPDATE_64", "TOURNAMENTS", "CHALLENGER"],
+    focusStyles: ["kijo"],
+  },
+  {
+    slug: "update-63-encho-evo",
+    title: "Volleyball Legends Update 63: Encho & the First Evo Rarity",
+    published: "2026-03-28",
+    summary: "Update 63 was a milestone patch: it introduced Encho, the very first style in the brand-new Evo rarity tier, along with the Stretch mechanic and a 48-hour 2x Luck window.",
+    sourceTier: "Community",
+    highlights: [
+      "Encho: the first style ever released at the new Evo rarity tier — an All-Rounder with the Stretch signature mechanic (arms extend mid-air for a larger hitbox on blocks, spikes, serves and sets).",
+      "Evo rarity drop rate on Lucky Spins: roughly 0.25%, far rarer than Secret during normal conditions and on a separate pity track.",
+      "48-hour 2x Luck event launched alongside the update.",
+      "Encho went permanently unobtainable on April 11, 2026 at 11:30 AM ET — if you don't own it, it is gone for good.",
+      "Codes: UPDATE_63, EVO_RARITY, STRETCH.",
+    ],
+    codes: ["UPDATE_63", "EVO_RARITY", "STRETCH"],
+  },
+  {
+    slug: "update-62-mikage-forfeit",
+    title: "Volleyball Legends Update 62: Mikage Return & Ranked Forfeit",
+    published: "2026-03-21",
+    summary: "Update 62 brought back the limited 'ghost blocker' Mikage for a two-week window and finally added a ranked forfeit option for games that were already decided.",
+    sourceTier: "Community",
+    highlights: [
+      "Mikage returned as a limited style until April 4, 2026.",
+      "Ranked Forfeit: teams can now concede ranked matches once they're down by 12 points, saving time on already-decided games.",
+      "Ball launcher quality-of-life improvements for training mode.",
+      "Another 2x Luck event window for secret/evo rolls.",
+    ],
+    codes: [],
+    focusStyles: ["mikage"],
+  },
+  {
+    slug: "update-61-season-13",
+    title: "Volleyball Legends Update 61: Season 13 & St. Patrick's Event",
+    published: "2026-03-14",
+    summary: "Update 61 launched Season 13 with a St. Patrick's-themed ranked reset, a limited John Doe cosmetic bundle, and an updated ban policy.",
+    sourceTier: "Community",
+    highlights: [
+      "Season 13 launched with a ranked reset and St. Patrick's theming.",
+      "John Doe cosmetic bundle dropped as a 10,000-copy limited item.",
+      "Updated ban policy around stalling and exploiting.",
+      "Codes: UPDATE_61, SEASON_13, STPATRICKS_DAY.",
+    ],
+    codes: ["UPDATE_61", "SEASON_13", "STPATRICKS_DAY"],
+  },
+  {
     slug: "update-60-kijo",
     title: "Volleyball Legends Update 60: Kijo, Super Tilts, 2x Luck & New Codes",
     published: "2026-03-07",
@@ -818,8 +974,8 @@ export const homepageFaq = [
     answer: "Not always. This site separates official links from community-confirmed data and site-maintained tools. Odds, pity math, and many style stat sheets should be treated as community-tracked unless the game itself publishes them.",
   },
   {
-    question: "Why are styles like Kijo, Jinko, Ronin, and Kisuki featured first?",
-    answer: "They align with current long-tail demand and rising update searches, so they are the best first set of landing pages for a new SEO-focused hub.",
+    question: "Why are styles like Encho, Twins, Mikage, and Kijo featured first?",
+    answer: "They align with current long-tail demand and rising update searches after Updates 62-65. Encho in particular was the game's first Evo rarity style and went permanently unobtainable on April 11, 2026, which makes it a high-traffic lookup for players who missed the window.",
   },
   {
     question: "Why not launch with every page at once?",
