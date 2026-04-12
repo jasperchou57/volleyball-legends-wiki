@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Script from "next/script";
 import { ArrowRight, Clock3, Gamepad2, Gift, Swords, TrendingUp, Trophy, Wrench } from "lucide-react";
 import {
@@ -6,6 +7,7 @@ import {
   activeCodes,
   featuredStyles,
   guideCards,
+  heroImages,
   homepageFaq,
   mainQueryChips,
   siteConfig,
@@ -145,7 +147,31 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <section className="mt-12 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Official preview images</p>
+              <h2 className="mt-2 text-2xl font-heading font-bold text-white">Volleyball Legends on Roblox</h2>
+            </div>
+            <p className="text-xs text-muted">Source: Roblox game media API. Images © the Volleyball Legends developers.</p>
+          </div>
+          <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+            {heroImages.slice(0, 8).map((img) => (
+              <div key={img.cdnUrl} className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-background/60">
+                <Image
+                  src={img.cdnUrl}
+                  alt={img.alt}
+                  fill
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                  className="object-cover"
+                  unoptimized
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {spotlightCards.map((card) => {
             const Icon = card.icon;
             return (
