@@ -81,6 +81,46 @@ export interface UpdateEntry {
   focusStyles?: string[];
 }
 
+export interface PatchDiffRow {
+  field: string;
+  before: string;
+  after: string;
+  delta: string;
+}
+
+export interface PatchDiffSection {
+  fromSlug: string;
+  toSlug: string;
+  label: string;
+  summary: string;
+  rows: PatchDiffRow[];
+}
+
+export type TradeValueTier = "T1" | "T2" | "T3" | "T4" | "T5";
+export type Obtainability = "Permanent" | "Limited" | "Unobtainable";
+export type Demand = "High" | "Medium" | "Low";
+
+export interface TradeValueEntry {
+  styleSlug: string;
+  rarity: StyleRarity;
+  obtainability: Obtainability;
+  valueTier: TradeValueTier;
+  demand: Demand;
+  note: string;
+}
+
+export interface DatamineSource {
+  label: string;
+  url: string;
+  kind: "Official" | "Community";
+  watchFor: string;
+}
+
+export interface HeroImage {
+  cdnUrl: string;
+  alt: string;
+}
+
 export const siteConfig = {
   name: "Volleyball Legends Wiki",
   domain: "https://volleyballlegends.wiki",
@@ -964,6 +1004,94 @@ export const updates: UpdateEntry[] = [
   },
 ];
 
+export const heroImages: HeroImage[] = [
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-109eb0b99850fe3a8ad89626a4b56d0c/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 1" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-88b10d89bb6a98d625ecd2b81a1e40a0/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 2" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-68cdb368cddb2f28cd0e8b6601076801/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 3" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-39b5068f62464aa880f40df677cfeb81/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 4" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-a8b6b60664852ab8b23230ea7c2b60fc/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 5" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-8e325982bd8c01897beb6772e0b2d566/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 6" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-9fa64d34b83879a4bc9174ddef561ab3/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 7" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-d22019d0a463ee9b5007f2c23372319d/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 8" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-bc57ae09891bf89635d3c970fce204c3/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 9" },
+];
+
+export const videoPosterImage: HeroImage = {
+  cdnUrl: "https://tr.rbxcdn.com/180DAY-94d8a00d83f26f36de332fbba2223f3c/768/432/UnknownImage/Png/noFilter",
+  alt: "Volleyball Legends game preview video poster frame",
+};
+
+export const patchDiffs: PatchDiffSection[] = [
+  {
+    fromSlug: "update-64-tournament-week",
+    toSlug: "update-65-season-14",
+    label: "U64 → U65",
+    summary: "Season 14 reset and Shield Breaker launch. Encho's permanent removal is the biggest loss of the week.",
+    rows: [
+      { field: "Current ranked season", before: "Season 13 (U61)", after: "Season 14 (U65)", delta: "ELO reset — ladder climb restarts for everyone" },
+      { field: "Encho obtainability", before: "Obtainable (Evo banner, 0.25% on Lucky Spins)", after: "Permanently unobtainable", delta: "Evo pity track goes dormant until next Evo banner" },
+      { field: "Active code pool", before: "UPDATE_64 / TOURNAMENTS / CHALLENGER", after: "UPDATE_65 / SEASON_14 / EASTER_UPDATE + prior U64 codes", delta: "6 active codes — the largest live pool in months" },
+      { field: "Shield Breaker ability", before: "In-game but rarely top-of-mind", after: "Highlighted as U65 featured offense mechanic", delta: "Expect ability tier lists to re-rank Shield Breaker higher" },
+      { field: "Event layer", before: "Tournament Week rotation", after: "Easter event + Season 14 banners", delta: "New event code and cosmetic pool" },
+    ],
+  },
+  {
+    fromSlug: "update-63-encho-evo",
+    toSlug: "update-64-tournament-week",
+    label: "U63 → U64",
+    summary: "The pity-math patch. U64 halved Secret and Evo pity thresholds during its 2x Luck window and doubled the underlying rates.",
+    rows: [
+      { field: "Secret pity (2x event)", before: "200 spins", after: "100 spins", delta: "50% fewer spins to hard-pity a Secret" },
+      { field: "Secret base rate (2x event)", before: "0.5%", after: "1.0%", delta: "2× baseline — effectively 4× cheaper vs a cold baseline spin" },
+      { field: "Evo pity (2x event)", before: "400 spins", after: "200 spins", delta: "Only event where Encho hard-pity was reachable with a normal stack" },
+      { field: "Evo base rate (2x event)", before: "0.25%", after: "0.5%", delta: "2× baseline Evo rate" },
+      { field: "Free spin handout", before: "None", after: "12 Lucky spins over a 2-hour window", delta: "One-time seed stack tied to the Tournament Week launch" },
+      { field: "Currency system", before: "Gems + Lucky Spins only", after: "+ Challenger Tokens", delta: "New currency with dedicated Tournament Shop" },
+      { field: "Returning limited", before: "Encho banner", after: "Twins return window", delta: "Back-to-back limiteds — heavy spin pressure for completionists" },
+    ],
+  },
+  {
+    fromSlug: "update-62-mikage-forfeit",
+    toSlug: "update-63-encho-evo",
+    label: "U62 → U63",
+    summary: "The rarity-ceiling patch. U63 introduced the Evo tier above Secret, fundamentally changing what 'top rarity' means.",
+    rows: [
+      { field: "Top rarity tier", before: "Secret + Ultra", after: "Evo (above Secret)", delta: "Adds a new ceiling — Evo runs on its own pity counter" },
+      { field: "Evo rarity drop rate", before: "—", after: "~0.25% on Lucky Spins, ~0.005% on Normal", delta: "Roughly equivalent to Ultra odds" },
+      { field: "New style", before: "Mikage (returning Secret)", after: "Encho (first-ever Evo, All-Rounder)", delta: "First Evo sets the template — Stretch mechanic extends hitboxes" },
+      { field: "Pity track count", before: "1 (Secret)", after: "2 (Secret + Evo, separate counters)", delta: "Spinning for Encho did not progress Secret pity" },
+    ],
+  },
+];
+
+export const tradeValues: TradeValueEntry[] = [
+  { styleSlug: "encho", rarity: "Evo", obtainability: "Unobtainable", valueTier: "T1", demand: "High", note: "First-ever Evo. Went permanently unobtainable on April 11, 2026. Will only appreciate from here." },
+  { styleSlug: "kijo", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "High", note: "Limited Secret with the Super Tilt mechanic. Window closed; returns will reset demand temporarily." },
+  { styleSlug: "twins", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "High", note: "Returning limited. Expected to rotate every few months during event weeks." },
+  { styleSlug: "mikage", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Defensive blocker Secret. Solid meta niche, returned most recently in U62." },
+  { styleSlug: "jinko", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Curve mechanic Secret. Long-tail trading demand every time it returns." },
+  { styleSlug: "taichou", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Setter-focused Secret tied to the Duels patch (U59)." },
+  { styleSlug: "timeskip-kyamo", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "High", note: "Time-skip variant of Kyamo. Limited banner style." },
+  { styleSlug: "timeskip-okazu", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Time-skip variant of Okazu. Limited banner style." },
+  { styleSlug: "ronin", rarity: "Ultra", obtainability: "Limited", valueTier: "T3", demand: "Medium", note: "Power-hitter Ultra. Traded less than Secrets but strong offensive meta." },
+  { styleSlug: "feiko", rarity: "Secret", obtainability: "Permanent", valueTier: "T3", demand: "Medium", note: "Permanent Secret in the current pool — value is meta-driven, not scarcity-driven." },
+  { styleSlug: "sanju", rarity: "Secret", obtainability: "Permanent", valueTier: "T3", demand: "Low", note: "Permanent Secret. Mostly traded as a stepping stone." },
+  { styleSlug: "yogan", rarity: "Secret", obtainability: "Permanent", valueTier: "T3", demand: "Low", note: "Permanent Secret. Niche use cases." },
+  { styleSlug: "akari", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Limited event Secret from earlier seasons." },
+  { styleSlug: "kyamo", rarity: "Godly", obtainability: "Permanent", valueTier: "T4", demand: "Medium", note: "Classic setter Godly. Entry-tier trade fodder for newer players." },
+  { styleSlug: "kisuki", rarity: "Godly", obtainability: "Permanent", valueTier: "T4", demand: "Low", note: "Permanent Godly. Low trade interest outside newer accounts." },
+];
+
+export const datamineSources: DatamineSource[] = [
+  { label: "@Protori_ on X", url: "https://x.com/Protori_", kind: "Official", watchFor: "Teaser screenshots, short clips, countdown posts — usually drop 1–3 days before Saturday's update." },
+  { label: "Official Discord announcements", url: siteConfig.officialLinks.discord, kind: "Official", watchFor: "Full patch notes ship here first. Pinned messages in #announcements carry the canonical code list." },
+  { label: "Roblox game page", url: siteConfig.officialLinks.roblox, kind: "Official", watchFor: "Game-page updates and preview image refreshes are the earliest visual signal that a patch is staged." },
+  { label: "Roblox group wall", url: "https://www.roblox.com/groups/search?keyword=volleyball+legends", kind: "Official", watchFor: "Group admins sometimes post preview thumbnails before Discord announcements." },
+  { label: "Fandom Updates page", url: "https://volleyball-legends.fandom.com/wiki/Updates", kind: "Community", watchFor: "Community editors usually have a full writeup within 24–48 hours of release." },
+  { label: "MrGuider patch recaps", url: "https://www.mrguider.org/", kind: "Community", watchFor: "Same-day blog-style patch recap with code list." },
+  { label: "gamestratwiki", url: "https://gamestratwiki.com/", kind: "Community", watchFor: "Style-specific pages (first-look style breakdowns after release)." },
+];
+
 export const homepageFaq = [
   {
     question: "What is the main keyword this site is targeting first?",
@@ -985,19 +1113,59 @@ export const homepageFaq = [
 
 export const guideCards = [
   {
+    title: "Pity System",
+    href: "/guides/pity-system",
+    description: "Full pity math including Evo rarity, 2x Luck event thresholds, and a cumulative probability curve.",
+  },
+  {
+    title: "Patch Diff",
+    href: "/patch-diff",
+    description: "Numerical before/after tables covering U63 → U64 → U65. What actually changed, not a patch note replay.",
+  },
+  {
+    title: "Trading Value List",
+    href: "/trading",
+    description: "Editorial tier rankings for Secret, Evo, Ultra, and Godly styles. Built for players who already own the basics.",
+  },
+  {
+    title: "Next Update Tracker",
+    href: "/next-update",
+    description: "Monitoring board for the upcoming update. Tracks confirmed features, dev teasers, and community leaks.",
+  },
+  {
+    title: "Top 100",
+    href: "/guides/top-100",
+    description: "Ranked progression advice for players pushing toward the top of the ladder.",
+  },
+  {
+    title: "Ranks",
+    href: "/guides/ranks",
+    description: "Ranked unlocks, queue expectations, and the ranked system notes that matter past level gates.",
+  },
+  {
+    title: "Discord",
+    href: "/guides/discord",
+    description: "Official Discord links — where code and update signals usually surface first.",
+  },
+  {
+    title: "Player Cards",
+    href: "/guides/player-cards",
+    description: "Community-led notes on player-card searches, secret cards, and event card demand.",
+  },
+  {
     title: "Beginner Guide",
     href: "/guides/beginner",
-    description: "A fast-start page for leveling, early spins, role selection, and what to practice first.",
+    description: "New to Volleyball Legends? Start here — leveling, early spins, role selection, and what to practice first.",
   },
   {
     title: "Tutorial",
     href: "/guides/tutorial",
-    description: "A general tutorial hub for players who do not know which exact guide they need yet.",
+    description: "General tutorial hub for players who do not know which exact guide they need yet.",
   },
   {
     title: "Controls",
     href: "/guides/controls",
-    description: "PC, console, and mobile control flow based on community movement guides and beginner friction points.",
+    description: "PC, console, and mobile control flow for new players.",
   },
   {
     title: "How to Spike",
@@ -1012,60 +1180,40 @@ export const guideCards = [
   {
     title: "How to Set",
     href: "/guides/how-to-set",
-    description: "A setter-first guide on tempo, positioning, and why readable sets win more than greedy dump plays.",
+    description: "Setter-first guide on tempo, positioning, and why readable sets win more than greedy dump plays.",
   },
   {
     title: "Best Binds",
     href: "/guides/best-binds",
-    description: "A practical bind philosophy for PC and controller players without pretending there is one perfect layout.",
+    description: "Practical bind philosophy for PC and controller players.",
   },
   {
     title: "FPS Settings",
     href: "/guides/fps-settings",
     description: "How performance affects timing and what to tweak before you blame your style or ability.",
   },
-  {
-    title: "Ranks",
-    href: "/guides/ranks",
-    description: "Ranked unlocks, queue expectations, and the ranked system notes players search after they hit level gates.",
-  },
-  {
-    title: "Discord",
-    href: "/guides/discord",
-    description: "Official Discord links, why it matters, and where code and update signals usually surface first.",
-  },
-  {
-    title: "Player Cards",
-    href: "/guides/player-cards",
-    description: "A cautious, community-led guide for player-card searches, secret cards, and event card demand.",
-  },
-  {
-    title: "Top 100",
-    href: "/guides/top-100",
-    description: "Ranked progression advice for players trying to push toward higher-level ladder goals.",
-  },
-  {
-    title: "Pity System",
-    href: "/guides/pity-system",
-    description: "Community-maintained odds, 2x luck windows, and what the current coinflip and guaranteed language usually means.",
-  },
 ];
 
 export const toolCards = [
+  {
+    title: "Spin Budget Calculator",
+    href: "/tools/spin-budget",
+    description: "Enter your spin stack and target rarity — get the probability, 50%/95% milestones, and hard-pity ceiling. 2x Luck toggle built in.",
+  },
   {
     title: "Style Compare",
     href: "/tools/style-compare",
     description: "Put two high-demand styles next to each other and compare role fit, offense, control, defense, and mobility.",
   },
   {
-    title: "Update Countdown",
-    href: "/tools/update-countdown",
-    description: "Track the next Saturday reset around the community-reported weekly update time.",
-  },
-  {
     title: "Reroll Advisor",
     href: "/tools/reroll-advisor",
     description: "A heuristic tool, not an official calculator. Helps decide whether to push spins now or wait for a stronger event.",
+  },
+  {
+    title: "Update Countdown",
+    href: "/tools/update-countdown",
+    description: "Track the next Saturday reset around the community-reported weekly update time.",
   },
 ];
 
