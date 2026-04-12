@@ -123,7 +123,7 @@ export interface HeroImage {
 
 export const siteConfig = {
   name: "Volleyball Legends Wiki",
-  domain: "https://volleyballlegends.wiki",
+  domain: "https://www.volleyballlegends.wiki",
   subtitle: "Codes, Styles, Abilities, Tier Lists & Update Guides",
   updateSchedule: "Weekly Saturdays at 11:30 AM ET",
   officialLinks: {

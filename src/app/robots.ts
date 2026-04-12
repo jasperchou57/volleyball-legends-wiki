@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://volleyballlegends.wiki/sitemap.xml",
+    sitemap: "https://www.volleyballlegends.wiki/sitemap.xml",
   };
 }

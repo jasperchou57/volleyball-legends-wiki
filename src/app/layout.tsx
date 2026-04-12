@@ -10,7 +10,7 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 const analyticsId = process.env.NEXT_PUBLIC_GA_ID ?? "G-XP6YLZ9JHQ";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://volleyballlegends.wiki"),
+  metadataBase: new URL("https://www.volleyballlegends.wiki"),
   title: {
     default: "Volleyball Legends Wiki - Codes, Styles, Tier List & Updates",
     template: "%s | Volleyball Legends Wiki",
