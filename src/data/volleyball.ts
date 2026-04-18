@@ -121,6 +121,23 @@ export interface HeroImage {
   alt: string;
 }
 
+export interface OfficialSnapshot {
+  snapshotDateLabel: string;
+  gameUpdatedIso: string;
+  gameUpdatedLabel: string;
+  playing: number;
+  visits: number;
+  favorites: number;
+  upVotes: number;
+  downVotes: number;
+  groupMembers: number;
+  mediaImages: number;
+  mediaVideos: number;
+  latestPublicPatch: string;
+  latestPublicPatchDate: string;
+  note: string;
+}
+
 export const siteConfig = {
   name: "Volleyball Legends Wiki",
   domain: "https://www.volleyballlegends.wiki",
@@ -129,7 +146,25 @@ export const siteConfig = {
   officialLinks: {
     discord: "https://discord.com/servers/volleyball-legends-1328110081136398427",
     roblox: "https://www.roblox.com/games/73956553001240/Volleyball-Legends",
+    group: "https://www.roblox.com/id/communities/35330702/Volleyball-Game-Group",
   },
+};
+
+export const officialSnapshot: OfficialSnapshot = {
+  snapshotDateLabel: "April 17, 2026",
+  gameUpdatedIso: "2026-04-18T00:14:18.8204319Z",
+  gameUpdatedLabel: "April 17, 2026 at 5:14 PM PT",
+  playing: 45914,
+  visits: 3217583712,
+  favorites: 4425599,
+  upVotes: 2333699,
+  downVotes: 109309,
+  groupMembers: 4107345,
+  mediaImages: 9,
+  mediaVideos: 1,
+  latestPublicPatch: "Update 65 / Season 14 / Easter Update",
+  latestPublicPatchDate: "April 11, 2026",
+  note: "Roblox shows a newer game-page update on April 17, 2026, but no public Update 66 announcement was indexed when this snapshot was recorded. Treat it as an unlabeled hotfix or staging change until the official Discord says otherwise.",
 };
 
 export const mainQueryChips: QueryChip[] = [
@@ -148,11 +183,11 @@ export const mainQueryChips: QueryChip[] = [
 export const trendingQueryChips: QueryChip[] = [
   { label: "volleyball legends codes update 65", href: "/codes" },
   { label: "season 14", href: "/updates/update-65-season-14" },
-  { label: "shield breaker", href: "/updates/update-65-season-14" },
+  { label: "easter season", href: "/updates/update-65-season-14" },
+  { label: "chaos mode", href: "/updates/update-65-season-14" },
   { label: "tournament week", href: "/updates/update-64-tournament-week" },
   { label: "challenger tokens", href: "/updates/update-64-tournament-week" },
   { label: "encho evo rarity", href: "/updates/update-63-encho-evo" },
-  { label: "easter update code", href: "/codes" },
   { label: "twins return", href: "/updates/update-64-tournament-week" },
 ];
 
@@ -209,6 +244,24 @@ export const activeCodes: CodeEntry[] = [
     code: "STRETCH",
     reward: "5 Lucky Ability Spins",
     releaseDate: "March 28, 2026",
+    status: "Verify",
+  },
+  {
+    code: "UPDATE_62",
+    reward: "5 Lucky Style Spins",
+    releaseDate: "March 21, 2026",
+    status: "Verify",
+  },
+  {
+    code: "MIKAGE_IS_BACK",
+    reward: "5 Lucky Style Spins",
+    releaseDate: "March 21, 2026",
+    status: "Verify",
+  },
+  {
+    code: "BALL_MACHINES",
+    reward: "5 Lucky Ability Spins",
+    releaseDate: "March 21, 2026",
     status: "Verify",
   },
   {
@@ -881,19 +934,22 @@ export const abilities: AbilityEntry[] = [
 export const updates: UpdateEntry[] = [
   {
     slug: "update-65-season-14",
-    title: "Volleyball Legends Update 65: Season 14, Shield Breaker & Easter Event",
+    title: "Volleyball Legends Update 65: Season 14, Easter Season & Chaos Tease",
     published: "2026-04-11",
-    summary: "Update 65 resets ranked for Season 14, adds a new Shield Breaker offensive mechanic, and drops a limited Easter event alongside three fresh codes.",
+    summary: "Update 65 launched Season 14 and the Easter Season, brought back egg-themed rewards and cosmetics, teased Chaos mode for the following week, and shipped three fresh codes.",
     sourceTier: "Community",
     highlights: [
-      "Season 14 launch: ranked ELO reset, new seasonal rewards, and fresh leaderboard race.",
-      "New offensive mechanic: Shield Breaker — changes how blockers and attackers interact at the net.",
-      "Easter event runs alongside the update with a dedicated event code.",
+      "Season 14 / Easter Season launch: eggs now drop randomly in all servers, and the season pass UI gets a dedicated eggs tab.",
+      "Event rewards include returning Season 2 cosmetics, new score effects, new player cards, and a new pink-and-purple jersey in the tournament store.",
+      "New Easter bundle includes an Easter version of the Time Stopper score effect plus 10 Lucky Spins.",
+      "Chaos mode was officially teased as the next week's gamemode.",
+      "Balance note: Kisuki's dive hitbox was buffed to make the style more reliable on defense.",
+      "2x Lucky event ran from April 11, 2026 to April 13, 2026 at 11:30 AM ET.",
       "Encho (the first-ever Evo rarity style from Update 63) went permanently unobtainable at 11:30 AM ET on April 11, 2026 — if you missed it, you missed it.",
       "Codes surfaced alongside the update: UPDATE_65, SEASON_14, EASTER_UPDATE.",
     ],
     codes: ["UPDATE_65", "SEASON_14", "EASTER_UPDATE"],
-    focusStyles: ["kijo", "encho"],
+    focusStyles: ["kisuki", "encho"],
   },
   {
     slug: "update-64-tournament-week",
@@ -939,8 +995,9 @@ export const updates: UpdateEntry[] = [
       "Ranked Forfeit: teams can now concede ranked matches once they're down by 12 points, saving time on already-decided games.",
       "Ball launcher quality-of-life improvements for training mode.",
       "Another 2x Luck event window for secret/evo rolls.",
+      "Codes: UPDATE_62, MIKAGE_IS_BACK, BALL_MACHINES.",
     ],
-    codes: [],
+    codes: ["UPDATE_62", "MIKAGE_IS_BACK", "BALL_MACHINES"],
     focusStyles: ["mikage"],
   },
   {
@@ -1026,13 +1083,14 @@ export const patchDiffs: PatchDiffSection[] = [
     fromSlug: "update-64-tournament-week",
     toSlug: "update-65-season-14",
     label: "U64 → U65",
-    summary: "Season 14 reset and Shield Breaker launch. Encho's permanent removal is the biggest loss of the week.",
+    summary: "Season 14 and the Easter Season replaced Tournament Week as the headline layer. The big losses were Encho leaving forever and the Challenger grind disappearing from center stage.",
     rows: [
       { field: "Current ranked season", before: "Season 13 (U61)", after: "Season 14 (U65)", delta: "ELO reset — ladder climb restarts for everyone" },
       { field: "Encho obtainability", before: "Obtainable (Evo banner, 0.25% on Lucky Spins)", after: "Permanently unobtainable", delta: "Evo pity track goes dormant until next Evo banner" },
       { field: "Active code pool", before: "UPDATE_64 / TOURNAMENTS / CHALLENGER", after: "UPDATE_65 / SEASON_14 / EASTER_UPDATE + prior U64 codes", delta: "6 active codes — the largest live pool in months" },
-      { field: "Shield Breaker ability", before: "In-game but rarely top-of-mind", after: "Highlighted as U65 featured offense mechanic", delta: "Expect ability tier lists to re-rank Shield Breaker higher" },
-      { field: "Event layer", before: "Tournament Week rotation", after: "Easter event + Season 14 banners", delta: "New event code and cosmetic pool" },
+      { field: "Event layer", before: "Tournament Week rotation", after: "Easter Season egg grind + Season 14 banners", delta: "Shifts player attention from tournaments to event cosmetics and seasonal rewards" },
+      { field: "Public teaser for next patch", before: "No next-week mode publicly teased", after: "Chaos mode announced for the following week", delta: "Signals another mode-focused Saturday update is queued immediately after U65" },
+      { field: "Balance note", before: "No headline defensive buff", after: "Kisuki dive hitbox buffed", delta: "Libero/defense players got a quieter but real reliability bump" },
     ],
   },
   {
@@ -1086,7 +1144,7 @@ export const datamineSources: DatamineSource[] = [
   { label: "@Protori_ on X", url: "https://x.com/Protori_", kind: "Official", watchFor: "Teaser screenshots, short clips, countdown posts — usually drop 1–3 days before Saturday's update." },
   { label: "Official Discord announcements", url: siteConfig.officialLinks.discord, kind: "Official", watchFor: "Full patch notes ship here first. Pinned messages in #announcements carry the canonical code list." },
   { label: "Roblox game page", url: siteConfig.officialLinks.roblox, kind: "Official", watchFor: "Game-page updates and preview image refreshes are the earliest visual signal that a patch is staged." },
-  { label: "Roblox group wall", url: "https://www.roblox.com/groups/search?keyword=volleyball+legends", kind: "Official", watchFor: "Group admins sometimes post preview thumbnails before Discord announcements." },
+  { label: "Official Roblox group", url: siteConfig.officialLinks.group, kind: "Official", watchFor: "Group activity is another lightweight signal that the patch pipeline is moving, especially when the main game page refreshes." },
   { label: "Fandom Updates page", url: "https://volleyball-legends.fandom.com/wiki/Updates", kind: "Community", watchFor: "Community editors usually have a full writeup within 24–48 hours of release." },
   { label: "MrGuider patch recaps", url: "https://www.mrguider.org/", kind: "Community", watchFor: "Same-day blog-style patch recap with code list." },
   { label: "gamestratwiki", url: "https://gamestratwiki.com/", kind: "Community", watchFor: "Style-specific pages (first-look style breakdowns after release)." },

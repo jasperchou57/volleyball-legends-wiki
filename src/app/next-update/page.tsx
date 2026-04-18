@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Radio } from "lucide-react";
-import { datamineSources, updates } from "@/data/volleyball";
+import { datamineSources, officialSnapshot, updates } from "@/data/volleyball";
 import { UpdateCountdown } from "@/components/volleyball/UpdateCountdown";
 
 export const metadata: Metadata = {
-  title: "Volleyball Legends Next Update — Leaks & Datamine Tracker",
+  title: "Volleyball Legends Next Update — Official Watch",
   description:
-    "Live monitoring board for the next Volleyball Legends update. Tracks confirmed features, dev teasers on X, Discord announcements, and community leaks. Updated between patches.",
+    "Live monitoring board for the next Volleyball Legends update. Tracks Roblox game-page changes, dev teasers on X, Discord announcements, and the latest public patch status between Saturday releases.",
   alternates: { canonical: "/next-update" },
 };
 
@@ -41,12 +41,34 @@ export default function NextUpdatePage() {
         <UpdateCountdown />
       </div>
 
+      <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
+        <h2 className="text-2xl font-heading font-bold text-white">Latest official activity</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Latest public patch</p>
+            <p className="mt-3 text-2xl font-heading font-black text-white">{officialSnapshot.latestPublicPatch}</p>
+            <p className="mt-2 text-sm leading-6 text-muted">Indexed public recap date: {officialSnapshot.latestPublicPatchDate}</p>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Roblox game page updated</p>
+            <p className="mt-3 text-2xl font-heading font-black text-accent-orange">{officialSnapshot.gameUpdatedLabel}</p>
+            <p className="mt-2 text-sm leading-6 text-muted">Official games API shows a newer change after Update 65 shipped.</p>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Working assumption</p>
+            <p className="mt-3 text-2xl font-heading font-black text-accent-teal">Hotfix or staging</p>
+            <p className="mt-2 text-sm leading-6 text-muted">No publicly indexed Update {nextNumber} announcement yet, so we are treating the newer Roblox timestamp as an unlabeled change until Discord confirms more.</p>
+          </div>
+        </div>
+        <p className="mt-4 text-xs leading-5 text-muted">{officialSnapshot.note}</p>
+      </section>
+
       <section className="mt-8 grid gap-6 md:grid-cols-3">
         <div className="rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-teal">Confirmed</p>
-          <h2 className="mt-2 text-xl font-heading font-bold text-white">Nothing yet</h2>
+          <h2 className="mt-2 text-xl font-heading font-bold text-white">No public Update {nextNumber} post yet</h2>
           <p className="mt-2 text-sm leading-6 text-muted">
-            No officially confirmed features for Update {nextNumber}. Check back closer to Saturday&rsquo;s release.
+            No officially confirmed features for Update {nextNumber}. The only newer official signal we currently have is the Roblox game-page timestamp from {officialSnapshot.gameUpdatedLabel}.
           </p>
         </div>
         <div className="rounded-[2rem] border border-accent-gold/20 bg-accent-gold/10 p-5">
@@ -102,10 +124,17 @@ export default function NextUpdatePage() {
         <p className="mt-2 text-sm leading-6 text-muted">
           Append-only log of teaser screenshots, clips, and dev quotes. Empty until the next wave of pre-patch teasers surfaces.
         </p>
-        <div className="mt-5 rounded-3xl border border-dashed border-white/15 bg-background/40 p-8 text-center text-sm text-muted">
-          No teaser sightings yet for Update {nextNumber}.
-          <br />
-          This changelog populates once the dev starts dropping previews.
+        <div className="mt-5 space-y-3">
+          <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">April 17, 2026</p>
+            <p className="mt-2 text-lg font-heading font-bold text-white">Roblox listing timestamp moved again</p>
+            <p className="mt-2 text-sm leading-6 text-muted">
+              The official Roblox games API shows Volleyball Legends updating at {officialSnapshot.gameUpdatedLabel}. No public Discord or web-indexed patch note tied to Update {nextNumber} was visible when we checked, so this entry is logged as an official activity signal rather than a confirmed new patch.
+            </p>
+          </div>
+          <div className="rounded-3xl border border-dashed border-white/15 bg-background/40 p-8 text-center text-sm text-muted">
+            No teaser screenshots or quotable dev posts yet for Update {nextNumber}. This log fills in once the dev starts previewing the patch publicly.
+          </div>
         </div>
       </section>
 

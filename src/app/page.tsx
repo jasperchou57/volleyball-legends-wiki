@@ -10,6 +10,7 @@ import {
   heroImages,
   homepageFaq,
   mainQueryChips,
+  officialSnapshot,
   siteConfig,
   toolCards,
   trendingQueryChips,
@@ -30,6 +31,8 @@ const faqSchema = {
   })),
 };
 
+const numberFormatter = new Intl.NumberFormat("en-US");
+
 const spotlightCards = [
   {
     title: "Volleyball Legends Codes",
@@ -38,8 +41,8 @@ const spotlightCards = [
     icon: Gift,
   },
   {
-    title: "Update 65: Season 14 & Shield Breaker",
-    description: "Ranked reset, new Shield Breaker mechanic, Easter event. Note: Encho went permanently unobtainable at the 4/11 reset.",
+    title: "Update 65: Season 14 & Easter Season",
+    description: "Egg event, Chaos mode teaser, Kisuki buff, and Encho's permanent exit at the April 11 reset.",
     href: "/updates/update-65-season-14",
     icon: TrendingUp,
   },
@@ -58,6 +61,8 @@ const spotlightCards = [
 ];
 
 export default function Home() {
+  const approvalRate = ((officialSnapshot.upVotes / (officialSnapshot.upVotes + officialSnapshot.downVotes)) * 100).toFixed(1);
+
   return (
     <>
       <Script
@@ -169,6 +174,55 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </section>
+
+        <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Official snapshot</p>
+              <h2 className="mt-2 text-2xl font-heading font-bold text-white">Roblox data as of {officialSnapshot.snapshotDateLabel}</h2>
+            </div>
+            <p className="max-w-xl text-xs leading-5 text-muted">
+              Latest public patch remains <strong className="text-white">{officialSnapshot.latestPublicPatch}</strong> from {officialSnapshot.latestPublicPatchDate}. Roblox itself shows a newer game-page update at <strong className="text-white">{officialSnapshot.gameUpdatedLabel}</strong>.
+            </p>
+          </div>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Playing now</p>
+              <p className="mt-3 text-4xl font-heading font-black text-accent-orange">{numberFormatter.format(officialSnapshot.playing)}</p>
+              <p className="mt-2 text-sm leading-6 text-muted">Concurrent players from the Roblox games API.</p>
+            </div>
+            <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Total visits</p>
+              <p className="mt-3 text-4xl font-heading font-black text-accent-teal">{numberFormatter.format(officialSnapshot.visits)}</p>
+              <p className="mt-2 text-sm leading-6 text-muted">Lifetime plays on the official Roblox listing.</p>
+            </div>
+            <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Favorites</p>
+              <p className="mt-3 text-4xl font-heading font-black text-accent-gold">{numberFormatter.format(officialSnapshot.favorites)}</p>
+              <p className="mt-2 text-sm leading-6 text-muted">Favorited count from the official game listing.</p>
+            </div>
+            <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Approval rate</p>
+              <p className="mt-3 text-4xl font-heading font-black text-white">{approvalRate}%</p>
+              <p className="mt-2 text-sm leading-6 text-muted">
+                {numberFormatter.format(officialSnapshot.upVotes)} upvotes vs {numberFormatter.format(officialSnapshot.downVotes)} downvotes.
+              </p>
+            </div>
+            <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Group members</p>
+              <p className="mt-3 text-4xl font-heading font-black text-accent-orange">{numberFormatter.format(officialSnapshot.groupMembers)}</p>
+              <p className="mt-2 text-sm leading-6 text-muted">Players inside the official Volleyball Game Group.</p>
+            </div>
+            <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Official media</p>
+              <p className="mt-3 text-4xl font-heading font-black text-accent-teal">
+                {officialSnapshot.mediaImages} + {officialSnapshot.mediaVideos}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-muted">Approved Roblox previews: {officialSnapshot.mediaImages} images and {officialSnapshot.mediaVideos} preview video.</p>
+            </div>
+          </div>
+          <p className="mt-4 text-xs leading-5 text-muted">{officialSnapshot.note}</p>
         </section>
 
         <section className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
