@@ -6,7 +6,7 @@ import { featuredStyles } from "@/data/volleyball";
 export const metadata: Metadata = {
   title: "Volleyball Legends Style Tier List",
   description:
-    "Community-maintained Volleyball Legends style tier list covering Encho, Twins, Mikage, Kijo, Jinko, Ronin, Taichou, and more — updated for Update 65 and Season 14.",
+    "Community-maintained Volleyball Legends style tier list covering Encho, Twins, Mikage, Kijo, Jinko, Ronin, Taichou, and more.",
 };
 
 const order = { S: 0, A: 1, B: 2, C: 3 };

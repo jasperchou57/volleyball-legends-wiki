@@ -41,9 +41,9 @@ const spotlightCards = [
     icon: Gift,
   },
   {
-    title: "Update 65: Season 14 & Easter Season",
-    description: "Egg event, Chaos mode teaser, Kisuki buff, and Encho's permanent exit at the April 11 reset.",
-    href: "/updates/update-65-season-14",
+    title: "Official Update Watch",
+    description: "Roblox data moved again on May 12. Track live official signals here instead of anchoring the homepage to an old patch number.",
+    href: "/next-update",
     icon: TrendingUp,
   },
   {
@@ -183,7 +183,7 @@ export default function Home() {
               <h2 className="mt-2 text-2xl font-heading font-bold text-white">Roblox data as of {officialSnapshot.snapshotDateLabel}</h2>
             </div>
             <p className="max-w-xl text-xs leading-5 text-muted">
-              Latest public patch remains <strong className="text-white">{officialSnapshot.latestPublicPatch}</strong> from {officialSnapshot.latestPublicPatchDate}. Roblox itself shows a newer game-page update at <strong className="text-white">{officialSnapshot.gameUpdatedLabel}</strong>.
+              Public patch-note status: <strong className="text-white">{officialSnapshot.latestPublicPatch}</strong> ({officialSnapshot.latestPublicPatchDate}). Roblox itself shows a newer game-page update at <strong className="text-white">{officialSnapshot.gameUpdatedLabel}</strong>.
             </p>
           </div>
           <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">

@@ -5,7 +5,7 @@ import { activeCodes, siteConfig, updates } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 
 export const metadata: Metadata = {
-  title: "Volleyball Legends Codes (April 2026) — Update 65",
+  title: "Volleyball Legends Codes",
   description:
     "Track Volleyball Legends codes, recent update codes, reward notes, and the fastest official places to verify fresh drops.",
   alternates: {
@@ -214,9 +214,9 @@ export default function CodesPage() {
             description: "Convert fresh spins into a keep-or-roll decision instead of spending blindly.",
           },
           {
-            href: "/updates/update-65-season-14",
-            title: "Read the live patch first",
-            description: "Check whether the current update actually introduced a style worth chasing.",
+            href: "/next-update",
+            title: "Check official update activity",
+            description: "Use the official watch page to see whether Roblox moved again before you burn spins into an outdated banner read.",
           },
           {
             href: "/tools/style-compare",

@@ -4,9 +4,9 @@ import { ChevronRight } from "lucide-react";
 import { PityProbabilityChart } from "@/components/volleyball/PityProbabilityChart";
 
 export const metadata: Metadata = {
-  title: "Volleyball Legends Pity System Guide (Update 65)",
+  title: "Volleyball Legends Pity System Guide",
   description:
-    "Community-maintained pity system guide for Volleyball Legends — normal vs lucky spin rates, Secret pity, Evo pity, 2x Luck event math, and expected spin cost tables updated for Update 65.",
+    "Community-maintained pity system guide for Volleyball Legends — normal vs lucky spin rates, Secret pity, Evo pity, 2x Luck event math, and expected spin cost tables.",
 };
 
 const rarityRows = [
@@ -62,7 +62,7 @@ export default function PitySystemGuidePage() {
 
       <section className="mt-6 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
         <div className="inline-flex items-center gap-2 rounded-full border border-accent-orange/20 bg-accent-orange/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">
-          Updated for Update 65
+          Community-tracked
         </div>
         <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
           Volleyball Legends Pity System

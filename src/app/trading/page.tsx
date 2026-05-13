@@ -4,9 +4,9 @@ import { ChevronRight, TrendingUp } from "lucide-react";
 import { tradeValues, featuredStyles } from "@/data/volleyball";
 
 export const metadata: Metadata = {
-  title: "Volleyball Legends Trading Value List (April 2026)",
+  title: "Volleyball Legends Trading Value List",
   description:
-    "Volleyball Legends trading value list. Editorial tier ratings for Secret, Evo, Ultra and Godly styles based on rarity, obtainability, and current meta demand. Updated for Update 65 / Season 14.",
+    "Volleyball Legends trading value list. Editorial tier ratings for Secret, Evo, Ultra and Godly styles based on rarity, obtainability, and current meta demand.",
   alternates: { canonical: "/trading" },
 };
 
@@ -47,7 +47,7 @@ export default function TradingValueListPage() {
           Volleyball Legends Trading Value List
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          A tier-banded value list for Volleyball Legends trading. Rankings combine <strong className="text-white">rarity</strong>, <strong className="text-white">obtainability</strong>, <strong className="text-white">current meta demand</strong>, and whether a style is permanent, limited, or permanently unobtainable. Updated for Update 65 and the Season 14 reset.
+          A tier-banded value list for Volleyball Legends trading. Rankings combine <strong className="text-white">rarity</strong>, <strong className="text-white">obtainability</strong>, <strong className="text-white">current meta demand</strong>, and whether a style is permanent, limited, or permanently unobtainable.
         </p>
         <p className="mt-3 max-w-3xl rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-xs leading-6 text-accent-gold">
           <strong>Disclaimer:</strong> no official or market-verified value data exists publicly for this game. This list is an <strong>editorial estimate</strong> derived from rarity tiers, obtainability windows, and community meta consensus. Real trades may diverge significantly. If you have corrections from in-game trading, please ping the Discord.

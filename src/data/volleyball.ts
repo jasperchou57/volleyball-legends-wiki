@@ -151,20 +151,20 @@ export const siteConfig = {
 };
 
 export const officialSnapshot: OfficialSnapshot = {
-  snapshotDateLabel: "April 17, 2026",
-  gameUpdatedIso: "2026-04-18T00:14:18.8204319Z",
-  gameUpdatedLabel: "April 17, 2026 at 5:14 PM PT",
-  playing: 45914,
-  visits: 3217583712,
-  favorites: 4425599,
-  upVotes: 2333699,
-  downVotes: 109309,
-  groupMembers: 4107345,
-  mediaImages: 9,
+  snapshotDateLabel: "May 13, 2026",
+  gameUpdatedIso: "2026-05-13T01:59:47.1706642Z",
+  gameUpdatedLabel: "May 12, 2026 at 6:59:47 PM PT",
+  playing: 26692,
+  visits: 3317127186,
+  favorites: 4498531,
+  upVotes: 2369305,
+  downVotes: 112599,
+  groupMembers: 4169700,
+  mediaImages: 7,
   mediaVideos: 1,
-  latestPublicPatch: "Update 65 / Season 14 / Easter Update",
-  latestPublicPatchDate: "April 11, 2026",
-  note: "Roblox shows a newer game-page update on April 17, 2026, but no public Update 66 announcement was indexed when this snapshot was recorded. Treat it as an unlabeled hotfix or staging change until the official Discord says otherwise.",
+  latestPublicPatch: "No newer public patch note indexed",
+  latestPublicPatchDate: "May 13, 2026 check",
+  note: "Roblox shows Volleyball Legends updating again on May 12, 2026, but the official patch write-up is still Discord-first and not publicly indexed on the open web. Treat Roblox game-page timestamps, media refreshes, and Discord announcements as the live official signals.",
 };
 
 export const mainQueryChips: QueryChip[] = [
@@ -175,20 +175,20 @@ export const mainQueryChips: QueryChip[] = [
   { label: "volleyball legends ranks", href: "/guides/ranks" },
   { label: "volleyball legends controls", href: "/guides/controls" },
   { label: "volleyball legends pity", href: "/guides/pity-system" },
-  { label: "volleyball legends update 65", href: "/updates/update-65-season-14" },
-  { label: "volleyball legends season 14", href: "/updates/update-65-season-14" },
-  { label: "volleyball legends encho", href: "/styles/encho" },
+  { label: "volleyball legends next update", href: "/next-update" },
+  { label: "volleyball legends patch notes", href: "/updates" },
+  { label: "volleyball legends trading", href: "/trading" },
 ];
 
 export const trendingQueryChips: QueryChip[] = [
-  { label: "volleyball legends codes update 65", href: "/codes" },
-  { label: "season 14", href: "/updates/update-65-season-14" },
-  { label: "easter season", href: "/updates/update-65-season-14" },
-  { label: "chaos mode", href: "/updates/update-65-season-14" },
-  { label: "tournament week", href: "/updates/update-64-tournament-week" },
-  { label: "challenger tokens", href: "/updates/update-64-tournament-week" },
-  { label: "encho evo rarity", href: "/updates/update-63-encho-evo" },
-  { label: "twins return", href: "/updates/update-64-tournament-week" },
+  { label: "codes today", href: "/codes" },
+  { label: "next update", href: "/next-update" },
+  { label: "official discord", href: "/guides/discord" },
+  { label: "weekly update", href: "/next-update" },
+  { label: "patch diff", href: "/patch-diff" },
+  { label: "trading value list", href: "/trading" },
+  { label: "pity system", href: "/guides/pity-system" },
+  { label: "style tier list", href: "/tier-list/styles" },
 ];
 
 export const activeCodes: CodeEntry[] = [
@@ -1062,15 +1062,13 @@ export const updates: UpdateEntry[] = [
 ];
 
 export const heroImages: HeroImage[] = [
-  { cdnUrl: "https://tr.rbxcdn.com/180DAY-109eb0b99850fe3a8ad89626a4b56d0c/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 1" },
-  { cdnUrl: "https://tr.rbxcdn.com/180DAY-88b10d89bb6a98d625ecd2b81a1e40a0/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 2" },
-  { cdnUrl: "https://tr.rbxcdn.com/180DAY-68cdb368cddb2f28cd0e8b6601076801/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 3" },
-  { cdnUrl: "https://tr.rbxcdn.com/180DAY-39b5068f62464aa880f40df677cfeb81/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 4" },
-  { cdnUrl: "https://tr.rbxcdn.com/180DAY-a8b6b60664852ab8b23230ea7c2b60fc/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 5" },
-  { cdnUrl: "https://tr.rbxcdn.com/180DAY-8e325982bd8c01897beb6772e0b2d566/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 6" },
-  { cdnUrl: "https://tr.rbxcdn.com/180DAY-9fa64d34b83879a4bc9174ddef561ab3/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 7" },
-  { cdnUrl: "https://tr.rbxcdn.com/180DAY-d22019d0a463ee9b5007f2c23372319d/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 8" },
-  { cdnUrl: "https://tr.rbxcdn.com/180DAY-bc57ae09891bf89635d3c970fce204c3/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 9" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-d22019d0a463ee9b5007f2c23372319d/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 1" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-bc57ae09891bf89635d3c970fce204c3/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 2" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-44f446482d6b29608ef20cec35ddfacb/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 3" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-68cdb368cddb2f28cd0e8b6601076801/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 4" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-8e325982bd8c01897beb6772e0b2d566/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 5" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-9fa64d34b83879a4bc9174ddef561ab3/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 6" },
+  { cdnUrl: "https://tr.rbxcdn.com/180DAY-ef6e28ecd97772d5c826536e2e8905fe/768/432/Image/Png/noFilter", alt: "Volleyball Legends official preview 7" },
 ];
 
 export const videoPosterImage: HeroImage = {
