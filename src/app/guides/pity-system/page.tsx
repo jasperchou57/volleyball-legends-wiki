@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { PityProbabilityChart } from "@/components/volleyball/PityProbabilityChart";
+import { pageFreshness } from "@/data/volleyball";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Pity System Guide",
@@ -71,7 +72,7 @@ export default function PitySystemGuidePage() {
           The pity system controls how many spins you can go without pulling a high-rarity reward before the game forces one. This page covers normal spin odds, Lucky Spin rates, the Secret pity track, the new Evo pity track introduced in Update 63, and how 2x Luck events change the math.
         </p>
         <p className="mt-3 max-w-3xl text-xs leading-6 text-muted">
-          Note: all numbers below are community-tracked and cross-referenced with Update 63 and Update 64 patch notes. None of this is officially published by the developer. Always verify in Discord before betting a big spin stack on a specific threshold.
+          Last updated: <strong className="text-slate-200">{pageFreshness.pityLastUpdated}</strong>. All numbers below are community-tracked and cross-referenced with Update 63 and Update 64 patch notes. None of this is officially published by the developer. Always verify in Discord before betting a big spin stack on a specific threshold.
         </p>
       </section>
 

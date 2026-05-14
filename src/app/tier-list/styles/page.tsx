@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { featuredStyles } from "@/data/volleyball";
+import { featuredStyles, pageFreshness } from "@/data/volleyball";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Style Tier List",
@@ -30,6 +30,9 @@ export default function StyleTierListPage() {
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
           This ranking is explicitly community-maintained. It is designed to satisfy style-tier queries while still pushing players into the underlying style pages for real context.
+        </p>
+        <p className="mt-3 max-w-3xl text-xs leading-6 text-muted">
+          Last updated: <strong className="text-slate-200">{pageFreshness.tierListLastUpdated}</strong>. This tier list is not an official developer ranking.
         </p>
       </section>
 

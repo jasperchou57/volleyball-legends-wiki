@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Clock3, Gift, ShieldCheck } from "lucide-react";
-import { activeCodes, siteConfig, updates } from "@/data/volleyball";
+import { activeCodes, pageFreshness, siteConfig, updates } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 
 export const metadata: Metadata = {
@@ -44,7 +44,7 @@ export default function CodesPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Verification policy</p>
             <p className="mt-2 text-lg font-semibold text-white">Community-tracked, officially cross-checkable</p>
             <p className="mt-2 max-w-xs leading-6">
-              Verify surprise drops in the official Discord first if you are racing to publish update coverage.
+              Last checked: <strong className="text-white">{pageFreshness.codesLastChecked}</strong>. Verify surprise drops in the official Discord first if you are racing to publish update coverage.
             </p>
           </div>
         </div>
@@ -54,7 +54,7 @@ export default function CodesPage() {
         <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
           <div className="flex items-center gap-3">
             <ShieldCheck className="h-5 w-5 text-accent-teal" />
-            <h2 className="text-2xl font-heading font-bold text-white">Fresh update codes</h2>
+            <h2 className="text-2xl font-heading font-bold text-white">Reported-active update codes</h2>
           </div>
           <div className="mt-6 overflow-hidden rounded-3xl border border-white/10">
             <table className="min-w-full divide-y divide-white/10 text-left text-sm">
@@ -63,6 +63,8 @@ export default function CodesPage() {
                   <th className="px-4 py-3">Code</th>
                   <th className="px-4 py-3">Reward</th>
                   <th className="px-4 py-3">Release</th>
+                  <th className="px-4 py-3">Source</th>
+                  <th className="px-4 py-3">Last checked</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/10 bg-surface/70">
@@ -71,13 +73,15 @@ export default function CodesPage() {
                     <td className="px-4 py-4 font-semibold text-white">{entry.code}</td>
                     <td className="px-4 py-4 text-slate-200">{entry.reward}</td>
                     <td className="px-4 py-4 text-muted">{entry.releaseDate}</td>
+                    <td className="px-4 py-4 text-muted">{entry.sourceTier}</td>
+                    <td className="px-4 py-4 text-muted">{entry.lastChecked}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
           <p className="mt-4 text-xs leading-5 text-muted">
-            Rewards come from current community code trackers. Always confirm in-game because codes can expire or be disabled without notice.
+            Rewards come from community code trackers and official verification routes. Always confirm in-game because codes can expire or be disabled without notice.
           </p>
         </div>
 
@@ -93,11 +97,14 @@ export default function CodesPage() {
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-lg font-semibold text-white">{entry.code}</p>
                     <span className="rounded-full border border-accent-gold/20 bg-accent-gold/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-gold">
-                      Verify
+                      Needs check
                     </span>
                   </div>
                   <p className="mt-2 text-sm text-slate-200">{entry.reward}</p>
-                  <p className="mt-1 text-xs text-muted">{entry.releaseDate}</p>
+                  <p className="mt-1 text-xs text-muted">
+                    Released {entry.releaseDate}. Source: {entry.sourceTier}. Checked {entry.lastChecked}.
+                  </p>
+                  <p className="mt-2 text-xs leading-5 text-muted">{entry.sourceNote}</p>
                 </div>
               ))}
             </div>

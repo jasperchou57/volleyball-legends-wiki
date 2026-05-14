@@ -142,11 +142,11 @@ export function UpdateCountdown() {
             Next Saturday Update
           </h3>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-            Community trackers and Roblox listing mirrors consistently point to a weekly Saturday update cadence around 11:30 AM ET.
+            The official Roblox game description lists weekly Saturday updates around 11:30 AM ET. Discord still decides the exact patch-note timing.
           </p>
         </div>
         <div className="rounded-full border border-accent-orange/40 bg-accent-orange/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">
-          Community-timed
+          Official schedule
         </div>
       </div>
 

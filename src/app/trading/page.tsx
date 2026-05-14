@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, TrendingUp } from "lucide-react";
-import { tradeValues, featuredStyles } from "@/data/volleyball";
+import { tradeValues, featuredStyles, pageFreshness } from "@/data/volleyball";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Trading Value List",
@@ -50,7 +50,7 @@ export default function TradingValueListPage() {
           A tier-banded value list for Volleyball Legends trading. Rankings combine <strong className="text-white">rarity</strong>, <strong className="text-white">obtainability</strong>, <strong className="text-white">current meta demand</strong>, and whether a style is permanent, limited, or permanently unobtainable.
         </p>
         <p className="mt-3 max-w-3xl rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-xs leading-6 text-accent-gold">
-          <strong>Disclaimer:</strong> no official or market-verified value data exists publicly for this game. This list is an <strong>editorial estimate</strong> derived from rarity tiers, obtainability windows, and community meta consensus. Real trades may diverge significantly. If you have corrections from in-game trading, please ping the Discord.
+          <strong>Disclaimer:</strong> no official or market-verified value data exists publicly for this game. This list is an <strong>editorial estimate</strong> derived from rarity tiers, obtainability windows, and community meta consensus. Real trades may diverge significantly. Last updated: {pageFreshness.tradingLastUpdated}.
         </p>
       </section>
 

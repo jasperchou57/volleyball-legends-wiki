@@ -122,7 +122,7 @@ export default function NextUpdatePage() {
         </p>
         <div className="mt-5 space-y-3">
           <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">May 12, 2026</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">{officialSnapshot.snapshotDateLabel}</p>
             <p className="mt-2 text-lg font-heading font-bold text-white">Roblox listing timestamp moved again</p>
             <p className="mt-2 text-sm leading-6 text-muted">
               The official Roblox games API shows Volleyball Legends updating at {officialSnapshot.gameUpdatedLabel}. No public Discord or web-indexed patch note was visible when we checked, so this entry is logged as an official activity signal rather than a confirmed named patch.

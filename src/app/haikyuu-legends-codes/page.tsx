@@ -34,14 +34,14 @@ export default function HaikyuuLegendsCodesPage() {
           <Link href="/codes" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">
             Open Current Codes Page
           </Link>
-          <Link href="/updates/update-65-season-14" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
-            Read Latest Update
+          <Link href="/next-update" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
+            Check Official Update Watch
           </Link>
         </div>
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Current fresh codes</h2>
+        <h2 className="text-2xl font-heading font-bold text-white">Reported-active codes</h2>
         <div className="mt-5 flex flex-wrap gap-3">
           {freshCodes.map((entry) => (
             <Link

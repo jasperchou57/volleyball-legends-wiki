@@ -24,6 +24,9 @@ export interface CodeEntry {
   reward: string;
   releaseDate: string;
   status: "Active" | "Verify";
+  sourceTier: SourceTier;
+  lastChecked: string;
+  sourceNote: string;
 }
 
 export interface ExpiredCodeEntry {
@@ -138,6 +141,24 @@ export interface OfficialSnapshot {
   note: string;
 }
 
+export interface PageFreshness {
+  siteLastUpdated: string;
+  officialDataLastSynced: string;
+  updateTrackerLastUpdated: string;
+  codesLastChecked: string;
+  tierListLastUpdated: string;
+  tradingLastUpdated: string;
+  pityLastUpdated: string;
+}
+
+export interface HomepageRecentlyUpdatedPage {
+  title: string;
+  href: string;
+  sourceLabel: string;
+  updatedAt: string;
+  reason: string;
+}
+
 export const siteConfig = {
   name: "Volleyball Legends Wiki",
   domain: "https://www.volleyballlegends.wiki",
@@ -151,20 +172,30 @@ export const siteConfig = {
 };
 
 export const officialSnapshot: OfficialSnapshot = {
-  snapshotDateLabel: "May 13, 2026",
-  gameUpdatedIso: "2026-05-13T01:59:47.1706642Z",
-  gameUpdatedLabel: "May 12, 2026 at 6:59:47 PM PT",
-  playing: 26692,
-  visits: 3317127186,
-  favorites: 4498531,
-  upVotes: 2369305,
-  downVotes: 112599,
-  groupMembers: 4169700,
+  snapshotDateLabel: "May 14, 2026",
+  gameUpdatedIso: "2026-05-14T00:45:01.5165032Z",
+  gameUpdatedLabel: "May 13, 2026 at 5:45:01 PM PT",
+  playing: 27822,
+  visits: 3320009213,
+  favorites: 4500231,
+  upVotes: 2370188,
+  downVotes: 112674,
+  groupMembers: 4171172,
   mediaImages: 7,
   mediaVideos: 1,
   latestPublicPatch: "No newer public patch note indexed",
-  latestPublicPatchDate: "May 13, 2026 check",
-  note: "Roblox shows Volleyball Legends updating again on May 12, 2026, but the official patch write-up is still Discord-first and not publicly indexed on the open web. Treat Roblox game-page timestamps, media refreshes, and Discord announcements as the live official signals.",
+  latestPublicPatchDate: "May 14, 2026 check",
+  note: "Roblox shows Volleyball Legends updating again on May 13, 2026, but the official patch write-up is still Discord-first and not publicly indexed on the open web. Treat Roblox game-page timestamps, media refreshes, and Discord announcements as the live official signals.",
+};
+
+export const pageFreshness: PageFreshness = {
+  siteLastUpdated: "May 14, 2026",
+  officialDataLastSynced: officialSnapshot.snapshotDateLabel,
+  updateTrackerLastUpdated: officialSnapshot.latestPublicPatchDate,
+  codesLastChecked: "May 14, 2026",
+  tierListLastUpdated: "May 14, 2026 source-policy review",
+  tradingLastUpdated: "May 14, 2026 editorial disclaimer review",
+  pityLastUpdated: "May 14, 2026 source-policy review",
 };
 
 export const mainQueryChips: QueryChip[] = [
@@ -197,90 +228,135 @@ export const activeCodes: CodeEntry[] = [
     reward: "5 Lucky Style Spins",
     releaseDate: "April 11, 2026",
     status: "Active",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
   },
   {
     code: "SEASON_14",
     reward: "5 Lucky Style Spins",
     releaseDate: "April 11, 2026",
     status: "Active",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
   },
   {
     code: "EASTER_UPDATE",
     reward: "5 Lucky Ability Spins",
     releaseDate: "April 11, 2026",
     status: "Active",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
   },
   {
     code: "UPDATE_64",
     reward: "5 Lucky Style Spins",
     releaseDate: "April 4, 2026",
     status: "Active",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
   },
   {
     code: "TOURNAMENTS",
     reward: "5 Lucky Style Spins",
     releaseDate: "April 4, 2026",
     status: "Active",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
   },
   {
     code: "CHALLENGER",
     reward: "5 Lucky Ability Spins",
     releaseDate: "April 4, 2026",
     status: "Active",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
   },
   {
     code: "UPDATE_63",
     reward: "5 Lucky Style Spins",
     releaseDate: "March 28, 2026",
     status: "Verify",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
   },
   {
     code: "EVO_RARITY",
     reward: "5 Lucky Style Spins",
     releaseDate: "March 28, 2026",
     status: "Verify",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
   },
   {
     code: "STRETCH",
     reward: "5 Lucky Ability Spins",
     releaseDate: "March 28, 2026",
     status: "Verify",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
   },
   {
     code: "UPDATE_62",
     reward: "5 Lucky Style Spins",
     releaseDate: "March 21, 2026",
     status: "Verify",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
   },
   {
     code: "MIKAGE_IS_BACK",
     reward: "5 Lucky Style Spins",
     releaseDate: "March 21, 2026",
     status: "Verify",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
   },
   {
     code: "BALL_MACHINES",
     reward: "5 Lucky Ability Spins",
     releaseDate: "March 21, 2026",
     status: "Verify",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
   },
   {
     code: "UPDATE_61",
     reward: "5 Lucky Style Spins",
     releaseDate: "March 14, 2026",
     status: "Verify",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
   },
   {
     code: "SEASON_13",
     reward: "5 Lucky Style Spins",
     releaseDate: "March 14, 2026",
     status: "Verify",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
   },
   {
     code: "STPATRICKS_DAY",
     reward: "5 Lucky Ability Spins",
     releaseDate: "March 14, 2026",
     status: "Verify",
+    sourceTier: "Community",
+    lastChecked: pageFreshness.codesLastChecked,
+    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
   },
 ];
 
@@ -1018,7 +1094,7 @@ export const updates: UpdateEntry[] = [
     slug: "update-60-kijo",
     title: "Volleyball Legends Update 60: Kijo, Super Tilts, 2x Luck & New Codes",
     published: "2026-03-07",
-    summary: "Update 60 is the current spike driver: a new limited secret style, a weekend 2x luck event, and three fresh codes.",
+    summary: "Update 60 drove a major search spike around Kijo, the Super Tilt mechanic, a weekend 2x luck event, and three fresh codes.",
     sourceTier: "Community",
     highlights: [
       "New limited secret style: Kijo.",
@@ -1058,6 +1134,37 @@ export const updates: UpdateEntry[] = [
     ],
     codes: ["UPDATE_56", "LEAD_FEET", "LIMITED_ABILITY"],
     focusStyles: ["jinko", "kisuki", "yogan"],
+  },
+];
+
+export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
+  {
+    title: "Official Update Watch",
+    href: "/next-update",
+    sourceLabel: "Official watch",
+    updatedAt: pageFreshness.updateTrackerLastUpdated,
+    reason: `Roblox game page updated ${officialSnapshot.gameUpdatedLabel}.`,
+  },
+  {
+    title: "Codes",
+    href: "/codes",
+    sourceLabel: "Community",
+    updatedAt: pageFreshness.codesLastChecked,
+    reason: `${activeCodes.filter((entry) => entry.status === "Active").length} reported-active codes shown; ${activeCodes.filter((entry) => entry.status === "Verify").length} older codes need in-game verification.`,
+  },
+  {
+    title: updates[0].title,
+    href: `/updates/${updates[0].slug}`,
+    sourceLabel: updates[0].sourceTier,
+    updatedAt: updates[0].published,
+    reason: "Latest indexed update archive entry. It remains labeled as community-sourced until a public official patch note is available.",
+  },
+  {
+    title: "Pity System",
+    href: "/guides/pity-system",
+    sourceLabel: "Community",
+    updatedAt: pageFreshness.pityLastUpdated,
+    reason: "Spin math and pity thresholds are labeled as community-tracked, not official rates.",
   },
 ];
 
@@ -1159,7 +1266,7 @@ export const homepageFaq = [
   },
   {
     question: "Why are styles like Encho, Twins, Mikage, and Kijo featured first?",
-    answer: "They align with current long-tail demand and rising update searches after Updates 62-65. Encho in particular was the game's first Evo rarity style and went permanently unobtainable on April 11, 2026, which makes it a high-traffic lookup for players who missed the window.",
+    answer: "They align with long-tail style demand, limited-return interest, and older-player lookup behavior. Encho in particular was the game's first Evo rarity style and went permanently unobtainable on April 11, 2026, which makes it a high-traffic lookup for players who missed the window.",
   },
   {
     question: "Why not launch with every page at once?",
