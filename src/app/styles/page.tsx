@@ -6,7 +6,7 @@ import { featuredStyles } from "@/data/volleyball";
 export const metadata: Metadata = {
   title: "Volleyball Legends Styles Wiki",
   description:
-    "Browse Volleyball Legends style pages for Encho, Twins, Mikage, Kijo, Jinko, Ronin, Taichou, and more with community snapshots and search-first summaries.",
+    "Browse Volleyball Legends style pages with community snapshots, mechanics, tier context, and documented limited-return history.",
 };
 
 export default function StylesPage() {
@@ -23,8 +23,9 @@ export default function StylesPage() {
           Volleyball Legends Styles
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This is the core long-tail cluster after codes. The community wiki tracks 36 styles overall; this directory now covers the highest-demand styles first, plus key setter, blocker, and legacy secret pages players keep comparing in search.
+          Browse the styles covered by this wiki, then open a guide for role fit, mechanics, tier context, and any documented limited-return history.
         </p>
+        <p className="mt-3 text-sm text-muted">Planning around a limited style? <Link href="/style-return-dates" className="font-semibold text-accent-teal hover:text-white">See the return-date history</Link>; future banners are marked not announced until confirmed.</p>
       </section>
 
       <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -46,13 +47,7 @@ export default function StylesPage() {
               </div>
             </div>
             <p className="mt-4 text-sm leading-6 text-muted">{style.summary}</p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {style.searchTerms.slice(0, 2).map((term) => (
-                <span key={term} className="rounded-full border border-white/10 bg-background/60 px-3 py-1 text-xs text-slate-200">
-                  {term}
-                </span>
-              ))}
-            </div>
+            <p className="mt-5 text-xs uppercase tracking-[0.16em] text-muted">{style.availability}</p>
           </Link>
         ))}
       </div>

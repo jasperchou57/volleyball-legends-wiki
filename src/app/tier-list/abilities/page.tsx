@@ -29,7 +29,7 @@ export default function AbilityTierListPage() {
           Volleyball Legends Ability Tier List
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Ability intent is smaller than codes, but it is high quality. This page groups abilities by how often they change actual decision-making rather than how flashy they look in clips.
+          This community ranking groups abilities by how much they change real match decisions rather than how flashy they look in clips. Check a guide before spending spins on a limited ability.
         </p>
       </section>
 

@@ -1,12 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { updates } from "@/data/volleyball";
+import { currentGameState, pageFreshness, updates } from "@/data/volleyball";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Updates",
   description:
     "Track Volleyball Legends update notes, rising patch queries, and the code drops that usually follow Saturday resets.",
+  alternates: { canonical: "/updates" },
 };
 
 export default function UpdatesPage() {
@@ -23,8 +24,10 @@ export default function UpdatesPage() {
           Volleyball Legends Updates
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Update pages are where this site turns fresh search spikes into durable internal links. Every post points back to codes, style pages, and the tools most relevant to the patch.
+          A dated update archive for codes, limited returns, mechanics, and balance changes. Details are labeled community-sourced when the official Discord note is not publicly indexed.
         </p>
+        <p className="mt-3 text-sm text-muted">Last verified snapshot: Update {currentGameState.updateNumber} · last cross-checked {pageFreshness.updateTrackerLastUpdated}.</p>
+        {currentGameState.reviewNote && <p className="mt-3 text-sm leading-6 text-accent-gold">{currentGameState.reviewNote}</p>}
       </section>
 
       <div className="mt-8 space-y-4">

@@ -81,7 +81,7 @@ function buildSearchIndex(): SearchResult[] {
       href: "/codes",
       type: "Code",
       source: entry.sourceTier,
-      summary: `${entry.reward}. Released ${entry.releaseDate}. Status: ${entry.status === "Active" ? "reported active" : "needs check"}.`,
+      summary: `${entry.reward}. Released ${entry.releaseDate}. Status: ${entry.status}.`,
       keywords: [entry.code, entry.reward, entry.releaseDate, entry.status, entry.sourceNote],
     })),
     ...featuredStyles.map((style) => ({

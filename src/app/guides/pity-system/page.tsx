@@ -199,7 +199,7 @@ export default function PitySystemGuidePage() {
           Update 63 introduced the Evo rarity tier alongside Encho, the first Evo style. Community trackers describe Evo as running on a <strong className="text-white">separate pity counter</strong> from Secret — spinning for one does not progress the other. The baseline Evo rate on Lucky Spins is roughly 0.25%, far rarer than Secret, and the baseline pity threshold sits around 400 spins.
         </p>
         <p className="mt-3 text-sm leading-6 text-muted">
-          Encho itself went permanently unobtainable on April 11, 2026 at the Season 14 reset, so the Evo pity track is currently dormant until the next Evo style is introduced. The math above will resurface the next time the developer drops a new Evo banner.
+          Encho&rsquo;s original banner ended on April 11, 2026, but Update 76 later documented an Encho return. Treat Evo availability as a limited-banner question rather than a permanent removal; check the current banner before planning around pity.
         </p>
       </section>
 

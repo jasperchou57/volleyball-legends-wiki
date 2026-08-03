@@ -43,7 +43,7 @@ export default function PlayerCardsGuidePage() {
           Volleyball Legends Player Cards
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This guide is built for player-card searches, especially the more fragmented long-tail queries around secret cards and named cards. It is intentionally conservative on specifics because the underlying information is still community-led.
+          This guide collects the community-led information available for secret and named player cards. It stays conservative when the game has not published a reliable exact detail.
         </p>
       </section>
 

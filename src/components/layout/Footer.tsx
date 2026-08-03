@@ -10,7 +10,7 @@ export function Footer() {
                             Volleyball Legends Wiki
                         </span>
                         <p className="max-w-md text-sm leading-6 text-muted">
-                            Fan-made wiki and tools hub for Roblox Volleyball Legends. Built around codes, styles, abilities, update tracking, and search-first landing pages.
+                            Fan-made wiki and tools hub for Roblox Volleyball Legends, covering codes, styles, abilities, update tracking, and return history.
                         </p>
                         <p className="text-xs leading-5 text-muted">
                             Source labels matter here: official links come from Roblox and the official Discord, while pity notes, tier lists, and many style snapshots are community-maintained.
@@ -24,6 +24,7 @@ export function Footer() {
                             <Link href="/styles" className="hover:text-white transition-colors">Styles</Link>
                             <Link href="/abilities" className="hover:text-white transition-colors">Abilities</Link>
                             <Link href="/updates" className="hover:text-white transition-colors">Updates</Link>
+                            <Link href="/style-return-dates" className="hover:text-white transition-colors">Return Dates</Link>
                             <Link href="/tier-list/styles" className="hover:text-white transition-colors">Tier List</Link>
                         </div>
                     </div>
@@ -34,6 +35,7 @@ export function Footer() {
                             <Link href="/guides/discord" className="hover:text-white transition-colors">Official Discord</Link>
                             <Link href="/tools/style-compare" className="hover:text-white transition-colors">Style Compare</Link>
                             <Link href="/tools/update-countdown" className="hover:text-white transition-colors">Update Countdown</Link>
+                            <Link href="/sources" className="hover:text-white transition-colors">Sources & Update Policy</Link>
                             <Link href="/about" className="hover:text-white transition-colors">About</Link>
                             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
                         </div>

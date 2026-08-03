@@ -17,6 +17,20 @@ export const metadata: Metadata = {
   },
   description:
     "Volleyball Legends Wiki tracks codes, styles, abilities, ranked notes, update guides, and lightweight tools for Roblox Volleyball Legends.",
+  openGraph: {
+    type: "website",
+    siteName: "Volleyball Legends Wiki",
+    title: "Volleyball Legends Wiki - Codes, Styles, Tier List & Updates",
+    description:
+      "Codes, style choices, tier lists, update tracking, and player tools for Roblox Volleyball Legends.",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Volleyball Legends Wiki",
+    description: "Codes, styles, tier lists, updates, and player tools for Roblox Volleyball Legends.",
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function RootLayout({

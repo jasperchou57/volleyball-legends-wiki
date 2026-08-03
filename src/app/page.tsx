@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
@@ -5,9 +6,7 @@ import {
   ArrowRight,
   Clock3,
   Gamepad2,
-  Gift,
   ListChecks,
-  Radio,
   Search,
   ShieldCheck,
   Swords,
@@ -17,6 +16,7 @@ import {
 import {
   abilities,
   activeCodes,
+  currentGameState,
   datamineSources,
   featuredStyles,
   guideCards,
@@ -24,30 +24,46 @@ import {
   homepageRecentlyUpdatedPages,
   homepageFaq,
   mainQueryChips,
-  officialSnapshot,
   pageFreshness,
   siteConfig,
   toolCards,
   updates,
 } from "@/data/volleyball";
 import { UpdateCountdown } from "@/components/volleyball/UpdateCountdown";
+import { CopyCodeButton } from "@/components/volleyball/CopyCodeButton";
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: homepageFaq.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
-  })),
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
 };
 
-const numberFormatter = new Intl.NumberFormat("en-US");
+const siteSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      alternateName: "VolleyballLegends.wiki",
+      url: siteConfig.domain,
+    },
+    {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.domain,
+      description: "Fan-made reference for Roblox Volleyball Legends.",
+    },
+  ],
+};
 
 const decisionCards = [
+  {
+    title: "Return Dates",
+    description: "Dated limited-banner history without pretending that a past return predicts the next one.",
+    href: "/style-return-dates",
+    source: "Community verified",
+    icon: Clock3,
+  },
   {
     title: "Style Tier List",
     description: "Community-ranked style tiers with links into the underlying style pages.",
@@ -70,18 +86,11 @@ const decisionCards = [
     icon: Trophy,
   },
   {
-    title: "Trading Values",
-    description: "Editorial value tiers for limited and high-rarity styles, clearly marked as non-official.",
-    href: "/trading",
-    source: "Site",
+    title: "Best Style + Ability Pairs",
+    description: "Role-first pairings for players who need an answer, not a generic planner.",
+    href: "/guides/best-builds",
+    source: "Site + Community",
     icon: ShieldCheck,
-  },
-  {
-    title: "Next Update Tracker",
-    description: "Official Roblox activity signals plus Discord-first patch-note monitoring.",
-    href: "/next-update",
-    source: "Official watch",
-    icon: Radio,
   },
   {
     title: "Style Compare",
@@ -90,6 +99,14 @@ const decisionCards = [
     source: "Site tool",
     icon: Wrench,
   },
+];
+
+const roleCards = [
+  { title: "Best Spiker Styles", description: "Front-row pressure, timing, and direct point conversion.", href: "/tier-list/spiker" },
+  { title: "Best Setter Styles", description: "Tempo, accuracy, and teammate-enabling picks.", href: "/tier-list/setter" },
+  { title: "Best Libero Styles", description: "Rally stability, coverage, and defensive recovery.", href: "/tier-list/libero" },
+  { title: "Best Blocker Styles", description: "Net control and denial-focused decisions.", href: "/tier-list/blocker" },
+  { title: "Overall Style Tier List", description: "Use this only after you know the role you want to play.", href: "/tier-list/styles" },
 ];
 
 const categoryLinks = [
@@ -104,13 +121,13 @@ const categoryLinks = [
   { label: "Trading", href: "/trading" },
   { label: "Patch Diff", href: "/patch-diff" },
   { label: "Next Update", href: "/next-update" },
+  { label: "Return Dates", href: "/style-return-dates" },
 ];
 
 const beginnerGuideTitles = new Set(["Beginner Guide", "Tutorial", "Controls", "How to Spike", "How to Serve", "How to Set"]);
 
 export default function Home() {
-  const approvalRate = ((officialSnapshot.upVotes / (officialSnapshot.upVotes + officialSnapshot.downVotes)) * 100).toFixed(1);
-  const freshCodes = activeCodes.filter((entry) => entry.status === "Active").slice(0, 5);
+  const codeSummary = activeCodes.slice(0, 5);
   const heroImage = heroImages[0]?.cdnUrl;
   const beginnerGuides = guideCards.filter((guide) => beginnerGuideTitles.has(guide.title)).slice(0, 4);
   const officialSources = datamineSources.filter((source) => source.kind === "Official").slice(0, 4);
@@ -118,9 +135,9 @@ export default function Home() {
   return (
     <>
       <Script
-        id="homepage-faq-schema"
+        id="homepage-site-schema"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }}
       />
 
       <div className="pb-20">
@@ -140,14 +157,14 @@ export default function Home() {
             <div className="max-w-4xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-accent-orange/25 bg-background/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-accent-orange">
                 <Search className="h-4 w-4" />
-                Query-first wiki
+                Last verified: Update {currentGameState.updateNumber}
               </div>
 
               <h1 className="mt-5 max-w-4xl text-4xl font-heading font-black text-white md:text-6xl">
                 Volleyball Legends Wiki: Codes, Styles, Tier List, Abilities & Update Tracker
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-7 text-slate-200 md:text-lg">
-                Fast entry points for codes, official update signals, style rankings, abilities, pity math, patch diffs, and older-player decision pages.
+                Check current codes, limited-return history, style choices, abilities, and update notes without mixing confirmed facts with guesses.
               </p>
 
               <form action="/search" className="mt-6 flex max-w-2xl flex-col gap-3 rounded-3xl border border-white/10 bg-background/70 p-3 sm:flex-row">
@@ -179,10 +196,10 @@ export default function Home() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/next-update"
+                  href="/style-return-dates"
                   className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-background/70 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/30"
                 >
-                  Track Latest Update
+                  Check Return Dates
                 </Link>
                 <Link
                   href="/tier-list/styles"
@@ -208,40 +225,73 @@ export default function Home() {
         </section>
 
         <main className="container mx-auto px-4">
+          <section className="mt-10 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Codes first</p>
+                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Last-known code cluster</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
+                  Last checked: <strong className="text-slate-200">{pageFreshness.codesLastChecked}</strong>. These entries require a fresh in-game or official check before they are treated as current.
+                </p>
+              </div>
+              <Link href="/codes" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">
+                Verify codes
+              </Link>
+            </div>
+            <div className="mt-5 grid gap-3 md:grid-cols-3">
+              {codeSummary.map((entry) => (
+                <div key={entry.code} className="rounded-3xl border border-accent-gold/20 bg-background/65 p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="font-heading text-lg font-bold text-white">{entry.code}</p>
+                    <CopyCodeButton code={entry.code} />
+                  </div>
+                  <p className="mt-2 text-sm text-slate-200">{entry.reward}</p>
+                  <p className="mt-2 text-xs leading-5 text-accent-gold">Needs current verification · {entry.sourceTier}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
           <section className="mt-10 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
             <div className="rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Latest official activity</p>
-                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Roblox data moved on {officialSnapshot.gameUpdatedLabel}</h2>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Last verified game state</p>
+                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Update {currentGameState.updateNumber}: {currentGameState.summary}</h2>
                 </div>
-                <span className="rounded-full border border-accent-teal/25 bg-accent-teal/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">
-                  Roblox API
+                <span className="rounded-full border border-accent-gold/25 bg-accent-gold/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent-gold">
+                  {currentGameState.verificationStatus}
                 </span>
               </div>
 
-              <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="mt-6 grid gap-4 md:grid-cols-3">
                 <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Public patch-note status</p>
-                  <p className="mt-3 text-2xl font-heading font-black text-white">{officialSnapshot.latestPublicPatch}</p>
-                  <p className="mt-2 text-sm leading-6 text-muted">Checked {officialSnapshot.latestPublicPatchDate}. Full patch notes are Discord-first when public web indexing lags.</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Last cross-check</p>
+                  <p className="mt-3 text-2xl font-heading font-black text-white">{currentGameState.lastVerified}</p>
+                  <p className="mt-2 text-sm leading-6 text-muted">Update notes are Discord-first, so this snapshot only includes details corroborated by multiple public references.</p>
                 </div>
+                {currentGameState.officialActivity && <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">Latest official activity</p>
+                  <p className="mt-3 text-2xl font-heading font-black text-white">{currentGameState.officialActivity.observedAt}</p>
+                  <p className="mt-2 text-sm leading-6 text-muted">{currentGameState.officialActivity.summary}</p>
+                </div>}
                 <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Official snapshot</p>
-                  <p className="mt-3 text-2xl font-heading font-black text-accent-orange">{numberFormatter.format(officialSnapshot.playing)} playing</p>
-                  <p className="mt-2 text-sm leading-6 text-muted">
-                    {numberFormatter.format(officialSnapshot.visits)} visits, {numberFormatter.format(officialSnapshot.favorites)} favorites, {approvalRate}% approval.
-                  </p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">What is not confirmed</p>
+                  <p className="mt-3 text-2xl font-heading font-black text-accent-orange">Next return: not announced</p>
+                  <p className="mt-2 text-sm leading-6 text-muted">A weekly update cadence is not a promise that any particular style or ability will be back next Saturday.</p>
                 </div>
               </div>
 
-              <p className="mt-5 text-sm leading-6 text-muted">{officialSnapshot.note}</p>
+              <p className="mt-5 text-sm leading-6 text-muted">{currentGameState.reviewNote ?? currentGameState.nextUpdateNote}</p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link href="/next-update" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">
                   View update tracker
                 </Link>
                 <Link href={siteConfig.officialLinks.roblox} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
                   Roblox listing
+                </Link>
+                <Link href="/style-return-dates" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
+                  Return history
                 </Link>
                 <Link href={siteConfig.officialLinks.discord} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
                   Official Discord
@@ -258,41 +308,26 @@ export default function Home() {
             <div className="rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Codes summary</p>
-                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Latest codes on this site</h2>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Choose by role</p>
+                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Find the right style before the best tier</h2>
                 </div>
-                <Gift className="h-6 w-6 text-accent-orange" />
+                <Swords className="h-6 w-6 text-accent-orange" />
               </div>
-              <p className="mt-3 text-sm leading-6 text-muted">
-                Code status is community-tracked. Last checked: <strong className="text-slate-200">{pageFreshness.codesLastChecked}</strong>.
-              </p>
-              <div className="mt-5 space-y-3">
-                {freshCodes.map((entry) => (
-                  <div key={entry.code} className="rounded-3xl border border-white/10 bg-background/65 p-4">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <p className="font-heading text-lg font-bold text-white">{entry.code}</p>
-                      <span className="rounded-full border border-accent-teal/25 bg-accent-teal/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">
-                        Reported active
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm text-slate-200">{entry.reward}</p>
-                    <p className="mt-1 text-xs text-muted">
-                      Released {entry.releaseDate}. Source: {entry.sourceTier}. Checked {entry.lastChecked}.
-                    </p>
-                  </div>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {roleCards.map((card) => (
+                  <Link key={card.href} href={card.href} className="rounded-3xl border border-white/10 bg-background/65 p-4 transition hover:border-white/25">
+                    <h3 className="font-heading text-lg font-bold text-white">{card.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted">{card.description}</p>
+                  </Link>
                 ))}
               </div>
-              <Link href="/codes" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-accent-teal transition hover:text-white">
-                View all codes
-                <ArrowRight className="h-4 w-4" />
-              </Link>
             </div>
 
             <div className="rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
               <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Decision hub</p>
-                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">High-intent player decisions</h2>
+                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Make the next play or spin count</h2>
                 </div>
                 <span className="text-xs leading-5 text-muted">Source labels separate official signals, community data, and site-maintained tools.</span>
               </div>
@@ -327,7 +362,7 @@ export default function Home() {
                 <h2 className="mt-2 text-3xl font-heading font-bold text-white">Pages to check first</h2>
               </div>
               <p className="max-w-xl text-sm leading-6 text-muted">
-                This block is intentionally short: it points users to pages that changed because of official activity, update indexing, or source-policy cleanup.
+                Start here for the latest verified codes, banner context, and changed mechanics.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">

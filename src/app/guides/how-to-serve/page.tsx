@@ -43,7 +43,7 @@ export default function HowToServePage() {
           How to Serve in Volleyball Legends
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Serve pages pull useful long-tail traffic because everyone wants an immediate edge. The safest lesson is simple: make your contact consistent first, then add speed, jump timing, and movement gimmicks.
+          A reliable serve starts with consistent contact. Once that is stable, add speed, jump timing, and movement options one at a time.
         </p>
       </section>
 
