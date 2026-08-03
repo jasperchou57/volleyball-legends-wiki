@@ -196,12 +196,12 @@ export const currentGameState: CurrentGameState = {
   verificationStatus: "Monitoring",
   summary: "Update 80 returned Hidari for a limited window and included an Encho balance pass.",
   nextUpdateNote: "The game normally updates on Saturdays around 11:30 AM ET. A future style return is not confirmed until the developer posts it in the official channels.",
-  reviewNote: "Update 80 remains the last community-verified gameplay snapshot. The official Roblox listing changed on August 3, but no public patch breakdown, codes, or balance details are confirmed here yet.",
+  reviewNote: "Update 80 remains the last community-verified gameplay snapshot. The official Roblox listing changed on August 3, but no public patch breakdown or balance details are confirmed here yet. The current code trio is corroborated by community trackers and is labeled separately from official information.",
   officialActivity: {
     source: "Roblox API",
     observedAt: "August 3, 2026",
     gameUpdatedAt: "August 3, 2026",
-    summary: "The official game listing is labeled [UPD] Volleyball Legends and has a newer Roblox API updated timestamp. The API does not publish a complete patch breakdown, so gameplay changes, codes, and banner details remain unverified.",
+    summary: "The official game listing is labeled [UPD] Volleyball Legends and has a newer Roblox API updated timestamp. The API does not publish a complete patch breakdown, so gameplay changes and banner details remain unverified; current codes are tracked separately as community evidence.",
   },
 };
 
@@ -210,7 +210,7 @@ export const pageFreshness: PageFreshness = {
   siteLastUpdatedIso: "2026-08-03T20:47:16.040Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
   updateTrackerLastUpdated: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  codesLastChecked: currentGameState.lastVerified,
+  codesLastChecked: "August 3, 2026",
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
   pityLastUpdated: "July 27, 2026 availability-history review",
@@ -243,35 +243,38 @@ export const trendingQueryChips: QueryChip[] = [
 
 export const activeCodes: CodeEntry[] = [
   {
-    code: "UPDATE_80",
+    code: "UPDATE_81",
     reward: "5 Lucky Style Spins",
-    releaseDate: "July 25, 2026",
-    status: "Needs verification",
+    releaseDate: "August 1, 2026",
+    status: "Community verified",
     sourceTier: "Community",
     lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Reported working by multiple public code trackers on July 25–27. Redeem in-game because codes can be disabled without a public notice.",
+    sourceNote: "Corroborated by multiple public code trackers on August 3. No public official announcement was indexed, so redeem in-game before relying on it.",
   },
   {
-    code: "HIDARI_FINALLY",
+    code: "LEAD_FEET_AGAIN",
     reward: "5 Lucky Style Spins",
-    releaseDate: "July 25, 2026",
-    status: "Needs verification",
+    releaseDate: "August 1, 2026",
+    status: "Community verified",
     sourceTier: "Community",
     lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Reported working by multiple public code trackers on July 25–27. Redeem in-game because codes can be disabled without a public notice.",
+    sourceNote: "Corroborated by multiple public code trackers on August 3. No public official announcement was indexed, so redeem in-game before relying on it.",
   },
   {
-    code: "ENCHO_NERF",
+    code: "KNEE_SLIDE",
     reward: "5 Lucky Ability Spins",
-    releaseDate: "July 25, 2026",
-    status: "Needs verification",
+    releaseDate: "August 1, 2026",
+    status: "Community verified",
     sourceTier: "Community",
     lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Reported working by multiple public code trackers on July 25–27. Redeem in-game because codes can be disabled without a public notice.",
+    sourceNote: "Corroborated by multiple public code trackers on August 3. No public official announcement was indexed, so redeem in-game before relying on it.",
   },
 ];
 
 export const expiredCodes: ExpiredCodeEntry[] = [
+  { code: "UPDATE_80", reward: "5 Lucky Style Spins", releaseDate: "July 25, 2026", expiredNote: "Multiple August 3 trackers supersede this with the Update 81 code cluster, but one current community list still reports it working. Confirm in-game before relying on either report." },
+  { code: "HIDARI_FINALLY", reward: "5 Lucky Style Spins", releaseDate: "July 25, 2026", expiredNote: "Multiple August 3 trackers supersede this with the Update 81 code cluster, but one current community list still reports it working. Confirm in-game before relying on either report." },
+  { code: "ENCHO_NERF", reward: "5 Lucky Ability Spins", releaseDate: "July 25, 2026", expiredNote: "Multiple August 3 trackers supersede this with the Update 81 code cluster, but one current community list still reports it working. Confirm in-game before relying on either report." },
   { code: "UPDATE_79", reward: "5 Lucky Style Spins", releaseDate: "July 18, 2026", expiredNote: "Superseded by the Update 80 code cluster." },
   { code: "SEASON_17", reward: "5 Lucky Style Spins", releaseDate: "July 18, 2026", expiredNote: "Superseded by the Update 80 code cluster." },
   { code: "FESTIVAL_UPD", reward: "5 Lucky Ability Spins", releaseDate: "July 18, 2026", expiredNote: "Superseded by the Update 80 code cluster." },
@@ -1276,7 +1279,7 @@ export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
     href: "/codes",
     sourceLabel: "Community",
     updatedAt: pageFreshness.codesLastChecked,
-    reason: `${activeCodes.length} community-verified codes from Update ${currentGameState.updateNumber}; older code clusters moved to the expired archive.`,
+    reason: `${activeCodes.length} community-verified Update 81 codes; earlier codes remain archived with source-conflict notes where needed.`,
   },
   {
     title: updates[0].title,

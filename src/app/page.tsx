@@ -157,7 +157,7 @@ export default function Home() {
             <div className="max-w-4xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-accent-orange/25 bg-background/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-accent-orange">
                 <Search className="h-4 w-4" />
-                Last verified: Update {currentGameState.updateNumber}
+                Gameplay snapshot: Update {currentGameState.updateNumber}
               </div>
 
               <h1 className="mt-5 max-w-4xl text-4xl font-heading font-black text-white md:text-6xl">
@@ -229,9 +229,9 @@ export default function Home() {
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Codes first</p>
-                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Last-known code cluster</h2>
+                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Current community-verified codes</h2>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
-                  Last checked: <strong className="text-slate-200">{pageFreshness.codesLastChecked}</strong>. These entries require a fresh in-game or official check before they are treated as current.
+                  Last checked: <strong className="text-slate-200">{pageFreshness.codesLastChecked}</strong>. Multiple public trackers agree on this code cluster; use the in-game redemption box or official Discord for final confirmation.
                 </p>
               </div>
               <Link href="/codes" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">
@@ -246,7 +246,7 @@ export default function Home() {
                     <CopyCodeButton code={entry.code} />
                   </div>
                   <p className="mt-2 text-sm text-slate-200">{entry.reward}</p>
-                  <p className="mt-2 text-xs leading-5 text-accent-gold">Needs current verification · {entry.sourceTier}</p>
+                  <p className="mt-2 text-xs leading-5 text-accent-teal">{entry.status} · {entry.sourceTier}</p>
                 </div>
               ))}
             </div>

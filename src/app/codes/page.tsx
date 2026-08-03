@@ -61,7 +61,7 @@ export default function CodesPage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-accent-orange/20 bg-accent-orange/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">
               <Gift className="h-4 w-4" />
-              Last verified: Update {currentGameState.updateNumber}
+              Last code check: {pageFreshness.codesLastChecked}
             </div>
             <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
               Volleyball Legends Codes
@@ -118,7 +118,7 @@ export default function CodesPage() {
           <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
             <div className="flex items-center gap-3">
               <Clock3 className="h-5 w-5 text-accent-orange" />
-              <h2 className="text-2xl font-heading font-bold text-white">Recently expired</h2>
+              <h2 className="text-2xl font-heading font-bold text-white">Archived code reports</h2>
             </div>
             <div className="mt-5 space-y-3">
               {expiredCodes.slice(0, 4).map((entry) => (
@@ -126,7 +126,7 @@ export default function CodesPage() {
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-lg font-semibold text-white line-through decoration-white/30">{entry.code}</p>
                     <span className="rounded-full border border-accent-gold/20 bg-accent-gold/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-gold">
-                      Expired
+                      Archived
                     </span>
                   </div>
                   <p className="mt-2 text-sm text-slate-200">{entry.reward}</p>

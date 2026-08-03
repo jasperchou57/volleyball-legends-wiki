@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function HaikyuuLegendsCodesPage() {
-  const reviewCodes = activeCodes.filter((entry) => entry.status === "Needs verification");
+  const communityCodes = activeCodes.filter((entry) => entry.status === "Community verified");
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-10">
@@ -41,10 +41,10 @@ export default function HaikyuuLegendsCodesPage() {
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Last-known code references</h2>
-        <p className="mt-3 text-sm leading-6 text-muted">These codes need a fresh in-game or official check. They are not presented as currently active.</p>
+        <h2 className="text-2xl font-heading font-bold text-white">Current community-verified codes</h2>
+        <p className="mt-3 text-sm leading-6 text-muted">Multiple public trackers agree on these codes. They are not presented as official; redeem in-game before relying on them.</p>
         <div className="mt-5 flex flex-wrap gap-3">
-          {reviewCodes.map((entry) => (
+          {communityCodes.map((entry) => (
             <Link
               key={entry.code}
               href="/codes"
