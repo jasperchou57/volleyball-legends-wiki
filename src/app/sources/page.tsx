@@ -11,7 +11,7 @@ import {
 } from "@/data/content-operations";
 
 export const metadata: Metadata = {
-  title: "Sources & Update Policy | Volleyball Legends Wiki",
+  title: "Sources & Update Policy",
   description: "How Volleyball Legends Wiki labels official, community, and site-maintained data, plus its update and legacy-route review policy.",
   alternates: { canonical: "/sources" },
 };

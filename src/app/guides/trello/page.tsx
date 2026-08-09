@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Trello",
   description:
     "Looking for a Volleyball Legends Trello? This page explains what we found, what we did not find, and where to verify updates instead.",
+  alternates: { canonical: "/guides/trello" },
 };
 
 export default function TrelloGuidePage() {

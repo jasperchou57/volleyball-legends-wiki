@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Update Countdown",
   description:
     "Track the expected weekly Volleyball Legends update window and decide when to check codes, banners, and official announcements.",
+  alternates: { canonical: "/tools/update-countdown" },
 };
 
 export default function UpdateCountdownPage() {

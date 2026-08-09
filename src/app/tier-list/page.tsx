@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Tier List",
   description:
     "Volleyball Legends tier list hub for styles, abilities, and role-based rankings built on community notes and site-maintained grouping.",
+  alternates: { canonical: "/tier-list" },
 };
 
 const tierLinks = [

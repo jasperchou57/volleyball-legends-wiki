@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Styles Wiki",
   description:
     "Browse Volleyball Legends style pages with community snapshots, mechanics, tier context, and documented limited-return history.",
+  alternates: { canonical: "/styles" },
 };
 
 export default function StylesPage() {

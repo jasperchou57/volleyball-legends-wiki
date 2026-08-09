@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Blocker Tier List",
   description:
     "Best blocker and jump-focused styles in Volleyball Legends, grouped for players who care about net defense and first-contact pressure.",
+  alternates: { canonical: "/tier-list/blocker" },
 };
 
 const order = { S: 0, A: 1, B: 2, C: 3 };

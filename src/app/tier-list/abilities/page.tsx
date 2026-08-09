@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Ability Tier List",
   description:
     "Community-maintained Volleyball Legends ability tier list for Lead Feet, Curve Spike, Shield Breaker, Steel Block, and more.",
+  alternates: { canonical: "/tier-list/abilities" },
 };
 
 const order = { S: 0, A: 1, B: 2, C: 3 };

@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Pity System Guide",
   description:
     "Community-maintained pity system guide for Volleyball Legends — normal vs lucky spin rates, Secret pity, Evo pity, 2x Luck event math, and expected spin cost tables.",
+  alternates: { canonical: "/guides/pity-system" },
 };
 
 const rarityRows = [

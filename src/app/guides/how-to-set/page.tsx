@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "How to Get Better at Setting in Volleyball Legends",
   description:
     "Setter guide for Volleyball Legends covering positioning, tempo, dump-set pressure, and the best styles to learn setting fundamentals.",
+  alternates: { canonical: "/guides/how-to-set" },
 };
 
 const settingTips = [

@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Tutorial",
   description:
     "Volleyball Legends tutorial hub for new players who need a fast path into controls, serving, spiking, and early role decisions.",
+  alternates: { canonical: "/guides/tutorial" },
 };
 
 export default function TutorialPage() {

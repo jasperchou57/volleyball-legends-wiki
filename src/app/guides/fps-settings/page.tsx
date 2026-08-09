@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Best FPS Settings for Volleyball Legends",
   description:
     "FPS and performance settings for Volleyball Legends, with practical advice on timing, input stability, and what to test before changing your whole setup.",
+  alternates: { canonical: "/guides/fps-settings" },
 };
 
 const fpsChecks = [

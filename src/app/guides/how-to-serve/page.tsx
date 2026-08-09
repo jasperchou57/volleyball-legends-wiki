@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "How to Serve in Volleyball Legends",
   description:
     "Learn how to serve in Volleyball Legends with better timing, power control, jump-serve discipline, and safer early-game habits.",
+  alternates: { canonical: "/guides/how-to-serve" },
 };
 
 const serveTips = [

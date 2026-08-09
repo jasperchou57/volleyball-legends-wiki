@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Player Cards Guide",
   description:
     "Community-focused Volleyball Legends player cards guide covering secret card searches, event card demand, and where to verify limited card drops.",
+  alternates: { canonical: "/guides/player-cards" },
 };
 
 const cardNotes = [

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Libero Tier List",
   description:
     "Community tier notes for Volleyball Legends libero and defensive styles, including Kisuki and Kyoshin.",
+  alternates: { canonical: "/tier-list/libero" },
 };
 
 const order = { S: 0, A: 1, B: 2, C: 3 };

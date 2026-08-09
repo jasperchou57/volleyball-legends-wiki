@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Beginner Guide",
   description:
     "A beginner guide for Volleyball Legends covering your first spins, role choices, early practice goals, and what to do before ranked.",
+  alternates: { canonical: "/guides/beginner" },
 };
 
 const steps = [

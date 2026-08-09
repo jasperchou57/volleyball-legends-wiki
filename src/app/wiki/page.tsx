@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Wiki",
   description:
     "Volleyball Legends Wiki hub linking to codes, styles, abilities, guides, updates, and tools in one crawl-friendly landing page.",
+  alternates: { canonical: "/wiki" },
 };
 
 export default function WikiPage() {

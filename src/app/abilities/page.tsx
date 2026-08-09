@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Abilities Wiki",
   description:
     "Browse Volleyball Legends abilities including Lead Feet, Curve Spike, Shield Breaker, Extra Touch, Divine Strength, and more with community tier notes.",
+  alternates: { canonical: "/abilities" },
 };
 
 export default function AbilitiesPage() {

@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Ranks Guide",
   description:
     "Volleyball Legends ranks guide covering ranked unlock requirements, queue structure, and community-ranked progression notes.",
+  alternates: { canonical: "/guides/ranks" },
 };
 
 const rankTiers = ["Rookie", "Bronze", "Silver", "Gold", "Diamond", "Elite", "Master", "Legend"];

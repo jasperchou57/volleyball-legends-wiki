@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "How to Spike in Volleyball Legends",
   description:
     "Learn how to spike in Volleyball Legends with cleaner timing, approach rhythm, tilt control, and better decision-making at the net.",
+  alternates: { canonical: "/guides/how-to-spike" },
 };
 
 const spikeNotes = [
