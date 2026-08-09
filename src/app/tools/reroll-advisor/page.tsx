@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Reroll Advisor",
   description:
     "A disclaimer-first Volleyball Legends reroll advisor that helps decide whether to hold spins or push for a better event.",
+  alternates: { canonical: "/tools/reroll-advisor" },
 };
 
 export default function RerollAdvisorPage() {

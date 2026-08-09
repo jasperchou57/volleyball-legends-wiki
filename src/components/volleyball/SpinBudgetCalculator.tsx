@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { pageFreshness } from "@/data/volleyball";
 
 type Target = "Secret" | "Evo";
 
@@ -36,10 +37,10 @@ export function SpinBudgetCalculator() {
   const spins95 = useMemo(() => spinsFor(0.95, rate, pity), [rate, pity]);
 
   const verdict = useMemo(() => {
-    if (chance >= 0.95) return { tone: "good" as const, line: "Your current stack is more than enough. You are almost guaranteed to pull." };
-    if (chance >= 0.5) return { tone: "fine" as const, line: "You are above the median. Comfortable but not a lock — budget a little extra if you can." };
-    if (chance >= 0.2) return { tone: "risky" as const, line: "Coin-flip territory. If this target really matters, try to grow your stack before you burn it." };
-    return { tone: "bad" as const, line: "Your stack is too thin. Save or wait for a 2x Luck event — you will almost certainly come up empty." };
+    if (chance >= 0.95) return { tone: "good" as const, line: "If the current community model is accurate, this stack gives you a very high modeled chance." };
+    if (chance >= 0.5) return { tone: "fine" as const, line: "If the current community model is accurate, you are above the modeled median but not guaranteed." };
+    if (chance >= 0.2) return { tone: "risky" as const, line: "The current model puts this in coin-flip territory. Build a larger stack before spending if the target matters." };
+    return { tone: "bad" as const, line: "The current model puts this stack at a low chance. Recheck live rates before choosing to save or wait for an event." };
   }, [chance]);
 
   const toneClass: Record<string, string> = {
@@ -51,6 +52,7 @@ export function SpinBudgetCalculator() {
 
   return (
     <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
+      <p className="mb-6 rounded-2xl border border-accent-gold/20 bg-accent-gold/10 px-4 py-3 text-xs leading-5 text-slate-200">Community probability model · last reviewed {pageFreshness.pityLastUpdated}. Rates and pity thresholds are site-maintained assumptions; verify them after an update.</p>
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-5">
           <div>
@@ -135,7 +137,7 @@ export function SpinBudgetCalculator() {
           </div>
           <div className="rounded-2xl border border-white/10 bg-background/65 p-4 text-xs leading-6 text-muted">
             Current rate: <strong className="text-white">{(rate * 100).toFixed(2)}%</strong> per spin. Pity ceiling: <strong className="text-white">{pity}</strong> spins.
-            {eventActive ? " 2x Luck event math is applied." : " Baseline conditions (no event)."}
+            {eventActive ? " 2x Luck assumptions are applied." : " Baseline assumptions (no event)."} This calculator models the entered assumptions; it does not prove live game odds.
           </div>
         </div>
       </div>

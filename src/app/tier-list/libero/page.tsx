@@ -6,7 +6,8 @@ import { featuredStyles } from "@/data/volleyball";
 export const metadata: Metadata = {
   title: "Volleyball Legends Libero Tier List",
   description:
-    "Best libero and defensive styles in Volleyball Legends, including search-driven pages like Kisuki and Kyoshin.",
+    "Community tier notes for Volleyball Legends libero and defensive styles, including Kisuki and Kyoshin.",
+  alternates: { canonical: "/tier-list/libero" },
 };
 
 const order = { S: 0, A: 1, B: 2, C: 3 };

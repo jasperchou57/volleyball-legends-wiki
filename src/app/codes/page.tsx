@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Clock3, Gift, ShieldCheck } from "lucide-react";
-import { activeCodes, pageFreshness, siteConfig, updates } from "@/data/volleyball";
+import { activeCodes, currentGameState, expiredCodes, pageFreshness, siteConfig, updates, type CodeEntry } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
+import { CopyCodeButton } from "@/components/volleyball/CopyCodeButton";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Codes",
@@ -13,9 +14,39 @@ export const metadata: Metadata = {
   },
 };
 
+function CodeTable({ entries }: { entries: CodeEntry[] }) {
+  return (
+    <div className="mt-5 overflow-x-auto rounded-3xl border border-white/10">
+      <table className="min-w-full divide-y divide-white/10 text-left text-sm">
+        <thead className="bg-background/70">
+          <tr className="text-xs uppercase tracking-[0.18em] text-muted">
+            <th className="px-4 py-3">Code</th>
+            <th className="px-4 py-3">Reward</th>
+            <th className="px-4 py-3">Status</th>
+            <th className="px-4 py-3">Last checked</th>
+            <th className="px-4 py-3"><span className="sr-only">Copy</span></th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-white/10 bg-surface/70">
+          {entries.map((entry) => (
+            <tr key={entry.code}>
+              <td className="px-4 py-4 font-semibold text-white">{entry.code}</td>
+              <td className="px-4 py-4 text-slate-200">{entry.reward}</td>
+              <td className="px-4 py-4 text-muted">{entry.status}</td>
+              <td className="px-4 py-4 text-muted">{entry.lastChecked}</td>
+              <td className="px-4 py-4"><CopyCodeButton code={entry.code} /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export default function CodesPage() {
-  const freshCodes = activeCodes.filter((entry) => entry.status === "Active");
-  const verifyCodes = activeCodes.filter((entry) => entry.status === "Verify");
+  const officialCodes = activeCodes.filter((entry) => entry.status === "Officially announced");
+  const communityCodes = activeCodes.filter((entry) => entry.status === "Community verified");
+  const reviewCodes = activeCodes.filter((entry) => entry.status === "Needs verification");
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-10">
@@ -30,21 +61,21 @@ export default function CodesPage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-accent-orange/20 bg-accent-orange/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">
               <Gift className="h-4 w-4" />
-              Highest-intent landing page
+              Last code check: {pageFreshness.codesLastChecked}
             </div>
             <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
               Volleyball Legends Codes
             </h1>
             <p className="mt-4 text-base leading-7 text-muted md:text-lg">
-              This page is built to rank for <strong>volleyball legends codes</strong>, <strong>codes today</strong>, and <strong>new codes</strong> queries. We separate fresh update codes from older still-circulating entries that may need in-game verification.
+              Codes are separated by evidence level below. A code is never presented as official unless the developer published it; older community reports remain visible only as a last-known reference.
             </p>
           </div>
 
           <div className="rounded-3xl border border-white/10 bg-background/70 p-5 text-sm text-muted">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Verification policy</p>
-            <p className="mt-2 text-lg font-semibold text-white">Community-tracked, officially cross-checkable</p>
+            <p className="mt-2 text-lg font-semibold text-white">Evidence before convenience</p>
             <p className="mt-2 max-w-xs leading-6">
-              Last checked: <strong className="text-white">{pageFreshness.codesLastChecked}</strong>. Verify surprise drops in the official Discord first if you are racing to publish update coverage.
+              Last cross-checked: <strong className="text-white">{pageFreshness.codesLastChecked}</strong>. Current site status: {currentGameState.verificationStatus}. Use the official Discord or in-game redemption box before spending around a code.
             </p>
           </div>
         </div>
@@ -54,57 +85,55 @@ export default function CodesPage() {
         <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
           <div className="flex items-center gap-3">
             <ShieldCheck className="h-5 w-5 text-accent-teal" />
-            <h2 className="text-2xl font-heading font-bold text-white">Reported-active update codes</h2>
+            <h2 className="text-2xl font-heading font-bold text-white">Code status by source</h2>
           </div>
-          <div className="mt-6 overflow-hidden rounded-3xl border border-white/10">
-            <table className="min-w-full divide-y divide-white/10 text-left text-sm">
-              <thead className="bg-background/70">
-                <tr className="text-xs uppercase tracking-[0.18em] text-muted">
-                  <th className="px-4 py-3">Code</th>
-                  <th className="px-4 py-3">Reward</th>
-                  <th className="px-4 py-3">Release</th>
-                  <th className="px-4 py-3">Source</th>
-                  <th className="px-4 py-3">Last checked</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10 bg-surface/70">
-                {freshCodes.map((entry) => (
-                  <tr key={entry.code}>
-                    <td className="px-4 py-4 font-semibold text-white">{entry.code}</td>
-                    <td className="px-4 py-4 text-slate-200">{entry.reward}</td>
-                    <td className="px-4 py-4 text-muted">{entry.releaseDate}</td>
-                    <td className="px-4 py-4 text-muted">{entry.sourceTier}</td>
-                    <td className="px-4 py-4 text-muted">{entry.lastChecked}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-4 text-xs leading-5 text-muted">
-            Rewards come from community code trackers and official verification routes. Always confirm in-game because codes can expire or be disabled without notice.
-          </p>
+          {officialCodes.length > 0 ? (
+            <>
+              <h3 className="mt-6 text-lg font-heading font-bold text-white">Officially announced</h3>
+              <CodeTable entries={officialCodes} />
+            </>
+          ) : (
+            <p className="mt-5 rounded-3xl border border-dashed border-white/15 bg-background/45 p-4 text-sm leading-6 text-muted">
+              No official code is recorded in this snapshot. We do not promote a community report into this group.
+            </p>
+          )}
+          {communityCodes.length > 0 && (
+            <>
+              <h3 className="mt-6 text-lg font-heading font-bold text-white">Community verified</h3>
+              <CodeTable entries={communityCodes} />
+            </>
+          )}
+          {reviewCodes.length > 0 && (
+            <>
+              <h3 className="mt-6 text-lg font-heading font-bold text-accent-gold">Needs a current check</h3>
+              <CodeTable entries={reviewCodes} />
+              <p className="mt-4 text-xs leading-5 text-muted">
+                These are the last-known community reports from Update {currentGameState.updateNumber}, not a claim that they still work. Each can expire without notice.
+              </p>
+            </>
+          )}
         </div>
 
         <div className="space-y-6">
           <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
             <div className="flex items-center gap-3">
               <Clock3 className="h-5 w-5 text-accent-orange" />
-              <h2 className="text-2xl font-heading font-bold text-white">Still-circulating codes</h2>
+              <h2 className="text-2xl font-heading font-bold text-white">Archived code reports</h2>
             </div>
             <div className="mt-5 space-y-3">
-              {verifyCodes.map((entry) => (
+              {expiredCodes.slice(0, 4).map((entry) => (
                 <div key={entry.code} className="rounded-3xl border border-white/10 bg-background/65 p-4">
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-lg font-semibold text-white">{entry.code}</p>
+                    <p className="text-lg font-semibold text-white line-through decoration-white/30">{entry.code}</p>
                     <span className="rounded-full border border-accent-gold/20 bg-accent-gold/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-gold">
-                      Needs check
+                      Archived
                     </span>
                   </div>
                   <p className="mt-2 text-sm text-slate-200">{entry.reward}</p>
                   <p className="mt-1 text-xs text-muted">
-                    Released {entry.releaseDate}. Source: {entry.sourceTier}. Checked {entry.lastChecked}.
+                    Released {entry.releaseDate}.
                   </p>
-                  <p className="mt-2 text-xs leading-5 text-muted">{entry.sourceNote}</p>
+                  {entry.expiredNote && <p className="mt-2 text-xs leading-5 text-muted">{entry.expiredNote}</p>}
                 </div>
               ))}
             </div>
@@ -131,6 +160,9 @@ export default function CodesPage() {
               </a>
               <Link href="/updates" className="block rounded-3xl border border-white/10 bg-background/65 p-4 text-white transition hover:border-white/25">
                 Update Tracker
+              </Link>
+              <Link href="/style-return-dates" className="block rounded-3xl border border-white/10 bg-background/65 p-4 text-white transition hover:border-white/25">
+                Return-date history
               </Link>
               <Link href="/codes/expired" className="block rounded-3xl border border-white/10 bg-background/65 p-4 text-white transition hover:border-white/25">
                 Expired codes archive
@@ -176,7 +208,7 @@ export default function CodesPage() {
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Updates driving code searches</h2>
+        <h2 className="text-2xl font-heading font-bold text-white">Recent updates and their code clusters</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {updates.map((update) => (
             <Link
@@ -197,11 +229,11 @@ export default function CodesPage() {
         <div className="mt-5 space-y-4">
           <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
             <summary className="cursor-pointer list-none text-lg font-semibold text-white">When do new Volleyball Legends codes usually drop?</summary>
-            <p className="mt-3 text-sm leading-6 text-muted">Most code spikes happen around Saturday updates, hotfixes, limited style launches, and community milestone posts.</p>
+            <p className="mt-3 text-sm leading-6 text-muted">Most code spikes happen around Saturday updates, hotfixes, limited style launches, and community milestone posts. This is a pattern to check, not a guarantee that a code is live.</p>
           </details>
           <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
             <summary className="cursor-pointer list-none text-lg font-semibold text-white">Are all codes on this page official?</summary>
-            <p className="mt-3 text-sm leading-6 text-muted">No. This page combines community-tracked codes with official verification routes. Treat the freshest entries as the highest-probability candidates and confirm them in game.</p>
+            <p className="mt-3 text-sm leading-6 text-muted">No. Official announcements, community-verified reports, and entries that need a new check are shown separately. Redeem in-game before relying on any non-official entry.</p>
           </details>
           <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
             <summary className="cursor-pointer list-none text-lg font-semibold text-white">What rewards do codes usually give?</summary>
@@ -212,8 +244,8 @@ export default function CodesPage() {
 
       <NextStepPanel
         eyebrow="After you claim codes"
-        title="Do not stop at the code list"
-        description="The code page is the entry point, not the end state. After you collect spins, the real question is whether this update justifies spending them now or saving for a stronger banner."
+        title="Use the free spins deliberately"
+        description="After you collect spins, decide whether the current limited banner fits your role or whether saving for an unannounced return is the better call."
         actions={[
           {
             href: "/tools/reroll-advisor",

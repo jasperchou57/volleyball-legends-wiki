@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Tools",
   description:
     "Lightweight Volleyball Legends tools for style comparison, update countdowns, and reroll advice built on community notes.",
+  alternates: { canonical: "/tools" },
 };
 
 export default function ToolsPage() {

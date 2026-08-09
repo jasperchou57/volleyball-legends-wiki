@@ -42,7 +42,7 @@ export default function ExpiredCodesPage() {
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">All expired codes</h2>
-        <div className="mt-6 overflow-hidden rounded-3xl border border-white/10">
+        <div className="mt-6 overflow-x-auto rounded-3xl border border-white/10">
           <table className="min-w-full divide-y divide-white/10 text-left text-sm">
             <thead className="bg-background/70">
               <tr className="text-xs uppercase tracking-[0.18em] text-muted">

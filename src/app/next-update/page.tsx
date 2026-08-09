@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Radio } from "lucide-react";
-import { datamineSources, officialSnapshot } from "@/data/volleyball";
+import { currentGameState, datamineSources, pageFreshness } from "@/data/volleyball";
 import { UpdateCountdown } from "@/components/volleyball/UpdateCountdown";
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default function NextUpdatePage() {
           Next Volleyball Legends Update
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          A live monitoring board for the next Volleyball Legends update. This page is intentionally built as a dashboard instead of an article: three status sections (Confirmed / Rumored / Datamined), a list of sources we are watching, and a changelog of teaser sightings as they happen. If nothing is confirmed yet, the page says so honestly — no fabricated leaks.
+          The next scheduled update window is useful, but it does not reveal the next style, ability, or code cluster. This page separates the last verified update from what is still unannounced.
         </p>
       </section>
 
@@ -38,40 +38,46 @@ export default function NextUpdatePage() {
       </div>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Latest official activity</h2>
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
+        <h2 className="text-2xl font-heading font-bold text-white">Latest verified snapshot</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Public patch-note status</p>
-            <p className="mt-3 text-2xl font-heading font-black text-white">{officialSnapshot.latestPublicPatch}</p>
-            <p className="mt-2 text-sm leading-6 text-muted">Latest check: {officialSnapshot.latestPublicPatchDate}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Last verified snapshot</p>
+            <p className="mt-3 text-2xl font-heading font-black text-white">Update {currentGameState.updateNumber}</p>
+            <p className="mt-2 text-sm leading-6 text-muted">{currentGameState.summary}</p>
           </div>
           <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Roblox game page updated</p>
-            <p className="mt-3 text-2xl font-heading font-black text-accent-orange">{officialSnapshot.gameUpdatedLabel}</p>
-            <p className="mt-2 text-sm leading-6 text-muted">Official games API shows a newer live-build change than the last patch note we can publicly index.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Tracker last checked</p>
+            <p className="mt-3 text-2xl font-heading font-black text-accent-orange">{pageFreshness.updateTrackerLastUpdated}</p>
+            <p className="mt-2 text-sm leading-6 text-muted">Status: {currentGameState.verificationStatus}. Official activity is detected, but this is not a complete patch transcription.</p>
           </div>
+          {currentGameState.officialActivity && <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-teal">Official Roblox activity</p>
+            <p className="mt-3 text-2xl font-heading font-black text-white">{currentGameState.officialActivity.gameUpdatedAt}</p>
+            <p className="mt-2 text-sm leading-6 text-muted">{currentGameState.officialActivity.summary}</p>
+          </div>}
           <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Working assumption</p>
-            <p className="mt-3 text-2xl font-heading font-black text-accent-teal">Live build changed</p>
-            <p className="mt-2 text-sm leading-6 text-muted">No newer official patch write-up is publicly indexed, so we are treating the newer Roblox timestamp as a live change awaiting Discord confirmation.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Next confirmed return</p>
+            <p className="mt-3 text-2xl font-heading font-black text-accent-teal">Not announced</p>
+            <p className="mt-2 text-sm leading-6 text-muted">Do not spend spins based on a guessed banner. Verify a named return in the official Discord or the in-game banner.</p>
           </div>
         </div>
-        <p className="mt-4 text-xs leading-5 text-muted">{officialSnapshot.note}</p>
+        <p className="mt-4 text-xs leading-5 text-muted">{currentGameState.nextUpdateNote}</p>
+        {currentGameState.reviewNote && <p className="mt-3 text-sm leading-6 text-accent-gold">{currentGameState.reviewNote}</p>}
       </section>
 
       <section className="mt-8 grid gap-6 md:grid-cols-3">
-        <div className="rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-teal">Confirmed</p>
-          <h2 className="mt-2 text-xl font-heading font-bold text-white">No public patch note yet</h2>
+        <div className="rounded-[2rem] border border-accent-gold/20 bg-accent-gold/10 p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-gold">Review required</p>
+          <h2 className="mt-2 text-xl font-heading font-bold text-white">Update {currentGameState.updateNumber} is the last verified snapshot</h2>
           <p className="mt-2 text-sm leading-6 text-muted">
-            No officially confirmed feature list is publicly accessible on the open web. The only newer official signal we currently have is the Roblox game-page timestamp from {officialSnapshot.gameUpdatedLabel}.
+            The game has a Discord-first information flow. Verify its current status against an official announcement or the in-game banner before spending resources.
           </p>
         </div>
         <div className="rounded-[2rem] border border-accent-gold/20 bg-accent-gold/10 p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-gold">Rumored</p>
-          <h2 className="mt-2 text-xl font-heading font-bold text-white">Nothing credible yet</h2>
+          <h2 className="mt-2 text-xl font-heading font-bold text-white">No sourced named return in this snapshot</h2>
           <p className="mt-2 text-sm leading-6 text-muted">
-            No credible community rumors sighted. We will not seed speculation here until a source is quotable.
+            This historical snapshot does not record a named upcoming return. We will not turn a schedule or an unsourced post into a rumor.
           </p>
         </div>
         <div className="rounded-[2rem] border border-accent-orange/20 bg-accent-orange/10 p-5">
@@ -116,20 +122,25 @@ export default function NextUpdatePage() {
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Changelog of teaser sightings</h2>
+        <h2 className="text-2xl font-heading font-bold text-white">Last recorded monitoring note</h2>
         <p className="mt-2 text-sm leading-6 text-muted">
-          Append-only log of teaser screenshots, clips, and dev quotes. Empty until the next wave of pre-patch teasers surfaces.
+          The official game listing has changed, but no named future return or public patch breakdown is recorded here yet. This page keeps that boundary explicit instead of converting a timestamp into a rumor.
         </p>
         <div className="mt-5 space-y-3">
+          {currentGameState.officialActivity && <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-teal">{currentGameState.officialActivity.source} · {currentGameState.officialActivity.observedAt}</p>
+            <p className="mt-2 text-lg font-heading font-bold text-white">Official listing activity detected</p>
+            <p className="mt-2 text-sm leading-6 text-muted">{currentGameState.officialActivity.summary}</p>
+          </div>}
           <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">{officialSnapshot.snapshotDateLabel}</p>
-            <p className="mt-2 text-lg font-heading font-bold text-white">Roblox listing timestamp moved again</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">{pageFreshness.updateTrackerLastUpdated}</p>
+            <p className="mt-2 text-lg font-heading font-bold text-white">Update {currentGameState.updateNumber} cross-check snapshot</p>
             <p className="mt-2 text-sm leading-6 text-muted">
-              The official Roblox games API shows Volleyball Legends updating at {officialSnapshot.gameUpdatedLabel}. No public Discord or web-indexed patch note was visible when we checked, so this entry is logged as an official activity signal rather than a confirmed named patch.
+              Codes, the Hidari return, and Encho balance changes were corroborated through public player references and code trackers at the time. Recheck each time-sensitive item now.
             </p>
           </div>
           <div className="rounded-3xl border border-dashed border-white/15 bg-background/40 p-8 text-center text-sm text-muted">
-            No teaser screenshots or quotable dev posts are indexed yet for the next patch. This log fills in once the dev starts previewing the patch publicly.
+            No named future banner was confirmed in this snapshot. See the return-date history for what has happened before.
           </div>
         </div>
       </section>
@@ -147,7 +158,10 @@ export default function NextUpdatePage() {
             Browse past updates
           </Link>
           <Link href="/codes" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
-            Check current codes
+            Check code status
+          </Link>
+          <Link href="/style-return-dates" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
+            Return-date history
           </Link>
         </div>
       </section>

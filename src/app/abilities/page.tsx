@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Abilities Wiki",
   description:
     "Browse Volleyball Legends abilities including Lead Feet, Curve Spike, Shield Breaker, Extra Touch, Divine Strength, and more with community tier notes.",
+  alternates: { canonical: "/abilities" },
 };
 
 export default function AbilitiesPage() {
@@ -23,7 +24,7 @@ export default function AbilitiesPage() {
           Volleyball Legends Abilities
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Ability pages help catch searches like <strong>lead feet volleyball legends</strong>, <strong>curve spike volleyball legends</strong>, and <strong>ability tier list</strong>. The directory now covers the core public roster plus newer search-driven pages like Lead Feet.
+          Find the ability that fixes the job you are struggling with: movement, defense, utility, or point-ending offense. Limited ability pages include dated return history when it is documented.
         </p>
       </section>
 

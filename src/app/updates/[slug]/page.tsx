@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { featuredStyles, getUpdate, updates } from "@/data/volleyball";
+import { featuredStyles, getUpdate, siteConfig, updates } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 
 type PageProps = {
@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: update.title,
     description: update.summary,
+    alternates: { canonical: `/updates/${update.slug}` },
   };
 }
 
@@ -58,6 +59,14 @@ export default async function UpdateDetailPage({ params }: PageProps) {
         </h1>
         <p className="mt-3 text-sm uppercase tracking-[0.18em] text-muted">{update.published}</p>
         <p className="mt-5 text-base leading-7 text-muted md:text-lg">{update.summary}</p>
+
+        <div className="mt-8 rounded-[2rem] border border-accent-gold/20 bg-accent-gold/10 p-6">
+          <h2 className="text-2xl font-heading font-bold text-white">Evidence and affected pages</h2>
+          <p className="mt-3 text-sm leading-6 text-slate-200">Source tier: <strong className="text-white">{update.sourceTier}</strong> · last checked {update.lastChecked ?? update.published}.</p>
+          <p className="mt-3 text-sm leading-6 text-muted">{update.evidenceNote ?? "This is a historical update summary. Cross-check the official Discord before treating a time-sensitive item as current."}</p>
+          <a href={siteConfig.officialLinks.discord} target="_blank" rel="noreferrer" className="mt-4 inline-flex text-sm font-semibold text-accent-teal hover:text-white">Official Discord verification route</a>
+          {update.affectedPages?.length ? <div className="mt-5 flex flex-wrap gap-3">{update.affectedPages.map((page) => <Link key={page.href} href={page.href} className="rounded-full border border-white/10 bg-background/65 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/25">{page.label}</Link>)}</div> : null}
+        </div>
 
         <div className="mt-8 rounded-[2rem] border border-white/10 bg-background/65 p-6">
           <h2 className="text-2xl font-heading font-bold text-white">Key patch takeaways</h2>

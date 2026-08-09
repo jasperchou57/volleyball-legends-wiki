@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Guides",
   description:
     "Beginner-friendly Volleyball Legends guides for controls, ranked, Discord, and pity-system questions that keep appearing in search.",
+  alternates: { canonical: "/guides" },
 };
 
 export default function GuidesPage() {

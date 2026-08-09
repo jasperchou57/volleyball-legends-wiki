@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Best Binds for Volleyball Legends",
   description:
     "A practical best-binds guide for Volleyball Legends on PC and controller, focused on fast reactions instead of one-size-fits-all layouts.",
+  alternates: { canonical: "/guides/best-binds" },
 };
 
 const bindPrinciples = [

@@ -16,6 +16,7 @@ export function Navbar() {
                         <Link href="/styles" className="text-sm font-medium text-muted hover:text-white transition-colors">Styles</Link>
                         <Link href="/abilities" className="text-sm font-medium text-muted hover:text-white transition-colors">Abilities</Link>
                         <Link href="/tier-list/styles" className="text-sm font-medium text-muted hover:text-white transition-colors">Tier List</Link>
+                        <Link href="/style-return-dates" className="text-sm font-medium text-muted hover:text-white transition-colors">Return Dates</Link>
                         <Link href="/updates" className="text-sm font-medium text-muted hover:text-white transition-colors">Updates</Link>
                         <Link href="/guides" className="text-sm font-medium text-muted hover:text-white transition-colors">Guides</Link>
                         <Link href="/tools" className="text-sm font-medium text-muted hover:text-white transition-colors">Tools</Link>
@@ -37,6 +38,7 @@ export function Navbar() {
                         ["Styles", "/styles"],
                         ["Abilities", "/abilities"],
                         ["Tier List", "/tier-list/styles"],
+                        ["Return Dates", "/style-return-dates"],
                         ["Updates", "/updates"],
                         ["Guides", "/guides"],
                         ["Tools", "/tools"],

@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Controls Guide",
   description:
     "Community-maintained Volleyball Legends controls guide for PC, controller, and mobile players looking for a clean starting layout.",
+  alternates: { canonical: "/guides/controls" },
 };
 
 const controlCards = [

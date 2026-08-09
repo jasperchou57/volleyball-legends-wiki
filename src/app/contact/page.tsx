@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: "Contact Volleyball Legends Wiki",
   description:
     "Contact Volleyball Legends Wiki for data corrections, update tips, or feedback about the site structure and tools.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

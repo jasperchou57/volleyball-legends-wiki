@@ -6,7 +6,8 @@ import { UpdateCountdown } from "@/components/volleyball/UpdateCountdown";
 export const metadata: Metadata = {
   title: "Volleyball Legends Update Countdown",
   description:
-    "Track the next weekly Volleyball Legends update window and plan your code posts, rerolls, and Saturday event pages.",
+    "Track the expected weekly Volleyball Legends update window and decide when to check codes, banners, and official announcements.",
+  alternates: { canonical: "/tools/update-countdown" },
 };
 
 export default function UpdateCountdownPage() {
@@ -25,7 +26,7 @@ export default function UpdateCountdownPage() {
           Volleyball Legends Update Countdown
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This page supports both players and your own publishing workflow. If search spikes keep landing on Saturday, the countdown becomes a useful utility and a branding signal at the same time.
+          Use this as a reminder to check the official Discord and in-game banner around the usual Saturday reset. It is an expected window, not a confirmation of the next content drop.
         </p>
       </section>
 

@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "How to Reach Top 100 in Volleyball Legends",
   description:
     "A practical guide to climbing toward the top 100 in Volleyball Legends with ranked discipline, role choices, duo play, and update-aware progression.",
+  alternates: { canonical: "/guides/top-100" },
 };
 
 const top100Points = [

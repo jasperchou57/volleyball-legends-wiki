@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Setter Tier List",
   description:
     "Best setter styles in Volleyball Legends, ranked for players who care more about control and support than pure highlight offense.",
+  alternates: { canonical: "/tier-list/setter" },
 };
 
 const order = { S: 0, A: 1, B: 2, C: 3 };

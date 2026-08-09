@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { featuredStyles, getStyle, abilities } from "@/data/volleyball";
+import { abilities, currentGameState, featuredStyles, getAvailabilityHistory, getStyle, pageFreshness } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 import { RadarChart } from "@/components/volleyball/RadarChart";
 
@@ -24,7 +24,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${style.name} Style Guide & Stats`,
-    description: `${style.name} in Volleyball Legends: rarity, role, community snapshot, best abilities, and search-driven notes.`,
+    description: `${style.name} in Volleyball Legends: current availability history, rarity, role, community snapshot, and best ability pairings.`,
+    alternates: { canonical: `/styles/${style.slug}` },
   };
 }
 
@@ -77,6 +78,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
     .slice(0, 3);
   const strengths = getStrengthLines(style.slug);
   const watchouts = getWatchoutLines(style.slug);
+  const availabilityHistory = getAvailabilityHistory("Style", style.slug);
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-10">
@@ -104,6 +106,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
           <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">Source tier</p>
             <p className="mt-1 font-semibold">{style.sourceTier}</p>
+            <p className="mt-3 text-xs text-slate-300">Last reviewed: {pageFreshness.tierListLastUpdated}</p>
           </div>
         </div>
       </section>
@@ -111,14 +114,36 @@ export default async function StyleDetailPage({ params }: PageProps) {
       <section className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-6">
           <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
-            <h2 className="text-2xl font-heading font-bold text-white">Why players search {style.name}</h2>
+            <h2 className="text-2xl font-heading font-bold text-white">{style.name}: last verified snapshot</h2>
             <p className="mt-4 text-sm leading-7 text-muted">{style.whyPlayersSearch}</p>
             <p className="mt-4 rounded-3xl border border-white/10 bg-background/65 p-4 text-sm leading-6 text-slate-200">
               <strong className="text-white">Signature mechanic:</strong> {style.signature}
             </p>
             <p className="mt-4 text-sm leading-6 text-muted">
-              <strong className="text-white">Availability:</strong> {style.availability}
+              <strong className="text-white">Last verified availability (Update {currentGameState.updateNumber}):</strong> {style.availability}
             </p>
+            {currentGameState.reviewNote && <p className="mt-4 rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-sm leading-6 text-slate-200">{currentGameState.reviewNote}</p>}
+          </div>
+
+          <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-white">Release and return history</h2>
+                <p className="mt-2 text-sm leading-6 text-muted">Past windows are evidence, not a prediction of the next return.</p>
+              </div>
+              <Link href="/style-return-dates" className="text-sm font-semibold text-accent-teal hover:text-white">All return dates</Link>
+            </div>
+            {availabilityHistory.length ? (
+              <div className="mt-5 space-y-3">
+                {availabilityHistory.map((event) => (
+                  <div key={`${event.updateNumber}-${event.label}`} className="rounded-3xl border border-white/10 bg-background/65 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Update {event.updateNumber} · {event.sourceTier}</p>
+                    <p className="mt-2 font-semibold text-white">{event.label}: {event.window}</p>
+                    <p className="mt-2 text-sm leading-6 text-muted">{event.note}</p>
+                  </div>
+                ))}
+              </div>
+            ) : <p className="mt-5 rounded-3xl border border-white/10 bg-background/65 p-4 text-sm leading-6 text-muted">No dated return window is in this snapshot. The next return is not announced.</p>}
           </div>
 
           <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
@@ -209,7 +234,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
           </div>
 
           <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
-            <h2 className="text-2xl font-heading font-bold text-white">Search terms this page targets</h2>
+            <h2 className="text-2xl font-heading font-bold text-white">Also known as</h2>
             <div className="mt-5 flex flex-wrap gap-2">
               {style.searchTerms.map((term) => (
                 <span key={term} className="rounded-full border border-white/10 bg-background/65 px-3 py-1 text-xs text-slate-200">
@@ -231,6 +256,14 @@ export default async function StyleDetailPage({ params }: PageProps) {
               </summary>
               <p className="mt-3 text-sm leading-6 text-muted">
                 If you like the role profile and the mechanical demands fit your level, usually yes. The real decision is whether it solves the job you want better than your current style.
+              </p>
+            </details>
+            <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
+              <summary className="cursor-pointer list-none text-lg font-semibold text-white">
+                When does {style.name} return?
+              </summary>
+              <p className="mt-3 text-sm leading-6 text-muted">
+                {availabilityHistory.length ? `The latest documented window was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. The next return has not been announced.` : `No dated return is documented in this snapshot. The next return has not been announced.`}
               </p>
             </details>
             <details className="rounded-2xl border border-white/10 bg-background/65 p-4">

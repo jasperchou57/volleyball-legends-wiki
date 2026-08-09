@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   description:
     "Looking for Haikyuu Legends codes? The game is now Volleyball Legends. This page routes old-name searches to the current codes hub and latest working code list.",
   alternates: {
-    canonical: "/codes",
+    canonical: "/haikyuu-legends-codes",
   },
 };
 
 export default function HaikyuuLegendsCodesPage() {
-  const freshCodes = activeCodes.filter((entry) => entry.status === "Active");
+  const communityCodes = activeCodes.filter((entry) => entry.status === "Community verified");
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-10">
@@ -41,9 +41,10 @@ export default function HaikyuuLegendsCodesPage() {
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Reported-active codes</h2>
+        <h2 className="text-2xl font-heading font-bold text-white">Current community-verified codes</h2>
+        <p className="mt-3 text-sm leading-6 text-muted">Multiple public trackers agree on these codes. They are not presented as official; redeem in-game before relying on them.</p>
         <div className="mt-5 flex flex-wrap gap-3">
-          {freshCodes.map((entry) => (
+          {communityCodes.map((entry) => (
             <Link
               key={entry.code}
               href="/codes"

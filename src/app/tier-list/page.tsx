@@ -6,28 +6,29 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Tier List",
   description:
     "Volleyball Legends tier list hub for styles, abilities, and role-based rankings built on community notes and site-maintained grouping.",
+  alternates: { canonical: "/tier-list" },
 };
 
 const tierLinks = [
   {
     title: "Style Tier List",
     href: "/tier-list/styles",
-    description: "The main ranking page targeting best styles and styles tier list queries.",
+    description: "Community tier snapshot with links to role notes, mechanics, and availability history.",
   },
   {
     title: "Ability Tier List",
     href: "/tier-list/abilities",
-    description: "Lead Feet, Curve Spike, Shield Breaker, and other ability pages grouped by real query demand.",
+    description: "Lead Feet, Curve Spike, Shield Breaker, and other ability pages grouped by how they play.",
   },
   {
     title: "Spiker Tier List",
     href: "/tier-list/spiker",
-    description: "Role-specific ranking pages convert generic tier traffic into useful decisions.",
+    description: "A role-first view for players deciding how to build a spiker slot.",
   },
   {
     title: "Setter Tier List",
     href: "/tier-list/setter",
-    description: "Captures the smaller but more serious setting-intent audience.",
+    description: "A setter-first view for tempo, control, and team utility.",
   },
   {
     title: "Libero Tier List",
@@ -55,7 +56,7 @@ export default function TierListHubPage() {
           Volleyball Legends Tier List
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Tier pages work best when they are split by intent. Instead of one giant ranking wall, this site breaks rankings into styles, abilities, and position-leaning views so more queries get their own focused landing page.
+          These rankings are community opinions, not developer data. Use the role pages to compare styles for the job you actually play, then check availability before spending spins.
         </p>
       </section>
 

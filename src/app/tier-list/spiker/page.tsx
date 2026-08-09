@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Spiker Tier List",
   description:
     "Best spiker styles in Volleyball Legends, grouped into a focused role tier list instead of a generic all-in-one ranking page.",
+  alternates: { canonical: "/tier-list/spiker" },
 };
 
 const order = { S: 0, A: 1, B: 2, C: 3 };

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Style Compare Tool",
   description:
     "Compare two Volleyball Legends styles side by side with role, offense, control, defense, mobility, and difficulty snapshots.",
+  alternates: { canonical: "/tools/style-compare" },
 };
 
 export default function StyleComparePage() {

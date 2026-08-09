@@ -1,12 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { featuredStyles, pageFreshness } from "@/data/volleyball";
+import { currentGameState, featuredStyles, pageFreshness } from "@/data/volleyball";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Style Tier List",
   description:
     "Community-maintained Volleyball Legends style tier list covering Encho, Twins, Mikage, Kijo, Jinko, Ronin, Taichou, and more.",
+  alternates: { canonical: "/tier-list/styles" },
 };
 
 const order = { S: 0, A: 1, B: 2, C: 3 };
@@ -29,12 +30,22 @@ export default function StyleTierListPage() {
           Volleyball Legends Style Tier List
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This ranking is explicitly community-maintained. It is designed to satisfy style-tier queries while still pushing players into the underlying style pages for real context.
+          This is a community-maintained, last-verified Update {currentGameState.updateNumber} snapshot. Tier is only a starting point: role fit, mechanics, and whether a style is actually available matter more than one letter.
         </p>
         <p className="mt-3 max-w-3xl text-xs leading-6 text-muted">
           Last updated: <strong className="text-slate-200">{pageFreshness.tierListLastUpdated}</strong>. This tier list is not an official developer ranking.
         </p>
       </section>
+
+      <section className="mt-6 rounded-[2rem] border border-border bg-surface/80 p-6">
+        <h2 className="text-2xl font-heading font-bold text-white">How to use this list</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted">Ranks combine community observations of role fit, mechanics, availability, and recent patch context. They are site-maintained planning data, not an official developer conclusion. Choose a role view before treating a high overall rank as a recommendation for your own playstyle.</p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          {[['Overall', '/tier-list/styles'], ['Spiker', '/tier-list/spiker'], ['Setter', '/tier-list/setter'], ['Libero', '/tier-list/libero'], ['Blocker', '/tier-list/blocker']].map(([label, href]) => <Link key={href} href={href} className="rounded-full border border-white/10 bg-background/65 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/25">{label}</Link>)}
+        </div>
+      </section>
+
+      <p className="mt-4 text-sm text-muted">Looking for a limited pick? <Link href="/style-return-dates" className="font-semibold text-accent-teal hover:text-white">Check documented return history</Link> before you plan around an unannounced banner.</p>
 
       <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {sorted.map((style) => (

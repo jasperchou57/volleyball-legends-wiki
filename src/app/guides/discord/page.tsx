@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Volleyball Legends Discord",
   description:
     "Official Volleyball Legends Discord link, what it is used for, and why it matters for codes, updates, and fast verification.",
+  alternates: { canonical: "/guides/discord" },
 };
 
 export default function DiscordGuidePage() {

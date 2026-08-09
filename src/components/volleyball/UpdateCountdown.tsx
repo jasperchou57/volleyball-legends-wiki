@@ -136,17 +136,17 @@ export function UpdateCountdown() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted">
-            Weekly Reset
+            Expected weekly window
           </p>
           <h3 className="mt-2 text-3xl font-heading font-bold text-white">
-            Next Saturday Update
+            Next Saturday check-in
           </h3>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-            The official Roblox game description lists weekly Saturday updates around 11:30 AM ET. Discord still decides the exact patch-note timing.
+            The game has historically listed Saturday updates around 11:30 AM ET. Treat this as a check-in time; Discord and the in-game banner decide the exact release and contents.
           </p>
         </div>
         <div className="rounded-full border border-accent-orange/40 bg-accent-orange/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">
-          Official schedule
+          Expected window
         </div>
       </div>
 
@@ -167,7 +167,7 @@ export function UpdateCountdown() {
       </div>
 
       <p className="mt-5 text-xs leading-5 text-muted">
-        Displayed schedule: Saturdays at 11:30 AM Eastern Time. Always verify big patches in the official Discord first if you are racing to post codes or update notes.
+        Displayed schedule: Saturdays at 11:30 AM Eastern Time. Always verify codes, banners, and major notes in the official Discord or in-game first.
       </p>
     </div>
   );

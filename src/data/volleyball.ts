@@ -1,4 +1,7 @@
 export type SourceTier = "Official" | "Community" | "Site";
+export type VerificationStatus = "Official" | "Community verified" | "Monitoring" | "Review required";
+export type CodeStatus = "Officially announced" | "Community verified" | "Needs verification";
+export type AvailabilityStatus = "Available now" | "Limited window" | "Not currently available" | "Unknown";
 export type StyleRarity = "Common" | "Rare" | "Legendary" | "Godly" | "Secret" | "Ultra" | "Evo";
 export type Role = "Spiker" | "Setter" | "Libero" | "All-Rounder" | "Blocker";
 export type CommunityTier = "S" | "A" | "B" | "C";
@@ -23,7 +26,7 @@ export interface CodeEntry {
   code: string;
   reward: string;
   releaseDate: string;
-  status: "Active" | "Verify";
+  status: CodeStatus;
   sourceTier: SourceTier;
   lastChecked: string;
   sourceNote: string;
@@ -69,6 +72,7 @@ export interface AbilityEntry {
   summary: string;
   whyItMatters: string;
   sourceTier: SourceTier;
+  availability?: string;
   bestWith: string[];
   searchTerms: string[];
 }
@@ -82,6 +86,9 @@ export interface UpdateEntry {
   highlights: string[];
   codes: string[];
   focusStyles?: string[];
+  lastChecked?: string;
+  evidenceNote?: string;
+  affectedPages?: Array<{ label: string; href: string }>;
 }
 
 export interface PatchDiffRow {
@@ -124,31 +131,42 @@ export interface HeroImage {
   alt: string;
 }
 
-export interface OfficialSnapshot {
-  snapshotDateLabel: string;
-  gameUpdatedIso: string;
-  gameUpdatedLabel: string;
-  playing: number;
-  visits: number;
-  favorites: number;
-  upVotes: number;
-  downVotes: number;
-  groupMembers: number;
-  mediaImages: number;
-  mediaVideos: number;
-  latestPublicPatch: string;
-  latestPublicPatchDate: string;
-  note: string;
-}
-
 export interface PageFreshness {
   siteLastUpdated: string;
+  siteLastUpdatedIso: string;
   officialDataLastSynced: string;
   updateTrackerLastUpdated: string;
   codesLastChecked: string;
   tierListLastUpdated: string;
   tradingLastUpdated: string;
   pityLastUpdated: string;
+}
+
+export interface CurrentGameState {
+  updateNumber: number;
+  releasedAt: string;
+  lastVerified: string;
+  verificationStatus: VerificationStatus;
+  summary: string;
+  nextUpdateNote: string;
+  reviewNote?: string;
+  officialActivity?: {
+    source: "Roblox API";
+    observedAt: string;
+    gameUpdatedAt: string;
+    summary: string;
+  };
+}
+
+export interface AvailabilityEvent {
+  subjectType: "Style" | "Ability";
+  subjectSlug: string;
+  label: string;
+  window: string;
+  updateNumber: number;
+  status: AvailabilityStatus;
+  sourceTier: SourceTier;
+  note: string;
 }
 
 export interface HomepageRecentlyUpdatedPage {
@@ -171,44 +189,45 @@ export const siteConfig = {
   },
 };
 
-export const officialSnapshot: OfficialSnapshot = {
-  snapshotDateLabel: "May 14, 2026",
-  gameUpdatedIso: "2026-05-14T00:45:01.5165032Z",
-  gameUpdatedLabel: "May 13, 2026 at 5:45:01 PM PT",
-  playing: 27822,
-  visits: 3320009213,
-  favorites: 4500231,
-  upVotes: 2370188,
-  downVotes: 112674,
-  groupMembers: 4171172,
-  mediaImages: 7,
-  mediaVideos: 1,
-  latestPublicPatch: "No newer public patch note indexed",
-  latestPublicPatchDate: "May 14, 2026 check",
-  note: "Roblox shows Volleyball Legends updating again on May 13, 2026, but the official patch write-up is still Discord-first and not publicly indexed on the open web. Treat Roblox game-page timestamps, media refreshes, and Discord announcements as the live official signals.",
+export const currentGameState: CurrentGameState = {
+  updateNumber: 80,
+  releasedAt: "July 25, 2026",
+  lastVerified: "July 27, 2026",
+  verificationStatus: "Monitoring",
+  summary: "Update 80 returned Hidari for a limited window and included an Encho balance pass.",
+  nextUpdateNote: "The game normally updates on Saturdays around 11:30 AM ET. A future style return is not confirmed until the developer posts it in the official channels.",
+  reviewNote: "Update 80 remains the last community-verified gameplay snapshot. The official Roblox listing changed on August 8, and public trackers agree on a new Update 82 code cluster, but no official patch breakdown or balance details are confirmed here yet.",
+  officialActivity: {
+    source: "Roblox API",
+    observedAt: "August 8, 2026",
+    gameUpdatedAt: "August 8, 2026",
+    summary: "The official game listing remains labeled [UPD] Volleyball Legends and has a newer Roblox API updated timestamp. The API does not publish a complete patch breakdown, so gameplay changes and banner details remain unverified; current codes are tracked separately as community evidence.",
+  },
 };
 
 export const pageFreshness: PageFreshness = {
-  siteLastUpdated: "May 14, 2026",
-  officialDataLastSynced: officialSnapshot.snapshotDateLabel,
-  updateTrackerLastUpdated: officialSnapshot.latestPublicPatchDate,
-  codesLastChecked: "May 14, 2026",
-  tierListLastUpdated: "May 14, 2026 source-policy review",
-  tradingLastUpdated: "May 14, 2026 editorial disclaimer review",
-  pityLastUpdated: "May 14, 2026 source-policy review",
+  siteLastUpdated: "August 8, 2026",
+  siteLastUpdatedIso: "2026-08-08T00:00:00.000Z",
+  officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
+  updateTrackerLastUpdated: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
+  codesLastChecked: "August 8, 2026",
+  tierListLastUpdated: "July 27, 2026 community snapshot",
+  tradingLastUpdated: "July 27, 2026 availability-history review",
+  pityLastUpdated: "July 27, 2026 availability-history review",
 };
 
 export const mainQueryChips: QueryChip[] = [
-  { label: "volleyball legends codes", href: "/codes" },
-  { label: "volleyball legends styles", href: "/styles" },
-  { label: "volleyball legends tier list", href: "/tier-list/styles" },
-  { label: "volleyball legends discord", href: "/guides/discord" },
-  { label: "volleyball legends ranks", href: "/guides/ranks" },
-  { label: "volleyball legends controls", href: "/guides/controls" },
-  { label: "volleyball legends pity", href: "/guides/pity-system" },
-  { label: "volleyball legends next update", href: "/next-update" },
-  { label: "volleyball legends patch notes", href: "/updates" },
-  { label: "volleyball legends trading", href: "/trading" },
+  { label: "Codes", href: "/codes" },
+  { label: "Styles", href: "/styles" },
+  { label: "Tier List", href: "/tier-list/styles" },
+  { label: "Official Discord", href: "/guides/discord" },
+  { label: "Ranks", href: "/guides/ranks" },
+  { label: "Controls", href: "/guides/controls" },
+  { label: "Pity", href: "/guides/pity-system" },
+  { label: "Next Update", href: "/next-update" },
+  { label: "Patch Notes", href: "/updates" },
+  { label: "Trading", href: "/trading" },
+  { label: "Return Dates", href: "/style-return-dates" },
 ];
 
 export const trendingQueryChips: QueryChip[] = [
@@ -224,143 +243,65 @@ export const trendingQueryChips: QueryChip[] = [
 
 export const activeCodes: CodeEntry[] = [
   {
-    code: "UPDATE_65",
-    reward: "5 Lucky Style Spins",
-    releaseDate: "April 11, 2026",
-    status: "Active",
+    code: "UPDATE_82",
+    reward: "5 Lucky Spins (type unconfirmed)",
+    releaseDate: "August 8, 2026",
+    status: "Community verified",
     sourceTier: "Community",
     lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
+    sourceNote: "The code name is corroborated by multiple public trackers on August 8. Trackers disagree on Style versus Ability Spins, and no public official announcement was indexed, so confirm the reward in-game.",
   },
   {
-    code: "SEASON_14",
-    reward: "5 Lucky Style Spins",
-    releaseDate: "April 11, 2026",
-    status: "Active",
+    code: "ROKETTO",
+    reward: "5 Lucky Spins (type unconfirmed)",
+    releaseDate: "August 8, 2026",
+    status: "Community verified",
     sourceTier: "Community",
     lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
+    sourceNote: "The code name is corroborated by multiple public trackers on August 8. Trackers disagree on Style versus Ability Spins, and no public official announcement was indexed, so confirm the reward in-game.",
   },
   {
-    code: "EASTER_UPDATE",
-    reward: "5 Lucky Ability Spins",
-    releaseDate: "April 11, 2026",
-    status: "Active",
+    code: "JETPACK",
+    reward: "5 Lucky Spins (type unconfirmed)",
+    releaseDate: "August 8, 2026",
+    status: "Community verified",
     sourceTier: "Community",
     lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
-  },
-  {
-    code: "UPDATE_64",
-    reward: "5 Lucky Style Spins",
-    releaseDate: "April 4, 2026",
-    status: "Active",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
-  },
-  {
-    code: "TOURNAMENTS",
-    reward: "5 Lucky Style Spins",
-    releaseDate: "April 4, 2026",
-    status: "Active",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
-  },
-  {
-    code: "CHALLENGER",
-    reward: "5 Lucky Ability Spins",
-    releaseDate: "April 4, 2026",
-    status: "Active",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Community-reported code; verify in-game or in the official Discord before publishing as live.",
-  },
-  {
-    code: "UPDATE_63",
-    reward: "5 Lucky Style Spins",
-    releaseDate: "March 28, 2026",
-    status: "Verify",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
-  },
-  {
-    code: "EVO_RARITY",
-    reward: "5 Lucky Style Spins",
-    releaseDate: "March 28, 2026",
-    status: "Verify",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
-  },
-  {
-    code: "STRETCH",
-    reward: "5 Lucky Ability Spins",
-    releaseDate: "March 28, 2026",
-    status: "Verify",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
-  },
-  {
-    code: "UPDATE_62",
-    reward: "5 Lucky Style Spins",
-    releaseDate: "March 21, 2026",
-    status: "Verify",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
-  },
-  {
-    code: "MIKAGE_IS_BACK",
-    reward: "5 Lucky Style Spins",
-    releaseDate: "March 21, 2026",
-    status: "Verify",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
-  },
-  {
-    code: "BALL_MACHINES",
-    reward: "5 Lucky Ability Spins",
-    releaseDate: "March 21, 2026",
-    status: "Verify",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
-  },
-  {
-    code: "UPDATE_61",
-    reward: "5 Lucky Style Spins",
-    releaseDate: "March 14, 2026",
-    status: "Verify",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
-  },
-  {
-    code: "SEASON_13",
-    reward: "5 Lucky Style Spins",
-    releaseDate: "March 14, 2026",
-    status: "Verify",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
-  },
-  {
-    code: "STPATRICKS_DAY",
-    reward: "5 Lucky Ability Spins",
-    releaseDate: "March 14, 2026",
-    status: "Verify",
-    sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "Older community-circulated code. Treat as unverified until checked in-game.",
+    sourceNote: "The code name is corroborated by multiple public trackers on August 8. Trackers disagree on Style versus Ability Spins, and no public official announcement was indexed, so confirm the reward in-game.",
   },
 ];
 
 export const expiredCodes: ExpiredCodeEntry[] = [
+  { code: "UPDATE_81", reward: "5 Lucky Style Spins", releaseDate: "August 1, 2026", expiredNote: "Moved out of current code lists by multiple public trackers after the Update 82 code cluster appeared." },
+  { code: "LEAD_FEET_AGAIN", reward: "5 Lucky Style Spins", releaseDate: "August 1, 2026", expiredNote: "Moved out of current code lists by multiple public trackers after the Update 82 code cluster appeared." },
+  { code: "KNEE_SLIDE", reward: "5 Lucky Ability Spins", releaseDate: "August 1, 2026", expiredNote: "Moved out of current code lists by multiple public trackers after the Update 82 code cluster appeared." },
+  { code: "UPDATE_80", reward: "5 Lucky Style Spins", releaseDate: "July 25, 2026", expiredNote: "Multiple August 3 trackers supersede this with the Update 81 code cluster, but one current community list still reports it working. Confirm in-game before relying on either report." },
+  { code: "HIDARI_FINALLY", reward: "5 Lucky Style Spins", releaseDate: "July 25, 2026", expiredNote: "Multiple August 3 trackers supersede this with the Update 81 code cluster, but one current community list still reports it working. Confirm in-game before relying on either report." },
+  { code: "ENCHO_NERF", reward: "5 Lucky Ability Spins", releaseDate: "July 25, 2026", expiredNote: "Multiple August 3 trackers supersede this with the Update 81 code cluster, but one current community list still reports it working. Confirm in-game before relying on either report." },
+  { code: "UPDATE_79", reward: "5 Lucky Style Spins", releaseDate: "July 18, 2026", expiredNote: "Superseded by the Update 80 code cluster." },
+  { code: "SEASON_17", reward: "5 Lucky Style Spins", releaseDate: "July 18, 2026", expiredNote: "Superseded by the Update 80 code cluster." },
+  { code: "FESTIVAL_UPD", reward: "5 Lucky Ability Spins", releaseDate: "July 18, 2026", expiredNote: "Superseded by the Update 80 code cluster." },
+  { code: "UPDATE_78", reward: "5 Lucky Style Spins", releaseDate: "July 11, 2026", expiredNote: "Expired before Update 80." },
+  { code: "LEADERBOARD", reward: "5 Lucky Style Spins", releaseDate: "July 11, 2026", expiredNote: "Expired before Update 80." },
+  { code: "NEW_PACK", reward: "5 Lucky Ability Spins", releaseDate: "July 11, 2026", expiredNote: "Expired before Update 80." },
+  { code: "UPDATE_77", reward: "5 Lucky Style Spins", releaseDate: "July 4, 2026", expiredNote: "Expired before Update 80." },
+  { code: "RIKU", reward: "5 Lucky Style Spins", releaseDate: "July 4, 2026", expiredNote: "Expired before Update 80." },
+  { code: "HOLO_WALLS", reward: "5 Lucky Ability Spins", releaseDate: "July 4, 2026", expiredNote: "Expired before Update 80." },
+  { code: "UPDATE_76", reward: "5 Lucky Style Spins", releaseDate: "June 27, 2026", expiredNote: "Encho return update." },
+  { code: "ENCHO_RETURNS", reward: "5 Lucky Style Spins", releaseDate: "June 27, 2026", expiredNote: "Encho return update." },
+  { code: "BALANCE_76", reward: "5 Lucky Ability Spins", releaseDate: "June 27, 2026", expiredNote: "Encho return update." },
+  { code: "UPDATE_75", reward: "5 Lucky Style Spins", releaseDate: "June 20, 2026", expiredNote: "Kijo return update." },
+  { code: "SPECTATING", reward: "5 Lucky Style Spins", releaseDate: "June 20, 2026", expiredNote: "Kijo return update." },
+  { code: "SHOW_OFF", reward: "5 Lucky Ability Spins", releaseDate: "June 20, 2026", expiredNote: "Kijo return update." },
+  { code: "UPDATE_72", reward: "5 Lucky Style Spins", releaseDate: "May 30, 2026", expiredNote: "Feiko return update." },
+  { code: "NEW_MAP", reward: "5 Lucky Style Spins", releaseDate: "May 30, 2026", expiredNote: "Feiko return update." },
+  { code: "SUMMER_DELUXE", reward: "5 Lucky Ability Spins", releaseDate: "May 30, 2026", expiredNote: "Feiko return update." },
+  { code: "UPDATE_69", reward: "5 Lucky Style Spins", releaseDate: "May 9, 2026", expiredNote: "Lead Feet return update." },
+  { code: "RICOCHET_TOURNEY", reward: "5 Lucky Style Spins", releaseDate: "May 9, 2026", expiredNote: "Lead Feet return update." },
+  { code: "BALANCE_CHANGES", reward: "5 Lucky Ability Spins", releaseDate: "May 9, 2026", expiredNote: "Lead Feet return update." },
+  { code: "UPDATE_65", reward: "5 Lucky Style Spins", releaseDate: "April 11, 2026", expiredNote: "Historical Season 14 code." },
+  { code: "SEASON_14", reward: "5 Lucky Style Spins", releaseDate: "April 11, 2026", expiredNote: "Historical Season 14 code." },
+  { code: "EASTER_UPDATE", reward: "5 Lucky Ability Spins", releaseDate: "April 11, 2026", expiredNote: "Historical Season 14 code." },
   { code: "UPDATE_60", reward: "5 Lucky Style Spins", releaseDate: "March 7, 2026", expiredNote: "Released with Update 60 (Kijo)." },
   { code: "KIJO", reward: "5 Lucky Style Spins", releaseDate: "March 7, 2026", expiredNote: "Launch code for the Kijo limited Secret." },
   { code: "SUPER_TILTS", reward: "5 Lucky Ability Spins", releaseDate: "March 7, 2026", expiredNote: "Teased the new Super Tilt mechanic." },
@@ -377,6 +318,22 @@ export const expiredCodes: ExpiredCodeEntry[] = [
 
 export const featuredStyles: StyleEntry[] = [
   {
+    slug: "hidari",
+    name: "Hidari",
+    rarity: "Secret",
+    role: "Spiker",
+    communityTier: "S",
+    summary: "Limited Secret spiker whose Update 80 return put it back into current spin decisions.",
+    signature: "A high-pressure spiker profile built for players choosing between a featured limited banner and saving their spins.",
+    whyPlayersSearch: "Hidari returned in Update 80, so the immediate question is whether the limited banner is worth your current spin stack.",
+    availability: "Latest reported limited return began with Update 80 on July 25, 2026. Check the in-game banner for the exact end time.",
+    sourceTier: "Community",
+    bestAbilities: ["redirection-jump", "shield-breaker", "lead-feet"],
+    bestRoles: ["Spiker"],
+    searchTerms: ["hidari volleyball legends", "hidari return", "is hidari worth it volleyball legends"],
+    scores: { offense: 9, control: 7, defense: 4, mobility: 7, difficulty: 7 },
+  },
+  {
     slug: "encho",
     name: "Encho",
     rarity: "Evo",
@@ -384,8 +341,8 @@ export const featuredStyles: StyleEntry[] = [
     communityTier: "S",
     summary: "The game's first-ever Evo rarity style. An All-Rounder with the Stretch mechanic that extends arms mid-air for a larger hitbox on blocks, spikes, serves and sets.",
     signature: "Stretch: arms extend mid-air to dramatically enlarge the active hitbox, letting Encho reach balls no other style can touch.",
-    whyPlayersSearch: "Encho was the first style released at the new Evo rarity introduced in Update 63, making it a milestone lookup. Drop rate on Lucky Spins was roughly 0.25% during its window — far rarer than Secret — and it went permanently unobtainable on April 11, 2026 at 11:30 AM ET.",
-    availability: "Permanently unobtainable. Encho left the game at the Update 65 / Season 14 reset on April 11, 2026 at 11:30 AM ET. If you did not roll it during the Update 63 window, it is gone for good.",
+    whyPlayersSearch: "Encho was the first Evo rarity style and its banner history matters because it returned in Update 76 before receiving another balance pass in Update 80. It is not a permanently removed style.",
+    availability: "Limited Evo style. Its most recently documented return was Update 76 (June 27, 2026); Update 80 later changed its balance. A future banner has not been announced.",
     sourceTier: "Community",
     bestAbilities: ["redirection-jump", "magnetic-pull", "divine-strength"],
     bestRoles: ["All-Rounder", "Blocker", "Spiker"],
@@ -402,7 +359,7 @@ export const featuredStyles: StyleEntry[] = [
     summary: "Dual-character limited Secret style that rotates back into the pool during Tournament Week and similar event windows.",
     signature: "Twins use swap-based plays: community writeups describe coordinated positioning and shared ability triggers between the two characters.",
     whyPlayersSearch: "Twins is a returning limited Secret that draws heavy search traffic every time its return window is announced. Most recently returned during Update 64 Tournament Week and left again on April 11, 2026 at 11:30 AM ET.",
-    availability: "Returning limited. Last rotated into the game during Update 64 (April 4 — April 11, 2026). Not currently obtainable as of Update 65; watch the event calendar for the next rotation.",
+    availability: "Returning limited. The last documented Twins window was Update 64 (April 4–11, 2026). A later return is not announced in this snapshot.",
     sourceTier: "Community",
     bestAbilities: ["team-spirit", "lead-feet", "redirection-jump"],
     bestRoles: ["All-Rounder", "Spiker"],
@@ -418,8 +375,8 @@ export const featuredStyles: StyleEntry[] = [
     communityTier: "S",
     summary: "High-skill secret spiker built around charged super tilts and explosive point-ending pressure.",
     signature: "Hold a tilt direction to charge a super tilt that sends the ball much farther left or right.",
-    whyPlayersSearch: "Kijo is the current breakout query because Update 60 introduced her as a limited secret style with a brand-new super tilt mechanic.",
-    availability: "Originally released in Update 60 (March 7, 2026) as a limited Secret. Her launch window has closed; track the returning-limited watchlist for her next rotation.",
+    whyPlayersSearch: "Kijo introduced the Super Tilt mechanic in Update 60 and returned for one week in Update 75, so players still look for both her tech and the next confirmed banner.",
+    availability: "Limited Secret. Released in Update 60 and most recently returned for one week in Update 75 (June 20, 2026). No next return date is announced.",
     sourceTier: "Community",
     bestAbilities: ["lead-feet", "redirection-jump", "shield-breaker"],
     bestRoles: ["Spiker"],
@@ -435,7 +392,7 @@ export const featuredStyles: StyleEntry[] = [
     communityTier: "S",
     summary: "Curve-focused secret spiker that bends serves and spikes into nasty off-angle lanes.",
     signature: "Tilt in different directions to add curve, backspin, or float behavior to serves and spikes.",
-    whyPlayersSearch: "Jinko has durable long-tail demand because players keep searching for curve tech, return windows, and whether the style is still worth rerolling for.",
+    whyPlayersSearch: "Jinko remains a popular curve-tech style for players weighing its mechanics, past return windows, and whether it is worth a reroll.",
     availability: "Previously limited; community pages treat returns as event windows rather than permanent pool access.",
     sourceTier: "Community",
     bestAbilities: ["curve-spike", "lead-feet", "redirection-jump"],
@@ -504,7 +461,7 @@ export const featuredStyles: StyleEntry[] = [
     summary: "Aggressive setter that turns dump plays into a real scoring threat instead of pure support.",
     signature: "Swap between normal jump sets and fast, high-gravity dump sets that fall sharply into open space.",
     whyPlayersSearch: "Feiko has sticky search demand because players want a setter that can still threaten points without handing initiative away.",
-    availability: "Usually tracked as a limited secret style during its featured window.",
+    availability: "Limited Secret. Feiko most recently returned in Update 72 (May 30, 2026). No next return date is announced.",
     sourceTier: "Community",
     bestAbilities: ["zero-gravity-set", "lead-feet", "magnetic-pull"],
     bestRoles: ["Setter", "All-Rounder"],
@@ -588,7 +545,7 @@ export const featuredStyles: StyleEntry[] = [
     communityTier: "C",
     summary: "Defensive legendary with decent dive and set support, but very limited scoring pressure.",
     signature: "Safe ball control and rally extension, especially for newer players learning rotation discipline.",
-    whyPlayersSearch: "Kyoshin shows up in long-tail searches because it is a common stepping-stone legendary and many players want to know when to move on.",
+    whyPlayersSearch: "Kyoshin is a common stepping-stone Legendary, so many players want to know when it is worth moving on.",
     availability: "Permanent Legendary pool in community references.",
     sourceTier: "Community",
     bestAbilities: ["steel-block", "magnetic-pull", "lead-feet"],
@@ -690,7 +647,7 @@ export const featuredStyles: StyleEntry[] = [
     communityTier: "A",
     summary: "Legendary playmaking style with strong bump, set, and speed numbers for players who want support value without rolling Godly or Secret.",
     signature: "High set and bump stats make it a clean bridge between budget styles and the premium Kyamo line.",
-    whyPlayersSearch: "Sagafura keeps showing up in long-tail searches because players compare it directly with Kyamo, Kosumi, and other ranked-safe support picks.",
+    whyPlayersSearch: "Sagafura is often compared with Kyamo, Kosumi, and other ranked-safe support picks.",
     availability: "Permanent Legendary pool in community style lists.",
     sourceTier: "Community",
     bestAbilities: ["zero-gravity-set", "magnetic-pull", "team-spirit"],
@@ -809,7 +766,7 @@ export const featuredStyles: StyleEntry[] = [
     communityTier: "A",
     summary: "Secret blocker with max block and jump plus strong tilt conversion for players who want front-row control first.",
     signature: "Mikage uses dominant blocking and sharp tilt routes to shut down predictable attacks and punish weak spacing.",
-    whyPlayersSearch: "Mikage is a strong long-tail page because players specifically search blocker-first secret styles instead of generic offensive rankings.",
+    whyPlayersSearch: "Mikage is a blocker-first Secret choice for players who value front-row control over generic offensive rankings.",
     availability: "Returned in Update 62 (March 21, 2026) and left again on April 4, 2026 at 11:30 AM ET. Watch for the next return window.",
     sourceTier: "Community",
     bestAbilities: ["steel-block", "rolling-thunder", "divine-strength"],
@@ -846,6 +803,7 @@ export const abilities: AbilityEntry[] = [
     summary: "Momentum-cancel ability that lets you stop mid-air, drop early, and create nasty bait sequences.",
     whyItMatters: "Lead Feet is one of the most searched abilities because it changes how you punish blockers and fake crosses during tight ranked points.",
     sourceTier: "Community",
+    availability: "Limited Secret ability. It launched in Update 56 and returned in Update 69 (May 9, 2026). No next return date is announced.",
     bestWith: ["kijo", "jinko", "yogan"],
     searchTerms: ["lead feet volleyball legends", "how to increase secret pity in volleyball legends"],
   },
@@ -1007,7 +965,181 @@ export const abilities: AbilityEntry[] = [
   },
 ];
 
+export const availabilityEvents: AvailabilityEvent[] = [
+  {
+    subjectType: "Style",
+    subjectSlug: "hidari",
+    label: "Hidari return",
+    window: "Began July 25, 2026",
+    updateNumber: 80,
+    status: "Limited window",
+    sourceTier: "Community",
+    note: "Reported with Update 80. Check the in-game banner for its exact end time or a hotfix extension.",
+  },
+  {
+    subjectType: "Style",
+    subjectSlug: "encho",
+    label: "Encho return",
+    window: "June 27, 2026",
+    updateNumber: 76,
+    status: "Not currently available",
+    sourceTier: "Community",
+    note: "This confirmed a return after the original Update 63 window; Encho is not permanently removed.",
+  },
+  {
+    subjectType: "Style",
+    subjectSlug: "kijo",
+    label: "Kijo return",
+    window: "June 20, 2026 for one week",
+    updateNumber: 75,
+    status: "Not currently available",
+    sourceTier: "Community",
+    note: "Kijo returned with profile inspect and spectating. No future rotation is announced.",
+  },
+  {
+    subjectType: "Style",
+    subjectSlug: "feiko",
+    label: "Feiko return",
+    window: "May 30, 2026",
+    updateNumber: 72,
+    status: "Not currently available",
+    sourceTier: "Community",
+    note: "A known Feiko return; the next window has not been announced.",
+  },
+  {
+    subjectType: "Ability",
+    subjectSlug: "lead-feet",
+    label: "Lead Feet return",
+    window: "May 9, 2026",
+    updateNumber: 69,
+    status: "Not currently available",
+    sourceTier: "Community",
+    note: "The Secret ability returned with the Ricochet 2v2 update. No future rotation is announced.",
+  },
+  {
+    subjectType: "Style",
+    subjectSlug: "twins",
+    label: "Twins return",
+    window: "April 4–11, 2026",
+    updateNumber: 64,
+    status: "Not currently available",
+    sourceTier: "Community",
+    note: "Tournament Week return window.",
+  },
+  {
+    subjectType: "Style",
+    subjectSlug: "encho",
+    label: "Encho debut",
+    window: "March 28–April 11, 2026",
+    updateNumber: 63,
+    status: "Not currently available",
+    sourceTier: "Community",
+    note: "First Evo banner and Stretch debut.",
+  },
+  {
+    subjectType: "Style",
+    subjectSlug: "kijo",
+    label: "Kijo debut",
+    window: "March 7–21, 2026",
+    updateNumber: 60,
+    status: "Not currently available",
+    sourceTier: "Community",
+    note: "First documented Super Tilt banner.",
+  },
+];
+
+export function getAvailabilityHistory(subjectType: AvailabilityEvent["subjectType"], subjectSlug: string) {
+  return availabilityEvents.filter((event) => event.subjectType === subjectType && event.subjectSlug === subjectSlug);
+}
+
+export function getLatestAvailability(subjectType: AvailabilityEvent["subjectType"], subjectSlug: string) {
+  return getAvailabilityHistory(subjectType, subjectSlug)[0];
+}
+
+export const currentlyAvailableStyles = availabilityEvents.filter(
+  (event) => event.subjectType === "Style" && event.status === "Limited window"
+);
+
 export const updates: UpdateEntry[] = [
+  {
+    slug: "update-80-hidari-encho",
+    title: "Volleyball Legends Update 80: Hidari Return & Encho Balance Pass",
+    published: "2026-07-25",
+    summary: "Update 80 opened a limited Hidari return window and shipped a new three-code cluster alongside Encho balance changes.",
+    sourceTier: "Community",
+    highlights: [
+      "Hidari returned to the limited pool; check the in-game banner for the exact remaining window.",
+      "Encho received balance changes, so older mastery and matchup advice should be retested before treating it as current.",
+      "Community code trackers agreed on UPDATE_80, HIDARI_FINALLY, and ENCHO_NERF on July 25–27.",
+      "This entry is a community-verified snapshot. The official Discord is the source of truth for an unindexed full changelog.",
+    ],
+    codes: ["UPDATE_80", "HIDARI_FINALLY", "ENCHO_NERF"],
+    focusStyles: ["encho"],
+    lastChecked: "July 27, 2026",
+    evidenceNote: "This historical entry is community-verified. The official Discord is the verification route for the complete developer announcement and any same-day correction.",
+    affectedPages: [
+      { label: "Codes", href: "/codes" },
+      { label: "Hidari style guide", href: "/styles/hidari" },
+      { label: "Encho style guide", href: "/styles/encho" },
+      { label: "Style tier list", href: "/tier-list/styles" },
+    ],
+  },
+  {
+    slug: "update-76-encho-return",
+    title: "Volleyball Legends Update 76: Encho Return",
+    published: "2026-06-27",
+    summary: "Update 76 brought Encho back and established that the Evo style can return after its original banner ends.",
+    sourceTier: "Community",
+    highlights: [
+      "Encho returned in a limited window after the original Update 63 banner.",
+      "The return invalidates old claims that Encho was permanently unobtainable after April 11.",
+      "Community trackers recorded UPDATE_76, ENCHO_RETURNS, and BALANCE_76 with the update.",
+    ],
+    codes: ["UPDATE_76", "ENCHO_RETURNS", "BALANCE_76"],
+    focusStyles: ["encho"],
+  },
+  {
+    slug: "update-75-kijo-return",
+    title: "Volleyball Legends Update 75: Kijo Return, Profile Inspect & Spectating",
+    published: "2026-06-20",
+    summary: "Update 75 returned Kijo for one week and added profile inspect, spectating, and training-bot difficulties.",
+    sourceTier: "Community",
+    highlights: [
+      "Kijo returned for one week; her Super Tilt remains a high-skill, high-reward mechanic.",
+      "Profile inspect and spectating were added for easier player scouting and friend viewing.",
+      "Community trackers recorded UPDATE_75, SPECTATING, and SHOW_OFF with the update.",
+    ],
+    codes: ["UPDATE_75", "SPECTATING", "SHOW_OFF"],
+    focusStyles: ["kijo"],
+  },
+  {
+    slug: "update-72-feiko-return",
+    title: "Volleyball Legends Update 72: Feiko Return",
+    published: "2026-05-30",
+    summary: "Update 72 brought Feiko back for a limited window, confirming the Secret setter is part of the returning-banner cycle.",
+    sourceTier: "Community",
+    highlights: [
+      "Feiko returned as a limited Secret setter option.",
+      "The return matters for players deciding whether to save spins for a future setter banner.",
+      "Community trackers recorded UPDATE_72, NEW_MAP, and SUMMER_DELUXE with the update.",
+    ],
+    codes: ["UPDATE_72", "NEW_MAP", "SUMMER_DELUXE"],
+    focusStyles: ["feiko"],
+  },
+  {
+    slug: "update-69-lead-feet-return",
+    title: "Volleyball Legends Update 69: Ricochet 2v2 & Lead Feet Return",
+    published: "2026-05-09",
+    summary: "Update 69 paired the Ricochet 2v2 event with a documented Lead Feet return and a new code cluster.",
+    sourceTier: "Community",
+    highlights: [
+      "Lead Feet returned as a limited Secret ability.",
+      "The ability's return history makes its availability a banner question, not a permanent-pool assumption.",
+      "Community trackers recorded UPDATE_69, RICOCHET_TOURNEY, and BALANCE_CHANGES with the update.",
+    ],
+    codes: ["UPDATE_69", "RICOCHET_TOURNEY", "BALANCE_CHANGES"],
+    focusStyles: ["kijo", "jinko"],
+  },
   {
     slug: "update-65-season-14",
     title: "Volleyball Legends Update 65: Season 14, Easter Season & Chaos Tease",
@@ -1021,7 +1153,7 @@ export const updates: UpdateEntry[] = [
       "Chaos mode was officially teased as the next week's gamemode.",
       "Balance note: Kisuki's dive hitbox was buffed to make the style more reliable on defense.",
       "2x Lucky event ran from April 11, 2026 to April 13, 2026 at 11:30 AM ET.",
-      "Encho (the first-ever Evo rarity style from Update 63) went permanently unobtainable at 11:30 AM ET on April 11, 2026 — if you missed it, you missed it.",
+      "Encho's original banner ended on April 11. It later returned in Update 76, so the end of this window was not permanent removal.",
       "Codes surfaced alongside the update: UPDATE_65, SEASON_14, EASTER_UPDATE.",
     ],
     codes: ["UPDATE_65", "SEASON_14", "EASTER_UPDATE"],
@@ -1055,7 +1187,7 @@ export const updates: UpdateEntry[] = [
       "Encho: the first style ever released at the new Evo rarity tier — an All-Rounder with the Stretch signature mechanic (arms extend mid-air for a larger hitbox on blocks, spikes, serves and sets).",
       "Evo rarity drop rate on Lucky Spins: roughly 0.25%, far rarer than Secret during normal conditions and on a separate pity track.",
       "48-hour 2x Luck event launched alongside the update.",
-      "Encho went permanently unobtainable on April 11, 2026 at 11:30 AM ET — if you don't own it, it is gone for good.",
+      "The first Encho banner ended on April 11, 2026. Update 76 later confirmed that Encho can return in a limited window.",
       "Codes: UPDATE_63, EVO_RARITY, STRETCH.",
     ],
     codes: ["UPDATE_63", "EVO_RARITY", "STRETCH"],
@@ -1130,7 +1262,7 @@ export const updates: UpdateEntry[] = [
       "Jinko returned for a limited event window.",
       "Lead Feet launched as a new secret ability focused on momentum cancels.",
       "2x Lucky Event again pushed secret rates and pity discussion into search results.",
-      "The update created long-tail demand around normal pity odds and whether Lead Feet was worth spinning for.",
+      "The update raised player questions about normal pity odds and whether Lead Feet was worth spinning for.",
     ],
     codes: ["UPDATE_56", "LEAD_FEET", "LIMITED_ABILITY"],
     focusStyles: ["jinko", "kisuki", "yogan"],
@@ -1139,25 +1271,25 @@ export const updates: UpdateEntry[] = [
 
 export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
   {
-    title: "Official Update Watch",
+    title: "Current Update Status",
     href: "/next-update",
-    sourceLabel: "Official watch",
+    sourceLabel: currentGameState.verificationStatus,
     updatedAt: pageFreshness.updateTrackerLastUpdated,
-    reason: `Roblox game page updated ${officialSnapshot.gameUpdatedLabel}.`,
+    reason: currentGameState.officialActivity?.summary ?? currentGameState.summary,
   },
   {
     title: "Codes",
     href: "/codes",
     sourceLabel: "Community",
     updatedAt: pageFreshness.codesLastChecked,
-    reason: `${activeCodes.filter((entry) => entry.status === "Active").length} reported-active codes shown; ${activeCodes.filter((entry) => entry.status === "Verify").length} older codes need in-game verification.`,
+    reason: `${activeCodes.length} community-verified Update 82 code names; reward types remain unconfirmed because public trackers conflict.`,
   },
   {
     title: updates[0].title,
     href: `/updates/${updates[0].slug}`,
     sourceLabel: updates[0].sourceTier,
     updatedAt: updates[0].published,
-    reason: "Latest indexed update archive entry. It remains labeled as community-sourced until a public official patch note is available.",
+    reason: "Latest community-verified update entry. Use the official Discord for the full developer changelog.",
   },
   {
     title: "Pity System",
@@ -1188,10 +1320,10 @@ export const patchDiffs: PatchDiffSection[] = [
     fromSlug: "update-64-tournament-week",
     toSlug: "update-65-season-14",
     label: "U64 → U65",
-    summary: "Season 14 and the Easter Season replaced Tournament Week as the headline layer. The big losses were Encho leaving forever and the Challenger grind disappearing from center stage.",
+    summary: "Historical U64 → U65 comparison. Encho's first banner ended in U65, but a later U76 return means that end was not permanent removal.",
     rows: [
       { field: "Current ranked season", before: "Season 13 (U61)", after: "Season 14 (U65)", delta: "ELO reset — ladder climb restarts for everyone" },
-      { field: "Encho obtainability", before: "Obtainable (Evo banner, 0.25% on Lucky Spins)", after: "Permanently unobtainable", delta: "Evo pity track goes dormant until next Evo banner" },
+      { field: "Encho first banner", before: "Obtainable (Evo banner, 0.25% on Lucky Spins)", after: "Initial banner ended", delta: "Later superseded by an Update 76 return" },
       { field: "Active code pool", before: "UPDATE_64 / TOURNAMENTS / CHALLENGER", after: "UPDATE_65 / SEASON_14 / EASTER_UPDATE + prior U64 codes", delta: "6 active codes — the largest live pool in months" },
       { field: "Event layer", before: "Tournament Week rotation", after: "Easter Season egg grind + Season 14 banners", delta: "Shifts player attention from tournaments to event cosmetics and seasonal rewards" },
       { field: "Public teaser for next patch", before: "No next-week mode publicly teased", after: "Chaos mode announced for the following week", delta: "Signals another mode-focused Saturday update is queued immediately after U65" },
@@ -1228,16 +1360,16 @@ export const patchDiffs: PatchDiffSection[] = [
 ];
 
 export const tradeValues: TradeValueEntry[] = [
-  { styleSlug: "encho", rarity: "Evo", obtainability: "Unobtainable", valueTier: "T1", demand: "High", note: "First-ever Evo. Went permanently unobtainable on April 11, 2026. Will only appreciate from here." },
+  { styleSlug: "encho", rarity: "Evo", obtainability: "Limited", valueTier: "T1", demand: "High", note: "First-ever Evo. Returned in Update 76, so availability can reopen when a future limited banner is announced." },
   { styleSlug: "kijo", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "High", note: "Limited Secret with the Super Tilt mechanic. Window closed; returns will reset demand temporarily." },
   { styleSlug: "twins", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "High", note: "Returning limited. Expected to rotate every few months during event weeks." },
   { styleSlug: "mikage", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Defensive blocker Secret. Solid meta niche, returned most recently in U62." },
-  { styleSlug: "jinko", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Curve mechanic Secret. Long-tail trading demand every time it returns." },
+  { styleSlug: "jinko", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Curve-mechanic Secret with recurring trading interest whenever it returns." },
   { styleSlug: "taichou", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Setter-focused Secret tied to the Duels patch (U59)." },
   { styleSlug: "timeskip-kyamo", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "High", note: "Time-skip variant of Kyamo. Limited banner style." },
   { styleSlug: "timeskip-okazu", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Time-skip variant of Okazu. Limited banner style." },
   { styleSlug: "ronin", rarity: "Ultra", obtainability: "Limited", valueTier: "T3", demand: "Medium", note: "Power-hitter Ultra. Traded less than Secrets but strong offensive meta." },
-  { styleSlug: "feiko", rarity: "Secret", obtainability: "Permanent", valueTier: "T3", demand: "Medium", note: "Permanent Secret in the current pool — value is meta-driven, not scarcity-driven." },
+  { styleSlug: "feiko", rarity: "Secret", obtainability: "Limited", valueTier: "T3", demand: "Medium", note: "Limited Secret setter that returned in Update 72; value is shaped by both meta fit and banner availability." },
   { styleSlug: "sanju", rarity: "Secret", obtainability: "Permanent", valueTier: "T3", demand: "Low", note: "Permanent Secret. Mostly traded as a stepping stone." },
   { styleSlug: "yogan", rarity: "Secret", obtainability: "Permanent", valueTier: "T3", demand: "Low", note: "Permanent Secret. Niche use cases." },
   { styleSlug: "akari", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Limited event Secret from earlier seasons." },
@@ -1257,20 +1389,20 @@ export const datamineSources: DatamineSource[] = [
 
 export const homepageFaq = [
   {
-    question: "What is the main keyword this site is targeting first?",
-    answer: "The site is built around the highest-intent query cluster: Volleyball Legends codes. From there, it funnels traffic into styles, abilities, updates, and tools.",
+    question: "What is the latest verified Volleyball Legends update on this wiki?",
+    answer: "Update 80 (July 25, 2026) remains the last community-verified gameplay snapshot, last reviewed July 27. The official Roblox listing changed on August 3, but this wiki will not assign a new update number or publish codes and balance notes until the details are sourced.",
   },
   {
     question: "Are the odds and style stats on this site official?",
     answer: "Not always. This site separates official links from community-confirmed data and site-maintained tools. Odds, pity math, and many style stat sheets should be treated as community-tracked unless the game itself publishes them.",
   },
   {
-    question: "Why are styles like Encho, Twins, Mikage, and Kijo featured first?",
-    answer: "They align with long-tail style demand, limited-return interest, and older-player lookup behavior. Encho in particular was the game's first Evo rarity style and went permanently unobtainable on April 11, 2026, which makes it a high-traffic lookup for players who missed the window.",
+    question: "When will a limited style or ability return?",
+    answer: "A past return is not a future schedule. The return calendar records dated banner history, but says 'not announced' until an official channel confirms the next window.",
   },
   {
-    question: "Why not launch with every page at once?",
-    answer: "This site is intentionally query-first. Codes, styles, abilities, updates, and a small tool set should go live first because those pages match the current SERP and are faster to keep accurate.",
+    question: "Are codes guaranteed to work?",
+    answer: "No. Codes can expire or be disabled without notice. The active list only includes the most recent multi-source-verified cluster, but you should redeem it in-game as soon as possible.",
   },
 ];
 
