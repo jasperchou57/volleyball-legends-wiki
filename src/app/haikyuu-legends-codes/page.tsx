@@ -13,8 +13,6 @@ export const metadata: Metadata = {
 };
 
 export default function HaikyuuLegendsCodesPage() {
-  const communityCodes = activeCodes.filter((entry) => entry.status === "Community verified");
-
   return (
     <div className="container mx-auto max-w-5xl px-4 py-10">
       <div className="flex items-center gap-2 text-sm text-muted">
@@ -42,15 +40,18 @@ export default function HaikyuuLegendsCodesPage() {
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">Current community-verified codes</h2>
-        <p className="mt-3 text-sm leading-6 text-muted">Multiple public trackers agree on these codes. They are not presented as official; redeem in-game before relying on them.</p>
+        <p className="mt-3 text-sm leading-6 text-muted">These codes match the current Codes page. Active status is based on community sources, not an in-game test by us.</p>
         <div className="mt-5 flex flex-wrap gap-3">
-          {communityCodes.map((entry) => (
+          {activeCodes.map((entry) => (
             <Link
               key={entry.code}
               href="/codes"
-              className="rounded-full border border-white/10 bg-background/65 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/20"
+              className="min-w-0 rounded-2xl border border-white/10 bg-background/65 px-4 py-3 text-sm text-white transition hover:border-white/20"
             >
-              {entry.code}
+              <span className="block break-all font-semibold">{entry.code}</span>
+              <span className="mt-1 block text-slate-200">{entry.reward}</span>
+              <span className="mt-2 block text-accent-teal">{entry.availability ?? entry.status}</span>
+              <span className="mt-1 block text-xs text-muted">{entry.status} · Source check: {entry.lastChecked || "Not recorded"}</span>
             </Link>
           ))}
         </div>

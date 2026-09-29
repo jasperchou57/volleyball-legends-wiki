@@ -30,6 +30,8 @@ export interface CodeEntry {
   sourceTier: SourceTier;
   lastChecked: string;
   sourceNote: string;
+  availability?: "Active" | "Unconfirmed";
+  sources?: { label: string; url: string }[];
 }
 
 export interface ExpiredCodeEntry {
@@ -210,7 +212,7 @@ export const pageFreshness: PageFreshness = {
   siteLastUpdatedIso: "2026-08-08T00:00:00.000Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
   updateTrackerLastUpdated: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  codesLastChecked: "August 8, 2026",
+  codesLastChecked: "September 29, 2026",
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
   pityLastUpdated: "July 27, 2026 availability-history review",
@@ -241,37 +243,52 @@ export const trendingQueryChips: QueryChip[] = [
   { label: "style tier list", href: "/tier-list/styles" },
 ];
 
+// Source review only: no in-game redemption test or original announcement verified.
+const currentCodeSources = [
+  { label: "Beebom", url: "https://beebom.com/haikyuu-legends-codes/" },
+  { label: "MrGuider", url: "https://www.mrguider.org/roblox/volleyball-legends-codes/" },
+];
+
 export const activeCodes: CodeEntry[] = [
   {
-    code: "UPDATE_82",
-    reward: "5 Lucky Spins (type unconfirmed)",
-    releaseDate: "August 8, 2026",
-    status: "Community verified",
+    code: "UPDATE_89",
+    reward: "5 Lucky Style Spins",
+    releaseDate: "September 26, 2026",
+    status: "Needs verification",
+    availability: "Active",
     sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "The code name is corroborated by multiple public trackers on August 8. Trackers disagree on Style versus Ability Spins, and no public official announcement was indexed, so confirm the reward in-game.",
+    lastChecked: "September 29, 2026",
+    sourceNote: "Beebom and MrGuider list this code as active with the same reward. Sources reviewed September 29, 2026; not tested in-game. September 26 is the sources' reported release date.",
+    sources: currentCodeSources,
   },
   {
-    code: "ROKETTO",
-    reward: "5 Lucky Spins (type unconfirmed)",
-    releaseDate: "August 8, 2026",
-    status: "Community verified",
+    code: "WE_CURSED",
+    reward: "5 Lucky Style Spins",
+    releaseDate: "September 26, 2026",
+    status: "Needs verification",
+    availability: "Active",
     sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "The code name is corroborated by multiple public trackers on August 8. Trackers disagree on Style versus Ability Spins, and no public official announcement was indexed, so confirm the reward in-game.",
+    lastChecked: "September 29, 2026",
+    sourceNote: "Beebom and MrGuider list this code as active with the same reward. Sources reviewed September 29, 2026; not tested in-game. September 26 is the sources' reported release date.",
+    sources: currentCodeSources,
   },
   {
-    code: "JETPACK",
-    reward: "5 Lucky Spins (type unconfirmed)",
-    releaseDate: "August 8, 2026",
-    status: "Community verified",
+    code: "SKELETON",
+    reward: "5 Lucky Ability Spins",
+    releaseDate: "September 26, 2026",
+    status: "Needs verification",
+    availability: "Active",
     sourceTier: "Community",
-    lastChecked: pageFreshness.codesLastChecked,
-    sourceNote: "The code name is corroborated by multiple public trackers on August 8. Trackers disagree on Style versus Ability Spins, and no public official announcement was indexed, so confirm the reward in-game.",
+    lastChecked: "September 29, 2026",
+    sourceNote: "Beebom and MrGuider list this code as active with the same reward. Sources reviewed September 29, 2026; not tested in-game. September 26 is the sources' reported release date.",
+    sources: currentCodeSources,
   },
 ];
 
 export const expiredCodes: ExpiredCodeEntry[] = [
+  { code: "UPDATE_82", reward: "5 Lucky Style Spins", releaseDate: "August 8, 2026", expiredNote: "Explicitly listed as expired by Beebom and MrGuider on September 29, 2026. Historical reward matches MrGuider and GamesRadar; not tested in-game." },
+  { code: "ROKETTO", reward: "5 Lucky Style Spins", releaseDate: "August 8, 2026", expiredNote: "Explicitly listed as expired by Beebom and MrGuider on September 29, 2026. Historical reward matches MrGuider and GamesRadar; not tested in-game." },
+  { code: "JETPACK", reward: "5 Lucky Ability Spins", releaseDate: "August 8, 2026", expiredNote: "Explicitly listed as expired by Beebom and MrGuider on September 29, 2026. Historical reward matches MrGuider and GamesRadar; not tested in-game." },
   { code: "UPDATE_81", reward: "5 Lucky Style Spins", releaseDate: "August 1, 2026", expiredNote: "Moved out of current code lists by multiple public trackers after the Update 82 code cluster appeared." },
   { code: "LEAD_FEET_AGAIN", reward: "5 Lucky Style Spins", releaseDate: "August 1, 2026", expiredNote: "Moved out of current code lists by multiple public trackers after the Update 82 code cluster appeared." },
   { code: "KNEE_SLIDE", reward: "5 Lucky Ability Spins", releaseDate: "August 1, 2026", expiredNote: "Moved out of current code lists by multiple public trackers after the Update 82 code cluster appeared." },
@@ -1282,7 +1299,7 @@ export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
     href: "/codes",
     sourceLabel: "Community",
     updatedAt: pageFreshness.codesLastChecked,
-    reason: `${activeCodes.length} community-verified Update 82 code names; reward types remain unconfirmed because public trackers conflict.`,
+    reason: `${activeCodes.length} Update 89 codes and rewards cross-checked against current community sources; in-game testing still pending.`,
   },
   {
     title: updates[0].title,

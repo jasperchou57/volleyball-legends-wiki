@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Clock3, Gift, ShieldCheck } from "lucide-react";
-import { activeCodes, currentGameState, expiredCodes, pageFreshness, siteConfig, updates, type CodeEntry } from "@/data/volleyball";
+import { activeCodes, expiredCodes, pageFreshness, siteConfig, updates, type CodeEntry } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
-import { CopyCodeButton } from "@/components/volleyball/CopyCodeButton";
+import { CodeCopyButton } from "./CodeCopyButton";
+import styles from "./CodesTable.module.css";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Codes",
@@ -14,31 +15,43 @@ export const metadata: Metadata = {
   },
 };
 
+function formatCheckDate(value: string) {
+  return new Date(value).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
 function CodeTable({ entries }: { entries: CodeEntry[] }) {
   return (
-    <div className="mt-5 overflow-x-auto rounded-3xl border border-white/10">
-      <table className="min-w-full divide-y divide-white/10 text-left text-sm">
-        <thead className="bg-background/70">
-          <tr className="text-xs uppercase tracking-[0.18em] text-muted">
-            <th className="px-4 py-3">Code</th>
-            <th className="px-4 py-3">Reward</th>
-            <th className="px-4 py-3">Status</th>
-            <th className="px-4 py-3">Last checked</th>
-            <th className="px-4 py-3"><span className="sr-only">Copy</span></th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-white/10 bg-surface/70">
-          {entries.map((entry) => (
-            <tr key={entry.code}>
-              <td className="px-4 py-4 font-semibold text-white">{entry.code}</td>
-              <td className="px-4 py-4 text-slate-200">{entry.reward}</td>
-              <td className="px-4 py-4 text-muted">{entry.status}</td>
-              <td className="px-4 py-4 text-muted">{entry.lastChecked}</td>
-              <td className="px-4 py-4"><CopyCodeButton code={entry.code} /></td>
+    <div className="mt-4">
+      <div className={styles.wrapper}>
+        <table className={styles.table} role="table" aria-label="Codes, rewards and last checked dates">
+          <thead role="rowgroup">
+            <tr role="row">
+              <th scope="col" role="columnheader">Code</th>
+              <th scope="col" role="columnheader">Reward</th>
+              <th scope="col" role="columnheader">Status</th>
+              <th scope="col" role="columnheader"><span className="sr-only">Copy</span></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody role="rowgroup">
+            {entries.map((entry) => (
+              <tr key={entry.code} role="row">
+                <td role="cell" className={styles.code}><code>{entry.code}</code></td>
+                <td role="cell" className={styles.reward}>{entry.reward}</td>
+                <td role="cell" className={styles.status}>
+                  <span className={entry.availability === "Active" ? "text-accent-teal" : "text-accent-gold"}>
+                    {entry.availability ?? entry.status}
+                  </span>
+                  <span className="mt-1 block text-xs leading-5 text-muted">
+                    Last checked: {entry.lastChecked ? formatCheckDate(entry.lastChecked) : "Not recorded"}
+                  </span>
+                </td>
+                <td role="cell" className={styles.copy}><CodeCopyButton code={entry.code} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
     </div>
   );
 }
@@ -49,54 +62,42 @@ export default function CodesPage() {
   const reviewCodes = activeCodes.filter((entry) => entry.status === "Needs verification");
 
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-10">
+    <div className="container mx-auto max-w-5xl px-4 py-6 md:py-10">
       <div className="flex items-center gap-2 text-sm text-muted">
         <Link href="/" className="hover:text-white transition-colors">Home</Link>
         <ChevronRight className="h-4 w-4" />
         <span className="text-white">Codes</span>
       </div>
 
-      <section className="mt-6 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
+      <section className="mt-6 rounded-[2rem] border border-border bg-surface/80 p-5 md:p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-accent-orange/20 bg-accent-orange/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">
+            <div className="inline-flex items-center gap-2 rounded-full border border-accent-orange/20 bg-accent-orange/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-accent-orange">
               <Gift className="h-4 w-4" />
-              Last code check: {pageFreshness.codesLastChecked}
+              Last checked: {formatCheckDate(pageFreshness.codesLastChecked)}
             </div>
             <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
               Volleyball Legends Codes
             </h1>
-            <p className="mt-4 text-base leading-7 text-muted md:text-lg">
-              Codes are separated by evidence level below. A code is never presented as official unless the developer published it; older community reports remain visible only as a last-known reference.
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-white/10 bg-background/70 p-5 text-sm text-muted">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Verification policy</p>
-            <p className="mt-2 text-lg font-semibold text-white">Evidence before convenience</p>
-            <p className="mt-2 max-w-xs leading-6">
-              Last cross-checked: <strong className="text-white">{pageFreshness.codesLastChecked}</strong>. Current site status: {currentGameState.verificationStatus}. Use the official Discord or in-game redemption box before spending around a code.
+            <p className="mt-3 text-sm leading-6 text-muted md:text-lg md:leading-7">
+              Copy a code below, then redeem it in-game at level 15.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)]">
         <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
           <div className="flex items-center gap-3">
             <ShieldCheck className="h-5 w-5 text-accent-teal" />
-            <h2 className="text-2xl font-heading font-bold text-white">Code status by source</h2>
+            <h2 className="text-2xl font-heading font-bold text-white">Code status</h2>
           </div>
           {officialCodes.length > 0 ? (
             <>
               <h3 className="mt-6 text-lg font-heading font-bold text-white">Officially announced</h3>
               <CodeTable entries={officialCodes} />
             </>
-          ) : (
-            <p className="mt-5 rounded-3xl border border-dashed border-white/15 bg-background/45 p-4 text-sm leading-6 text-muted">
-              No official code is recorded in this snapshot. We do not promote a community report into this group.
-            </p>
-          )}
+          ) : null}
           {communityCodes.length > 0 && (
             <>
               <h3 className="mt-6 text-lg font-heading font-bold text-white">Community verified</h3>
@@ -105,10 +106,10 @@ export default function CodesPage() {
           )}
           {reviewCodes.length > 0 && (
             <>
-              <h3 className="mt-6 text-lg font-heading font-bold text-accent-gold">Needs a current check</h3>
+              <h3 className="mt-6 text-lg font-heading font-bold text-accent-teal">Active codes</h3>
               <CodeTable entries={reviewCodes} />
-              <p className="mt-4 text-xs leading-5 text-muted">
-                These are the last-known community reports from Update {currentGameState.updateNumber}, not a claim that they still work. Each can expire without notice.
+              <p className="mt-3 text-xs leading-5 text-muted">
+                Last checked is a list review date, not an in-game test.
               </p>
             </>
           )}
@@ -133,7 +134,6 @@ export default function CodesPage() {
                   <p className="mt-1 text-xs text-muted">
                     Released {entry.releaseDate}.
                   </p>
-                  {entry.expiredNote && <p className="mt-2 text-xs leading-5 text-muted">{entry.expiredNote}</p>}
                 </div>
               ))}
             </div>
@@ -176,23 +176,23 @@ export default function CodesPage() {
         <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
           <h2 className="text-2xl font-heading font-bold text-white">How to redeem Volleyball Legends codes</h2>
           <ol className="mt-5 space-y-3 text-sm leading-7 text-muted">
-            <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Reach level 15 first. Community guides consistently say the codes tab only works after that point.</li>
+            <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Reach level 15 to unlock code redemption.</li>
             <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Open the <strong className="text-white">Shop</strong> menu at the bottom of the screen.</li>
-            <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Move to the <strong className="text-white">Codes</strong> section on the left or by scrolling through the shop tabs.</li>
-            <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Paste a working code into the text box and hit <strong className="text-white">Use Code</strong>.</li>
+            <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Move to the <strong className="text-white">Codes</strong> tab on the left of the Shop menu.</li>
+            <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Paste the complete code into the text box and press <strong className="text-white">Use Code</strong>.</li>
           </ol>
           <p className="mt-4 text-xs leading-5 text-muted">
-            These steps match multiple community guides and code pages. They are consistent, but still not an official developer-written help page.
+            Check the game’s response and your reward balance after submitting.
           </p>
         </div>
 
         <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
           <h2 className="text-2xl font-heading font-bold text-white">Why codes fail</h2>
           <div className="mt-5 space-y-3 text-sm leading-7 text-muted">
-            <div className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">You are below level 15.</div>
-            <div className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">The code expired after the latest Saturday update or hotfix.</div>
-            <div className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">You typed the code incorrectly or added an extra space.</div>
-            <div className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">The code is being circulated by third-party sites before players have actually verified it in game.</div>
+            <div className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Below level 15? Check your level and play until you meet the requirement.</div>
+            <div className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Game says the code has expired? Try another code from the current list; expiry dates are not guaranteed.</div>
+            <div className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Input error? Copy the complete code, preserving capital letters and underscores, with no extra spaces.</div>
+            <div className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Already claimed? Check whether this account redeemed the code before. For other errors, check the official Discord; an error alone does not prove expiry.</div>
           </div>
           <div className="mt-5 flex flex-wrap gap-3">
             <a
@@ -233,7 +233,7 @@ export default function CodesPage() {
           </details>
           <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
             <summary className="cursor-pointer list-none text-lg font-semibold text-white">Are all codes on this page official?</summary>
-            <p className="mt-3 text-sm leading-6 text-muted">No. Official announcements, community-verified reports, and entries that need a new check are shown separately. Redeem in-game before relying on any non-official entry.</p>
+            <p className="mt-3 text-sm leading-6 text-muted">No. These codes have not been tested in-game by us. Last checked records a review of the list, not a successful redemption.</p>
           </details>
           <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
             <summary className="cursor-pointer list-none text-lg font-semibold text-white">What rewards do codes usually give?</summary>

@@ -30,7 +30,7 @@ import {
   updates,
 } from "@/data/volleyball";
 import { UpdateCountdown } from "@/components/volleyball/UpdateCountdown";
-import { CopyCodeButton } from "@/components/volleyball/CopyCodeButton";
+import { CodeCopyButton as CopyCodeButton } from "./codes/CodeCopyButton";
 
 export const metadata: Metadata = {
   alternates: {
@@ -229,27 +229,31 @@ export default function Home() {
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Codes first</p>
-                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Current community-verified codes</h2>
+                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Active codes</h2>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
-                  Last checked: <strong className="text-slate-200">{pageFreshness.codesLastChecked}</strong>. Multiple public trackers agree on this code cluster; use the in-game redemption box or official Discord for final confirmation.
+                  Copy a code below, or view the full list for redemption steps.
                 </p>
               </div>
               <Link href="/codes" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">
-                Verify codes
+                View all codes
               </Link>
             </div>
             <div className="mt-5 grid gap-3 md:grid-cols-3">
               {codeSummary.map((entry) => (
                 <div key={entry.code} className="rounded-3xl border border-accent-gold/20 bg-background/65 p-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="font-heading text-lg font-bold text-white">{entry.code}</p>
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <p className="select-text break-all font-heading text-lg font-bold text-white">{entry.code}</p>
                     <CopyCodeButton code={entry.code} />
                   </div>
                   <p className="mt-2 text-sm text-slate-200">{entry.reward}</p>
-                  <p className="mt-2 text-xs leading-5 text-accent-teal">{entry.status} · {entry.sourceTier}</p>
+                  <p className="mt-2 text-sm leading-5 text-accent-teal">{entry.availability ?? entry.status}</p>
+                  <p className="mt-1 text-xs leading-5 text-muted">
+                    Last checked: {entry.lastChecked ? new Date(entry.lastChecked).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "Not recorded"}
+                  </p>
                 </div>
               ))}
             </div>
+            <p className="mt-3 text-xs leading-5 text-muted">Last checked is a list review date, not an in-game test.</p>
           </section>
 
           <section className="mt-10 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
@@ -282,7 +286,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <p className="mt-5 text-sm leading-6 text-muted">{currentGameState.reviewNote ?? currentGameState.nextUpdateNote}</p>
+              <p className="mt-5 text-sm leading-6 text-muted">Gameplay details here still refer to Update {currentGameState.updateNumber}. Codes are maintained separately; <Link href="/codes" className="underline underline-offset-4 hover:text-white">view the current codes</Link>.</p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link href="/next-update" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">
                   View update tracker
@@ -362,19 +366,19 @@ export default function Home() {
                 <h2 className="mt-2 text-3xl font-heading font-bold text-white">Pages to check first</h2>
               </div>
               <p className="max-w-xl text-sm leading-6 text-muted">
-                Start here for the latest verified codes, banner context, and changed mechanics.
+                Find current codes, banner information, and update notes.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               {homepageRecentlyUpdatedPages.map((page) => (
                 <Link key={page.href} href={page.href} className="group rounded-3xl border border-border bg-surface/80 p-5 transition hover:border-white/25">
                   <div className="flex items-center justify-between gap-3">
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.16em] text-muted">{page.sourceLabel}</span>
+                    {page.href !== "/codes" && <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.16em] text-muted">{page.sourceLabel}</span>}
                     <ArrowRight className="h-4 w-4 text-muted transition group-hover:translate-x-1 group-hover:text-white" />
                   </div>
                   <h3 className="mt-4 text-xl font-heading font-bold text-white">{page.title}</h3>
-                  <p className="mt-1 text-xs text-muted">Updated {page.updatedAt}</p>
-                  <p className="mt-2 text-sm leading-6 text-muted">{page.reason}</p>
+                  <p className="mt-1 text-xs text-muted">{page.href === "/codes" ? "Last checked" : "Updated"} {page.updatedAt}</p>
+                  <p className="mt-2 text-sm leading-6 text-muted">{page.href === "/codes" ? "Check current codes, rewards, and redemption steps." : page.reason}</p>
                 </Link>
               ))}
             </div>
@@ -560,7 +564,11 @@ export default function Home() {
                   <summary className="cursor-pointer list-none text-lg font-semibold text-white">
                     {item.question}
                   </summary>
-                  <p className="mt-3 max-w-3xl text-sm leading-6 text-muted">{item.answer}</p>
+                  <p className="mt-3 max-w-3xl text-sm leading-6 text-muted">{item.question === "What is the latest verified Volleyball Legends update on this wiki?"
+                    ? `The gameplay snapshot on this wiki is Update ${currentGameState.updateNumber}, last reviewed ${currentGameState.lastVerified}. Codes are maintained separately; use the Codes page for the current list.`
+                    : item.question === "Are codes guaranteed to work?"
+                      ? "No. Codes can expire without notice. Last checked records a review of the list, not a successful in-game redemption. Try the codes in-game to confirm your rewards."
+                      : item.answer}</p>
                 </details>
               ))}
             </div>
