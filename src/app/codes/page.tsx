@@ -233,7 +233,7 @@ export default function CodesPage() {
           </details>
           <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
             <summary className="cursor-pointer list-none text-lg font-semibold text-white">Are all codes on this page official?</summary>
-            <p className="mt-3 text-sm leading-6 text-muted">No. These codes have not been tested in-game by us. Last checked records a review of the list, not a successful redemption.</p>
+            <p className="mt-3 text-sm leading-6 text-muted">The current active codes come from the official Volleyball Legends Discord’s codes channel. We’ve checked the code names and rewards against the announcement.</p>
           </details>
           <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
             <summary className="cursor-pointer list-none text-lg font-semibold text-white">What rewards do codes usually give?</summary>
