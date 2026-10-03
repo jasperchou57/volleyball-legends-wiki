@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 
 const EASTERN_TIME_ZONE = "America/New_York";
 const TARGET_WEEKDAY = 6;
@@ -115,7 +116,7 @@ function formatRemaining(ms: number) {
   return { days, hours, minutes, seconds };
 }
 
-export function UpdateCountdown() {
+export function UpdateCountdown({ detailed = false }: { detailed?: boolean }) {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -131,44 +132,55 @@ export function UpdateCountdown() {
   const target = useMemo(() => (now ? getNextUpdateDate(now) : null), [now]);
   const remaining = target && now ? formatRemaining(target.getTime() - now.getTime()) : null;
 
+  const easternDate = target ? new Intl.DateTimeFormat("en-US", {
+    timeZone: EASTERN_TIME_ZONE, month: "long", day: "numeric", year: "numeric",
+  }).format(target) : null;
+  const localDate = target ? new Intl.DateTimeFormat("en-US", {
+    month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit",
+    timeZoneName: "short",
+  }).format(target) : null;
+  // Official Roblox event: https://www.roblox.com/events/4776371537748034221
+  // Hide this announcement when its scheduled start passes; never reuse it next week.
+  const showPreview = now && now.getTime() < Date.parse("2026-10-03T15:30:00Z");
+
   return (
-    <div className="rounded-3xl border border-border bg-surface/80 p-6 shadow-[0_24px_80px_rgba(8,21,33,0.35)]">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted">
-            Expected weekly window
+    <div>
+      <section className="relative overflow-hidden rounded-3xl border border-accent-teal/30 bg-surface/90 p-5 shadow-[0_24px_80px_rgba(8,21,33,0.35)] sm:p-8">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-32 h-80 w-80 rounded-full bg-accent-teal/10 blur-3xl" />
+        <div className="relative">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-teal">Weekly countdown</p>
+          <h3 className="mt-3 font-heading text-3xl font-bold text-white">Next update</h3>
+          <p className="mt-3 text-sm leading-6 text-muted">Updates every Saturday at 11:30 AM ET.</p>
+          <p className="mt-5 min-h-8 text-xl font-semibold text-white sm:text-2xl">
+            {target ? <time dateTime={target.toISOString()}>{easternDate} · 11:30 AM ET</time> : "Saturday · 11:30 AM ET"}
           </p>
-          <h3 className="mt-2 text-3xl font-heading font-bold text-white">
-            Next Saturday check-in
-          </h3>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-            The game has historically listed Saturday updates around 11:30 AM ET. Treat this as a check-in time; Discord and the in-game banner decide the exact release and contents.
-          </p>
-        </div>
-        <div className="rounded-full border border-accent-orange/40 bg-accent-orange/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">
-          Expected window
-        </div>
-      </div>
+          <p className="mt-2 min-h-6 text-sm leading-6 text-muted">Your local time: {localDate ?? "Loading…"}</p>
 
-      <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
-        {[
-          ["Days", remaining?.days ?? "--"],
-          ["Hours", remaining?.hours ?? "--"],
-          ["Minutes", remaining?.minutes ?? "--"],
-          ["Seconds", remaining?.seconds ?? "--"],
-        ].map(([label, value], index) => (
-          <div key={label} className="rounded-2xl border border-white/10 bg-background/70 p-5 text-center">
-            <p className={`text-4xl font-heading font-black ${index % 2 === 0 ? "text-accent-orange" : "text-accent-teal"}`}>
-              {value}
-            </p>
-            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-muted">{label}</p>
+          <div className="mt-7 grid grid-cols-4 gap-2 sm:gap-4" role="timer" aria-label="Time until the next scheduled update" aria-live="off">
+            {[
+              ["Days", remaining?.days], ["Hours", remaining?.hours],
+              ["Minutes", remaining?.minutes], ["Seconds", remaining?.seconds],
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-2xl border border-accent-teal/15 bg-background/70 px-1 py-5 text-center sm:py-7">
+                <p className="font-heading text-3xl font-black tabular-nums text-accent-teal sm:text-5xl md:text-6xl">{value === undefined ? "--" : String(value).padStart(2, "0")}</p>
+                <p className="mt-3 text-[10px] font-semibold uppercase tracking-wider text-muted sm:text-xs">{label}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-
-      <p className="mt-5 text-xs leading-5 text-muted">
-        Displayed schedule: Saturdays at 11:30 AM Eastern Time. Always verify codes, banners, and major notes in the official Discord or in-game first.
-      </p>
+          {!detailed && (
+            <Link href="/tools/update-countdown" className="mt-6 inline-block text-sm font-semibold text-accent-teal underline underline-offset-4">View update countdown →</Link>
+          )}
+        </div>
+      </section>
+      {detailed && showPreview && (
+        <section className="mt-6 rounded-3xl border border-border bg-surface/60 p-6 sm:p-8">
+          <h2 className="font-heading text-2xl font-bold text-white">What&apos;s coming</h2>
+          <ul className="mt-4 space-y-3 text-muted">
+            <li>A style is returning.</li>
+            <li>New Skeleton Bundle.</li>
+          </ul>
+        </section>
+      )}
     </div>
   );
 }

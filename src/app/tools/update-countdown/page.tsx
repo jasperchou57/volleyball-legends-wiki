@@ -26,11 +26,23 @@ export default function UpdateCountdownPage() {
           Volleyball Legends Update Countdown
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Use this as a reminder to check the official Discord and in-game banner around the usual Saturday reset. It is an expected window, not a confirmation of the next content drop.
+          See when the next Volleyball Legends update is scheduled, with a countdown and the start time in your time zone.
         </p>
       </section>
 
-      <UpdateCountdown />
+      <UpdateCountdown detailed />
+
+      <section className="mt-8 rounded-3xl border border-border bg-surface/60 p-6 md:p-8">
+        <h2 className="font-heading text-2xl font-bold text-white">Common questions</h2>
+        <details className="mt-5 border-b border-border pb-5">
+          <summary className="cursor-pointer font-semibold text-white">When does Volleyball Legends update?</summary>
+          <p className="mt-3 text-muted leading-7">Updates are usually scheduled for Saturdays at 11:30 AM Eastern Time. The countdown adjusts for daylight saving time and shows the start time in your time zone.</p>
+        </details>
+        <details className="pt-5">
+          <summary className="cursor-pointer font-semibold text-white">What happens when the countdown ends?</summary>
+          <p className="mt-3 text-muted leading-7">The countdown automatically moves to the following Saturday. For release announcements or schedule changes, check the <Link href="/guides/discord" className="text-accent-teal underline underline-offset-4">official Discord</Link>.</p>
+        </details>
+      </section>
     </div>
   );
 }
