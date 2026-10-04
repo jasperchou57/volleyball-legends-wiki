@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/codes/expired`, changeFrequency: "weekly", priority: 0.72 },
     { url: `${base}/haikyuu-legends-codes`, changeFrequency: "daily", priority: 0.82 },
     { url: `${base}/patch-diff`, changeFrequency: "weekly", priority: 0.88 },
-    { url: `${base}/trading`, changeFrequency: "weekly", priority: 0.86 },
     { url: `${base}/next-update`, changeFrequency: "daily", priority: 0.82 },
     { url: `${base}/style-return-dates`, changeFrequency: "weekly", priority: 0.87 },
     { url: `${base}/styles`, changeFrequency: "weekly", priority: 0.9 },

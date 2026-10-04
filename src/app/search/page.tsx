@@ -56,14 +56,6 @@ const staticResults: SearchResult[] = [
     keywords: ["tier list", "best style", "styles", "meta"],
   },
   {
-    title: "Trading Value List",
-    href: "/trading",
-    type: "Values",
-    source: "Site",
-    summary: `Editorial value tiers, not official prices. Last updated ${pageFreshness.tradingLastUpdated}.`,
-    keywords: ["values", "trading", "trade", "value list"],
-  },
-  {
     title: "Pity System",
     href: "/guides/pity-system",
     type: "Guide",

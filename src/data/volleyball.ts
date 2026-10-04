@@ -256,7 +256,6 @@ export const mainQueryChips: QueryChip[] = [
   { label: "Pity", href: "/guides/pity-system" },
   { label: "Next Update", href: "/next-update" },
   { label: "Patch Notes", href: "/updates" },
-  { label: "Trading", href: "/trading" },
   { label: "Return Dates", href: "/style-return-dates" },
 ];
 
@@ -266,7 +265,6 @@ export const trendingQueryChips: QueryChip[] = [
   { label: "official discord", href: "/guides/discord" },
   { label: "weekly update", href: "/next-update" },
   { label: "patch diff", href: "/patch-diff" },
-  { label: "trading value list", href: "/trading" },
   { label: "pity system", href: "/guides/pity-system" },
   { label: "style tier list", href: "/tier-list/styles" },
 ];
@@ -1415,23 +1413,6 @@ export const patchDiffs: PatchDiffSection[] = [
   },
 ];
 
-export const tradeValues: TradeValueEntry[] = [
-  { styleSlug: "encho", rarity: "Evo", obtainability: "Limited", valueTier: "T1", demand: "High", note: "First-ever Evo. Returned in Update 76, so availability can reopen when a future limited banner is announced." },
-  { styleSlug: "kijo", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "High", note: "Limited Secret with the Super Tilt mechanic. Window closed; returns will reset demand temporarily." },
-  { styleSlug: "twins", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "High", note: "Returning limited. Expected to rotate every few months during event weeks." },
-  { styleSlug: "mikage", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Defensive blocker Secret. Solid meta niche, returned most recently in U62." },
-  { styleSlug: "jinko", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Curve-mechanic Secret with recurring trading interest whenever it returns." },
-  { styleSlug: "taichou", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Setter-focused Secret tied to the Duels patch (U59)." },
-  { styleSlug: "timeskip-kyamo", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "High", note: "Time-skip variant of Kyamo. Limited banner style." },
-  { styleSlug: "timeskip-okazu", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Time-skip variant of Okazu. Limited banner style." },
-  { styleSlug: "ronin", rarity: "Ultra", obtainability: "Limited", valueTier: "T3", demand: "Medium", note: "Power-hitter Ultra. Traded less than Secrets but strong offensive meta." },
-  { styleSlug: "feiko", rarity: "Secret", obtainability: "Limited", valueTier: "T3", demand: "Medium", note: "Limited Secret setter that returned in Update 72; value is shaped by both meta fit and banner availability." },
-  { styleSlug: "sanju", rarity: "Secret", obtainability: "Permanent", valueTier: "T3", demand: "Low", note: "Permanent Secret. Mostly traded as a stepping stone." },
-  { styleSlug: "yogan", rarity: "Secret", obtainability: "Permanent", valueTier: "T3", demand: "Low", note: "Permanent Secret. Niche use cases." },
-  { styleSlug: "akari", rarity: "Secret", obtainability: "Limited", valueTier: "T2", demand: "Medium", note: "Limited event Secret from earlier seasons." },
-  { styleSlug: "kyamo", rarity: "Godly", obtainability: "Permanent", valueTier: "T4", demand: "Medium", note: "Classic setter Godly. Entry-tier trade fodder for newer players." },
-  { styleSlug: "kisuki", rarity: "Godly", obtainability: "Permanent", valueTier: "T4", demand: "Low", note: "Permanent Godly. Low trade interest outside newer accounts." },
-];
 
 export const datamineSources: DatamineSource[] = [
   { label: "@Protori_ on X", url: "https://x.com/Protori_", kind: "Official", watchFor: "Teaser screenshots, short clips, countdown posts — usually drop 1–3 days before Saturday's update." },
@@ -1477,11 +1458,6 @@ export const guideCards = [
     title: "Patch Diff",
     href: "/patch-diff",
     description: "Historical before-and-after comparisons for Updates 63, 64, and 65.",
-  },
-  {
-    title: "Trading Value List",
-    href: "/trading",
-    description: "Editorial tier rankings for Secret, Evo, Ultra, and Godly styles. Built for players who already own the basics.",
   },
   {
     title: "Next Update Tracker",

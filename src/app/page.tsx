@@ -118,7 +118,6 @@ const categoryLinks = [
   { label: "Tier Lists", href: "/tier-list" },
   { label: "Guides", href: "/guides" },
   { label: "Tools", href: "/tools" },
-  { label: "Trading", href: "/trading" },
   { label: "Patch Diff", href: "/patch-diff" },
   { label: "Next Update", href: "/next-update" },
   { label: "Return Dates", href: "/style-return-dates" },
