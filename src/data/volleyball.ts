@@ -1447,6 +1447,11 @@ export const homepageFaq = [
 
 export const guideCards = [
   {
+    title: "Style & Ability Slots",
+    href: "/guides/style-ability-slots",
+    description: "See Gem prices, slot limits, and how to buy or gift additional slots.",
+  },
+  {
     title: "Pity System",
     href: "/guides/pity-system",
     description: "Full pity math including Evo rarity, 2x Luck event thresholds, and a cumulative probability curve.",

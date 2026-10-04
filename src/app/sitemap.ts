@@ -39,6 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/guides/player-cards`, changeFrequency: "monthly", priority: 0.66 },
     { url: `${base}/guides/top-100`, changeFrequency: "monthly", priority: 0.66 },
     { url: `${base}/guides/trello`, changeFrequency: "monthly", priority: 0.68 },
+    { url: `${base}/guides/style-ability-slots`, changeFrequency: "monthly", priority: 0.72 },
     { url: `${base}/guides/pity-system`, changeFrequency: "monthly", priority: 0.74 },
     { url: `${base}/tools`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${base}/tools/spin-budget`, changeFrequency: "weekly", priority: 0.78 },

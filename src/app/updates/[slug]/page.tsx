@@ -70,7 +70,7 @@ export default async function UpdateDetailPage({ params }: PageProps) {
         </div>
 
         </>}
-        {update.slug === "update-90" && update90Sections.map((section) => <section key={section.title} className="mt-8 rounded-3xl border border-white/10 bg-background/65 p-6"><h2 className="text-2xl font-heading font-bold text-white">{section.title}</h2><ul className="mt-4 space-y-3 text-sm leading-7 text-muted">{section.items.map((item) => <li key={item}>{item}</li>)}</ul></section>)}
+        {update.slug === "update-90" && update90Sections.map((section) => <section key={section.title} className="mt-8 rounded-3xl border border-white/10 bg-background/65 p-6"><h2 className="text-2xl font-heading font-bold text-white">{section.title}</h2><ul className="mt-4 space-y-3 text-sm leading-7 text-muted">{section.items.map((item) => <li key={item}>{item}</li>)}</ul>{section.title === "Style and Ability slot rework" && <Link href="/guides/style-ability-slots" className="mt-4 inline-block text-accent-teal underline underline-offset-4 hover:text-white">View slot prices and buying guide</Link>}</section>)}
 
         <div className="mt-8 rounded-[2rem] border border-white/10 bg-background/65 p-6">
           <h2 className="text-2xl font-heading font-bold text-white">Key patch takeaways</h2>
