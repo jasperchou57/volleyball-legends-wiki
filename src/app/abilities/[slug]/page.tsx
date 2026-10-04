@@ -93,7 +93,7 @@ export default async function AbilityDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
+      {availabilityHistory.length > 0 && <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="text-2xl font-heading font-bold text-white">Release and return history</h2>
@@ -107,8 +107,8 @@ export default async function AbilityDetailPage({ params }: PageProps) {
             <p className="mt-2 font-semibold text-white">{event.label}: {event.window}</p>
             <p className="mt-2 text-sm leading-6 text-muted">{event.note}</p>
           </div>
-        ))}</div> : <p className="mt-5 rounded-3xl border border-white/10 bg-background/65 p-4 text-sm leading-6 text-muted">No dated return window is in this snapshot. The next return is not announced.</p>}
-      </section>
+        ))}</div> : <p className="mt-5 rounded-3xl border border-white/10 bg-background/65 p-4 text-sm leading-6 text-muted">No dated return window is in this snapshot. This historical window does not confirm current availability.</p>}
+      </section>}
 
       <section className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
@@ -122,10 +122,10 @@ export default async function AbilityDetailPage({ params }: PageProps) {
                 Usually yes if it directly supports your role or fixes a specific weakness in your style. The best abilities are the ones that actually change your win conditions, not just the ones with the rarest label.
               </p>
             </details>
-            <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
-              <summary className="cursor-pointer list-none text-lg font-semibold text-white">When does {ability.name} return?</summary>
-              <p className="mt-3 text-sm leading-6 text-muted">{availabilityHistory.length ? `The latest documented return was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. The next return is not announced.` : "The next return is not announced."}</p>
-            </details>
+            {availabilityHistory.length > 0 && <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
+              <summary className="cursor-pointer list-none text-lg font-semibold text-white">What is the latest recorded return for {ability.name}?</summary>
+              <p className="mt-3 text-sm leading-6 text-muted">{availabilityHistory.length ? `The latest documented return was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. This historical window does not confirm current availability.` : "This historical window does not confirm current availability."}</p>
+            </details>}
             <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
               <summary className="cursor-pointer list-none text-lg font-semibold text-white">
                 Is {ability.name} official data on this site?

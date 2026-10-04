@@ -325,24 +325,39 @@ export const previousCodes: CodeEntry[] = [
 ];
 
 export const expiredCodes: ExpiredCodeEntry[] = [
-  { code: "UPDATE_82", reward: "5 Lucky Style Spins", releaseDate: "August 8, 2026", expiredNote: "Explicitly listed as expired by Beebom and MrGuider on September 29, 2026. Historical reward matches MrGuider and GamesRadar; not tested in-game." },
-  { code: "ROKETTO", reward: "5 Lucky Style Spins", releaseDate: "August 8, 2026", expiredNote: "Explicitly listed as expired by Beebom and MrGuider on September 29, 2026. Historical reward matches MrGuider and GamesRadar; not tested in-game." },
-  { code: "JETPACK", reward: "5 Lucky Ability Spins", releaseDate: "August 8, 2026", expiredNote: "Explicitly listed as expired by Beebom and MrGuider on September 29, 2026. Historical reward matches MrGuider and GamesRadar; not tested in-game." },
-  { code: "UPDATE_81", reward: "5 Lucky Style Spins", releaseDate: "August 1, 2026", expiredNote: "Moved out of current code lists by multiple public trackers after the Update 82 code cluster appeared." },
-  { code: "LEAD_FEET_AGAIN", reward: "5 Lucky Style Spins", releaseDate: "August 1, 2026", expiredNote: "Moved out of current code lists by multiple public trackers after the Update 82 code cluster appeared." },
-  { code: "KNEE_SLIDE", reward: "5 Lucky Ability Spins", releaseDate: "August 1, 2026", expiredNote: "Moved out of current code lists by multiple public trackers after the Update 82 code cluster appeared." },
-  { code: "UPDATE_80", reward: "5 Lucky Style Spins", releaseDate: "July 25, 2026", expiredNote: "Multiple August 3 trackers supersede this with the Update 81 code cluster, but one current community list still reports it working. Confirm in-game before relying on either report." },
-  { code: "HIDARI_FINALLY", reward: "5 Lucky Style Spins", releaseDate: "July 25, 2026", expiredNote: "Multiple August 3 trackers supersede this with the Update 81 code cluster, but one current community list still reports it working. Confirm in-game before relying on either report." },
-  { code: "ENCHO_NERF", reward: "5 Lucky Ability Spins", releaseDate: "July 25, 2026", expiredNote: "Multiple August 3 trackers supersede this with the Update 81 code cluster, but one current community list still reports it working. Confirm in-game before relying on either report." },
-  { code: "UPDATE_79", reward: "5 Lucky Style Spins", releaseDate: "July 18, 2026", expiredNote: "Superseded by the Update 80 code cluster." },
-  { code: "SEASON_17", reward: "5 Lucky Style Spins", releaseDate: "July 18, 2026", expiredNote: "Superseded by the Update 80 code cluster." },
-  { code: "FESTIVAL_UPD", reward: "5 Lucky Ability Spins", releaseDate: "July 18, 2026", expiredNote: "Superseded by the Update 80 code cluster." },
-  { code: "UPDATE_78", reward: "5 Lucky Style Spins", releaseDate: "July 11, 2026", expiredNote: "Expired before Update 80." },
-  { code: "LEADERBOARD", reward: "5 Lucky Style Spins", releaseDate: "July 11, 2026", expiredNote: "Expired before Update 80." },
-  { code: "NEW_PACK", reward: "5 Lucky Ability Spins", releaseDate: "July 11, 2026", expiredNote: "Expired before Update 80." },
-  { code: "UPDATE_77", reward: "5 Lucky Style Spins", releaseDate: "July 4, 2026", expiredNote: "Expired before Update 80." },
-  { code: "RIKU", reward: "5 Lucky Style Spins", releaseDate: "July 4, 2026", expiredNote: "Expired before Update 80." },
-  { code: "HOLO_WALLS", reward: "5 Lucky Ability Spins", releaseDate: "July 4, 2026", expiredNote: "Expired before Update 80." },
+  // Internal archive evidence for the following Update 82 records:
+  // Explicitly listed as expired by Beebom and MrGuider on September 29, 2026. Historical reward matches MrGuider and GamesRadar; not tested in-game.
+  { code: "UPDATE_82", reward: "5 Lucky Style Spins", releaseDate: "August 8, 2026", expiredNote: "Released with Update 82." },
+  { code: "ROKETTO", reward: "5 Lucky Style Spins", releaseDate: "August 8, 2026", expiredNote: "Released with Update 82." },
+  { code: "JETPACK", reward: "5 Lucky Ability Spins", releaseDate: "August 8, 2026", expiredNote: "Released with Update 82." },
+  // Internal archive evidence for the following Update 81 records:
+  // Moved out of current code lists by multiple public trackers after the Update 82 code cluster appeared.
+  { code: "UPDATE_81", reward: "5 Lucky Style Spins", releaseDate: "August 1, 2026", expiredNote: "Released with Update 81." },
+  { code: "LEAD_FEET_AGAIN", reward: "5 Lucky Style Spins", releaseDate: "August 1, 2026", expiredNote: "Released with Update 81." },
+  { code: "KNEE_SLIDE", reward: "5 Lucky Ability Spins", releaseDate: "August 1, 2026", expiredNote: "Released with Update 81." },
+  // Archive review (2026-10-01): UPDATE_80, HIDARI_FINALLY, and ENCHO_NERF
+  // are explicitly listed as expired by both sources below. This supersedes
+  // the August 3 conflicting tracker note; no in-game redemption was tested.
+  // https://beebom.com/haikyuu-legends-codes/
+  // https://www.mrguider.org/roblox/volleyball-legends-codes/
+  { code: "UPDATE_80", reward: "5 Lucky Style Spins", releaseDate: "July 25, 2026", expiredNote: "Released with Update 80." },
+  { code: "HIDARI_FINALLY", reward: "5 Lucky Style Spins", releaseDate: "July 25, 2026", expiredNote: "Released with Update 80." },
+  { code: "ENCHO_NERF", reward: "5 Lucky Ability Spins", releaseDate: "July 25, 2026", expiredNote: "Released with Update 80." },
+  // Historical maintenance note for Update 79: Superseded by the Update 80 code cluster.
+  // Retained for reference only; not evidence of an exact expiration date.
+  { code: "UPDATE_79", reward: "5 Lucky Style Spins", releaseDate: "July 18, 2026", expiredNote: "Released with Update 79." },
+  { code: "SEASON_17", reward: "5 Lucky Style Spins", releaseDate: "July 18, 2026", expiredNote: "Released with Update 79." },
+  { code: "FESTIVAL_UPD", reward: "5 Lucky Ability Spins", releaseDate: "July 18, 2026", expiredNote: "Released with Update 79." },
+  // Historical maintenance note for Update 78: Expired before Update 80.
+  // Retained for reference only; not evidence of an exact expiration date.
+  { code: "UPDATE_78", reward: "5 Lucky Style Spins", releaseDate: "July 11, 2026", expiredNote: "Released with Update 78." },
+  { code: "LEADERBOARD", reward: "5 Lucky Style Spins", releaseDate: "July 11, 2026", expiredNote: "Released with Update 78." },
+  { code: "NEW_PACK", reward: "5 Lucky Ability Spins", releaseDate: "July 11, 2026", expiredNote: "Released with Update 78." },
+  // Historical maintenance note for Update 77: Expired before Update 80.
+  // Retained for reference only; not evidence of an exact expiration date.
+  { code: "UPDATE_77", reward: "5 Lucky Style Spins", releaseDate: "July 4, 2026", expiredNote: "Released with Update 77." },
+  { code: "RIKU", reward: "5 Lucky Style Spins", releaseDate: "July 4, 2026", expiredNote: "Released with Update 77." },
+  { code: "HOLO_WALLS", reward: "5 Lucky Ability Spins", releaseDate: "July 4, 2026", expiredNote: "Released with Update 77." },
   { code: "UPDATE_76", reward: "5 Lucky Style Spins", releaseDate: "June 27, 2026", expiredNote: "Encho return update." },
   { code: "ENCHO_RETURNS", reward: "5 Lucky Style Spins", releaseDate: "June 27, 2026", expiredNote: "Encho return update." },
   { code: "BALANCE_76", reward: "5 Lucky Ability Spins", releaseDate: "June 27, 2026", expiredNote: "Encho return update." },
@@ -382,7 +397,7 @@ export const featuredStyles: StyleEntry[] = [
     summary: "Limited Secret spiker focused on front-row attacking pressure.",
     signature: "A high-pressure spiker profile built for players choosing between a featured limited banner and saving their spins.",
     whyPlayersSearch: "Hidari focuses on front-row attack pressure. Compare its offense and mobility with your current spiker before spending spins.",
-    availability: "Latest reported limited return began with Update 80 on July 25, 2026. Check the in-game banner for the exact end time.",
+    availability: "A documented limited return began with Update 80 on July 25, 2026. This historical record does not confirm current availability.",
     sourceTier: "Community",
     bestAbilities: ["redirection-jump", "shield-breaker", "lead-feet"],
     bestRoles: ["Spiker"],
@@ -1031,7 +1046,7 @@ export const availabilityEvents: AvailabilityEvent[] = [
     updateNumber: 80,
     status: "Limited window",
     sourceTier: "Community",
-    note: "Reported with Update 80. Check the in-game banner for its exact end time or a hotfix extension.",
+    note: "Hidari returned in Update 80. This record does not establish the end date or current availability.",
   },
   {
     subjectType: "Style",

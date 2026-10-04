@@ -6,11 +6,13 @@ import { expiredCodes } from "@/data/volleyball";
 export const metadata: Metadata = {
   title: "Volleyball Legends Expired Codes Archive",
   description:
-    "A full archive of expired Volleyball Legends codes from past updates. These codes no longer work in-game but are useful for confirming which rewards were tied to which update.",
+    "Browse older Volleyball Legends codes, their rewards, and release dates. See expired entries and codes marked Check whose redemption status is uncertain.",
   alternates: {
     canonical: "/codes/expired",
   },
 };
+
+const disputedCodes = new Set(["UPDATE_80", "HIDARI_FINALLY", "ENCHO_NERF"]);
 
 export default function ExpiredCodesPage() {
   return (
@@ -32,7 +34,7 @@ export default function ExpiredCodesPage() {
           Expired Volleyball Legends Codes
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          These codes no longer work in-game. The archive exists so you can quickly confirm whether a code you saw elsewhere is dead, and to cross-reference which rewards originally shipped with which update. For codes that still work, see the main{" "}
+          Browse older codes and their original rewards. Codes marked Check have conflicting status reports; try them in-game before treating them as expired. For the latest codes, see the main{" "}
           <Link href="/codes" className="text-white underline decoration-accent-orange/50 underline-offset-4">
             Volleyball Legends codes
           </Link>{" "}
@@ -41,7 +43,7 @@ export default function ExpiredCodesPage() {
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">All expired codes</h2>
+        <h2 className="text-2xl font-heading font-bold text-white">Older codes and rewards</h2>
         <div className="mt-6 overflow-x-auto rounded-3xl border border-white/10">
           <table className="min-w-full divide-y divide-white/10 text-left text-sm">
             <thead className="bg-background/70">
@@ -49,32 +51,30 @@ export default function ExpiredCodesPage() {
                 <th className="px-4 py-3">Code</th>
                 <th className="px-4 py-3">Reward</th>
                 <th className="px-4 py-3">Released</th>
+                <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3">Note</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/10 bg-surface/70">
               {expiredCodes.map((entry) => (
                 <tr key={entry.code}>
-                  <td className="px-4 py-4 font-semibold text-white line-through decoration-white/30">{entry.code}</td>
+                  <td className={`px-4 py-4 font-semibold text-white ${disputedCodes.has(entry.code) ? "" : "line-through decoration-white/30"}`}>{entry.code}</td>
                   <td className="px-4 py-4 text-slate-200">{entry.reward}</td>
                   <td className="px-4 py-4 text-muted">{entry.releaseDate}</td>
+                  <td className="px-4 py-4 text-muted">{disputedCodes.has(entry.code) ? "Check" : "Expired"}</td>
                   <td className="px-4 py-4 text-muted">{entry.expiredNote ?? "—"}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p className="mt-4 text-xs leading-5 text-muted">
-          Archive is community-tracked. Anything here is historical reference only — none of these codes will redeem in the current game.
-        </p>
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">Why keep a record?</h2>
         <ul className="mt-4 space-y-3 text-sm leading-6 text-muted">
-          <li>Confirms whether a code you saw on a stale guide is actually dead before you waste time typing it in.</li>
+          <li>Helps you identify older codes and see which ones still need an in-game check.</li>
           <li>Maps each code back to the update that released it, which is useful when you are reading old patch notes.</li>
-          <li>Shows the release cadence — roughly 2-3 codes per update — so you know how many fresh codes to expect on patch day.</li>
         </ul>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/codes" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">

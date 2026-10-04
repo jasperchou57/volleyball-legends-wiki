@@ -134,7 +134,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
             {style.slug !== "jinko" && currentGameState.reviewNote && <p className="mt-4 rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-sm leading-6 text-slate-200">{currentGameState.reviewNote}</p>}
           </div>
 
-          <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
+          {availabilityHistory.length > 0 && <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
                 <h2 className="text-2xl font-heading font-bold text-white">Release and return history</h2>
@@ -152,8 +152,8 @@ export default async function StyleDetailPage({ params }: PageProps) {
                   </div>
                 ))}
               </div>
-            ) : <p className="mt-5 rounded-3xl border border-white/10 bg-background/65 p-4 text-sm leading-6 text-muted">No dated return window is in this snapshot. The next return is not announced.</p>}
-          </div>
+            ) : <p className="mt-5 rounded-3xl border border-white/10 bg-background/65 p-4 text-sm leading-6 text-muted">No dated return window is in this snapshot. This historical window does not confirm current availability.</p>}
+          </div>}
 
           <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
             <h2 className="text-2xl font-heading font-bold text-white">Community snapshot</h2>
@@ -256,14 +256,14 @@ export default async function StyleDetailPage({ params }: PageProps) {
                 If you like the role profile and the mechanical demands fit your level, usually yes. The real decision is whether it solves the job you want better than your current style.
               </p>
             </details>
-            <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
+            {availabilityHistory.length > 0 && <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
               <summary className="cursor-pointer list-none text-lg font-semibold text-white">
-                {style.slug === "jinko" ? "When does the Jinko return end?" : `When does ${style.name} return?`}
+                {style.slug === "jinko" ? "When does the Jinko return end?" : `What is the latest recorded return for ${style.name}?`}
               </summary>
               <p className="mt-3 text-sm leading-6 text-muted">
-                {style.slug === "jinko" ? "Jinko returned on October 3 and is available until October 17, 2026. An exact closing time has not been announced." : availabilityHistory.length ? `The latest documented window was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. The next return has not been announced.` : `No dated return is documented in this snapshot. The next return has not been announced.`}
+                {style.slug === "jinko" ? "Jinko returned on October 3 and is available until October 17, 2026. An exact closing time has not been announced." : availabilityHistory.length ? `The latest documented window was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. This historical window does not confirm current availability.` : `No dated return is documented in this snapshot. This historical window does not confirm current availability.`}
               </p>
-            </details>
+            </details>}
             <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
               <summary className="cursor-pointer list-none text-lg font-semibold text-white">
                 Who should use {style.name}?
