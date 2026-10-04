@@ -51,7 +51,7 @@ export default function HaikyuuLegendsCodesPage() {
               <span className="block break-all font-semibold">{entry.code}</span>
               <span className="mt-1 block text-slate-200">{entry.reward}</span>
               <span className="mt-2 block text-accent-teal">{entry.availability ?? entry.status}</span>
-              <span className="mt-1 block text-xs text-muted">Last checked: {entry.lastChecked || "Not recorded"}</span>
+              <span className="mt-1 block text-xs text-muted">Last checked: {entry.lastChecked ? `${entry.lastChecked} (ET)` : "Not recorded"}</span>
             </Link>
           ))}
         </div>

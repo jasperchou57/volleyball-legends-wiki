@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 function formatCheckDate(value: string) {
-  return new Date(value).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return value === "October 3, 2026" ? "October 3, 2026 (ET)" : value;
 }
 
 function CodeTable({ entries }: { entries: CodeEntry[] }) {
@@ -82,7 +82,7 @@ export default function CodesPage() {
               Volleyball Legends Codes
             </h1>
             <p className="mt-4 text-lg font-semibold text-accent-teal">Update {latestGameUpdate.updateNumber} · {activeCodes.length} new codes</p>
-            <p className="mt-2 text-sm leading-6 text-slate-200">Added October 4, 2026 — 10 Lucky Style Spins, 5 Lucky Ability Spins &amp; 100 Gems.</p>
+            <p className="mt-2 text-sm leading-6 text-slate-200">Added October 3, 2026 (ET) — 10 Lucky Style Spins, 5 Lucky Ability Spins &amp; 100 Gems.</p>
             <p className="mt-2 text-sm leading-6 text-muted">Update {latestGameUpdate.updateNumber} codes include {activeCodes.map((entry) => entry.code).join(", ")}, offering free spins and Gems.</p>
             <p className="mt-3 text-sm leading-6 text-muted">Copy a code below, then redeem it in-game at level 15.</p>
           </div>

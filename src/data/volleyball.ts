@@ -208,12 +208,13 @@ export const currentGameState: CurrentGameState = {
   },
 };
 
-// Official Update 90 announcement supplied by the site owner on October 4, 2026.
+// Update 90 dates below use US Eastern Time (ET).
+// Official announcement supplied by the site owner on October 3, 2026 ET.
 // Announcement verification is separate from in-game redemption or balance testing.
 export const latestGameUpdate = {
   updateNumber: 90,
   releasedAt: "October 3, 2026",
-  lastVerified: "October 4, 2026",
+  lastVerified: "October 3, 2026",
   summary: "Jinko returns with Mastery, a Skeleton Bundle, and a reworked slot system.",
 };
 
@@ -238,7 +239,7 @@ export const pageFreshness: PageFreshness = {
   siteLastUpdatedIso: "2026-08-08T00:00:00.000Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
   updateTrackerLastUpdated: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  codesLastChecked: "October 4, 2026",
+  codesLastChecked: "October 3, 2026",
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
   pityLastUpdated: "July 27, 2026 availability-history review",
@@ -282,7 +283,7 @@ export const activeCodes: CodeEntry[] = [
   { code: "SLOT_REWORK", reward: "100 Gems" },
 ].map((entry) => ({
   ...entry, releaseDate: "October 3, 2026", status: "Officially announced",
-  availability: "Active", sourceTier: "Official", lastChecked: "October 4, 2026",
+  availability: "Active", sourceTier: "Official", lastChecked: "October 3, 2026",
   sourceNote: "Code and reward checked against the official Update 90 Discord announcement in screenshots supplied by the site owner. Not tested in-game.",
 }));
 

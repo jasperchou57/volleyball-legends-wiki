@@ -248,7 +248,7 @@ export default function Home() {
                   <p className="mt-2 text-sm text-slate-200">{entry.reward}</p>
                   <p className="mt-2 text-sm leading-5 text-accent-teal">{entry.availability ?? entry.status}</p>
                   <p className="mt-1 text-xs leading-5 text-muted">
-                    Last checked: {entry.lastChecked ? new Date(entry.lastChecked).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "Not recorded"}
+                    Last checked: {entry.lastChecked ? `${entry.lastChecked} (ET)` : "Not recorded"}
                   </p>
                 </div>
               ))}
