@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight, Clock3, Gift, ShieldCheck } from "lucide-react";
 import { activeCodes, latestGameUpdate, previousCodes, expiredCodes, pageFreshness, siteConfig, updates, type CodeEntry } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
@@ -169,6 +170,14 @@ export default function CodesPage() {
             <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Move to the <strong className="text-white">Codes</strong> tab on the left of the Shop menu.</li>
             <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Paste the complete code into the text box and press <strong className="text-white">Use Code</strong>.</li>
           </ol>
+          <figure className="mt-5">
+            <a href="/images/volleyball-legends-code-redemption.jpg" target="_blank" rel="noreferrer" aria-label="Open the code redemption screenshot at full size" className="block overflow-hidden rounded-2xl border border-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-teal">
+              <Image src="/images/volleyball-legends-code-redemption.jpg" width={1540} height={866} sizes="(min-width: 1024px) 480px, 100vw" alt="Volleyball Legends Shop with the Codes menu open, showing LVL 15 NEEDED and the USE CODE button. The Shop icon is in the bottom menu." className="h-auto w-full" />
+            </a>
+            <figcaption className="mt-2 text-xs leading-5 text-muted">
+              Below level 15, the code field shows “LVL 15 NEEDED”. Tap the image to enlarge.
+            </figcaption>
+          </figure>
           <p className="mt-4 text-xs leading-5 text-muted">
             Check the game’s response and your reward balance after submitting.
           </p>
