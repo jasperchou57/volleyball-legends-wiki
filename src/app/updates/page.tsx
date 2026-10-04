@@ -43,7 +43,7 @@ export default function UpdatesPage() {
                 {update.published}
               </span>
             </div>
-            <p className="mt-3 text-sm leading-6 text-muted">{update.summary}</p>
+            <p className="mt-3 text-sm leading-6 text-muted">{update.bodySummary ?? update.summary}</p>
           </Link>
         ))}
       </div>

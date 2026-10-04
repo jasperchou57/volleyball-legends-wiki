@@ -32,7 +32,7 @@ export default function FpsSettingsPage() {
           Best FPS Settings for Volleyball Legends
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This page exists because players do search for FPS guidance. The real answer is less about magic settings and more about stable performance, lower input delay, and removing obvious timing noise from your setup.
+          Aim for stable performance and responsive controls so you can time jumps and touches consistently. Adjust settings to suit your device.
         </p>
       </section>
 

@@ -138,7 +138,7 @@ export function StyleCompareTool() {
       <div className="mt-6 grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="rounded-2xl border border-white/10 bg-background/65 p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Decision loop</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Next steps</p>
             <button
               type="button"
               onClick={saveComparison}

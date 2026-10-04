@@ -32,7 +32,7 @@ export default function HowToSetPage() {
           How to Get Better at Setting in Volleyball Legends
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Setter searches are smaller than codes, but the audience is serious. This page focuses on tempo, readability, and role discipline instead of empty “best setter” claims.
+          Good setting gives your teammate a clear attacking opportunity. Practice tempo, placement, and positioning to keep rallies under control.
         </p>
       </section>
 
@@ -48,7 +48,7 @@ export default function HowToSetPage() {
       <section className="mt-8 grid gap-4 md:grid-cols-3">
         <Link href="/styles/kyamo" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
           <h2 className="text-xl font-heading font-bold text-white">Kyamo</h2>
-          <p className="mt-3 text-sm leading-6 text-muted">The cleanest starter setter page in the current dataset.</p>
+          <p className="mt-3 text-sm leading-6 text-muted">Explore Kyamo’s setting strengths and suggested ability pairings.</p>
         </Link>
         <Link href="/styles/okazu" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
           <h2 className="text-xl font-heading font-bold text-white">Okazu</h2>
@@ -56,7 +56,7 @@ export default function HowToSetPage() {
         </Link>
         <Link href="/styles/feiko" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
           <h2 className="text-xl font-heading font-bold text-white">Feiko</h2>
-          <p className="mt-3 text-sm leading-6 text-muted">The most advanced setter page currently live because of the dump-set mechanic.</p>
+          <p className="mt-3 text-sm leading-6 text-muted">Learn how Feiko combines setting with attacking dump plays.</p>
         </Link>
       </section>
     </div>

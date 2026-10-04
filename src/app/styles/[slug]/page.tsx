@@ -241,17 +241,6 @@ export default async function StyleDetailPage({ params }: PageProps) {
               ))}
             </ul>
           </div>
-
-          {style.slug !== "jinko" && <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
-            <h2 className="text-2xl font-heading font-bold text-white">Also known as</h2>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {style.searchTerms.map((term) => (
-                <span key={term} className="rounded-full border border-white/10 bg-background/65 px-3 py-1 text-xs text-slate-200">
-                  {term}
-                </span>
-              ))}
-            </div>
-          </div>}
         </div>
       </section>
 
@@ -312,9 +301,9 @@ export default async function StyleDetailPage({ params }: PageProps) {
       </section>
 
       <NextStepPanel
-        eyebrow={style.slug === "jinko" ? "Next steps" : "Decision loop"}
+        eyebrow="Next steps"
         title={`What to do after checking ${style.name}`}
-        description={style.slug === "jinko" ? "Compare Jinko with your current style, explore ability pairings, and plan your spins." : `A style page should end in a decision, not in a dead end. If ${style.name} looks close to what you want, compare it, check the best ability fit, then decide whether the banner is worth more spins.`}
+        description={`Compare ${style.name} with your current style, explore ability pairings, and plan your spins.`}
         actions={[
           {
             href: "/tools/style-compare",

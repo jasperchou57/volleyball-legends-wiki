@@ -24,7 +24,7 @@ export default function GuidesPage() {
           Volleyball Legends Guides
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          These are the search-support pages that clean up real beginner friction: controls, ranked unlocks, official Discord, and the pity language that appears during major events.
+          Find help with controls, ranked play, slots, and spins, or open the official Discord guide for community links.
         </p>
       </section>
 

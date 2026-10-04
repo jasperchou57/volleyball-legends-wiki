@@ -25,7 +25,7 @@ export default function TutorialPage() {
           Volleyball Legends Tutorial
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This page exists for players who search for a general tutorial before they know which exact guide they need. Think of it as the shortest path into the rest of the site.
+          Start with controls and basic plays, then choose a guide for the skill you want to practice next.
         </p>
       </section>
 

@@ -44,7 +44,7 @@ export default function BeginnerGuidePage() {
           Volleyball Legends Beginner Guide
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This page is built for tutorial-style searches. The goal is to reduce early confusion fast: what to practice, when to save spins, and which mistakes matter before ranked.
+          Start with the basics: what to practice, when to save spins, and which mistakes to work on before ranked.
         </p>
       </section>
 

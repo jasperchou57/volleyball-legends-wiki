@@ -1,13 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, ExternalLink, ShieldCheck } from "lucide-react";
-import { currentGameState } from "@/data/volleyball";
+import { currentGameState, latestGameUpdate } from "@/data/volleyball";
 import {
-  legacyRouteDecisions,
-  maintenanceCadence,
   maintenanceSnapshot,
   sourceRegistry,
-  updateVerificationChecklist,
 } from "@/data/content-operations";
 
 export const metadata: Metadata = {
@@ -42,10 +39,10 @@ export default function SourcesPage() {
 
       <section className="mt-8 grid gap-4 md:grid-cols-5">
         {[
-          ["Last verified", maintenanceSnapshot.lastVerified],
-          ["Snapshot", maintenanceSnapshot.update],
-          ["Status", maintenanceSnapshot.status],
-          ["Official activity", maintenanceSnapshot.officialActivity],
+          ["Ratings reviewed", maintenanceSnapshot.lastVerified],
+          ["Ratings version", maintenanceSnapshot.update],
+          ["Latest release", `Update ${latestGameUpdate.updateNumber}`],
+          ["Release date", latestGameUpdate.releasedAt],
           ["Codes checked", maintenanceSnapshot.codesLastChecked],
         ].map(([label, value]) => (
           <div key={label} className="rounded-3xl border border-border bg-surface/80 p-5">
@@ -76,26 +73,19 @@ export default function SourcesPage() {
 
       <section className="mt-8 grid gap-6 lg:grid-cols-2">
         <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
-          <h2 className="text-2xl font-heading font-bold text-white">Update-day checklist</h2>
-          <ol className="mt-5 space-y-3 text-sm leading-6 text-muted">
-            {updateVerificationChecklist.map((item, index) => <li key={item} className="flex gap-3 rounded-2xl border border-white/10 bg-background/65 p-4"><span className="font-heading font-bold text-accent-teal">{index + 1}</span><span>{item}</span></li>)}
-          </ol>
+          <h2 className="text-2xl font-heading font-bold text-white">How to read dates and labels</h2>
+          <p className="mt-4 text-sm leading-7 text-muted">An official announcement confirms what the developers published. It does not mean a code has been tested in-game or that every style rating has been reviewed for that release.</p>
+          <p className="mt-4 text-sm leading-7 text-muted">Check the date beside the information you are using. Historical update pages describe past releases; limited rewards and events may have ended.</p>
         </div>
         <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
-          <h2 className="text-2xl font-heading font-bold text-white">Maintenance cadence</h2>
-          <div className="mt-5 space-y-3">
-            {maintenanceCadence.map((item) => <div key={item.label} className="rounded-2xl border border-white/10 bg-background/65 p-4"><h3 className="font-semibold text-white">{item.label}</h3><p className="mt-2 text-sm leading-6 text-muted">{item.detail}</p></div>)}
-          </div>
-          <p className="mt-5 text-sm leading-6 text-muted">Report a correction through the <Link href="/contact" className="font-semibold text-accent-teal hover:text-white">contact page</Link>. A correction remains labeled as unverified until its source is reviewed.</p>
+          <h2 className="text-2xl font-heading font-bold text-white">Report a correction</h2>
+          <p className="mt-4 text-sm leading-7 text-muted">Found an outdated reward, date, or game detail? Use the <Link href="/contact" className="font-semibold text-accent-teal hover:text-white">contact page</Link> and include the page address, the detail to correct, and a supporting announcement or screenshot.</p>
         </div>
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Legacy URL policy</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted">Older URLs are only redirected when there is a truthful replacement. Pages without an equivalent return 404 instead of being sent to unrelated content. Search Console performance and external links are reviewed before any future removal decision.</p>
-        <div className="mt-5 grid gap-3 md:grid-cols-2">
-          {legacyRouteDecisions.map((route) => <div key={route.path} className="rounded-2xl border border-white/10 bg-background/65 p-4"><div className="flex items-center justify-between gap-3"><p className="font-semibold text-white">{route.path}</p><span className="text-xs uppercase tracking-[0.16em] text-muted">{route.outcome}</span></div><p className="mt-2 text-sm leading-6 text-muted">{route.reason}</p><p className="mt-3 text-xs leading-5 text-slate-300">Review: {route.nextReview}</p></div>)}
-        </div>
+        <h2 className="text-2xl font-heading font-bold text-white">Older page links</h2>
+        <p className="mt-3 text-sm leading-7 text-muted">Some older links lead to a renamed or replacement guide. If a page is no longer available, use the <Link href="/search" className="font-semibold text-accent-teal hover:text-white">site search</Link> to find the topic.</p>
       </section>
     </div>
   );

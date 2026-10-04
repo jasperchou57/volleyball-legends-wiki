@@ -32,7 +32,7 @@ export default function HowToSpikePage() {
           How to Spike in Volleyball Legends
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Spiking intent is bigger than just “press jump and click.” This page focuses on repeatable offense: approach rhythm, clean contact, reading the block, and using tilt without throwing away consistency.
+          A good spike takes more than jumping and clicking. This page focuses on repeatable offense: approach rhythm, clean contact, reading the block, and using tilt without throwing away consistency.
         </p>
       </section>
 

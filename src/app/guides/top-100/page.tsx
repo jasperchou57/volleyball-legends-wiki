@@ -32,7 +32,7 @@ export default function Top100GuidePage() {
           How to Reach Top 100 in Volleyball Legends
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This page is designed for <strong>top 100 volleyball legends</strong> and ranked-grind searches. The point is not to invent fake leaderboard secrets, but to give a cleaner progression framework than random social clips.
+          Build a consistent ranked routine: practice your role, review lost points, and coordinate with teammates as you work toward the top 100.
         </p>
       </section>
 

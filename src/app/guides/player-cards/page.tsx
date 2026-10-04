@@ -11,20 +11,12 @@ export const metadata: Metadata = {
 
 const cardNotes = [
   {
-    title: "Why this page exists",
-    body: "Search demand is already showing up for player cards, secret player cards, and specific card names like Brainrot Baller. The problem is that card information is much less centralized than codes or styles.",
+    title: "Jinko Cooked Player Card",
+    body: "Complete quests with Jinko and reach Mastery Level 4 to unlock the Jinko Cooked Player Card.",
   },
   {
-    title: "What to treat as community data",
-    body: "Card acquisition paths, event windows, and exact drop wording often circulate through community posts faster than through any official searchable document. That means this topic should stay clearly labeled as community-tracked unless the game surfaces a clean in-game source.",
-  },
-  {
-    title: "Where to verify card drops",
-    body: "Check Saturday update notes, the official Discord, and new code/event announcements first. Historically, card-related searches tend to rise around event patches and limited reward campaigns.",
-  },
-  {
-    title: "Historical signal",
-    body: "Community code trackers have circulated older code names such as PLAYERCARDS and SECRET_CARDS, which is one reason this intent keeps resurfacing in search even when the information is fragmented.",
+    title: "Skeleton Player Card",
+    body: "The Skeleton Player Card is included in the Skeleton Bundle, priced at 1,299 Robux and available until October 17, 2026. The bundle also includes the Rattling Jaw Ball, Skeleton Grab Score Effect, and Shield Bash Emote.",
   },
 ];
 
@@ -44,7 +36,7 @@ export default function PlayerCardsGuidePage() {
           Volleyball Legends Player Cards
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This guide collects the community-led information available for secret and named player cards. It stays conservative when the game has not published a reliable exact detail.
+          Find the player cards announced in Update 90 and how to unlock them through Jinko Mastery or the Skeleton Bundle.
         </p>
       </section>
 
@@ -58,13 +50,13 @@ export default function PlayerCardsGuidePage() {
       </div>
 
       <section className="mt-8 grid gap-4 md:grid-cols-2">
-        <Link href="/updates" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
-          <h2 className="text-xl font-heading font-bold text-white">Update Tracker</h2>
-          <p className="mt-3 text-sm leading-6 text-muted">Use this first if a new card release is tied to a fresh event patch.</p>
+        <Link href="/updates/update-90" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
+          <h2 className="text-xl font-heading font-bold text-white">Update 90 rewards</h2>
+          <p className="mt-3 text-sm leading-6 text-muted">Read the announcement details for Jinko Mastery and the Skeleton Bundle.</p>
         </Link>
-        <Link href="/codes" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
-          <h2 className="text-xl font-heading font-bold text-white">Codes</h2>
-          <p className="mt-3 text-sm leading-6 text-muted">Card-related reward terms often piggyback on code chatter, so it is worth checking both pages together.</p>
+        <Link href="/styles/jinko" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
+          <h2 className="text-xl font-heading font-bold text-white">Jinko Mastery</h2>
+          <p className="mt-3 text-sm leading-6 text-muted">See all five Jinko Mastery reward levels and the announced return window.</p>
         </Link>
       </section>
     </div>

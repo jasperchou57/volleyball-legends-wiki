@@ -52,7 +52,7 @@ export default function ControlsGuidePage() {
           Volleyball Legends Controls
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          There is heavy search demand for controls, but control advice changes by platform and player preference. This page stays intentionally practical: set up a clean control flow, then spend your time on jump timing, serves, and reads.
+          Controls vary by platform and personal preference. Start with a comfortable layout, then practice jump timing, serves, and reading the ball.
         </p>
       </section>
 
@@ -72,7 +72,7 @@ export default function ControlsGuidePage() {
       </div>
 
       <p className="mt-8 text-xs leading-5 text-muted">
-        Source note: this is a community-maintained starting guide, not an official bind sheet. The goal is to answer the search intent cleanly without pretending there is one perfect universal layout.
+        Source note: this is a community-maintained starting guide, not an official bind sheet. Check your in-game settings for the bindings available on your platform.
       </p>
     </div>
   );

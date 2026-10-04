@@ -28,10 +28,10 @@ export default function PatchDiffPage() {
           Volleyball Legends Patch Diff
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Every Volleyball Legends guide replays the same patch notes. This page does the opposite: it extracts only what <strong className="text-white">changed numerically</strong> between consecutive updates so old players can quickly answer &ldquo;what is actually different about the game this week?&rdquo; Each section is a before/after table — what the value was, what it is now, and what that delta means in practice.
+          Compare historical changes across <strong className="text-white">Updates 63, 64, and 65</strong>. The tables show values and features from those releases; they do not describe the current patch.
         </p>
         <p className="mt-3 max-w-3xl text-xs leading-6 text-muted">
-          Data is community-tracked from patch notes and pity-math posts. Treat hard percentages as directionally correct unless confirmed in Discord.
+          These historical figures come from community records. For Secret pity and rates announced in Update 90, see the pity system guide below.
         </p>
       </section>
 

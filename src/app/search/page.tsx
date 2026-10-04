@@ -36,7 +36,7 @@ const staticResults: SearchResult[] = [
     href: "/codes",
     type: "Codes",
     source: "Community",
-    summary: `Reported-active and verification-needed codes. Last checked ${pageFreshness.codesLastChecked}.`,
+    summary: `New codes, rewards, and older codes to check in-game. Last checked ${pageFreshness.codesLastChecked}.`,
     keywords: ["codes", "code", "spins", "lucky spins", "redeem"],
   },
   {
@@ -44,7 +44,7 @@ const staticResults: SearchResult[] = [
     href: "/next-update",
     type: "Update",
     source: "Official watch",
-    summary: `Official Roblox activity and Discord-first patch-note monitoring. Last checked ${pageFreshness.updateTrackerLastUpdated}.`,
+    summary: "See the next weekly update window and the latest announced release.",
     keywords: ["next update", "latest update", "update tracker", "discord", "roblox api"],
   },
   {
@@ -68,7 +68,7 @@ const staticResults: SearchResult[] = [
     href: "/guides/pity-system",
     type: "Guide",
     source: "Community",
-    summary: `Community-tracked pity math and spin budget context. Last updated ${pageFreshness.pityLastUpdated}.`,
+    summary: "Secret pity thresholds, baseline chances, and the Update 90 event rates.",
     keywords: ["pity", "spin", "lucky", "secret", "evo", "drop rate"],
   },
 ];
@@ -105,7 +105,7 @@ function buildSearchIndex(): SearchResult[] {
       href: `/updates/${update.slug}`,
       type: "Update",
       source: update.sourceTier,
-      summary: `${update.published}. ${update.summary}`,
+      summary: `${update.published}. ${update.bodySummary ?? update.summary}`,
       keywords: [update.slug, update.published, ...update.highlights, ...update.codes, ...(update.focusStyles ?? [])],
     })),
     ...guideCards.map((guide) => ({

@@ -25,7 +25,7 @@ export default function ContactPage() {
         </a>
         <ul className="mt-8 space-y-3 text-sm leading-6 text-muted">
           <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Data corrections for styles, abilities, codes, or update pages.</li>
-          <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Suggestions for new landing pages, tools, or keyword clusters.</li>
+          <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Suggestions for guides, tools, or game topics you would like us to cover.</li>
           <li className="rounded-2xl border border-white/10 bg-background/65 px-4 py-3">Feedback on source labeling when a page feels too official or not verified enough.</li>
         </ul>
       </div>

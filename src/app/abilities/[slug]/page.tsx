@@ -71,13 +71,6 @@ export default async function AbilityDetailPage({ params }: PageProps) {
           <p className="mt-4 text-sm leading-7 text-muted">{ability.whyItMatters}</p>
           {ability.availability && <p className="mt-4 rounded-3xl border border-white/10 bg-background/65 p-4 text-sm leading-6 text-slate-200"><strong className="text-white">Last verified availability (Update {currentGameState.updateNumber}):</strong> {ability.availability}</p>}
           {currentGameState.reviewNote && <p className="mt-4 text-sm leading-6 text-accent-gold">{currentGameState.reviewNote}</p>}
-          <div className="mt-5 flex flex-wrap gap-2">
-            {ability.searchTerms.map((term) => (
-              <span key={term} className="rounded-full border border-white/10 bg-background/65 px-3 py-1 text-xs text-slate-200">
-                {term}
-              </span>
-            ))}
-          </div>
         </div>
 
         <div className="rounded-[2rem] border border-border bg-surface/80 p-6">

@@ -58,7 +58,7 @@ export default async function UpdateDetailPage({ params }: PageProps) {
           {update.title}
         </h1>
         <p className="mt-3 text-sm uppercase tracking-[0.18em] text-muted">{update.published}</p>
-        <p className="mt-5 text-base leading-7 text-muted md:text-lg">{update.summary}</p>
+        <p className="mt-5 text-base leading-7 text-muted md:text-lg">{update.bodySummary ?? update.summary}</p>
 
         {update.slug !== "update-90" && <>
         <div className="mt-8 rounded-[2rem] border border-accent-gold/20 bg-accent-gold/10 p-6">
