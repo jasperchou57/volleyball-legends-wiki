@@ -1429,11 +1429,11 @@ export const datamineSources: DatamineSource[] = [
 export const homepageFaq = [
   {
     question: "What is the latest verified Volleyball Legends update on this wiki?",
-    answer: "Update 80 (July 25, 2026) remains the last community-verified gameplay snapshot, last reviewed July 27. The official Roblox listing changed on August 3, but this wiki will not assign a new update number or publish codes and balance notes until the details are sourced.",
+    answer: `Update ${latestGameUpdate.updateNumber} was released on ${latestGameUpdate.releasedAt}. ${latestGameUpdate.summary} It also includes four new codes.`,
   },
   {
     question: "Are the odds and style stats on this site official?",
-    answer: "Not always. This site separates official links from community-confirmed data and site-maintained tools. Odds, pity math, and many style stat sheets should be treated as community-tracked unless the game itself publishes them.",
+    answer: "Not always. This site separates official links from community-confirmed data and site-maintained tools. Update 90 confirms Secret rates and pity for its October 3–5 event. Other rarity estimates and style stat sheets have separate review histories.",
   },
   {
     question: "When will a limited style or ability return?",
@@ -1441,7 +1441,7 @@ export const homepageFaq = [
   },
   {
     question: "Are codes guaranteed to work?",
-    answer: "No. Codes can expire or be disabled without notice. The active list only includes the most recent multi-source-verified cluster, but you should redeem it in-game as soon as possible.",
+    answer: "No. Codes can expire or be disabled without notice. The latest codes were announced in the official Discord. Last checked records a list review, not an in-game redemption.",
   },
 ];
 

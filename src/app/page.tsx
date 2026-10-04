@@ -59,7 +59,7 @@ const siteSchema = {
 const decisionCards = [
   {
     title: "Return Dates",
-    description: "Dated limited-banner history without pretending that a past return predicts the next one.",
+    description: "Find announced return windows and past banner dates.",
     href: "/style-return-dates",
     source: "Community verified",
     icon: Clock3,
@@ -73,28 +73,28 @@ const decisionCards = [
   },
   {
     title: "Patch Diff",
-    description: "Before/after tables for known patch changes, separated from raw patch-note replay.",
+    description: "Compare recorded changes between past updates.",
     href: "/patch-diff",
     source: "Site",
     icon: ListChecks,
   },
   {
     title: "Pity System",
-    description: "Community-tracked pity math, event thresholds, and spin-budget implications.",
+    description: "Understand Secret pity, event rates, and spin budgets.",
     href: "/guides/pity-system",
     source: "Community",
     icon: Trophy,
   },
   {
     title: "Best Style + Ability Pairs",
-    description: "Role-first pairings for players who need an answer, not a generic planner.",
+    description: "Find style and ability combinations for your preferred role.",
     href: "/guides/best-builds",
     source: "Site + Community",
     icon: ShieldCheck,
   },
   {
     title: "Style Compare",
-    description: "A site-maintained comparison tool for role fit, offense, control, defense, and mobility.",
+    description: "Compare role fit, offense, control, defense, and mobility.",
     href: "/tools/style-compare",
     source: "Site tool",
     icon: Wrench,
@@ -164,7 +164,7 @@ export default function Home() {
                 Volleyball Legends Wiki: Codes, Styles, Tier List, Abilities & Update Tracker
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-7 text-slate-200 md:text-lg">
-                Check current codes, limited-return history, style choices, abilities, and update notes without mixing confirmed facts with guesses.
+                Check current codes, limited-return history, style choices, abilities, and update notes in one place.
               </p>
 
               <form action="/search" className="mt-6 flex max-w-2xl flex-col gap-3 rounded-3xl border border-white/10 bg-background/70 p-3 sm:flex-row">
@@ -289,7 +289,7 @@ export default function Home() {
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Decision hub</p>
                   <h2 className="mt-2 text-3xl font-heading font-bold text-white">Make the next play or spin count</h2>
                 </div>
-                <span className="text-xs leading-5 text-muted">Source labels separate official signals, community data, and site-maintained tools.</span>
+                <span className="text-xs leading-5 text-muted">Compare styles, plan spins, and check return dates.</span>
               </div>
               <div className="grid gap-4 md:grid-cols-2">
                 {decisionCards.map((card) => {
@@ -302,9 +302,7 @@ export default function Home() {
                     >
                       <div className="flex items-start justify-between gap-4">
                         <Icon className="h-5 w-5 text-accent-orange" />
-                        <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.16em] text-muted">
-                          {card.source}
-                        </span>
+
                       </div>
                       <h3 className="mt-4 text-xl font-heading font-bold text-white">{card.title}</h3>
                       <p className="mt-2 text-sm leading-6 text-muted">{card.description}</p>
@@ -329,7 +327,7 @@ export default function Home() {
               {homepageRecentlyUpdatedPages.map((page) => (
                 <Link key={page.href} href={page.href} className="group rounded-3xl border border-border bg-surface/80 p-5 transition hover:border-white/25">
                   <div className="flex items-center justify-between gap-3">
-                    {page.href !== "/codes" && <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.16em] text-muted">{page.sourceLabel}</span>}
+
                     <ArrowRight className="h-4 w-4 text-muted transition group-hover:translate-x-1 group-hover:text-white" />
                   </div>
                   <h3 className="mt-4 text-xl font-heading font-bold text-white">{page.title}</h3>
@@ -366,7 +364,7 @@ export default function Home() {
                     </span>
                   </div>
                   <p className="mt-4 text-sm leading-6 text-muted">{style.slug === "hidari" ? "A limited Secret spiker. Explore its playstyle, stats, and recorded return history." : style.summary}</p>
-                  <p className="mt-4 text-xs uppercase tracking-[0.16em] text-muted">Source: {style.sourceTier}</p>
+
                 </Link>
               ))}
               {abilities.slice(0, 2).map((ability) => (
@@ -376,7 +374,7 @@ export default function Home() {
                   </div>
                   <h3 className="mt-4 text-2xl font-heading font-bold text-white">{ability.name}</h3>
                   <p className="mt-4 text-sm leading-6 text-muted">{ability.summary}</p>
-                  <p className="mt-4 text-xs uppercase tracking-[0.16em] text-muted">Source: {ability.sourceTier}</p>
+
                 </Link>
               ))}
             </div>
@@ -400,7 +398,7 @@ export default function Home() {
             <div>
               <div className="mb-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Beginner and how-to</p>
-                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Useful, but no longer the homepage lead</h2>
+                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Beginner guides</h2>
               </div>
               <div className="space-y-3">
                 {beginnerGuides.map((guide) => (
@@ -491,7 +489,7 @@ export default function Home() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Tools</p>
-                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Site-maintained helpers</h2>
+                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Player tools</h2>
                 </div>
                 <Gamepad2 className="h-6 w-6 text-accent-teal" />
               </div>
@@ -511,7 +509,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">FAQ and sources</p>
               <h2 className="mt-2 text-3xl font-heading font-bold text-white">Source policy</h2>
               <p className="mt-3 text-sm leading-6 text-muted">
-                Official Roblox API data, official Discord signals, community reporting, and site-maintained planner data are labeled separately.
+                Find answers about updates, return windows, and code rewards.
               </p>
             </div>
             <div className="space-y-4">
@@ -520,11 +518,7 @@ export default function Home() {
                   <summary className="cursor-pointer list-none text-lg font-semibold text-white">
                     {item.question}
                   </summary>
-                  <p className="mt-3 max-w-3xl text-sm leading-6 text-muted">{item.question === "What is the latest verified Volleyball Legends update on this wiki?"
-                    ? `Update 90 was released on ${latestGameUpdate.releasedAt}. It adds Jinko Mastery, a Skeleton Bundle, a slot rework, and four new codes.`
-                    : item.question === "Are codes guaranteed to work?"
-                      ? "No. Codes can expire without notice. Last checked records a review of the list, not a successful in-game redemption. Try the codes in-game to confirm your rewards."
-                      : item.answer}</p>
+                  <p className="mt-3 max-w-3xl text-sm leading-6 text-muted">{item.answer}</p>
                 </details>
               ))}
             </div>

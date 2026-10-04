@@ -27,16 +27,16 @@ export default function RerollAdvisorPage() {
           Volleyball Legends Reroll Advisor
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This is a heuristic tool, not an official probability calculator. It exists because players constantly ask whether they should keep a Godly, chase a limited secret, or save for the next Saturday event.
+          Compare your current style and spin budget to decide whether to reroll or save.
         </p>
       </section>
 
       <RerollAdvisor />
 
       <NextStepPanel
-        eyebrow="Continue the loop"
-        title="Use the result instead of leaving with a vague feeling"
-        description="The advisor should end in an action. Compare your current style, collect more codes, or read the live update before you spend anything irreversible."
+        eyebrow="Next steps"
+        title="Compare styles and plan your next roll"
+        description="Compare your options, collect free spins, and check the latest update before rolling."
         actions={[
           {
             href: "/tools/style-compare",

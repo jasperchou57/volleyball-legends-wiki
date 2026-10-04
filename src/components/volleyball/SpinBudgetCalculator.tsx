@@ -1,13 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { pageFreshness } from "@/data/volleyball";
+
 
 type Target = "Secret" | "Evo";
 
-const baseConfig: Record<Target, { rate: number; pity: number; eventRate: number; eventPity: number }> = {
-  Secret: { rate: 0.005, pity: 200, eventRate: 0.01, eventPity: 100 },
-  Evo: { rate: 0.0025, pity: 400, eventRate: 0.005, eventPity: 200 },
+const baseConfig: Record<Target, { rate: number; pity: number }> = {
+  Secret: { rate: 0.005, pity: 200 },
+  Evo: { rate: 0.0025, pity: 400 },
 };
 
 function cumulative(spins: number, rate: number, pity: number): number {
@@ -27,8 +27,8 @@ export function SpinBudgetCalculator() {
 
   const { rate, pity } = useMemo(() => {
     const cfg = baseConfig[target];
-    return eventActive
-      ? { rate: cfg.eventRate, pity: cfg.eventPity }
+    return eventActive && target === "Secret"
+      ? { rate: 0.01, pity: 100 }
       : { rate: cfg.rate, pity: cfg.pity };
   }, [target, eventActive]);
 
@@ -37,10 +37,11 @@ export function SpinBudgetCalculator() {
   const spins95 = useMemo(() => spinsFor(0.95, rate, pity), [rate, pity]);
 
   const verdict = useMemo(() => {
-    if (chance >= 0.95) return { tone: "good" as const, line: "If the current community model is accurate, this stack gives you a very high modeled chance." };
-    if (chance >= 0.5) return { tone: "fine" as const, line: "If the current community model is accurate, you are above the modeled median but not guaranteed." };
-    if (chance >= 0.2) return { tone: "risky" as const, line: "The current model puts this in coin-flip territory. Build a larger stack before spending if the target matters." };
-    return { tone: "bad" as const, line: "The current model puts this stack at a low chance. Recheck live rates before choosing to save or wait for an event." };
+    if (chance === 1) return { tone: "good" as const, line: "Your spin budget reaches the selected pity threshold." };
+    if (chance >= 0.95) return { tone: "good" as const, line: "At least a 95% estimated chance of this rarity." };
+    if (chance >= 0.5) return { tone: "fine" as const, line: "At least a 50% estimated chance; your budget is below pity." };
+    if (chance >= 0.2) return { tone: "risky" as const, line: "Below a 50% estimated chance; missing this rarity is more likely." };
+    return { tone: "bad" as const, line: "Below a 20% estimated chance with this budget." };
   }, [chance]);
 
   const toneClass: Record<string, string> = {
@@ -52,7 +53,7 @@ export function SpinBudgetCalculator() {
 
   return (
     <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
-      <p className="mb-6 rounded-2xl border border-accent-gold/20 bg-accent-gold/10 px-4 py-3 text-xs leading-5 text-slate-200">Community probability model · last reviewed {pageFreshness.pityLastUpdated}. Rates and pity thresholds are site-maintained assumptions; verify them after an update.</p>
+      <p className="mb-6 rounded-2xl border border-accent-gold/20 bg-accent-gold/10 px-4 py-3 text-xs leading-5 text-slate-200">Secret: 0.5% and 200 pity at baseline; 1% and 100 pity for the October 3–5, 2026 event (11:30 AM ET start and end). Evo uses a historical estimate with no Update 90 boost.</p>
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-5">
           <div>
@@ -62,7 +63,7 @@ export function SpinBudgetCalculator() {
                 <button
                   key={t}
                   type="button"
-                  onClick={() => setTarget(t)}
+                  onClick={() => { setTarget(t); setEventActive(false); }}
                   className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
                     target === t
                       ? "border-accent-teal/40 bg-accent-teal/15 text-accent-teal"
@@ -102,12 +103,13 @@ export function SpinBudgetCalculator() {
             <label className="flex items-center gap-3 rounded-2xl border border-white/10 bg-background/65 px-4 py-3 text-sm text-slate-100">
               <input
                 type="checkbox"
-                checked={eventActive}
+                checked={target === "Secret" && eventActive}
+                disabled={target !== "Secret"}
                 onChange={(e) => setEventActive(e.target.checked)}
                 className="h-4 w-4"
               />
-              2x Luck event is live
-              <span className="ml-auto text-xs text-muted">pity halved + rates doubled</span>
+              Use Secret event rates
+              <span className="ml-auto text-xs text-muted">Secret only · Oct 3–5</span>
             </label>
           </div>
         </div>
@@ -137,7 +139,7 @@ export function SpinBudgetCalculator() {
           </div>
           <div className="rounded-2xl border border-white/10 bg-background/65 p-4 text-xs leading-6 text-muted">
             Current rate: <strong className="text-white">{(rate * 100).toFixed(2)}%</strong> per spin. Pity ceiling: <strong className="text-white">{pity}</strong> spins.
-            {eventActive ? " 2x Luck assumptions are applied." : " Baseline assumptions (no event)."} This calculator models the entered assumptions; it does not prove live game odds.
+            {target === "Evo" ? " Historical Evo estimate; no event boost applied." : eventActive ? " Event rates selected." : " Baseline rates selected."} Starts from zero pity and assumes a constant rate before pity. This is the chance of any reward of the rarity, not a specific character.
           </div>
         </div>
       </div>

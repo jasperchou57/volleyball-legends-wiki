@@ -30,10 +30,10 @@ export default function SpinBudgetPage() {
           Volleyball Legends Spin Budget Calculator
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Tell the calculator your target rarity, your current spin stack, and whether a 2x Luck event is live. It returns the probability of pulling your target by the time you run out of spins, plus the expected cost to reach 50% and 95% confidence levels, plus the hard-pity ceiling. The math uses community-tracked rates and the Update 64 pity changes.
+          Choose a rarity and spin budget to estimate your chance of any reward in that rarity, starting from zero pity. Compare baseline Secret rates with the Update 90 event scenario; Evo remains a historical model.
         </p>
         <p className="mt-3 max-w-3xl text-xs leading-6 text-muted">
-          All numbers are community estimates. The calculator assumes no per-style pity (a spin reaching hard pity can still drop a Secret you do not want). Use the result as a planning floor, not a guarantee.
+          Secret rates follow Update 90. Evo is a historical estimate.
         </p>
       </section>
 
@@ -47,14 +47,14 @@ export default function SpinBudgetPage() {
           <li><strong className="text-white">Chance by spin N:</strong> probability of having pulled at least one target-rarity drop by the time you burn N spins.</li>
           <li><strong className="text-white">50% target:</strong> the spin count where half of players in your situation would have already pulled. Median expectation.</li>
           <li><strong className="text-white">95% target:</strong> the spin count where almost everyone has pulled. If you want a safety-net budget, plan for this number.</li>
-          <li><strong className="text-white">Hard pity:</strong> the guaranteed ceiling. Once you hit this, the game forces a drop regardless of luck.</li>
+          <li><strong className="text-white">Hard pity:</strong> the selected model’s ceiling for any reward of the rarity. Evo’s ceiling is a historical estimate.</li>
         </ul>
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-accent-orange/20 bg-accent-orange/10 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">Best practices</h2>
         <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-100">
-          <li><strong>Save for 2x Luck events.</strong> The calculator&rsquo;s event toggle shows just how much you save — usually around 4× more efficient than baseline.</li>
+          <li><strong>Save for 2x Luck events.</strong> Compare the Secret event scenario with baseline rates. The October 3–5, 2026 event ends at 11:30 AM ET.</li>
           <li><strong>Do not chase a specific style.</strong> There is no per-style pity, so the &ldquo;any Secret&rdquo; probability is almost always easier than the &ldquo;the exact Secret I want&rdquo; probability.</li>
           <li><strong>Check the live banner first.</strong> A fresh limited Secret is only worth chasing if it solves a real role gap in your build.</li>
         </ul>

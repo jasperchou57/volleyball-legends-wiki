@@ -16,7 +16,6 @@ type SavedPlan = {
 
 function getAdvice(currentTier: CurrentTier, luckySpins: number, chasing: ChaseTarget, eventActive: boolean) {
   const boostedThreshold = eventActive ? 60 : 120;
-  const ultraThreshold = eventActive ? 140 : 260;
 
   if (currentTier === "Ultra") {
     return {
@@ -34,11 +33,11 @@ function getAdvice(currentTier: CurrentTier, luckySpins: number, chasing: ChaseT
     };
   }
 
-  if (chasing === "Ultra" && luckySpins >= ultraThreshold) {
+  if (chasing === "Ultra") {
     return {
-      headline: "Reasonable push window",
+      headline: "Check the Ultra banner before spending",
       tone: "text-accent-orange",
-      body: "You have enough Lucky Spins to make an Ultra chase realistic by community standards, especially if a 2x event is active.",
+      body: "Update 90 confirms a Secret boost, not an Ultra boost. A spin count alone cannot establish a reliable Ultra target budget.",
     };
   }
 
@@ -61,7 +60,7 @@ function getAdvice(currentTier: CurrentTier, luckySpins: number, chasing: ChaseT
   return {
     headline: "Low-conviction reroll spot",
     tone: "text-white",
-    body: "You can still spin, but the stronger play is usually to stack more Lucky Spins, watch for codes, and wait for a Saturday event where pity and secret odds feel better.",
+    body: "You can still spin, but the stronger play is usually to stack more Lucky Spins, watch for codes, and wait for a Saturday event with confirmed Secret rates.",
   };
 }
 
@@ -69,11 +68,11 @@ export function RerollAdvisor() {
   const [currentTier, setCurrentTier] = useState<CurrentTier>("Godly");
   const [luckySpins, setLuckySpins] = useState(80);
   const [chasing, setChasing] = useState<ChaseTarget>("Limited secret");
-  const [eventActive, setEventActive] = useState(true);
+  const [eventActive, setEventActive] = useState(false);
   const [savedPlans, setSavedPlans] = useState<SavedPlan[]>([]);
 
   const advice = useMemo(
-    () => getAdvice(currentTier, luckySpins, chasing, eventActive),
+    () => getAdvice(currentTier, luckySpins, chasing, eventActive && chasing !== "Ultra"),
     [currentTier, luckySpins, chasing, eventActive]
   );
   const nextActions = useMemo(() => {
@@ -88,14 +87,14 @@ export function RerollAdvisor() {
     if (advice.headline === "Usually hold" || advice.headline === "Hold for a better event") {
       return [
         { href: "/updates", title: "Check current updates", description: "See if the live patch introduced a style important enough to break your hold plan." },
-        { href: "/guides/pity-system", title: "Review pity timing", description: "Use the community pity guide to decide how much more discipline actually matters here." },
+        { href: "/guides/pity-system", title: "Review pity timing", description: "Check Secret rates and pity thresholds." },
         { href: "/codes", title: "Collect more spins first", description: "Grab the current codes before you convert a decent position into a worse one." },
       ];
     }
 
     return [
       { href: "/codes", title: "Use today's codes first", description: "If you're going to push now, maximize the stack before you start spending." },
-      { href: "/updates/update-65-season-14", title: "Review the live banner", description: "Double-check whether the current update really justifies a reroll window." },
+      { href: "/style-return-dates", title: "Check return windows", description: "Check the announced dates for the style you want." },
       { href: "/tools/style-compare", title: "Compare before you commit", description: "Make sure the style you're chasing is meaningfully better than what you already have." },
     ];
   }, [advice.headline]);
@@ -137,17 +136,18 @@ export function RerollAdvisor() {
             Should I Reroll?
           </h3>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-            Heuristic only. This tool is based on community-tracked odds and pity language, not officially published rates.
+            Choose your current rarity, spin budget, and target.
           </p>
         </div>
         <label className="flex items-center gap-3 rounded-full border border-white/10 bg-background/70 px-4 py-2 text-sm text-white">
           <input
             type="checkbox"
-            checked={eventActive}
+            checked={eventActive && chasing !== "Ultra"}
+            disabled={chasing === "Ultra"}
             onChange={(event) => setEventActive(event.target.checked)}
             className="h-4 w-4 rounded border-white/20 bg-transparent accent-[var(--accent-orange)]"
           />
-          2x luck event active
+          Use Secret event rates (Oct 3–5)
         </label>
       </div>
 
@@ -188,7 +188,7 @@ export function RerollAdvisor() {
           </span>
           <select
             value={chasing}
-            onChange={(event) => setChasing(event.target.value as ChaseTarget)}
+            onChange={(event) => { setChasing(event.target.value as ChaseTarget); setEventActive(false); }}
             className="w-full rounded-2xl border border-white/10 bg-background/70 px-4 py-3 text-white outline-none transition focus:border-accent-orange"
           >
             {["Any upgrade", "Permanent secret", "Limited secret", "Ultra"].map((option) => (
@@ -248,7 +248,7 @@ export function RerollAdvisor() {
                   <p className="text-sm font-semibold text-white">{plan.headline}</p>
                   <p className="mt-2 text-sm leading-6 text-muted">
                     {plan.currentTier} · {plan.luckySpins} Lucky Spins · {plan.chasing}
-                    {plan.eventActive ? " · 2x active" : " · no event"}
+                    {plan.eventActive ? " · Secret event scenario" : " · baseline scenario"}
                   </p>
                 </div>
               ))
@@ -262,7 +262,7 @@ export function RerollAdvisor() {
       </div>
 
       <p className="mt-5 text-xs leading-5 text-muted">
-        The decision logic here intentionally uses broad thresholds. It is meant to support spin discipline, not to present a fake official pity calculator.
+        Update 90’s Secret event runs October 3–5, 2026, from 11:30 AM ET to 11:30 AM ET. The option above compares event conditions; it does not check live status. Advice does not guarantee a drop.
       </p>
     </div>
   );
