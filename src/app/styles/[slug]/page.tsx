@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { abilities, currentGameState, featuredStyles, getAvailabilityHistory, getStyle, pageFreshness } from "@/data/volleyball";
+import { jinkoMasteryRewards, abilities, currentGameState, featuredStyles, getAvailabilityHistory, getStyle, pageFreshness } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 import { RadarChart } from "@/components/volleyball/RadarChart";
 
@@ -111,6 +111,13 @@ export default async function StyleDetailPage({ params }: PageProps) {
         </div>
       </section>
 
+      {style.slug === "jinko" && <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-surface/80 p-6">
+        <h2 className="text-2xl font-heading font-bold text-white">Jinko Mastery rewards</h2>
+        <p className="mt-3 text-sm leading-7 text-muted">Added in Update 90. Complete quests with Jinko to unlock these five reward levels.</p>
+        <ol className="mt-5 space-y-3">{jinkoMasteryRewards.map((reward, index) => <li key={reward} className="rounded-2xl border border-white/10 bg-background/60 p-4 text-slate-200"><span className="mr-3 font-semibold text-accent-teal">Level {index + 1}</span>{reward}</li>)}</ol>
+        <Link href="/updates/update-90" className="mt-4 inline-block text-accent-teal underline">View Update 90 notes</Link>
+      </section>}
+
       <section className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-6">
           <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
@@ -120,9 +127,9 @@ export default async function StyleDetailPage({ params }: PageProps) {
               <strong className="text-white">Signature mechanic:</strong> {style.signature}
             </p>
             <p className="mt-4 text-sm leading-6 text-muted">
-              <strong className="text-white">Last verified availability (Update {currentGameState.updateNumber}):</strong> {style.availability}
+              <strong className="text-white">Last verified availability (Update {style.slug === "jinko" ? 90 : currentGameState.updateNumber}):</strong> {style.slug === "jinko" ? "October 3–17, 2026 return window." : style.availability}
             </p>
-            {currentGameState.reviewNote && <p className="mt-4 rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-sm leading-6 text-slate-200">{currentGameState.reviewNote}</p>}
+            {style.slug !== "jinko" && currentGameState.reviewNote && <p className="mt-4 rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-sm leading-6 text-slate-200">{currentGameState.reviewNote}</p>}
           </div>
 
           <div className="rounded-[2rem] border border-border bg-surface/80 p-6">

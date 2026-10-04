@@ -26,7 +26,7 @@ export default function HaikyuuLegendsCodesPage() {
           Haikyuu Legends Codes
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Many players still search for <strong>Haikyuu Legends codes</strong>, but the game is now called <strong>Volleyball Legends</strong>. This page exists to catch that legacy keyword and route you to the live code hub instead of forcing you through an outdated old-name article.
+          Many players still search for <strong>Haikyuu Legends codes</strong>, but the game is now called <strong>Volleyball Legends</strong>. The codes below are for the renamed game. Copy a code and redeem it in Volleyball Legends.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/codes" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">
@@ -39,8 +39,8 @@ export default function HaikyuuLegendsCodesPage() {
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Current community-verified codes</h2>
-        <p className="mt-3 text-sm leading-6 text-muted">These codes match the current Codes page. Active status is based on community sources, not an in-game test by us.</p>
+        <h2 className="text-2xl font-heading font-bold text-white">Current codes</h2>
+        <p className="mt-3 text-sm leading-6 text-muted">Redeem the latest codes for free spins and Gems.</p>
         <div className="mt-5 flex flex-wrap gap-3">
           {activeCodes.map((entry) => (
             <Link
@@ -51,7 +51,7 @@ export default function HaikyuuLegendsCodesPage() {
               <span className="block break-all font-semibold">{entry.code}</span>
               <span className="mt-1 block text-slate-200">{entry.reward}</span>
               <span className="mt-2 block text-accent-teal">{entry.availability ?? entry.status}</span>
-              <span className="mt-1 block text-xs text-muted">{entry.status} · Source check: {entry.lastChecked || "Not recorded"}</span>
+              <span className="mt-1 block text-xs text-muted">Last checked: {entry.lastChecked || "Not recorded"}</span>
             </Link>
           ))}
         </div>

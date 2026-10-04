@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { currentGameState, pageFreshness, updates } from "@/data/volleyball";
+import { latestGameUpdate, updates } from "@/data/volleyball";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Updates",
@@ -24,10 +24,10 @@ export default function UpdatesPage() {
           Volleyball Legends Updates
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          A dated update archive for codes, limited returns, mechanics, and balance changes. Details are labeled community-sourced when the official Discord note is not publicly indexed.
+          A dated update archive for codes, limited returns, mechanics, and balance changes. Find each update’s rewards, return windows, and gameplay changes.
         </p>
-        <p className="mt-3 text-sm text-muted">Last verified snapshot: Update {currentGameState.updateNumber} · last cross-checked {pageFreshness.updateTrackerLastUpdated}.</p>
-        {currentGameState.reviewNote && <p className="mt-3 text-sm leading-6 text-accent-gold">{currentGameState.reviewNote}</p>}
+        <p className="mt-3 text-sm text-muted">Latest release: Update {latestGameUpdate.updateNumber} · {latestGameUpdate.releasedAt}.</p>
+
       </section>
 
       <div className="mt-8 space-y-4">

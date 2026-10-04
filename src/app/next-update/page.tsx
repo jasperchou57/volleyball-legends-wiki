@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ChevronRight, Radio } from "lucide-react";
-import { currentGameState, datamineSources, pageFreshness } from "@/data/volleyball";
+
+import { LatestUpdateSummary } from "@/components/volleyball/LatestUpdateSummary";
 import { UpdateCountdown } from "@/components/volleyball/UpdateCountdown";
 
 export const metadata: Metadata = {
@@ -12,159 +12,14 @@ export const metadata: Metadata = {
 };
 
 export default function NextUpdatePage() {
-  return (
-    <div className="container mx-auto max-w-5xl px-4 py-10">
-      <div className="flex items-center gap-2 text-sm text-muted">
-        <Link href="/" className="hover:text-white transition-colors">Home</Link>
-        <ChevronRight className="h-4 w-4" />
-        <span className="text-white">Next Update</span>
-      </div>
-
-      <section className="mt-6 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-accent-teal/20 bg-accent-teal/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-teal">
-          <Radio className="h-4 w-4" />
-          Monitoring board
-        </div>
-        <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
-          Next Volleyball Legends Update
-        </h1>
-        <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          The next scheduled update window is useful, but it does not reveal the next style, ability, or code cluster. This page separates the last verified update from what is still unannounced.
-        </p>
-      </section>
-
-      <div className="mt-6">
-        <UpdateCountdown />
-      </div>
-
-      <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Latest verified snapshot</h2>
-        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Last verified snapshot</p>
-            <p className="mt-3 text-2xl font-heading font-black text-white">Update {currentGameState.updateNumber}</p>
-            <p className="mt-2 text-sm leading-6 text-muted">{currentGameState.summary}</p>
-          </div>
-          <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Tracker last checked</p>
-            <p className="mt-3 text-2xl font-heading font-black text-accent-orange">{pageFreshness.updateTrackerLastUpdated}</p>
-            <p className="mt-2 text-sm leading-6 text-muted">Status: {currentGameState.verificationStatus}. Official activity is detected, but this is not a complete patch transcription.</p>
-          </div>
-          {currentGameState.officialActivity && <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-teal">Official Roblox activity</p>
-            <p className="mt-3 text-2xl font-heading font-black text-white">{currentGameState.officialActivity.gameUpdatedAt}</p>
-            <p className="mt-2 text-sm leading-6 text-muted">{currentGameState.officialActivity.summary}</p>
-          </div>}
-          <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Next confirmed return</p>
-            <p className="mt-3 text-2xl font-heading font-black text-accent-teal">Not announced</p>
-            <p className="mt-2 text-sm leading-6 text-muted">Do not spend spins based on a guessed banner. Verify a named return in the official Discord or the in-game banner.</p>
-          </div>
-        </div>
-        <p className="mt-4 text-xs leading-5 text-muted">{currentGameState.nextUpdateNote}</p>
-        {currentGameState.reviewNote && <p className="mt-3 text-sm leading-6 text-accent-gold">{currentGameState.reviewNote}</p>}
-      </section>
-
-      <section className="mt-8 grid gap-6 md:grid-cols-3">
-        <div className="rounded-[2rem] border border-accent-gold/20 bg-accent-gold/10 p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-gold">Review required</p>
-          <h2 className="mt-2 text-xl font-heading font-bold text-white">Update {currentGameState.updateNumber} is the last verified snapshot</h2>
-          <p className="mt-2 text-sm leading-6 text-muted">
-            The game has a Discord-first information flow. Verify its current status against an official announcement or the in-game banner before spending resources.
-          </p>
-        </div>
-        <div className="rounded-[2rem] border border-accent-gold/20 bg-accent-gold/10 p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-gold">Rumored</p>
-          <h2 className="mt-2 text-xl font-heading font-bold text-white">No sourced named return in this snapshot</h2>
-          <p className="mt-2 text-sm leading-6 text-muted">
-            This historical snapshot does not record a named upcoming return. We will not turn a schedule or an unsourced post into a rumor.
-          </p>
-        </div>
-        <div className="rounded-[2rem] border border-accent-orange/20 bg-accent-orange/10 p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-orange">Datamined</p>
-          <h2 className="mt-2 text-xl font-heading font-bold text-white">Not applicable</h2>
-          <p className="mt-2 text-sm leading-6 text-muted">
-            Roblox experiences are not meaningfully datamineable the way Unity or Unreal games are. Expect teaser-driven information, not file rips.
-          </p>
-        </div>
-      </section>
-
-      <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Sources we are watching</h2>
-        <p className="mt-2 text-sm leading-6 text-muted">
-          Channels where the dev and community most often surface next-update information. Official sources always take precedence; community sources are useful for speed but should be cross-referenced before you plan around them.
-        </p>
-        <div className="mt-5 space-y-3">
-          {datamineSources.map((source) => (
-            <a
-              key={source.label}
-              href={source.url}
-              target="_blank"
-              rel="noreferrer"
-              className="block rounded-3xl border border-white/10 bg-background/65 p-4 transition hover:border-white/25"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <p className="text-lg font-heading font-bold text-white">{source.label}</p>
-                <span
-                  className={`rounded-full border px-3 py-1 text-xs uppercase tracking-[0.18em] ${
-                    source.kind === "Official"
-                      ? "border-accent-teal/30 bg-accent-teal/10 text-accent-teal"
-                      : "border-white/10 bg-white/5 text-muted"
-                  }`}
-                >
-                  {source.kind}
-                </span>
-              </div>
-              <p className="mt-2 text-sm leading-6 text-muted"><strong className="text-slate-200">Watch for:</strong> {source.watchFor}</p>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Last recorded monitoring note</h2>
-        <p className="mt-2 text-sm leading-6 text-muted">
-          The official game listing has changed, but no named future return or public patch breakdown is recorded here yet. This page keeps that boundary explicit instead of converting a timestamp into a rumor.
-        </p>
-        <div className="mt-5 space-y-3">
-          {currentGameState.officialActivity && <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-teal">{currentGameState.officialActivity.source} · {currentGameState.officialActivity.observedAt}</p>
-            <p className="mt-2 text-lg font-heading font-bold text-white">Official listing activity detected</p>
-            <p className="mt-2 text-sm leading-6 text-muted">{currentGameState.officialActivity.summary}</p>
-          </div>}
-          <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">{pageFreshness.updateTrackerLastUpdated}</p>
-            <p className="mt-2 text-lg font-heading font-bold text-white">Update {currentGameState.updateNumber} cross-check snapshot</p>
-            <p className="mt-2 text-sm leading-6 text-muted">
-              Codes, the Hidari return, and Encho balance changes were corroborated through public player references and code trackers at the time. Recheck each time-sensitive item now.
-            </p>
-          </div>
-          <div className="rounded-3xl border border-dashed border-white/15 bg-background/40 p-8 text-center text-sm text-muted">
-            No named future banner was confirmed in this snapshot. See the return-date history for what has happened before.
-          </div>
-        </div>
-      </section>
-
-      <section className="mt-8 rounded-[2rem] border border-accent-orange/20 bg-accent-orange/10 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Why no datamine leaks?</h2>
-        <p className="mt-3 text-sm leading-6 text-slate-100">
-          Roblox experiences run server-authoritative logic that the client never sees. Unlike Unity or Unreal games where the shipped binary can be inspected, almost all Volleyball Legends content (style stats, ability rates, pity thresholds, unreleased assets) lives on the server side. The useful pre-patch information almost always comes from the developer&rsquo;s own teasers on X and in the official Discord — not from file rips.
-        </p>
-        <p className="mt-3 text-sm leading-6 text-slate-100">
-          That is why this page is structured as a monitoring board: it tracks where teasers appear, not a hypothetical datamine that does not exist.
-        </p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <Link href="/updates" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">
-            Browse past updates
-          </Link>
-          <Link href="/codes" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
-            Check code status
-          </Link>
-          <Link href="/style-return-dates" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
-            Return-date history
-          </Link>
-        </div>
-      </section>
-    </div>
-  );
+  return <div className="container mx-auto max-w-5xl px-4 py-10">
+    <Link href="/" className="text-sm text-muted">Home</Link>
+    <section className="mt-6 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
+      <h1 className="text-4xl font-heading font-black text-white md:text-5xl">Next Volleyball Legends Update</h1>
+      <p className="mt-4 text-muted leading-7">See the next weekly update window in your local time, then catch up on the latest release. The countdown follows the Saturday schedule; upcoming content is confirmed separately.</p>
+    </section>
+    <div className="mt-6"><UpdateCountdown /></div>
+    <div className="mt-8"><LatestUpdateSummary /></div>
+    <p className="mt-5 text-sm leading-6 text-muted">Update 90’s announcement covers the October 3 release. It does not announce the next update’s new styles or abilities.</p>
+  </div>;
 }

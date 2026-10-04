@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Clock3, Gift, ShieldCheck } from "lucide-react";
-import { activeCodes, expiredCodes, pageFreshness, siteConfig, updates, type CodeEntry } from "@/data/volleyball";
+import { activeCodes, latestGameUpdate, previousCodes, expiredCodes, pageFreshness, siteConfig, updates, type CodeEntry } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
+import { CodeCheckStatus } from "./CodeCheckStatus";
 import { CodeCopyButton } from "./CodeCopyButton";
 import styles from "./CodesTable.module.css";
 
@@ -35,12 +36,15 @@ function CodeTable({ entries }: { entries: CodeEntry[] }) {
           <tbody role="rowgroup">
             {entries.map((entry) => (
               <tr key={entry.code} role="row">
-                <td role="cell" className={styles.code}><code>{entry.code}</code></td>
+                <td role="cell" className={styles.code}>
+                  {entry.releaseDate === latestGameUpdate.releasedAt && <span className="mb-2 block w-fit rounded bg-accent-teal/15 px-2 py-0.5 text-[10px] font-bold tracking-wider text-accent-teal">NEW</span>}
+                  <code>{entry.code}</code>
+                </td>
                 <td role="cell" className={styles.reward}>{entry.reward}</td>
                 <td role="cell" className={styles.status}>
-                  <span className={entry.availability === "Active" ? "text-accent-teal" : "text-accent-gold"}>
-                    {entry.availability ?? entry.status}
-                  </span>
+                  {entry.availability === "Unconfirmed" ? <CodeCheckStatus /> : (
+                    <span className="text-accent-teal">{entry.availability ?? entry.status}</span>
+                  )}
                   <span className="mt-1 block text-xs leading-5 text-muted">
                     Last checked: {entry.lastChecked ? formatCheckDate(entry.lastChecked) : "Not recorded"}
                   </span>
@@ -57,9 +61,7 @@ function CodeTable({ entries }: { entries: CodeEntry[] }) {
 }
 
 export default function CodesPage() {
-  const officialCodes = activeCodes.filter((entry) => entry.status === "Officially announced");
-  const communityCodes = activeCodes.filter((entry) => entry.status === "Community verified");
-  const reviewCodes = activeCodes.filter((entry) => entry.status === "Needs verification");
+
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-6 md:py-10">
@@ -79,9 +81,10 @@ export default function CodesPage() {
             <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
               Volleyball Legends Codes
             </h1>
-            <p className="mt-3 text-sm leading-6 text-muted md:text-lg md:leading-7">
-              Copy a code below, then redeem it in-game at level 15.
-            </p>
+            <p className="mt-4 text-lg font-semibold text-accent-teal">Update {latestGameUpdate.updateNumber} · {activeCodes.length} new codes</p>
+            <p className="mt-2 text-sm leading-6 text-slate-200">Added October 4, 2026 — 10 Lucky Style Spins, 5 Lucky Ability Spins &amp; 100 Gems.</p>
+            <p className="mt-2 text-sm leading-6 text-muted">Update {latestGameUpdate.updateNumber} codes include {activeCodes.map((entry) => entry.code).join(", ")}, offering free spins and Gems.</p>
+            <p className="mt-3 text-sm leading-6 text-muted">Copy a code below, then redeem it in-game at level 15.</p>
           </div>
         </div>
       </section>
@@ -92,27 +95,12 @@ export default function CodesPage() {
             <ShieldCheck className="h-5 w-5 text-accent-teal" />
             <h2 className="text-2xl font-heading font-bold text-white">Code status</h2>
           </div>
-          {officialCodes.length > 0 ? (
-            <>
-              <h3 className="mt-6 text-lg font-heading font-bold text-white">Officially announced</h3>
-              <CodeTable entries={officialCodes} />
-            </>
-          ) : null}
-          {communityCodes.length > 0 && (
-            <>
-              <h3 className="mt-6 text-lg font-heading font-bold text-white">Community verified</h3>
-              <CodeTable entries={communityCodes} />
-            </>
-          )}
-          {reviewCodes.length > 0 && (
-            <>
-              <h3 className="mt-6 text-lg font-heading font-bold text-accent-teal">Active codes</h3>
-              <CodeTable entries={reviewCodes} />
-              <p className="mt-3 text-xs leading-5 text-muted">
-                Last checked is a list review date, not an in-game test.
-              </p>
-            </>
-          )}
+          <h3 className="mt-6 text-lg font-heading font-bold text-accent-teal">Active codes</h3>
+          <CodeTable entries={activeCodes} />
+          <details className="mt-6">
+            <summary className="cursor-pointer text-sm text-muted">Earlier codes</summary>
+            <CodeTable entries={previousCodes} />
+          </details>
         </div>
 
         <div className="space-y-6">
@@ -233,11 +221,11 @@ export default function CodesPage() {
           </details>
           <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
             <summary className="cursor-pointer list-none text-lg font-semibold text-white">Are all codes on this page official?</summary>
-            <p className="mt-3 text-sm leading-6 text-muted">The current active codes come from the official Volleyball Legends Discord’s codes channel. We’ve checked the code names and rewards against the announcement.</p>
+            <p className="mt-3 text-sm leading-6 text-muted">The current active codes come from the official Volleyball Legends Discord announcement. We’ve checked the code names and rewards against the announcement.</p>
           </details>
           <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
             <summary className="cursor-pointer list-none text-lg font-semibold text-white">What rewards do codes usually give?</summary>
-            <p className="mt-3 text-sm leading-6 text-muted">Most recent codes have centered on Lucky Style Spins and Lucky Ability Spins, especially around major update drops.</p>
+            <p className="mt-3 text-sm leading-6 text-muted">Update 90 codes give Lucky Style Spins, Lucky Ability Spins, and Gems. Check the reward next to each code before redeeming.</p>
           </details>
         </div>
       </section>
@@ -255,7 +243,7 @@ export default function CodesPage() {
           {
             href: "/next-update",
             title: "Check official update activity",
-            description: "Use the official watch page to see whether Roblox moved again before you burn spins into an outdated banner read.",
+            description: "See the latest release and the next weekly update window.",
           },
           {
             href: "/tools/style-compare",

@@ -191,6 +191,7 @@ export const siteConfig = {
   },
 };
 
+// Legacy balance snapshot: do not advance without reviewing stats and tiers.
 export const currentGameState: CurrentGameState = {
   updateNumber: 80,
   releasedAt: "July 25, 2026",
@@ -207,12 +208,37 @@ export const currentGameState: CurrentGameState = {
   },
 };
 
+// Official Update 90 announcement supplied by the site owner on October 4, 2026.
+// Announcement verification is separate from in-game redemption or balance testing.
+export const latestGameUpdate = {
+  updateNumber: 90,
+  releasedAt: "October 3, 2026",
+  lastVerified: "October 4, 2026",
+  summary: "Jinko returns with Mastery, a Skeleton Bundle, and a reworked slot system.",
+};
+
+export const jinkoMasteryRewards = [
+  "Jinko Juggle Emote (uses owned balls)",
+  "3 Lucky Style Spins",
+  "6 Lucky Style Spins",
+  "Jinko Cooked Player Card",
+  "JINKO Title",
+];
+
+export const update90Sections = [
+  { title: "Jinko return and Mastery", items: ["Jinko returned on October 3 and is available until October 17, 2026. Complete quests with Jinko to unlock Mastery rewards.", ...jinkoMasteryRewards.map((reward, index) => `Level ${index + 1}: ${reward}`)] },
+  { title: "Skeleton Bundle", items: ["1,299 Robux; available until October 17, 2026.", "Includes the Rattling Jaw Ball, Skeleton Grab Score Effect, Shield Bash Emote, and Skeleton Player Card.", "The Skeleton Grab Score Effect makes a skeleton hand grab the player closest to the ball."] },
+  { title: "Style and Ability slot rework", items: ["Buy slots with Gems from the slot menu. The cap is now 100 Style slots and 100 Ability slots (previously 20 and 6).", "Slot prices: 3rd — 20 Gems; 4th — 100; 5th — 250; 6th — 370; 7th — 750; 8th — 1,000; 9th and later — 1,250 each.", "Your styles, abilities, slot locks, and owned slot gamepasses carry over. Empty gaps between slots have been closed.", "Gift a Style or Ability slot to a friend for 199 Robux. Old slot gamepasses are no longer sold."] },
+  { title: "2× Lucky event: October 3–5", items: ["Runs from October 3 at 11:30 AM ET to October 5, 2026 at 11:30 AM ET.", "During this event, Secret pity drops from 200 to 100 and Secret Style/Ability chances increase from 0.5% to 1%."] },
+  { title: "Update-day spin handout", items: ["The October 3 handout ran from 10:30 AM to 12:30 PM ET, with lucky spins every 10 minutes and 12 lucky spins in total. This handout has ended."] },
+];
+
 export const pageFreshness: PageFreshness = {
   siteLastUpdated: "August 8, 2026",
   siteLastUpdatedIso: "2026-08-08T00:00:00.000Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
   updateTrackerLastUpdated: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  codesLastChecked: "September 29, 2026",
+  codesLastChecked: "October 4, 2026",
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
   pityLastUpdated: "July 27, 2026 availability-history review",
@@ -250,12 +276,23 @@ const currentCodeSources = [
 ];
 
 export const activeCodes: CodeEntry[] = [
+  { code: "UPDATE_90", reward: "5 Lucky Style Spins" },
+  { code: "SKELETON_BUNDLE", reward: "5 Lucky Style Spins" },
+  { code: "JINX", reward: "5 Lucky Ability Spins" },
+  { code: "SLOT_REWORK", reward: "100 Gems" },
+].map((entry) => ({
+  ...entry, releaseDate: "October 3, 2026", status: "Officially announced",
+  availability: "Active", sourceTier: "Official", lastChecked: "October 4, 2026",
+  sourceNote: "Code and reward checked against the official Update 90 Discord announcement in screenshots supplied by the site owner. Not tested in-game.",
+}));
+
+export const previousCodes: CodeEntry[] = [
   {
     code: "UPDATE_89",
     reward: "5 Lucky Style Spins",
     releaseDate: "September 26, 2026",
     status: "Needs verification",
-    availability: "Active",
+    availability: "Unconfirmed",
     sourceTier: "Community",
     lastChecked: "September 29, 2026",
     sourceNote: "Beebom and MrGuider list this code as active with the same reward. Sources reviewed September 29, 2026; not tested in-game. September 26 is the sources' reported release date.",
@@ -266,7 +303,7 @@ export const activeCodes: CodeEntry[] = [
     reward: "5 Lucky Style Spins",
     releaseDate: "September 26, 2026",
     status: "Needs verification",
-    availability: "Active",
+    availability: "Unconfirmed",
     sourceTier: "Community",
     lastChecked: "September 29, 2026",
     sourceNote: "Beebom and MrGuider list this code as active with the same reward. Sources reviewed September 29, 2026; not tested in-game. September 26 is the sources' reported release date.",
@@ -277,7 +314,7 @@ export const activeCodes: CodeEntry[] = [
     reward: "5 Lucky Ability Spins",
     releaseDate: "September 26, 2026",
     status: "Needs verification",
-    availability: "Active",
+    availability: "Unconfirmed",
     sourceTier: "Community",
     lastChecked: "September 29, 2026",
     sourceNote: "Beebom and MrGuider list this code as active with the same reward. Sources reviewed September 29, 2026; not tested in-game. September 26 is the sources' reported release date.",
@@ -983,6 +1020,7 @@ export const abilities: AbilityEntry[] = [
 ];
 
 export const availabilityEvents: AvailabilityEvent[] = [
+  { subjectType: "Style", subjectSlug: "jinko", label: "Jinko return", window: "October 3–17, 2026", updateNumber: 90, status: "Limited window", sourceTier: "Official", note: "Returned with Update 90 alongside five Mastery reward levels. The announcement does not give an exact closing time." },
   {
     subjectType: "Style",
     subjectSlug: "hidari",
@@ -1078,6 +1116,13 @@ export const currentlyAvailableStyles = availabilityEvents.filter(
 );
 
 export const updates: UpdateEntry[] = [
+  {
+    slug: "update-90", title: "Volleyball Legends Update 90: Jinko Mastery, Slots & Codes",
+    published: latestGameUpdate.releasedAt, summary: latestGameUpdate.summary,
+    sourceTier: "Official", lastChecked: latestGameUpdate.lastVerified,
+    highlights: ["Jinko returns through October 17 with five Mastery reward levels.", "Style and Ability slots now each have a 100-slot cap and can be bought with Gems.", "Four new codes offer 10 Lucky Style Spins, 5 Lucky Ability Spins, and 100 Gems."],
+    codes: activeCodes.map((entry) => entry.code), focusStyles: ["jinko"],
+  },
   {
     slug: "update-80-hidari-encho",
     title: "Volleyball Legends Update 80: Hidari Return & Encho Balance Pass",
@@ -1287,34 +1332,10 @@ export const updates: UpdateEntry[] = [
 ];
 
 export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
-  {
-    title: "Current Update Status",
-    href: "/next-update",
-    sourceLabel: currentGameState.verificationStatus,
-    updatedAt: pageFreshness.updateTrackerLastUpdated,
-    reason: currentGameState.officialActivity?.summary ?? currentGameState.summary,
-  },
-  {
-    title: "Codes",
-    href: "/codes",
-    sourceLabel: "Community",
-    updatedAt: pageFreshness.codesLastChecked,
-    reason: `${activeCodes.length} Update 89 codes and rewards cross-checked against current community sources; in-game testing still pending.`,
-  },
-  {
-    title: updates[0].title,
-    href: `/updates/${updates[0].slug}`,
-    sourceLabel: updates[0].sourceTier,
-    updatedAt: updates[0].published,
-    reason: "Latest community-verified update entry. Use the official Discord for the full developer changelog.",
-  },
-  {
-    title: "Pity System",
-    href: "/guides/pity-system",
-    sourceLabel: "Community",
-    updatedAt: pageFreshness.pityLastUpdated,
-    reason: "Spin math and pity thresholds are labeled as community-tracked, not official rates.",
-  },
+  { title: "Update 90", href: "/updates/update-90", sourceLabel: "Official", updatedAt: latestGameUpdate.lastVerified, reason: "Jinko Mastery, Skeleton Bundle, slot prices, and event dates." },
+  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Four Update 90 codes for spins and Gems." },
+  { title: "Jinko Mastery", href: "/styles/jinko", sourceLabel: "Official", updatedAt: latestGameUpdate.lastVerified, reason: "Return dates and all five Mastery rewards." },
+  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: latestGameUpdate.lastVerified, reason: "Jinko’s October 3–17 return window." },
 ];
 
 export const heroImages: HeroImage[] = [

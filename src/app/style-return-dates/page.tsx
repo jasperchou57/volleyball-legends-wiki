@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { CalendarDays, ChevronRight, CircleAlert } from "lucide-react";
-import { availabilityEvents, currentGameState, featuredStyles, pageFreshness } from "@/data/volleyball";
+import { availabilityEvents, latestGameUpdate, featuredStyles } from "@/data/volleyball";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Style Return Dates",
@@ -20,7 +20,7 @@ function subjectName(subjectType: "Style" | "Ability", slug: string) {
 
 export default function StyleReturnDatesPage() {
   const newestFirst = [...availabilityEvents].sort((a, b) => b.updateNumber - a.updateNumber);
-  const latestReports = newestFirst.filter((event) => event.status === "Limited window");
+  const latestReports = newestFirst.filter((event) => event.updateNumber === latestGameUpdate.updateNumber);
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-10">
@@ -39,7 +39,7 @@ export default function StyleReturnDatesPage() {
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
           This calendar records documented limited-style and ability windows. It does not guess the next banner: if the developer has not announced a return, the answer is simply <strong className="text-white">not announced</strong>.
         </p>
-        <p className="mt-3 text-sm text-muted">Last cross-checked: {pageFreshness.siteLastUpdated} · {currentGameState.verificationStatus}</p>
+        <p className="mt-3 text-sm text-muted">Last cross-checked: {latestGameUpdate.lastVerified}</p>
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
@@ -52,7 +52,7 @@ export default function StyleReturnDatesPage() {
                 <Link href={subjectLink(event.subjectType, event.subjectSlug)} className="font-semibold underline decoration-accent-teal/50 underline-offset-4">{subjectName(event.subjectType, event.subjectSlug)}</Link> — {event.window}. {event.note}
               </p>
             )) : <p className="mt-2 text-sm text-slate-100">No active limited window is recorded in this snapshot.</p>}
-            <p className="mt-3 text-xs leading-5 text-muted">The latest state is Update {currentGameState.updateNumber}; use the in-game banner and official Discord for a same-day check.</p>
+            <p className="mt-3 text-xs leading-5 text-muted">The latest state is Update {latestGameUpdate.updateNumber}; use the in-game banner and official Discord for a same-day check.</p>
           </div>
         </div>
       </section>
@@ -75,7 +75,7 @@ export default function StyleReturnDatesPage() {
                     <Link href={subjectLink(event.subjectType, event.subjectSlug)} className="transition hover:text-accent-teal">{event.label}</Link>
                   </h3>
                 </div>
-                <span className="rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">{event.status}</span>
+                <span className="rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">{event.updateNumber === 90 ? "Announced window" : "Historical record"}</span>
               </div>
               <p className="mt-3 text-sm font-semibold text-slate-100">{event.window}</p>
               <p className="mt-2 text-sm leading-6 text-muted">{event.note}</p>

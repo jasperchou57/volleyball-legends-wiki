@@ -1,3 +1,4 @@
+import { LatestUpdateSummary } from "@/components/volleyball/LatestUpdateSummary";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -16,7 +17,7 @@ import {
 import {
   abilities,
   activeCodes,
-  currentGameState,
+  latestGameUpdate,
   datamineSources,
   featuredStyles,
   guideCards,
@@ -24,7 +25,6 @@ import {
   homepageRecentlyUpdatedPages,
   homepageFaq,
   mainQueryChips,
-  pageFreshness,
   siteConfig,
   toolCards,
   updates,
@@ -157,7 +157,7 @@ export default function Home() {
             <div className="max-w-4xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-accent-orange/25 bg-background/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-accent-orange">
                 <Search className="h-4 w-4" />
-                Gameplay snapshot: Update {currentGameState.updateNumber}
+                Latest release: Update {latestGameUpdate.updateNumber}
               </div>
 
               <h1 className="mt-5 max-w-4xl text-4xl font-heading font-black text-white md:text-6xl">
@@ -257,51 +257,7 @@ export default function Home() {
           </section>
 
           <section className="mt-10 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
-            <div className="rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Last verified game state</p>
-                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Update {currentGameState.updateNumber}: {currentGameState.summary}</h2>
-                </div>
-                <span className="rounded-full border border-accent-gold/25 bg-accent-gold/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent-gold">
-                  {currentGameState.verificationStatus}
-                </span>
-              </div>
-
-              <div className="mt-6 grid gap-4 md:grid-cols-3">
-                <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Last cross-check</p>
-                  <p className="mt-3 text-2xl font-heading font-black text-white">{currentGameState.lastVerified}</p>
-                  <p className="mt-2 text-sm leading-6 text-muted">Update notes are Discord-first, so this snapshot only includes details corroborated by multiple public references.</p>
-                </div>
-                {currentGameState.officialActivity && <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">Latest official activity</p>
-                  <p className="mt-3 text-2xl font-heading font-black text-white">{currentGameState.officialActivity.observedAt}</p>
-                  <p className="mt-2 text-sm leading-6 text-muted">{currentGameState.officialActivity.summary}</p>
-                </div>}
-                <div className="rounded-3xl border border-white/10 bg-background/65 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">What is not confirmed</p>
-                  <p className="mt-3 text-2xl font-heading font-black text-accent-orange">Next return: not announced</p>
-                  <p className="mt-2 text-sm leading-6 text-muted">A weekly update cadence is not a promise that any particular style or ability will be back next Saturday.</p>
-                </div>
-              </div>
-
-              <p className="mt-5 text-sm leading-6 text-muted">Gameplay details here still refer to Update {currentGameState.updateNumber}. Codes are maintained separately; <Link href="/codes" className="underline underline-offset-4 hover:text-white">view the current codes</Link>.</p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                <Link href="/next-update" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">
-                  View update tracker
-                </Link>
-                <Link href={siteConfig.officialLinks.roblox} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
-                  Roblox listing
-                </Link>
-                <Link href="/style-return-dates" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
-                  Return history
-                </Link>
-                <Link href={siteConfig.officialLinks.discord} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
-                  Official Discord
-                </Link>
-              </div>
-            </div>
+            <LatestUpdateSummary />
 
             <div>
               <UpdateCountdown />
@@ -409,7 +365,7 @@ export default function Home() {
                       Tier {style.communityTier}
                     </span>
                   </div>
-                  <p className="mt-4 text-sm leading-6 text-muted">{style.summary}</p>
+                  <p className="mt-4 text-sm leading-6 text-muted">{style.slug === "hidari" ? "A limited Secret spiker. Explore its playstyle, stats, and recorded return history." : style.summary}</p>
                   <p className="mt-4 text-xs uppercase tracking-[0.16em] text-muted">Source: {style.sourceTier}</p>
                 </Link>
               ))}
@@ -487,7 +443,7 @@ export default function Home() {
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Official sources</p>
                 <h2 className="mt-2 text-3xl font-heading font-bold text-white">Where official signals come from</h2>
               </div>
-              <p className="text-xs text-muted">Official data synced: {pageFreshness.officialDataLastSynced}</p>
+
             </div>
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               {officialSources.map((source) => (
@@ -565,7 +521,7 @@ export default function Home() {
                     {item.question}
                   </summary>
                   <p className="mt-3 max-w-3xl text-sm leading-6 text-muted">{item.question === "What is the latest verified Volleyball Legends update on this wiki?"
-                    ? `The gameplay snapshot on this wiki is Update ${currentGameState.updateNumber}, last reviewed ${currentGameState.lastVerified}. Codes are maintained separately; use the Codes page for the current list.`
+                    ? `Update 90 was released on ${latestGameUpdate.releasedAt}. It adds Jinko Mastery, a Skeleton Bundle, a slot rework, and four new codes.`
                     : item.question === "Are codes guaranteed to work?"
                       ? "No. Codes can expire without notice. Last checked records a review of the list, not a successful in-game redemption. Try the codes in-game to confirm your rewards."
                       : item.answer}</p>

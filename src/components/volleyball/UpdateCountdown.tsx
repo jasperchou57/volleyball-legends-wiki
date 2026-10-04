@@ -141,7 +141,6 @@ export function UpdateCountdown({ detailed = false }: { detailed?: boolean }) {
   }).format(target) : null;
   // Official Roblox event: https://www.roblox.com/events/4776371537748034221
   // Hide this announcement when its scheduled start passes; never reuse it next week.
-  const showPreview = now && now.getTime() < Date.parse("2026-10-03T15:30:00Z");
 
   return (
     <div>
@@ -172,15 +171,7 @@ export function UpdateCountdown({ detailed = false }: { detailed?: boolean }) {
           )}
         </div>
       </section>
-      {detailed && showPreview && (
-        <section className="mt-6 rounded-3xl border border-border bg-surface/60 p-6 sm:p-8">
-          <h2 className="font-heading text-2xl font-bold text-white">What&apos;s coming</h2>
-          <ul className="mt-4 space-y-3 text-muted">
-            <li>A style is returning.</li>
-            <li>New Skeleton Bundle.</li>
-          </ul>
-        </section>
-      )}
+
     </div>
   );
 }
