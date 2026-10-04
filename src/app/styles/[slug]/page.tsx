@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { jinkoMasteryRewards, abilities, currentGameState, featuredStyles, getAvailabilityHistory, getStyle, pageFreshness } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
+import { FocusedStyleGuide } from "@/components/volleyball/FocusedStyleGuide";
+import { KijoGuide } from "@/components/volleyball/KijoGuide";
 import { RadarChart } from "@/components/volleyball/RadarChart";
 
 type PageProps = {
@@ -24,7 +26,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${style.name} Style Guide & Stats`,
-    description: `${style.name} in Volleyball Legends: current availability history, rarity, role, community snapshot, and best ability pairings.`,
+    description: style.slug === "kijo"
+      ? "Explore Kijo in Volleyball Legends: learn how Super Tilt works, compare community-reported stats, and find practice tips and past return details."
+      : style.slug === "feiko"
+      ? "Learn Feiko’s Stop Set and Dump Set in Volleyball Legends, explore community-reported stats, and find practice tips and past return details."
+      : style.slug === "jinko"
+      ? "Explore Jinko in Volleyball Legends: curve mechanics, community-reported stats, five Mastery reward levels, and the October 3–17, 2026 return."
+      : `${style.name} in Volleyball Legends: current availability history, rarity, role, community snapshot, and best ability pairings.`,
     alternates: { canonical: `/styles/${style.slug}` },
   };
 }
@@ -69,6 +77,9 @@ export default async function StyleDetailPage({ params }: PageProps) {
   if (!style) {
     notFound();
   }
+
+  if (style.slug === "kijo") return <KijoGuide />;
+  if (style.slug === "feiko" || style.slug === "jinko") return <FocusedStyleGuide slug={style.slug} />;
 
   const linkedAbilities = style.bestAbilities
     .map((slug) => abilities.find((ability) => ability.slug === slug))
