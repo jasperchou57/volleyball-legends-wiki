@@ -447,8 +447,8 @@ export const featuredStyles: StyleEntry[] = [
     communityTier: "S",
     summary: "Curve-focused secret spiker that bends serves and spikes into nasty off-angle lanes.",
     signature: "Tilt in different directions to add curve, backspin, or float behavior to serves and spikes.",
-    whyPlayersSearch: "Jinko remains a popular curve-tech style for players weighing its mechanics, past return windows, and whether it is worth a reroll.",
-    availability: "Previously limited; community pages treat returns as event windows rather than permanent pool access.",
+    whyPlayersSearch: "Jinko adds curve to serves and spikes, helping you send the ball into angled lanes.",
+    availability: "Returned in Update 90. Available October 3–17, 2026.",
     sourceTier: "Community",
     bestAbilities: ["curve-spike", "lead-feet", "redirection-jump"],
     bestRoles: ["Spiker", "All-Rounder"],
@@ -1335,7 +1335,7 @@ export const updates: UpdateEntry[] = [
 export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
   { title: "Update 90", href: "/updates/update-90", sourceLabel: "Official", updatedAt: latestGameUpdate.lastVerified, reason: "Jinko Mastery, Skeleton Bundle, slot prices, and event dates." },
   { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Four Update 90 codes for spins and Gems." },
-  { title: "Jinko Mastery", href: "/styles/jinko", sourceLabel: "Official", updatedAt: latestGameUpdate.lastVerified, reason: "Return dates and all five Mastery rewards." },
+  { title: "Jinko Mastery", href: "/styles/jinko", sourceLabel: "Official", updatedAt: latestGameUpdate.lastVerified, reason: "Available until October 17. Explore all five Mastery rewards." },
   { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: latestGameUpdate.lastVerified, reason: "Jinko’s October 3–17 return window." },
 ];
 

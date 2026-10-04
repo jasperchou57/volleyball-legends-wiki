@@ -77,7 +77,9 @@ export default async function StyleDetailPage({ params }: PageProps) {
     .filter((entry) => entry.slug !== style.slug && (entry.role === style.role || entry.bestRoles.some((role) => style.bestRoles.includes(role))))
     .slice(0, 3);
   const strengths = getStrengthLines(style.slug);
-  const watchouts = getWatchoutLines(style.slug);
+  const watchouts = style.slug === "jinko"
+    ? ["Curve placement takes practice with directional inputs and timing.", "Low mobility makes positioning especially important.", "Watch the opposing block before choosing your spike direction."]
+    : getWatchoutLines(style.slug);
   const availabilityHistory = getAvailabilityHistory("Style", style.slug);
 
   return (
@@ -103,32 +105,32 @@ export default async function StyleDetailPage({ params }: PageProps) {
               {style.summary}
             </p>
           </div>
-          <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100">
+          {style.slug === "jinko" ? <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100"><p className="font-semibold text-accent-teal">October 3–17, 2026</p><p className="mt-2">Jinko returned in Update 90 and is available until October 17, 2026.</p></div> : <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">Source tier</p>
             <p className="mt-1 font-semibold">{style.sourceTier}</p>
             <p className="mt-3 text-xs text-slate-300">Last reviewed: {pageFreshness.tierListLastUpdated}</p>
-          </div>
+          </div>}
         </div>
       </section>
 
       {style.slug === "jinko" && <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-surface/80 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">Jinko Mastery rewards</h2>
         <p className="mt-3 text-sm leading-7 text-muted">Added in Update 90. Complete quests with Jinko to unlock these five reward levels.</p>
-        <ol className="mt-5 space-y-3">{jinkoMasteryRewards.map((reward, index) => <li key={reward} className="rounded-2xl border border-white/10 bg-background/60 p-4 text-slate-200"><span className="mr-3 font-semibold text-accent-teal">Level {index + 1}</span>{reward}</li>)}</ol>
+        <div className="mt-5 overflow-x-auto rounded-2xl border border-white/10"><table className="w-full text-left text-sm"><thead className="bg-background/60 text-muted"><tr><th className="px-4 py-3">Level</th><th className="px-4 py-3">Reward</th></tr></thead><tbody className="divide-y divide-white/10">{jinkoMasteryRewards.map((reward, index) => <tr key={reward}><td className="px-4 py-4 font-semibold text-accent-teal">{index + 1}</td><td className="px-4 py-4 text-slate-200">{reward}</td></tr>)}</tbody></table></div>
         <Link href="/updates/update-90" className="mt-4 inline-block text-accent-teal underline">View Update 90 notes</Link>
       </section>}
 
       <section className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-6">
           <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
-            <h2 className="text-2xl font-heading font-bold text-white">{style.name}: last verified snapshot</h2>
+            <h2 className="text-2xl font-heading font-bold text-white">{style.slug === "jinko" ? "How Jinko plays" : `${style.name}: last verified snapshot`}</h2>
             <p className="mt-4 text-sm leading-7 text-muted">{style.whyPlayersSearch}</p>
             <p className="mt-4 rounded-3xl border border-white/10 bg-background/65 p-4 text-sm leading-6 text-slate-200">
               <strong className="text-white">Signature mechanic:</strong> {style.signature}
             </p>
-            <p className="mt-4 text-sm leading-6 text-muted">
-              <strong className="text-white">Last verified availability (Update {style.slug === "jinko" ? 90 : currentGameState.updateNumber}):</strong> {style.slug === "jinko" ? "October 3–17, 2026 return window." : style.availability}
-            </p>
+            {style.slug !== "jinko" && <p className="mt-4 text-sm leading-6 text-muted">
+              <strong className="text-white">{style.slug === "jinko" ? "Return window:" : `Last verified availability (Update ${currentGameState.updateNumber}):`}</strong> {style.slug === "jinko" ? "October 3–17, 2026 return window." : style.availability}
+            </p>}
             {style.slug !== "jinko" && currentGameState.reviewNote && <p className="mt-4 rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-sm leading-6 text-slate-200">{currentGameState.reviewNote}</p>}
           </div>
 
@@ -136,7 +138,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
                 <h2 className="text-2xl font-heading font-bold text-white">Release and return history</h2>
-                <p className="mt-2 text-sm leading-6 text-muted">Past windows are evidence, not a prediction of the next return.</p>
+                {style.slug !== "jinko" && <p className="mt-2 text-sm leading-6 text-muted">Past windows are evidence, not a prediction of the next return.</p>}
               </div>
               <Link href="/style-return-dates" className="text-sm font-semibold text-accent-teal hover:text-white">All return dates</Link>
             </div>
@@ -146,7 +148,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
                   <div key={`${event.updateNumber}-${event.label}`} className="rounded-3xl border border-white/10 bg-background/65 p-4">
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Update {event.updateNumber} · {event.sourceTier}</p>
                     <p className="mt-2 font-semibold text-white">{event.label}: {event.window}</p>
-                    <p className="mt-2 text-sm leading-6 text-muted">{event.note}</p>
+                    <p className="mt-2 text-sm leading-6 text-muted">{style.slug === "jinko" && event.updateNumber === 90 ? "Returned in Update 90 with five Mastery reward levels." : event.note}</p>
                   </div>
                 ))}
               </div>
@@ -240,7 +242,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
             </ul>
           </div>
 
-          <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
+          {style.slug !== "jinko" && <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
             <h2 className="text-2xl font-heading font-bold text-white">Also known as</h2>
             <div className="mt-5 flex flex-wrap gap-2">
               {style.searchTerms.map((term) => (
@@ -249,7 +251,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
                 </span>
               ))}
             </div>
-          </div>
+          </div>}
         </div>
       </section>
 
@@ -267,10 +269,10 @@ export default async function StyleDetailPage({ params }: PageProps) {
             </details>
             <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
               <summary className="cursor-pointer list-none text-lg font-semibold text-white">
-                When does {style.name} return?
+                {style.slug === "jinko" ? "When does the Jinko return end?" : `When does ${style.name} return?`}
               </summary>
               <p className="mt-3 text-sm leading-6 text-muted">
-                {availabilityHistory.length ? `The latest documented window was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. The next return has not been announced.` : `No dated return is documented in this snapshot. The next return has not been announced.`}
+                {style.slug === "jinko" ? "Jinko returned on October 3 and is available until October 17, 2026. An exact closing time has not been announced." : availabilityHistory.length ? `The latest documented window was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. The next return has not been announced.` : `No dated return is documented in this snapshot. The next return has not been announced.`}
               </p>
             </details>
             <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
@@ -286,7 +288,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
                 Is {style.name} official data on this site?
               </summary>
               <p className="mt-3 text-sm leading-6 text-muted">
-                No. This page is openly labeled as <strong className="text-white">{style.sourceTier}</strong> data. Treat the summary, stat sheet, and ranking notes as community-maintained unless the game itself publishes the same details in an official place.
+                {style.slug === "jinko" ? "The return dates and Mastery rewards come from the official Update 90 announcement. Stats and tier ratings are community estimates." : <>No. This page is openly labeled as <strong className="text-white">{style.sourceTier}</strong> data. Treat the summary, stat sheet, and ranking notes as community-maintained unless the game itself publishes the same details in an official place.</>}
               </p>
             </details>
           </div>
@@ -310,31 +312,31 @@ export default async function StyleDetailPage({ params }: PageProps) {
       </section>
 
       <NextStepPanel
-        eyebrow="Decision loop"
+        eyebrow={style.slug === "jinko" ? "Next steps" : "Decision loop"}
         title={`What to do after checking ${style.name}`}
-        description={`A style page should end in a decision, not in a dead end. If ${style.name} looks close to what you want, compare it, check the best ability fit, then decide whether the banner is worth more spins.`}
+        description={style.slug === "jinko" ? "Compare Jinko with your current style, explore ability pairings, and plan your spins." : `A style page should end in a decision, not in a dead end. If ${style.name} looks close to what you want, compare it, check the best ability fit, then decide whether the banner is worth more spins.`}
         actions={[
           {
             href: "/tools/style-compare",
             title: "Compare with another style",
-            description: `Put ${style.name} next to your current pick and see whether the upgrade is real or just hype.`,
+            description: style.slug === "jinko" ? "Compare roles, strengths, and stats side by side." : `Put ${style.name} next to your current pick and see whether the upgrade is real or just hype.`,
           },
           {
             href: linkedAbilities[0] ? `/abilities/${linkedAbilities[0]!.slug}` : "/abilities",
             title: linkedAbilities[0] ? `Open ${linkedAbilities[0]!.name}` : "Open ability pages",
-            description: "Check the ability pairing before you decide the style alone is enough.",
+            description: style.slug === "jinko" ? "Explore how this ability works with Jinko." : "Check the ability pairing before you decide the style alone is enough.",
           },
           {
             href: "/tools/reroll-advisor",
             title: "Decide whether to reroll now",
-            description: "Use your current tier, spin stack, and banner goal to make the next call.",
+            description: style.slug === "jinko" ? "Use your current style and spin budget to plan a reroll." : "Use your current tier, spin stack, and banner goal to make the next call.",
           },
         ]}
       />
 
-      <p className="mt-8 text-xs leading-5 text-muted">
+      {style.slug !== "jinko" && <p className="mt-8 text-xs leading-5 text-muted">
         Source policy: the page layout and role scores are site-maintained. Most style names, stat sheets, and banner timing notes on this page should be treated as community-confirmed rather than official developer-posted data.
-      </p>
+      </p>}
     </div>
   );
 }
