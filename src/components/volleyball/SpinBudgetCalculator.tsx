@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { SecretRateSelector, useSecretRates } from "./SecretRateSelector";
 
 
 type Target = "Secret" | "Evo";
@@ -23,7 +24,8 @@ function spinsFor(prob: number, rate: number, pity: number): number {
 export function SpinBudgetCalculator() {
   const [target, setTarget] = useState<Target>("Secret");
   const [stack, setStack] = useState<number>(50);
-  const [eventActive, setEventActive] = useState<boolean>(false);
+  const rates = useSecretRates();
+  const { eventActive } = rates;
 
   const { rate, pity } = useMemo(() => {
     const cfg = baseConfig[target];
@@ -53,7 +55,7 @@ export function SpinBudgetCalculator() {
 
   return (
     <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
-      <p className="mb-6 rounded-2xl border border-accent-gold/20 bg-accent-gold/10 px-4 py-3 text-xs leading-5 text-slate-200">Secret: 0.5% and 200 pity at baseline; 1% and 100 pity for the October 3–5, 2026 event (11:30 AM ET start and end). Evo uses a historical estimate with no Update 90 boost.</p>
+      <p className="mb-6 rounded-2xl border border-accent-gold/20 bg-accent-gold/10 px-4 py-3 text-xs leading-5 text-slate-200">Estimates apply to any reward of the selected rarity, not a specific style. Your current in-game pity progress is not included.</p>
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-5">
           <div>
@@ -63,7 +65,7 @@ export function SpinBudgetCalculator() {
                 <button
                   key={t}
                   type="button"
-                  onClick={() => { setTarget(t); setEventActive(false); }}
+                  onClick={() => { setTarget(t); }}
                   className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
                     target === t
                       ? "border-accent-teal/40 bg-accent-teal/15 text-accent-teal"
@@ -78,7 +80,7 @@ export function SpinBudgetCalculator() {
 
           <div>
             <label htmlFor="spin-stack" className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-              Your Lucky Spin stack
+              Your Lucky Spins
             </label>
             <input
               id="spin-stack"
@@ -90,6 +92,7 @@ export function SpinBudgetCalculator() {
               className="mt-2 w-full rounded-2xl border border-white/10 bg-background/80 px-4 py-3 text-lg font-semibold text-white outline-none focus:border-accent-teal/50"
             />
             <input
+              aria-label="Lucky Spin budget"
               type="range"
               min={0}
               max={400}
@@ -99,48 +102,39 @@ export function SpinBudgetCalculator() {
             />
           </div>
 
-          <div>
-            <label className="flex items-center gap-3 rounded-2xl border border-white/10 bg-background/65 px-4 py-3 text-sm text-slate-100">
-              <input
-                type="checkbox"
-                checked={target === "Secret" && eventActive}
-                disabled={target !== "Secret"}
-                onChange={(e) => setEventActive(e.target.checked)}
-                className="h-4 w-4"
-              />
-              Use Secret event rates
-              <span className="ml-auto text-xs text-muted">Secret only · Oct 3–5</span>
-            </label>
-          </div>
+          <SecretRateSelector {...rates} eligible={target === "Secret"} />
+
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4" aria-live="polite">
+          {rates.now === null ? <p className="text-muted">Checking event schedule…</p> : <>
           <div className={`rounded-2xl border p-5 ${toneClass[verdict.tone]}`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em]">Chance of any {target} by spin {stack}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em]">Chance of at least one {target} in {stack} spins</p>
             <p className="mt-2 text-4xl font-heading font-black text-white">{(chance * 100).toFixed(1)}%</p>
             <p className="mt-2 text-sm leading-6">{verdict.line}</p>
           </div>
           <div className="grid grid-cols-3 gap-3 text-center">
             <div className="rounded-2xl border border-white/10 bg-background/65 p-4">
-              <p className="text-xs uppercase tracking-[0.18em] text-muted">50% target</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-muted">50% chance</p>
               <p className="mt-1 text-2xl font-heading font-bold text-white">{spins50}</p>
               <p className="text-xs text-muted">spins</p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-background/65 p-4">
-              <p className="text-xs uppercase tracking-[0.18em] text-muted">95% target</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-muted">95% chance</p>
               <p className="mt-1 text-2xl font-heading font-bold text-white">{spins95}</p>
               <p className="text-xs text-muted">spins</p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-background/65 p-4">
-              <p className="text-xs uppercase tracking-[0.18em] text-muted">Hard pity</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-muted">Pity limit</p>
               <p className="mt-1 text-2xl font-heading font-bold text-white">{pity}</p>
               <p className="text-xs text-muted">spins</p>
             </div>
           </div>
           <div className="rounded-2xl border border-white/10 bg-background/65 p-4 text-xs leading-6 text-muted">
-            Current rate: <strong className="text-white">{(rate * 100).toFixed(2)}%</strong> per spin. Pity ceiling: <strong className="text-white">{pity}</strong> spins.
-            {target === "Evo" ? " Historical Evo estimate; no event boost applied." : eventActive ? " Event rates selected." : " Baseline rates selected."} Starts from zero pity and assumes a constant rate before pity. This is the chance of any reward of the rarity, not a specific character.
+            Rate used: <strong className="text-white">{(rate * 100).toFixed(2)}%</strong> per spin. Pity limit: <strong className="text-white">{pity}</strong> spins.
+            {target === "Evo" ? " Older Evo rates used for this estimate; check current rates in-game." : eventActive ? " Event rates selected." : " Normal rates selected."} Assumes zero starting pity and the same chance on each spin before pity.
           </div>
+          </>}
         </div>
       </div>
     </div>

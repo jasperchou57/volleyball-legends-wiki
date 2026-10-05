@@ -6,7 +6,7 @@ import { ChevronRight, Calculator } from "lucide-react";
 export const metadata: Metadata = {
   title: "Volleyball Legends Spin Budget Calculator",
   description:
-    "Plan exactly how many Lucky Spins you need to hit your Secret or Evo target. Interactive calculator using community pity and rate data, with 2x Luck event math baked in.",
+    "Estimate your Volleyball Legends Lucky Spin chances and pity budget. Compare normal and event Secret rates, with a separate historical Evo estimate.",
   alternates: { canonical: "/tools/spin-budget" },
 };
 
@@ -30,10 +30,10 @@ export default function SpinBudgetPage() {
           Volleyball Legends Spin Budget Calculator
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Choose a rarity and spin budget to estimate your chance of any reward in that rarity, starting from zero pity. Compare baseline Secret rates with the Update 90 event scenario; Evo remains a historical model.
+          Choose a rarity and enter your Lucky Spins to estimate your chance of getting at least one reward of that rarity. Calculations start from zero pity.
         </p>
         <p className="mt-3 max-w-3xl text-xs leading-6 text-muted">
-          Secret rates follow Update 90. Evo is a historical estimate.
+          Secret rates switch automatically during the announced Update 90 event. Evo estimates use older rates; check them in-game before planning your spins.
         </p>
       </section>
 
@@ -42,21 +42,21 @@ export default function SpinBudgetPage() {
       </div>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">How to read the output</h2>
+        <h2 className="text-2xl font-heading font-bold text-white">Understanding your results</h2>
         <ul className="mt-4 space-y-3 text-sm leading-6 text-muted">
-          <li><strong className="text-white">Chance by spin N:</strong> probability of having pulled at least one target-rarity drop by the time you burn N spins.</li>
-          <li><strong className="text-white">50% target:</strong> the spin count where half of players in your situation would have already pulled. Median expectation.</li>
-          <li><strong className="text-white">95% target:</strong> the spin count where almost everyone has pulled. If you want a safety-net budget, plan for this number.</li>
-          <li><strong className="text-white">Hard pity:</strong> the selected model’s ceiling for any reward of the rarity. Evo’s ceiling is a historical estimate.</li>
+          <li><strong className="text-white">Estimated chance:</strong> your chance of getting at least one reward of the selected rarity within the number of spins entered.</li>
+          <li><strong className="text-white">50% chance:</strong> the number of spins needed to reach an estimated chance of at least 50%.</li>
+          <li><strong className="text-white">95% chance:</strong> the number of spins needed to reach an estimated chance of at least 95%. A 95% chance still leaves a possibility of missing the rarity.</li>
+          <li><strong className="text-white">Pity limit:</strong> the number of spins at which this calculation assumes a reward of the selected rarity is guaranteed. This does not guarantee a specific style. Check your current pity progress in-game.</li>
         </ul>
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-accent-orange/20 bg-accent-orange/10 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Best practices</h2>
+        <h2 className="text-2xl font-heading font-bold text-white">Before you spin</h2>
         <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-100">
-          <li><strong>Save for 2x Luck events.</strong> Compare the Secret event scenario with baseline rates. The October 3–5, 2026 event ends at 11:30 AM ET.</li>
-          <li><strong>Do not chase a specific style.</strong> There is no per-style pity, so the &ldquo;any Secret&rdquo; probability is almost always easier than the &ldquo;the exact Secret I want&rdquo; probability.</li>
-          <li><strong>Check the live banner first.</strong> A fresh limited Secret is only worth chasing if it solves a real role gap in your build.</li>
+          <li><strong>Check the rates.</strong> Use Automatic for the announced event schedule, or select normal or event rates to compare your chances.</li>
+          <li><strong>Know what the result means.</strong> The estimate covers any reward of the selected rarity, not the specific style you want.</li>
+          <li><strong>Check your target and slot.</strong> Confirm your target is currently available and select the slot you want to roll in.</li>
         </ul>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link href="/guides/pity-system" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">

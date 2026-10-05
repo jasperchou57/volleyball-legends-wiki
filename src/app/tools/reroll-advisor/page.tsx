@@ -7,7 +7,7 @@ import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 export const metadata: Metadata = {
   title: "Volleyball Legends Reroll Advisor",
   description:
-    "A disclaimer-first Volleyball Legends reroll advisor that helps decide whether to hold spins or push for a better event.",
+    "Plan your Volleyball Legends rerolls: check style availability, protect the styles you want to keep, and review your Lucky Spin budget before rolling.",
   alternates: { canonical: "/tools/reroll-advisor" },
 };
 
@@ -27,7 +27,7 @@ export default function RerollAdvisorPage() {
           Volleyball Legends Reroll Advisor
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Compare your current style and spin budget to decide whether to reroll or save.
+          Plan around the style you want to keep, your available slots, and your spin budget.
         </p>
       </section>
 
@@ -41,17 +41,17 @@ export default function RerollAdvisorPage() {
           {
             href: "/tools/style-compare",
             title: "Compare your current style",
-            description: "Put your keep candidate against the style you want before you commit more spins.",
+            description: "Compare your current style with the one you want to roll.",
           },
           {
             href: "/codes",
             title: "Collect more spins first",
-            description: "If the result is low-conviction, build a better stack before you force the decision.",
+            description: "Check the latest codes for Lucky Spins before planning your budget.",
           },
           {
             href: "/updates",
             title: "Check the latest update",
-            description: "A reroll decision changes fast when a Saturday patch adds a limited style or a 2x event.",
+            description: "Check for returning styles and changes to spin rates.",
           },
         ]}
       />
