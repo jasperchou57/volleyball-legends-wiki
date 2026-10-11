@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { update90Sections, featuredStyles, getUpdate, siteConfig, updates } from "@/data/volleyball";
+import { update91Sections, update90Sections, featuredStyles, getUpdate, siteConfig, updates } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 
 type PageProps = {
@@ -36,6 +36,8 @@ export default async function UpdateDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const officialSections = update.slug === "update-91" ? update91Sections : update.slug === "update-90" ? update90Sections : null;
+
   const focusStyles = (update.focusStyles ?? [])
     .map((slug) => featuredStyles.find((style) => style.slug === slug))
     .filter(Boolean);
@@ -52,7 +54,7 @@ export default async function UpdateDetailPage({ params }: PageProps) {
 
       <article className="mt-6 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
         <div className="inline-flex rounded-full border border-accent-orange/20 bg-accent-orange/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-accent-orange">
-          {update.slug === "update-90" ? "Update 90" : `${update.sourceTier} source set`}
+          {officialSections ? (update.slug === "update-91" ? "Update 91" : "Update 90") : `${update.sourceTier} source set`}
         </div>
         <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
           {update.title}
@@ -60,7 +62,7 @@ export default async function UpdateDetailPage({ params }: PageProps) {
         <p className="mt-3 text-sm uppercase tracking-[0.18em] text-muted">{update.published}</p>
         <p className="mt-5 text-base leading-7 text-muted md:text-lg">{update.bodySummary ?? update.summary}</p>
 
-        {update.slug !== "update-90" && <>
+        {!officialSections && <>
         <div className="mt-8 rounded-[2rem] border border-accent-gold/20 bg-accent-gold/10 p-6">
           <h2 className="text-2xl font-heading font-bold text-white">Evidence and affected pages</h2>
           <p className="mt-3 text-sm leading-6 text-slate-200">Source tier: <strong className="text-white">{update.sourceTier}</strong> · last checked {update.lastChecked ?? update.published}.</p>
@@ -70,9 +72,9 @@ export default async function UpdateDetailPage({ params }: PageProps) {
         </div>
 
         </>}
-        {update.slug === "update-90" && update90Sections.map((section) => <section key={section.title} className="mt-8 rounded-3xl border border-white/10 bg-background/65 p-6"><h2 className="text-2xl font-heading font-bold text-white">{section.title}</h2><ul className="mt-4 space-y-3 text-sm leading-7 text-muted">{section.items.map((item) => <li key={item}>{item}</li>)}</ul>{section.title === "Style and Ability slot rework" && <Link href="/guides/style-ability-slots" className="mt-4 inline-block text-accent-teal underline underline-offset-4 hover:text-white">View slot prices and buying guide</Link>}</section>)}
+        {officialSections && officialSections.map((section) => <section key={section.title} className="mt-8 rounded-3xl border border-white/10 bg-background/65 p-6"><h2 className="text-2xl font-heading font-bold text-white">{section.title}</h2><ul className="mt-4 space-y-3 text-sm leading-7 text-muted">{section.items.map((item) => <li key={item}>{item}</li>)}</ul>{section.title === "Style and Ability slot rework" && <Link href="/guides/style-ability-slots" className="mt-4 inline-block text-accent-teal underline underline-offset-4 hover:text-white">View slot prices and buying guide</Link>}</section>)}
 
-        <div className="mt-8 rounded-[2rem] border border-white/10 bg-background/65 p-6">
+        {update.slug !== "update-91" && <div className="mt-8 rounded-[2rem] border border-white/10 bg-background/65 p-6">
           <h2 className="text-2xl font-heading font-bold text-white">Key patch takeaways</h2>
           <ul className="mt-5 space-y-3 text-sm leading-7 text-muted">
             {update.highlights.map((highlight) => (
@@ -81,7 +83,7 @@ export default async function UpdateDetailPage({ params }: PageProps) {
               </li>
             ))}
           </ul>
-        </div>
+        </div>}
 
         <div className="mt-8 rounded-[2rem] border border-white/10 bg-background/65 p-6">
           <h2 className="text-2xl font-heading font-bold text-white">Codes connected to this patch</h2>
@@ -99,7 +101,7 @@ export default async function UpdateDetailPage({ params }: PageProps) {
         </div>
       </article>
 
-      {update.slug !== "update-90" && <NextStepPanel
+      {!officialSections && <NextStepPanel
         eyebrow="After reading the patch"
         title="Turn this update into a decision"
         description="Patch notes only matter if they change what you chase next. Use the live update to decide whether to spend spins now, compare the featured style against your current pick, or just bank resources."

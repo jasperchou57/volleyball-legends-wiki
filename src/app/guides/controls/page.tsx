@@ -56,6 +56,13 @@ export default function ControlsGuidePage() {
         </p>
       </section>
 
+      <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
+        <h2 className="text-2xl font-heading font-bold text-white">Replay controls</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-100">After each point, a replay vote appears for a few seconds. Press <strong>Z</strong> on PC, or click or tap <strong>Replay</strong> to vote. The point replays if most players in the match vote yes.</p>
+        <p className="mt-3 text-sm leading-7 text-muted">To change the key, find <strong>Replay Vote</strong> in your in-game keybind settings.</p>
+        <Link href="/updates/update-91" className="mt-4 inline-block text-accent-teal underline">Read about replays and match highlights</Link>
+      </section>
+
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         {controlCards.map((card) => (
           <div key={card.platform} className="rounded-[2rem] border border-border bg-surface/80 p-6">
@@ -72,7 +79,7 @@ export default function ControlsGuidePage() {
       </div>
 
       <p className="mt-8 text-xs leading-5 text-muted">
-        Source note: this is a community-maintained starting guide, not an official bind sheet. Check your in-game settings for the bindings available on your platform.
+        Check your in-game settings for the controls available on your platform.
       </p>
     </div>
   );

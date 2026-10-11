@@ -55,7 +55,7 @@ export function SpinBudgetCalculator() {
 
   return (
     <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
-      <p className="mb-6 rounded-2xl border border-accent-gold/20 bg-accent-gold/10 px-4 py-3 text-xs leading-5 text-slate-200">Estimates apply to any reward of the selected rarity, not a specific style. Your current in-game pity progress is not included.</p>
+      <p className="mb-6 rounded-2xl border border-accent-gold/20 bg-accent-gold/10 px-4 py-3 text-xs leading-5 text-slate-200">Starts from zero pity. Your current in-game pity progress is not included.</p>
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-5">
           <div>
@@ -115,12 +115,12 @@ export function SpinBudgetCalculator() {
           </div>
           <div className="grid grid-cols-3 gap-3 text-center">
             <div className="rounded-2xl border border-white/10 bg-background/65 p-4">
-              <p className="text-xs uppercase tracking-[0.18em] text-muted">50% chance</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-muted">≥50% chance</p>
               <p className="mt-1 text-2xl font-heading font-bold text-white">{spins50}</p>
               <p className="text-xs text-muted">spins</p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-background/65 p-4">
-              <p className="text-xs uppercase tracking-[0.18em] text-muted">95% chance</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-muted">≥95% chance</p>
               <p className="mt-1 text-2xl font-heading font-bold text-white">{spins95}</p>
               <p className="text-xs text-muted">spins</p>
             </div>
@@ -132,7 +132,7 @@ export function SpinBudgetCalculator() {
           </div>
           <div className="rounded-2xl border border-white/10 bg-background/65 p-4 text-xs leading-6 text-muted">
             Rate used: <strong className="text-white">{(rate * 100).toFixed(2)}%</strong> per spin. Pity limit: <strong className="text-white">{pity}</strong> spins.
-            {target === "Evo" ? " Older Evo rates used for this estimate; check current rates in-game." : eventActive ? " Event rates selected." : " Normal rates selected."} Assumes zero starting pity and the same chance on each spin before pity.
+            {target === "Evo" ? " Older Evo rates used for this estimate; check current rates in-game." : eventActive ? " Event rates selected." : " Normal rates selected."} The chance per spin stays constant until pity in this calculation.
           </div>
           </>}
         </div>

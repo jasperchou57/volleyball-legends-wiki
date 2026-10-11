@@ -32,7 +32,7 @@ function returnNote(updateNumber: number, fallback: string) {
 
 export default function StyleReturnDatesPage() {
   const newestFirst = [...availabilityEvents].sort((a, b) => b.updateNumber - a.updateNumber);
-  const latestReports = newestFirst.filter((event) => event.updateNumber === latestGameUpdate.updateNumber);
+  const latestReports = newestFirst.filter((event) => event.updateNumber === newestFirst[0]?.updateNumber);
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-10">
@@ -98,7 +98,7 @@ export default function StyleReturnDatesPage() {
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">Has another return been announced?</h2>
-        <p className="mt-3 text-sm leading-7 text-muted">A return after Jinko’s October 3–17 window has not been announced.</p>
+        <p className="mt-3 text-sm leading-7 text-muted">The Update 91 announcement does not include another style return. Jinko’s previously announced window runs through October 17, 2026.</p>
       </section>
     </div>
   );

@@ -30,10 +30,7 @@ export default function SpinBudgetPage() {
           Volleyball Legends Spin Budget Calculator
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Choose a rarity and enter your Lucky Spins to estimate your chance of getting at least one reward of that rarity. Calculations start from zero pity.
-        </p>
-        <p className="mt-3 max-w-3xl text-xs leading-6 text-muted">
-          Secret rates switch automatically during the announced Update 90 event. Evo estimates use older rates; check them in-game before planning your spins.
+          Choose a rarity and enter your Lucky Spins to estimate your chances.
         </p>
       </section>
 
@@ -44,10 +41,10 @@ export default function SpinBudgetPage() {
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">Understanding your results</h2>
         <ul className="mt-4 space-y-3 text-sm leading-6 text-muted">
-          <li><strong className="text-white">Estimated chance:</strong> your chance of getting at least one reward of the selected rarity within the number of spins entered.</li>
-          <li><strong className="text-white">50% chance:</strong> the number of spins needed to reach an estimated chance of at least 50%.</li>
-          <li><strong className="text-white">95% chance:</strong> the number of spins needed to reach an estimated chance of at least 95%. A 95% chance still leaves a possibility of missing the rarity.</li>
-          <li><strong className="text-white">Pity limit:</strong> the number of spins at which this calculation assumes a reward of the selected rarity is guaranteed. This does not guarantee a specific style. Check your current pity progress in-game.</li>
+          <li><strong className="text-white">Estimated chance:</strong> your chance of getting at least one reward of the selected rarity, not a specific style.</li>
+          <li><strong className="text-white">≥50% chance:</strong> the number of spins needed to reach at least a 50% estimated chance.</li>
+          <li><strong className="text-white">≥95% chance:</strong> the number of spins needed to reach at least a 95% estimated chance. If pity is reached first, this shows the pity limit and the calculation reaches 100% for that rarity.</li>
+          <li><strong className="text-white">Pity limit:</strong> the spin count at which this calculation guarantees a reward of the selected rarity. It does not guarantee a specific style. Evo uses an older estimate; check its current pity limit in-game.</li>
         </ul>
       </section>
 
@@ -55,7 +52,6 @@ export default function SpinBudgetPage() {
         <h2 className="text-2xl font-heading font-bold text-white">Before you spin</h2>
         <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-100">
           <li><strong>Check the rates.</strong> Use Automatic for the announced event schedule, or select normal or event rates to compare your chances.</li>
-          <li><strong>Know what the result means.</strong> The estimate covers any reward of the selected rarity, not the specific style you want.</li>
           <li><strong>Check your target and slot.</strong> Confirm your target is currently available and select the slot you want to roll in.</li>
         </ul>
         <div className="mt-5 flex flex-wrap gap-3">

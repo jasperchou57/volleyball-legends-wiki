@@ -212,12 +212,26 @@ export const currentGameState: CurrentGameState = {
 // Update 90 dates below use US Eastern Time (ET).
 // Official announcement supplied by the site owner on October 3, 2026 ET.
 // Announcement verification is separate from in-game redemption or balance testing.
-export const latestGameUpdate = {
+export const update90 = {
   updateNumber: 90,
   releasedAt: "October 3, 2026",
   lastVerified: "October 3, 2026",
   summary: "Jinko returns with Mastery, a Skeleton Bundle, and a reworked slot system.",
 };
+
+export const update91 = {
+  updateNumber: 91,
+  releasedAt: "October 10, 2026",
+  lastVerified: "October 10, 2026",
+  summary: "Instant replays, match highlights, a 2× Lucky event, and three new codes.",
+};
+export const latestGameUpdate = update91;
+
+export const update91Sections = [
+  { title: "Instant replays", items: ["After each point, a replay vote appears for a few seconds. If most players in the match vote yes, the point replays with a cinematic camera.", "Click or tap Replay, or press Z to vote. You can change the key under Replay Vote in your keybind settings.", "At the end of each match, a highlight reel starts with the MVP’s winning points."] },
+  { title: "2× Lucky event: October 10–12", items: ["The announced event runs from October 10, 2026 at 11:30 AM ET to October 12, 2026 at 11:30 AM ET.", "During this window, Secret Style/Ability chances increase from 0.5% to 1%, and Secret pity drops from 200 to 100."] },
+  { title: "Update-day spin handout — ended", items: ["The October 10 handout ran from 10:30 AM to 12:30 PM ET, with lucky spins every 10 minutes and 12 lucky spins in total."] },
+];
 
 export const jinkoMasteryRewards = [
   "Jinko Juggle Emote (uses owned balls)",
@@ -236,11 +250,11 @@ export const update90Sections = [
 ];
 
 export const pageFreshness: PageFreshness = {
-  siteLastUpdated: "August 8, 2026",
-  siteLastUpdatedIso: "2026-08-08T00:00:00.000Z",
+  siteLastUpdated: "October 10, 2026",
+  siteLastUpdatedIso: "2026-10-10T00:00:00.000Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
   updateTrackerLastUpdated: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  codesLastChecked: "October 3, 2026",
+  codesLastChecked: "October 10, 2026",
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
   pityLastUpdated: "July 27, 2026 availability-history review",
@@ -275,7 +289,7 @@ const currentCodeSources = [
   { label: "MrGuider", url: "https://www.mrguider.org/roblox/volleyball-legends-codes/" },
 ];
 
-export const activeCodes: CodeEntry[] = [
+export const update90Codes: CodeEntry[] = [
   { code: "UPDATE_90", reward: "5 Lucky Style Spins" },
   { code: "SKELETON_BUNDLE", reward: "5 Lucky Style Spins" },
   { code: "JINX", reward: "5 Lucky Ability Spins" },
@@ -286,7 +300,18 @@ export const activeCodes: CodeEntry[] = [
   sourceNote: "Code and reward checked against the official Update 90 Discord announcement in screenshots supplied by the site owner. Not tested in-game.",
 }));
 
+export const activeCodes: CodeEntry[] = [
+  { code: "UPDATE_91", reward: "5 Lucky Style Spins" },
+  { code: "REPLAYS", reward: "5 Lucky Style Spins" },
+  { code: "MVP", reward: "5 Lucky Ability Spins" },
+].map((entry) => ({
+  ...entry, releaseDate: update91.releasedAt, status: "Officially announced",
+  availability: "Active", sourceTier: "Official", lastChecked: update91.lastVerified,
+  sourceNote: "Code and reward checked against the official Update 91 announcement supplied by the site owner. Not tested in-game.",
+}));
+
 export const previousCodes: CodeEntry[] = [
+  ...update90Codes.map((entry): CodeEntry => ({ ...entry, status: "Needs verification", availability: "Unconfirmed" })),
   {
     code: "UPDATE_89",
     reward: "5 Lucky Style Spins",
@@ -1132,11 +1157,18 @@ export const currentlyAvailableStyles = availabilityEvents.filter(
 
 export const updates: UpdateEntry[] = [
   {
+    slug: "update-91", title: "Volleyball Legends Update 91: Replays, 2× Luck & Codes",
+    published: update91.releasedAt, summary: update91.summary,
+    sourceTier: "Official", lastChecked: update91.lastVerified,
+    highlights: ["Vote to replay each point with the Replay button or Z. A majority vote starts the replay.", "Each match ends with a highlight reel, starting with the MVP’s winning points.", "The October 10–12 event doubles Secret chances to 1% and lowers Secret pity to 100.", "Three new codes offer 10 Lucky Style Spins and 5 Lucky Ability Spins."],
+    codes: ["UPDATE_91", "REPLAYS", "MVP"],
+  },
+  {
     slug: "update-90", title: "Volleyball Legends Update 90: Jinko Mastery, Slots & Codes",
-    published: latestGameUpdate.releasedAt, summary: latestGameUpdate.summary,
-    sourceTier: "Official", lastChecked: latestGameUpdate.lastVerified,
+    published: update90.releasedAt, summary: update90.summary,
+    sourceTier: "Official", lastChecked: update90.lastVerified,
     highlights: ["Jinko returns through October 17 with five Mastery reward levels.", "Style and Ability slots now each have a 100-slot cap and can be bought with Gems.", "Four new codes offer 10 Lucky Style Spins, 5 Lucky Ability Spins, and 100 Gems."],
-    codes: activeCodes.map((entry) => entry.code), focusStyles: ["jinko"],
+    codes: update90Codes.map((entry) => entry.code), focusStyles: ["jinko"],
   },
   {
     slug: "update-80-hidari-encho",
@@ -1348,10 +1380,10 @@ export const updates: UpdateEntry[] = [
 ];
 
 export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
-  { title: "Update 90", href: "/updates/update-90", sourceLabel: "Official", updatedAt: latestGameUpdate.lastVerified, reason: "Jinko Mastery, Skeleton Bundle, slot prices, and event dates." },
-  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Four Update 90 codes for spins and Gems." },
-  { title: "Jinko Mastery", href: "/styles/jinko", sourceLabel: "Official", updatedAt: latestGameUpdate.lastVerified, reason: "Available until October 17. Explore all five Mastery rewards." },
-  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: latestGameUpdate.lastVerified, reason: "Jinko’s October 3–17 return window." },
+  { title: "Update 91", href: "/updates/update-91", sourceLabel: "Official", updatedAt: update91.lastVerified, reason: "Instant replays, match highlights, event dates, and new codes." },
+  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 91 codes for Lucky Style and Ability Spins." },
+  { title: "Jinko Mastery", href: "/styles/jinko", sourceLabel: "Official", updatedAt: update90.lastVerified, reason: "Available until October 17. Explore all five Mastery rewards." },
+  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update90.lastVerified, reason: "Jinko’s October 3–17 return window." },
 ];
 
 export const heroImages: HeroImage[] = [
@@ -1427,11 +1459,11 @@ export const datamineSources: DatamineSource[] = [
 export const homepageFaq = [
   {
     question: "What is the latest verified Volleyball Legends update on this wiki?",
-    answer: `Update ${latestGameUpdate.updateNumber} was released on ${latestGameUpdate.releasedAt}. ${latestGameUpdate.summary} It also includes four new codes.`,
+    answer: `Update ${latestGameUpdate.updateNumber} was released on ${latestGameUpdate.releasedAt}. ${latestGameUpdate.summary} The new codes give 10 Lucky Style Spins and 5 Lucky Ability Spins.`,
   },
   {
     question: "Are the odds and style stats on this site official?",
-    answer: "Not always. This site separates official links from community-confirmed data and site-maintained tools. Update 90 confirms Secret rates and pity for its October 3–5 event. Other rarity estimates and style stat sheets have separate review histories.",
+    answer: "Not always. This site separates official links from community-confirmed data and site-maintained tools. Update 91 confirms Secret rates and pity for its October 10–12 event. Other rarity estimates and style stat sheets have separate review histories.",
   },
   {
     question: "When will a limited style or ability return?",

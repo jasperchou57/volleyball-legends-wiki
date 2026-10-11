@@ -31,7 +31,7 @@ export default function PatchDiffPage() {
           Compare historical changes across <strong className="text-white">Updates 63, 64, and 65</strong>. The tables show values and features from those releases; they do not describe the current patch.
         </p>
         <p className="mt-3 max-w-3xl text-xs leading-6 text-muted">
-          These historical figures come from community records. For Secret pity and rates announced in Update 90, see the pity system guide below.
+          These historical figures come from community records. For Secret pity and rates announced in Update 91, see the pity system guide below.
         </p>
       </section>
 

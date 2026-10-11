@@ -32,8 +32,15 @@ export default function BestBindsPage() {
           Best Binds for Volleyball Legends
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          There is no single official bind sheet. This page answers the query by giving you a decision framework: keep your core movement, jump, dive, and ability inputs fast enough that your mechanics survive real pressure.
+          Choose keys you can reach comfortably for movement, jumping, diving, and abilities. Adjust them when an action feels awkward during a match.
         </p>
+      </section>
+
+      <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
+        <h2 className="text-2xl font-heading font-bold text-white">Replay Vote key</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-100">Update 91 adds replay voting after each point. The default PC key is <strong>Z</strong>. Change it under <strong>Replay Vote</strong> in your keybind settings if another key is easier to reach.</p>
+        <p className="mt-3 text-sm leading-7 text-muted">You can also click or tap the Replay button. A majority vote is needed to play the replay.</p>
+        <Link href="/guides/controls" className="mt-4 inline-block text-accent-teal underline">View replay controls</Link>
       </section>
 
       <div className="mt-8 grid gap-4 md:grid-cols-2">

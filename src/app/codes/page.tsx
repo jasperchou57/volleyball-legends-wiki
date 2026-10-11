@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 function formatCheckDate(value: string) {
-  return value === "October 3, 2026" ? "October 3, 2026 (ET)" : value;
+  return `${value} (ET)`;
 }
 
 function CodeTable({ entries }: { entries: CodeEntry[] }) {
@@ -83,8 +83,8 @@ export default function CodesPage() {
               Volleyball Legends Codes
             </h1>
             <p className="mt-4 text-lg font-semibold text-accent-teal">Update {latestGameUpdate.updateNumber} · {activeCodes.length} new codes</p>
-            <p className="mt-2 text-sm leading-6 text-slate-200">Added October 3, 2026 (ET) — 10 Lucky Style Spins, 5 Lucky Ability Spins &amp; 100 Gems.</p>
-            <p className="mt-2 text-sm leading-6 text-muted">Update {latestGameUpdate.updateNumber} codes include {activeCodes.map((entry) => entry.code).join(", ")}, offering free spins and Gems.</p>
+            <p className="mt-2 text-sm leading-6 text-slate-200">Added {latestGameUpdate.releasedAt} (ET) — 10 Lucky Style Spins &amp; 5 Lucky Ability Spins.</p>
+            <p className="mt-2 text-sm leading-6 text-muted">Update {latestGameUpdate.updateNumber} codes include {activeCodes.map((entry) => entry.code).join(", ")}, offering free Lucky Style and Ability Spins.</p>
             <p className="mt-3 text-sm leading-6 text-muted">Copy a code below, then redeem it in-game at level 15.</p>
           </div>
         </div>
@@ -234,7 +234,7 @@ export default function CodesPage() {
           </details>
           <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
             <summary className="cursor-pointer list-none text-lg font-semibold text-white">What rewards do codes usually give?</summary>
-            <p className="mt-3 text-sm leading-6 text-muted">Update 90 codes give Lucky Style Spins, Lucky Ability Spins, and Gems. Check the reward next to each code before redeeming.</p>
+            <p className="mt-3 text-sm leading-6 text-muted">Update 91 codes give Lucky Style Spins and Lucky Ability Spins. Check the reward next to each code before redeeming.</p>
           </details>
         </div>
       </section>
