@@ -1,7 +1,91 @@
 {
   "version": 1,
-  "codes": [],
-  "announcements": [],
-  "update": null,
-  "revision": "baseline"
+  "codes": [
+    {
+      "code": "UPDATE_92",
+      "reward": "6 Lucky Style Spins",
+      "status": "active",
+      "addedAt": "2026-10-17",
+      "sourceCheckedAt": "2026-10-17",
+      "eventTime": "2026-10-17T15:30:06.432Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1561038606280425563",
+      "evidenceHash": "58d092f13072807abee28b04262047acae3c0c3ab54c23e8c432070bb5638d9b"
+    },
+    {
+      "code": "MAMORI",
+      "reward": "7 Lucky Style Spins",
+      "status": "active",
+      "addedAt": "2026-10-17",
+      "sourceCheckedAt": "2026-10-17",
+      "eventTime": "2026-10-17T15:30:06.432Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1561038606280425563",
+      "evidenceHash": "58d092f13072807abee28b04262047acae3c0c3ab54c23e8c432070bb5638d9b"
+    },
+    {
+      "code": "PARRY",
+      "reward": "5 Lucky Ability Spins",
+      "status": "active",
+      "addedAt": "2026-10-17",
+      "sourceCheckedAt": "2026-10-17",
+      "eventTime": "2026-10-17T15:30:06.432Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1561038606280425563",
+      "evidenceHash": "58d092f13072807abee28b04262047acae3c0c3ab54c23e8c432070bb5638d9b"
+    }
+  ],
+  "announcements": [
+    {
+      "gameId": "volleyball-legends",
+      "guildId": "1328110081136398427",
+      "channelId": "1328110082226913470",
+      "messageId": "1561038606280425563",
+      "receivedChannelId": "1328110082226913470",
+      "receivedMessageId": "1561038606280425563",
+      "timestamp": "2026-10-17T15:30:06.432Z",
+      "editedTimestamp": null,
+      "capturedAt": "2026-10-17T16:58:21.810Z",
+      "segments": [
+        {
+          "id": "browser-text",
+          "text": "UPDATE 92 IS NOW!\nNEW STYLE - MAMORI\nCodes\n\nNEW CODES\nUPDATE_92 = 6 Lucky Style Spins\nMAMORI = 7 Lucky Style Spins\nPARRY = 5 Lucky Ability Spins"
+        }
+      ],
+      "observations": [
+        {
+          "code": "UPDATE_92",
+          "status": "active",
+          "reward": "6 Lucky Style Spins",
+          "segment": "browser-text",
+          "quote": "UPDATE_92 = 6 Lucky Style Spins"
+        },
+        {
+          "code": "MAMORI",
+          "status": "active",
+          "reward": "7 Lucky Style Spins",
+          "segment": "browser-text",
+          "quote": "MAMORI = 7 Lucky Style Spins"
+        },
+        {
+          "code": "PARRY",
+          "status": "active",
+          "reward": "5 Lucky Ability Spins",
+          "segment": "browser-text",
+          "quote": "PARRY = 5 Lucky Ability Spins"
+        }
+      ],
+      "update": {
+        "number": 92,
+        "segment": "browser-text",
+        "quote": "UPDATE 92 IS NOW!"
+      },
+      "hash": "58d092f13072807abee28b04262047acae3c0c3ab54c23e8c432070bb5638d9b"
+    }
+  ],
+  "update": {
+    "number": 92,
+    "segment": "browser-text",
+    "quote": "UPDATE 92 IS NOW!",
+    "announcedAt": "2026-10-17",
+    "checkedAt": "2026-10-17"
+  },
+  "revision": "3977a92178b626cd7f7700d2fad39f324979f5a15d116c19e20104130cc49b23"
 }
