@@ -1,0 +1,342 @@
+[
+  {
+    "code": "UPDATE_91",
+    "reward": "5 Lucky Style Spins",
+    "status": "active",
+    "sourceCheckedAt": "2026-10-10",
+    "addedAt": "2026-10-10"
+  },
+  {
+    "code": "REPLAYS",
+    "reward": "5 Lucky Style Spins",
+    "status": "active",
+    "sourceCheckedAt": "2026-10-10",
+    "addedAt": "2026-10-10"
+  },
+  {
+    "code": "MVP",
+    "reward": "5 Lucky Ability Spins",
+    "status": "active",
+    "sourceCheckedAt": "2026-10-10",
+    "addedAt": "2026-10-10"
+  },
+  {
+    "code": "UPDATE_90",
+    "reward": "5 Lucky Style Spins",
+    "status": "unknown",
+    "sourceCheckedAt": "2026-10-03",
+    "addedAt": "2026-10-03"
+  },
+  {
+    "code": "SKELETON_BUNDLE",
+    "reward": "5 Lucky Style Spins",
+    "status": "unknown",
+    "sourceCheckedAt": "2026-10-03",
+    "addedAt": "2026-10-03"
+  },
+  {
+    "code": "JINX",
+    "reward": "5 Lucky Ability Spins",
+    "status": "unknown",
+    "sourceCheckedAt": "2026-10-03",
+    "addedAt": "2026-10-03"
+  },
+  {
+    "code": "SLOT_REWORK",
+    "reward": "100 Gems",
+    "status": "unknown",
+    "sourceCheckedAt": "2026-10-03",
+    "addedAt": "2026-10-03"
+  },
+  {
+    "code": "UPDATE_89",
+    "reward": "5 Lucky Style Spins",
+    "status": "unknown",
+    "sourceCheckedAt": "2026-09-29",
+    "addedAt": "2026-09-26"
+  },
+  {
+    "code": "WE_CURSED",
+    "reward": "5 Lucky Style Spins",
+    "status": "unknown",
+    "sourceCheckedAt": "2026-09-29",
+    "addedAt": "2026-09-26"
+  },
+  {
+    "code": "SKELETON",
+    "reward": "5 Lucky Ability Spins",
+    "status": "unknown",
+    "sourceCheckedAt": "2026-09-29",
+    "addedAt": "2026-09-26"
+  },
+  {
+    "code": "UPDATE_82",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-08-08"
+  },
+  {
+    "code": "ROKETTO",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-08-08"
+  },
+  {
+    "code": "JETPACK",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-08-08"
+  },
+  {
+    "code": "UPDATE_81",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-08-01"
+  },
+  {
+    "code": "LEAD_FEET_AGAIN",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-08-01"
+  },
+  {
+    "code": "KNEE_SLIDE",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-08-01"
+  },
+  {
+    "code": "UPDATE_80",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-07-25"
+  },
+  {
+    "code": "HIDARI_FINALLY",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-07-25"
+  },
+  {
+    "code": "ENCHO_NERF",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-07-25"
+  },
+  {
+    "code": "UPDATE_79",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-07-18"
+  },
+  {
+    "code": "SEASON_17",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-07-18"
+  },
+  {
+    "code": "FESTIVAL_UPD",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-07-18"
+  },
+  {
+    "code": "UPDATE_78",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-07-11"
+  },
+  {
+    "code": "LEADERBOARD",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-07-11"
+  },
+  {
+    "code": "NEW_PACK",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-07-11"
+  },
+  {
+    "code": "UPDATE_77",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-07-04"
+  },
+  {
+    "code": "RIKU",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-07-04"
+  },
+  {
+    "code": "HOLO_WALLS",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-07-04"
+  },
+  {
+    "code": "UPDATE_76",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-06-27"
+  },
+  {
+    "code": "ENCHO_RETURNS",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-06-27"
+  },
+  {
+    "code": "BALANCE_76",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-06-27"
+  },
+  {
+    "code": "UPDATE_75",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-06-20"
+  },
+  {
+    "code": "SPECTATING",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-06-20"
+  },
+  {
+    "code": "SHOW_OFF",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-06-20"
+  },
+  {
+    "code": "UPDATE_72",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-05-30"
+  },
+  {
+    "code": "NEW_MAP",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-05-30"
+  },
+  {
+    "code": "SUMMER_DELUXE",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-05-30"
+  },
+  {
+    "code": "UPDATE_69",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-05-09"
+  },
+  {
+    "code": "RICOCHET_TOURNEY",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-05-09"
+  },
+  {
+    "code": "BALANCE_CHANGES",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-05-09"
+  },
+  {
+    "code": "UPDATE_65",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-04-11"
+  },
+  {
+    "code": "SEASON_14",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-04-11"
+  },
+  {
+    "code": "EASTER_UPDATE",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-04-11"
+  },
+  {
+    "code": "UPDATE_60",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-03-07"
+  },
+  {
+    "code": "KIJO",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-03-07"
+  },
+  {
+    "code": "SUPER_TILTS",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-03-07"
+  },
+  {
+    "code": "UPDATE_59",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-03-01"
+  },
+  {
+    "code": "TAICHOU_2026",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-03-01"
+  },
+  {
+    "code": "DUELS",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-03-01"
+  },
+  {
+    "code": "UPDATE_58",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-02-22"
+  },
+  {
+    "code": "RONIN",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-02-22"
+  },
+  {
+    "code": "THUNDER_SPIKE",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-02-22"
+  },
+  {
+    "code": "UPDATE_56",
+    "reward": "5 Lucky Style Spins",
+    "status": "expired",
+    "addedAt": "2026-02-07"
+  },
+  {
+    "code": "LEAD_FEET",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-02-07"
+  },
+  {
+    "code": "LIMITED_ABILITY",
+    "reward": "5 Lucky Ability Spins",
+    "status": "expired",
+    "addedAt": "2026-02-07"
+  }
+]

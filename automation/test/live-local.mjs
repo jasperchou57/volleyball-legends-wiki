@@ -1,0 +1,22 @@
+// Real Worker + D1 integration, intentionally restricted to loopback.
+import assert from 'node:assert/strict';
+import { hash } from '../collector.mjs';
+const base = process.env.LOCAL_TEST_URL ?? 'http://127.0.0.1:8787';
+if (new URL(base).hostname !== '127.0.0.1') throw Error('Tests must never target production');
+const gameId = 'volleyball-legends';
+const event = { gameId, guildId: '1328110081136398427', channelId: '1328110082226913470', messageId: '1560951689320857600', receivedChannelId: '1560933912740495442', receivedMessageId: '1560951689320857671', timestamp: '2026-10-17T12:00:00Z', editedTimestamp: null, capturedAt: '2026-10-17T13:00:00Z', hash: hash('local-integration-1'), segments: [{ id: 'body', text: 'New code TEST_ONLY_INTEGRATION: 5 Lucky Style Spins' }], observations: [{ code: 'TEST_ONLY_INTEGRATION', reward: '5 Lucky Style Spins', status: 'active', segment: 'body', quote: 'New code TEST_ONLY_INTEGRATION: 5 Lucky Style Spins' }], update: null };
+const send = (events, token = 'local-test-only-000000000000000000000000000000000000', dryRun = false) => fetch(`${base}/api/automation/codes`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ gameId, events, dryRun }) });
+assert.equal((await send([event], 'wrong')).status, 401);
+const before = await (await fetch(`${base}/api/automation/codes?gameId=${gameId}`)).json();
+const dry = await (await send([event], undefined, true)).json(); assert.equal(dry.dryRun, true);
+assert.equal((await (await fetch(`${base}/api/automation/codes?gameId=${gameId}`)).json()).revision, before.revision);
+const added = await (await send([event])).json(); assert.equal(added.changed, true);
+const repeated = await (await send([event])).json(); assert.equal(repeated.changed, false); assert.equal(repeated.revision, added.revision);
+const page = await (await fetch(`${base}/games/${gameId}/codes`)).text(); assert.ok(page.includes('<code>TEST_ONLY_INTEGRATION</code>'));
+assert.equal((await send([{ ...event, guildId: '000000000000000000' }])).status, 422);
+const expiry = { ...event, hash: hash('local-integration-2'), editedTimestamp: '2026-10-17T12:30:00Z', segments: [{ id: 'body', text: 'TEST_ONLY_INTEGRATION has expired' }], observations: [{ ...event.observations[0], status: 'expired', reward: null, quote: 'TEST_ONLY_INTEGRATION has expired' }] };
+const expired = await (await send([expiry])).json(); assert.equal(expired.changed, true);
+const readback = await (await fetch(`${base}/api/automation/codes?gameId=${gameId}`)).json(); assert.equal(readback.codes.find(c => c.code === 'TEST_ONLY_INTEGRATION').status, 'expired');
+assert.equal((await fetch(`${base}/codes`)).status, 200);
+assert.equal((await fetch(`${base}/games/${gameId}`)).status, 200);
+console.log('Local Worker/D1 integration passed: auth, dry run, write, duplicate, bad source, expiry, visible SSR, directory and hub.');
