@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { collect, initialState, normalizeMessage, hash, saveJson, loadState } from '../collector.mjs';
+import { collect, initialState, normalizeMessage, hash, saveJson, loadState, verifySourceCoverage } from '../collector.mjs';
 import { applyAnnouncement, emptyData, validateObservation, assertEnvelope } from '../shared/contract.ts';
 import { acceptExtraction, chatgptEnvironment } from '../extract.mjs';
 import { writeVolleyball, publishVolleyball, publishBrixumi, waitGitPublication } from '../writers.mjs';
@@ -176,4 +176,20 @@ test('Git deployment success must match Vercel status and live readback; failure
   assert.equal(verified, 1);
   await assert.rejects(waitGitPublication('a'.repeat(40), 'revision', { attempts: 1, fetchStatus: async () => ({ statuses: [{ context: 'Vercel', state: 'failure' }] }), verify: async () => { throw Error('must-not-verify'); } }), /vercel-git-deployment-failed/);
   await assert.rejects(waitGitPublication('a'.repeat(40), 'revision', { attempts: 1, fetchStatus: async () => ({ statuses: [{ context: 'Vercel', state: 'success' }] }), verify: async () => { throw Error('wrong-live-data'); } }), /not-verified/);
+});
+
+test('an empty followed feed and inaccessible official source is unverified, never no-update proof', async () => {
+  const state = initialState();
+  await collect(state, [channel], async () => [ { ...raw(), type: 12 } ]);
+  await verifySourceCoverage(state, [channel], async () => { throw Error('discord-http-403'); });
+  assert.equal(Object.keys(state.messages).length, 0);
+  assert.equal(state.sourceCoverage[channel.channelId].status, 'unverified');
+  assert.equal(state.sourceCoverage[channel.channelId].reason, 'discord-http-403');
+  assert.equal(state.channels[channel.channelId].lastReadMessageCount, 1);
+});
+test('source message absent from relay produces an explicit coverage gap', async () => {
+  const state = initialState();
+  await verifySourceCoverage(state, [channel], async path => path.includes('messages?') ? [{ id: '1560951689320857600' }] : { id: channel.trustedSource.channelId, guild_id: channel.trustedSource.guildId });
+  assert.equal(state.sourceCoverage[channel.channelId].reason, 'latest-source-message-not-delivered');
+  assert.equal(state.sourceCoverage[channel.channelId].status, 'unverified');
 });

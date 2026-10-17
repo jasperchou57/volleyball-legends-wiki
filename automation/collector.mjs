@@ -73,7 +73,7 @@ export async function collect(state, channels, get, now = new Date().toISOString
         if (before && BigInt(next) >= BigInt(before)) throw Error('pagination-not-progressing');
         before = next;
       }
-      state.channels[channel.channelId] = { cursor: newest ?? null, lastFetchedAt: now };
+      state.channels[channel.channelId] = { cursor: newest ?? null, lastFetchedAt: now, lastReadMessageCount: seen.size };
       // A high-water mark alone cannot detect edits to old messages.
       for (const [id, old] of Object.entries(state.messages)) {
         if (old.envelope.receivedChannelId !== channel.channelId || seen.has(id)) continue;
@@ -91,4 +91,29 @@ export async function collect(state, channels, get, now = new Date().toISOString
   }
   state.errors = errors;
   return state;
+}
+
+// A followed channel is a delivery mechanism, not proof that the official source has no news.
+export async function verifySourceCoverage(state, channels, get, now = new Date().toISOString()) {
+  state.sourceCoverage ??= {};
+  for (const channel of channels) {
+    const known = Object.values(state.messages).filter(m => m.envelope.receivedChannelId === channel.channelId);
+    const result = { gameId: channel.gameId, receiptChannelId: channel.channelId,
+      sourceUrl: `https://discord.com/channels/${channel.trustedSource.guildId}/${channel.trustedSource.channelId}`,
+      checkedAt: now, receivedOfficialMessages: known.length, status: 'unverified', reason: 'follow-feed-is-not-complete-source' };
+    try {
+      const source = await get(`channels/${channel.trustedSource.channelId}`);
+      if (source.id !== channel.trustedSource.channelId || source.guild_id !== channel.trustedSource.guildId) throw Error('source-channel-identity-mismatch');
+      const rows = await get(`channels/${channel.trustedSource.channelId}/messages?limit=1`);
+      if (!Array.isArray(rows)) throw Error('invalid-source-response');
+      if (rows.length) {
+        result.latestSourceMessageId = rows[0].id;
+        const delivered = known.find(m => m.envelope.messageId === rows[0].id);
+        // Latest-message presence alone cannot prove earlier messages or edits were delivered.
+        result.reason = delivered ? 'latest-message-delivered-history-still-unverified' : 'latest-source-message-not-delivered';
+      } else result.reason = 'source-returned-empty-requires-review';
+    } catch (error) { result.reason = error.message; }
+    state.sourceCoverage[channel.channelId] = result;
+  }
+  return state.sourceCoverage;
 }

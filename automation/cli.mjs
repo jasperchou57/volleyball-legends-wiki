@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { readFile, mkdir, rm, appendFile } from 'node:fs/promises';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { initialState, loadState, saveJson, collect, discordGet } from './collector.mjs';
+import { initialState, loadState, saveJson, collect, discordGet, verifySourceCoverage } from './collector.mjs';
 import { prepareExtraction, acceptExtraction, runLocalCodex } from './extract.mjs';
 import { publishBrixumi, publishVolleyball } from './writers.mjs';
 
@@ -24,6 +24,7 @@ try {
     if (!process.env.DISCORD_BOT_TOKEN) throw Error('missing-DISCORD_BOT_TOKEN');
     const channels = JSON.parse(await readFile(configFile, 'utf8'));
     await collect(state, channels, route => discordGet(route, process.env.DISCORD_BOT_TOKEN));
+    await verifySourceCoverage(state, channels, route => discordGet(route, process.env.DISCORD_BOT_TOKEN));
     await persist();
     }
     const prepared = await prepareExtraction(state, work);
@@ -75,6 +76,8 @@ try {
     if (errors.length) { console.error(JSON.stringify(errors)); process.exitCode = 1; }
   }
   const summary = { collectedChannels: Object.keys(state.channels).length, officialMessages: Object.keys(state.messages).length,
+    sourceCoverage: Object.values(state.sourceCoverage ?? {}),
+    officialSourceReviewRequired: Object.values(state.sourceCoverage ?? {}).some(c => c.status === 'unverified'),
     pendingExtraction: Object.values(state.messages).filter(m => m.pending).length, fetchErrors: state.errors,
     exceptions: Object.values(state.messages).flatMap(m => (m.issues ?? []).map(issue => ({ message: m.envelope.receivedMessageId, issue }))),
     sites: Object.fromEntries(Object.entries(state.sites).map(([name, site]) => [name, { phase: site.phase, revision: site.revision, publishedAt: site.publishedAt, error: site.error, conflicts: site.conflicts }])) };
