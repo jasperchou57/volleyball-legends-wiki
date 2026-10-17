@@ -1,24 +1,15 @@
-name: Official code updates
+name: Official code validation (manual only)
 on:
-  schedule:
-    - cron: '7,37 * * * *'
   workflow_dispatch:
-    inputs:
-      validation_only:
-        description: 'Collect and validate cloud state without model calls or website writes'
-        type: boolean
-        default: false
 permissions:
   contents: write
 concurrency:
-  group: official-codes-production
+  group: official-codes-validation
   cancel-in-progress: false
 jobs:
-  update:
-    # First-time credentials must be configured before enabling this repository variable.
-    if: vars.OFFICIAL_CODES_ENABLED == 'true' || (github.event_name == 'workflow_dispatch' && inputs.validation_only)
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 15
     env:
       AUTOMATION_STATE_FILE: ${{ github.workspace }}/.state/state.json
       AUTOMATION_WORK_DIR: ${{ github.workspace }}/.run
@@ -30,84 +21,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Restore durable state
+      - name: Restore validation state
         id: state
         run: node automation/state-branch.mjs load
       - name: Validate deterministic automation
         run: |
           node --test automation/test/*.test.mjs
           node scripts/check-codes.mjs
-      - name: Read trusted announcements
-        id: collect
-        continue-on-error: true
+      - name: Read trusted announcements (no model or website writes)
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: node automation/cli.mjs prepare
-      - name: Isolate the extraction account
-        if: steps.collect.outputs.has_work == 'true' && inputs.validation_only != true
-        run: |
-          sudo useradd --create-home --shell /bin/bash codex-extract
-          sudo chgrp codex-extract .run
-          chmod 770 .run
-          chmod 700 .git .state
-      - name: Extract announcement facts
-        id: extract
-        if: steps.collect.outputs.has_work == 'true' && inputs.validation_only != true
-        uses: openai/codex-action@1d82a3dba7c7988ec71ecae1ed5b8e8db96495c5 # v1
-        with:
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          working-directory: .run
-          codex-user: codex-extract
-          prompt-file: ${{ github.workspace }}/.run/prompt.txt
-          output-schema-file: ${{ github.workspace }}/.run/schema.json
-          output-file: ${{ github.workspace }}/.run/result.json
-          codex-args: ${{ steps.collect.outputs.codex_args }}
-          sandbox: read-only
-          safety-strategy: unprivileged-user
-      - name: Independently read images
-        if: inputs.validation_only != true && steps.collect.outputs.has_images == 'true' && steps.extract.outcome == 'success'
-        uses: openai/codex-action@1d82a3dba7c7988ec71ecae1ed5b8e8db96495c5 # v1
-        with:
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          working-directory: .run
-          codex-user: codex-extract
-          prompt-file: ${{ github.workspace }}/.run/prompt.txt
-          output-schema-file: ${{ github.workspace }}/.run/schema.json
-          output-file: ${{ github.workspace }}/.run/second.json
-          codex-args: ${{ steps.collect.outputs.codex_args }}
-          sandbox: read-only
-          safety-strategy: unprivileged-user
-      - name: Validate extracted facts
-        if: always() && steps.state.outcome == 'success' && steps.extract.outcome == 'success'
-        run: node automation/cli.mjs accept
-      - uses: actions/checkout@v4
-        if: inputs.validation_only != true && always() && steps.state.outcome == 'success'
-        with:
-          ref: main
-          path: .publish/volleyball
-      - name: Install website dependencies
-        if: inputs.validation_only != true && always() && steps.state.outcome == 'success'
-        working-directory: .publish/volleyball
-        run: npm ci
-      - name: Update sites and verify production
-        if: inputs.validation_only != true && always() && steps.state.outcome == 'success'
-        env:
-          VOLLEYBALL_CHECKOUT: ${{ github.workspace }}/.publish/volleyball
-          BRIXUMI_UPDATE_TOKEN: ${{ secrets.BRIXUMI_UPDATE_TOKEN }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
-          VERCEL_TEAM_SLUG: ${{ vars.VERCEL_TEAM_SLUG }}
-        run: node automation/cli.mjs publish
-      - name: Persist progress even after a failure
+      - name: Persist validation progress
         if: always() && steps.state.outcome == 'success'
         run: node automation/state-branch.mjs save
       - name: Save run summary
         if: always() && steps.state.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
-          name: official-codes-run
+          name: official-codes-validation
           path: .run/summary.json
           retention-days: 30
-      - name: Report collection failure
-        if: steps.collect.outcome == 'failure'
-        run: exit 1

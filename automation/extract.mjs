@@ -1,4 +1,4 @@
-import { writeFile, mkdir, readFile } from 'node:fs/promises';
+import { writeFile, mkdir, readFile, rm } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import { join } from 'node:path';
 import { hash } from './collector.mjs';
@@ -14,6 +14,8 @@ export const schema = object({ messages: array(object({ receiptId: str, hash: st
 })) });
 export async function prepareExtraction(state, dir, fetcher = fetch) {
   await mkdir(dir, { recursive: true });
+  // Never let a previous batch's output or image confirmation leak into this one.
+  for (const name of ['result.json', 'second.json']) await rm(join(dir, name), { force: true });
   const batch = Object.values(state.messages).filter(m => m.pending && !m.deleted).sort((a,b) => a.envelope.timestamp.localeCompare(b.envelope.timestamp)).slice(0, 8);
   const files = [], inputs = [];
   for (const entry of batch) {
@@ -74,12 +76,16 @@ export function acceptExtraction(state, batch, result, second = null) {
     entry.parsed = envelope; entry.pending = false; entry.issues = issues; entry.attempts++;
   }
 }
+export function chatgptEnvironment(env = process.env) {
+  // Use Codex's existing local login. Never forward API keys or deployment secrets.
+  return Object.fromEntries(['PATH', 'HOME', 'CODEX_HOME', 'TMPDIR', 'SYSTEMROOT'].filter(key => env[key]).map(key => [key, env[key]]));
+}
 export async function runLocalCodex(dir, files, output = 'result.json') {
   const prompt = await readFile(join(dir, 'prompt.txt'), 'utf8');
   const args = ['exec', '--ephemeral', '--sandbox', 'read-only', '--skip-git-repo-check', '--output-schema', join(dir, 'schema.json'), '-o', join(dir, output), '-'];
   if (files.length) args.splice(args.length - 1, 0, '--image', files.join(','));
   await new Promise((resolve, reject) => {
-    const child = spawn('codex', args, { cwd: dir, stdio: ['pipe', 'ignore', 'ignore'], env: { PATH: process.env.PATH, HOME: process.env.HOME, CODEX_API_KEY: process.env.OPENAI_API_KEY } });
+    const child = spawn('codex', args, { cwd: dir, stdio: ['pipe', 'ignore', 'ignore'], env: chatgptEnvironment() });
     const timer = setTimeout(() => child.kill('SIGTERM'), 300000);
     child.on('error', e => { clearTimeout(timer); reject(e); });
     child.on('exit', code => { clearTimeout(timer); code === 0 ? resolve() : reject(Error('codex-extraction-failed')); });

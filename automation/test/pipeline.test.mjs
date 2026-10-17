@@ -5,8 +5,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { collect, initialState, normalizeMessage, hash, saveJson, loadState } from '../collector.mjs';
 import { applyAnnouncement, emptyData, validateObservation, assertEnvelope } from '../shared/contract.ts';
-import { acceptExtraction } from '../extract.mjs';
-import { writeVolleyball, publishVolleyball, publishBrixumi } from '../writers.mjs';
+import { acceptExtraction, chatgptEnvironment } from '../extract.mjs';
+import { writeVolleyball, publishVolleyball, publishBrixumi, waitGitPublication } from '../writers.mjs';
 
 const channel = { gameId: 'volleyball-legends', channelId: '1560933912740495442', trustedSource: { guildId: '1328110081136398427', channelId: '1328110082226913470' } };
 function raw(id = '1560951689320857671') { return { id, channel_id: channel.channelId, type: 0, flags: 2, timestamp: '2026-10-17T12:00:00Z', content: 'New code TEST_ONLY_ALPHA: 5 Lucky Style Spins', message_reference: { guild_id: channel.trustedSource.guildId, channel_id: channel.trustedSource.channelId, message_id: '1560951689320857600' }, embeds: [], attachments: [] }; }
@@ -150,4 +150,30 @@ test('deliberate extraction retries publish corrected facts without refetching o
   assert.equal(entry.parsed.capturedAt, '2026-10-17T13:00:00Z');
   acceptExtraction(state, input, { messages: [output] });
   assert.equal(entry.parsed.hash, correctedHash);
+});
+
+test('local Codex uses existing login and never inherits model API or deployment keys', () => {
+  const env = chatgptEnvironment({ PATH: '/bin', HOME: '/home/user', CODEX_HOME: '/user/codex', OPENAI_API_KEY: 'must-not-pass', CODEX_API_KEY: 'must-not-pass', VERCEL_TOKEN: 'must-not-pass', DISCORD_BOT_TOKEN: 'must-not-pass' });
+  assert.deepEqual(env, { PATH: '/bin', HOME: '/home/user', CODEX_HOME: '/user/codex' });
+});
+test('local publication uses Git integration and waits for verified online content without Vercel API', async () => {
+  const dir = await fixture(), site = {}, calls = [];
+  try {
+    await publishVolleyball(dir, [event()], site, async () => {}, { mode: 'git-integration',
+      command: async (exe, args) => { calls.push({ exe, args }); if (args[0] === 'diff') return 'src/data/codes-automated.json'; if (args[0] === 'rev-parse') return 'a'.repeat(40); return ''; },
+      triggerVercel: () => { throw Error('API must not run'); },
+      waitGitPublication: async (commit, revision) => { assert.equal(commit, 'a'.repeat(40)); assert.ok(revision); assert.equal(site.phase, 'awaiting-git-deployment'); },
+    });
+    assert.equal(site.phase, 'published');
+    assert.ok(calls.some(c => c.args[0] === 'push'));
+    assert.ok(calls.some(c => c.args.includes('node_modules/next/dist/bin/next')));
+    assert.ok(!calls.some(c => c.exe === 'npm'));
+  } finally { await rm(dir, { recursive: true }); }
+});
+test('Git deployment success must match Vercel status and live readback; failure stays retryable', async () => {
+  let verified = 0, polls = 0;
+  await waitGitPublication('a'.repeat(40), 'revision', { attempts: 2, sleep: async () => {}, fetchStatus: async () => ({ statuses: [{ context: 'Vercel', state: ++polls === 1 ? 'pending' : 'success' }] }), verify: async revision => { assert.equal(revision, 'revision'); verified++; } });
+  assert.equal(verified, 1);
+  await assert.rejects(waitGitPublication('a'.repeat(40), 'revision', { attempts: 1, fetchStatus: async () => ({ statuses: [{ context: 'Vercel', state: 'failure' }] }), verify: async () => { throw Error('must-not-verify'); } }), /vercel-git-deployment-failed/);
+  await assert.rejects(waitGitPublication('a'.repeat(40), 'revision', { attempts: 1, fetchStatus: async () => ({ statuses: [{ context: 'Vercel', state: 'success' }] }), verify: async () => { throw Error('wrong-live-data'); } }), /not-verified/);
 });

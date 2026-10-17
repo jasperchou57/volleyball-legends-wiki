@@ -88,7 +88,9 @@ export async function waitVercel(id, env = process.env) {
 }
 export async function publishVolleyball(checkout, events, site, persist, deps = {}) {
   const run = deps.command ?? command;
-  if (site.deploymentId && site.phase === 'deploying') {
+  const mode = deps.mode ?? process.env.VOLLEYBALL_DEPLOYMENT ?? 'api';
+  if (!['api', 'git-integration'].includes(mode)) throw Error('invalid-deployment-mode');
+  if (mode === 'api' && site.deploymentId && site.phase === 'deploying') {
     try { await (deps.waitVercel ?? waitVercel)(site.deploymentId); } catch (error) {
       if (error.message === 'vercel-deployment-failed') { site.phase = 'committed'; site.deploymentId = null; await persist(); }
       throw error;
@@ -101,11 +103,17 @@ export async function publishVolleyball(checkout, events, site, persist, deps = 
   if (result.changed) {
     const files = (await run('git', ['diff', '--name-only'], checkout)).split('\n').filter(Boolean);
     if (files.some(file => file !== 'src/data/codes-automated.json')) throw Error('unexpected-changed-file');
-    await run('npm', ['run', 'check:codes'], checkout);
-    await run('npm', ['run', 'lint'], checkout);
-    await run('npm', ['run', 'build'], checkout);
+    if (mode === 'git-integration') {
+      await run(process.execPath, ['scripts/check-codes.mjs'], checkout);
+      await run(process.execPath, ['node_modules/eslint/bin/eslint.js', '.', '--ext', '.js,.jsx,.ts,.tsx', '--ignore-path', '.gitignore'], checkout);
+      await run(process.execPath, ['node_modules/next/dist/bin/next', 'build'], checkout);
+    } else {
+      await run('npm', ['run', 'check:codes'], checkout);
+      await run('npm', ['run', 'lint'], checkout);
+      await run('npm', ['run', 'build'], checkout);
+    }
     await run('git', ['add', '--', 'src/data/codes-automated.json'], checkout);
-    await run('git', ['-c', 'user.name=Official Codes Bot', '-c', 'user.email=official-codes-bot@users.noreply.github.com', 'commit', '-m', 'Update codes from official Discord announcements'], checkout);
+    await run('git', ['-c', `user.name=${process.env.VOLLEYBALL_GIT_AUTHOR_NAME || 'Official Codes Bot'}`, '-c', `user.email=${process.env.VOLLEYBALL_GIT_AUTHOR_EMAIL || 'official-codes-bot@users.noreply.github.com'}`, 'commit', '-m', 'Update codes from official Discord announcements'], checkout);
     await run('git', ['push', 'origin', 'HEAD:main'], checkout); // rejects branch protections / races
     site.phase = 'committed'; site.commit = await run('git', ['rev-parse', 'HEAD'], checkout); await persist();
   }
@@ -115,9 +123,33 @@ export async function publishVolleyball(checkout, events, site, persist, deps = 
     site.commit = await run('git', ['rev-parse', 'HEAD'], checkout);
   }
   site.commit = await run('git', ['rev-parse', 'HEAD'], checkout);
+  if (mode === 'git-integration') {
+    site.phase = 'awaiting-git-deployment'; await persist();
+    await (deps.waitGitPublication ?? waitGitPublication)(site.commit, site.revision);
+    site.phase = 'published'; await persist(); return;
+  }
   const deployment = await (deps.triggerVercel ?? triggerVercel)(site.commit);
   site.deploymentId = deployment.id; site.phase = 'deploying'; await persist();
   await (deps.waitVercel ?? waitVercel)(deployment.id);
   await (deps.verifyVolleyball ?? verifyVolleyball)(site.revision);
   site.phase = 'published'; await persist();
+}
+
+// A personal Git push uses the already connected Vercel Git integration.
+// This path never calls Vercel's deployment API and never needs a VERCEL_TOKEN.
+export async function waitGitPublication(commit, revision, deps = {}) {
+  if (!/^[a-f0-9]{40}$/.test(commit)) throw Error('invalid-publication-commit');
+  const fetchStatus = deps.fetchStatus ?? jsonFetch;
+  const verify = deps.verify ?? verifyVolleyball;
+  const sleep = deps.sleep ?? (ms => new Promise(resolve => setTimeout(resolve, ms)));
+  for (let attempt = 0; attempt < (deps.attempts ?? 30); attempt++) {
+    const result = await fetchStatus(`https://api.github.com/repos/jasperchou57/volleyball-legends-wiki/commits/${commit}/status`);
+    const vercel = result.statuses?.find(s => s.context === 'Vercel');
+    if (vercel?.state === 'error' || vercel?.state === 'failure') throw Error('vercel-git-deployment-failed');
+    if (vercel?.state === 'success') {
+      try { await verify(revision); return; } catch { /* allow alias/CDN propagation */ }
+    }
+    if (attempt + 1 < (deps.attempts ?? 30)) await sleep(15000);
+  }
+  throw Error('git-deployment-not-verified-retry-later');
 }

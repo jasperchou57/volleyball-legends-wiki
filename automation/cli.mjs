@@ -19,11 +19,13 @@ let state;
 try {
   state = await loadState(stateFile);
   const persist = () => saveJson(stateFile, state);
-  if (command === 'prepare' || command === 'run') {
+  if (command === 'prepare' || command === 'run' || command === 'next') {
+    if (command !== 'next') {
     if (!process.env.DISCORD_BOT_TOKEN) throw Error('missing-DISCORD_BOT_TOKEN');
     const channels = JSON.parse(await readFile(configFile, 'utf8'));
     await collect(state, channels, route => discordGet(route, process.env.DISCORD_BOT_TOKEN));
     await persist();
+    }
     const prepared = await prepareExtraction(state, work);
     await persist();
     if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `has_work=${prepared.hasWork}\nhas_images=${prepared.files.length > 0}\ncodex_args=${JSON.stringify(prepared.files.length ? ['--skip-git-repo-check', '--image', prepared.files.join(',')] : ['--skip-git-repo-check'])}\n`);
