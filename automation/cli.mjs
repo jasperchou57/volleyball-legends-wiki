@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { initialState, loadState, saveJson, collect, discordGet, verifySourceCoverage } from './collector.mjs';
 import { prepareExtraction, acceptExtraction, runLocalCodex } from './extract.mjs';
 import { publishBrixumi, publishVolleyball } from './writers.mjs';
+import { importBrowserCapture } from './browser-import.mjs';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const command = process.argv[2] ?? 'status';
@@ -19,6 +20,13 @@ let state;
 try {
   state = await loadState(stateFile);
   const persist = () => saveJson(stateFile, state);
+  if (command === 'import-browser') {
+    if (!process.argv[3]) throw Error('browser-capture-file-required');
+    const capture = JSON.parse(await readFile(resolve(process.argv[3]), 'utf8'));
+    const channels = JSON.parse(await readFile(configFile, 'utf8'));
+    console.log(JSON.stringify(importBrowserCapture(state, channels, capture)));
+    await persist();
+  }
   if (command === 'prepare' || command === 'run' || command === 'next') {
     if (command !== 'next') {
     if (!process.env.DISCORD_BOT_TOKEN) throw Error('missing-DISCORD_BOT_TOKEN');
@@ -76,6 +84,7 @@ try {
     if (errors.length) { console.error(JSON.stringify(errors)); process.exitCode = 1; }
   }
   const summary = { collectedChannels: Object.keys(state.channels).length, officialMessages: Object.keys(state.messages).length,
+    browserReviews: Object.values(state.browserReviews ?? {}),
     sourceCoverage: Object.values(state.sourceCoverage ?? {}),
     officialSourceReviewRequired: Object.values(state.sourceCoverage ?? {}).some(c => c.status === 'unverified'),
     pendingExtraction: Object.values(state.messages).filter(m => m.pending).length, fetchErrors: state.errors,

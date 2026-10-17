@@ -36,6 +36,14 @@ Brixumi 生产站 `https://brixumi.com` 使用 Sites 项目 `appgprj_6a661285a15
 
 ## 状态、重试和证据规则
 
+### 浏览器补读官方消息
+
+Bot 无官方权限且转发不完整时，使用用户指定的 Chrome `reese` 个人资料中已登录的 Discord；不要误用其他未登录的 Chrome / Ego 窗口，也不要提取浏览器登录 Token。通过界面读取公告，并在该条消息菜单复制“消息链接”以取得真实 ID。核对上一次更新到最新消息之间的内容；历史检查不完整时说明实际覆盖范围。
+
+将直接观察的材料存入 `.run/browser-*.json`：`gameId`、`method: "browser-ui"`、`scope: "full-text" | "text-excerpt"`、`sourceUrl`（完整消息 URL）、`displayedDate`（界面显示的日期）、`text`（原文）、可选 `editedTimestamp`（只填真实可见的精确编辑时间）和 `attachmentReview`（说明图片是否已读取）。仅摘录正文时不能把它当作完整图片/历史检查。不得从提取模型的输出构造来源。
+
+运行 `node automation/cli.mjs import-browser .run/browser-*.json`（每次一个明确文件名），再运行 `node automation/session.mjs next`，按正常的提取、accept、publish 流程执行。导入器验证来源白名单、消息日期、去重和编辑；它不调用模型、不自行发布。`browserReviews` 与 Bot 的 `sourceCoverage` 分开记录：浏览器核对单条消息不会把 Bot 的权限缺口标成已解决。再次检查时仍须读最新源和已收录公告的编辑。
+
 主流程状态保存在采集器 `state/state.json`，材料与摘要在 `.run/`，不提交密钥和本地状态。命令执行使用状态锁；不要同时运行两套发布调度器。GitHub 的 `codes-automation-state` 仅供可选云端验证，当前不会发布网站，不与本地主状态混写。
 
 - 读取全部新增分页；回查旧公告的编辑。不能仅读最近 20 条。
