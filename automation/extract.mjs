@@ -17,6 +17,7 @@ export async function prepareExtraction(state, dir, fetcher = fetch) {
   const batch = Object.values(state.messages).filter(m => m.pending && !m.deleted).sort((a,b) => a.envelope.timestamp.localeCompare(b.envelope.timestamp)).slice(0, 8);
   const files = [], inputs = [];
   for (const entry of batch) {
+    entry.imageIssues = [];
     const imageInputs = [];
     for (const attachment of entry.images.slice(0, 5)) {
       try {
@@ -66,6 +67,9 @@ export function acceptExtraction(state, batch, result, second = null) {
     });
     envelope.update = row.update;
     if (envelope.update?.segment?.startsWith('image:') && JSON.stringify(verified?.update) !== JSON.stringify(envelope.update)) envelope.update = null;
+    // Site receipts identify the validated interpretation as well as the raw message.
+    // An explicit extraction retry can fix one claim without needing an official edit.
+    envelope.hash = hash({ sourceHash: entry.envelope.hash, segments: envelope.segments, observations: envelope.observations, update: envelope.update });
     assertEnvelope(envelope);
     entry.parsed = envelope; entry.pending = false; entry.issues = issues; entry.attempts++;
   }

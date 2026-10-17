@@ -135,3 +135,19 @@ test('partial message edits retain immutable evidence for omitted codes', () => 
   for (const row of result.data.codes) assert.ok(result.data.announcements.find(e => e.hash === row.evidenceHash).observations.some(o => o.code === row.code));
   assert.equal(applyAnnouncement(result.data, edit).changed, false);
 });
+
+test('deliberate extraction retries publish corrected facts without refetching or freshening dates', () => {
+  const entry = normalizeMessage(raw(), channel, '2026-10-17T13:00:00Z');
+  const state = initialState(); state.messages[raw().id] = entry;
+  const input = [{ receiptId: raw().id, hash: entry.envelope.hash, images: [] }];
+  const output = { receiptId: raw().id, hash: entry.envelope.hash, observations: [], update: null, images: [], issues: [] };
+  acceptExtraction(state, input, { messages: [output] });
+  const firstHash = entry.parsed.hash;
+  output.observations = event().observations;
+  acceptExtraction(state, input, { messages: [output] });
+  const correctedHash = entry.parsed.hash;
+  assert.notEqual(correctedHash, firstHash);
+  assert.equal(entry.parsed.capturedAt, '2026-10-17T13:00:00Z');
+  acceptExtraction(state, input, { messages: [output] });
+  assert.equal(entry.parsed.hash, correctedHash);
+});
