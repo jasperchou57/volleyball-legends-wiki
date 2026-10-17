@@ -26,10 +26,11 @@ export default function StyleComparePage() {
           Volleyball Legends Style Compare
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This is the first real moat page after codes. It helps players decide between the styles they are actually pulling rather than reading another generic best-styles list.
+          Compare two styles by role, strengths, and playstyle to find the better fit for your team.
         </p>
       </section>
 
+      <p className="mb-6 text-sm leading-7 text-muted">Looking for Mamori? Read the <Link href="/styles/mamori" className="text-accent-teal underline">Mamori skills and Mastery guide</Link>. Numeric comparisons for Mamori are not available yet.</p>
       <StyleCompareTool />
     </div>
   );

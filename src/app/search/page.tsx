@@ -31,6 +31,7 @@ type SearchResult = {
 };
 
 const staticResults: SearchResult[] = [
+  { title: "Mamori", href: "/styles/mamori", type: "Style", source: "Official", summary: "Middle blocker with Parry, Perfect Parry, aerial Charge, and five Mastery upgrades.", keywords: ["mamori", "shieldbearer", "parry", "charge", "mastery", "blocker"] },
   {
     title: "Codes",
     href: "/codes",
@@ -60,7 +61,7 @@ const staticResults: SearchResult[] = [
     href: "/guides/pity-system",
     type: "Guide",
     source: "Community",
-    summary: "Secret pity thresholds, baseline chances, and the Update 91 event rates.",
+    summary: "Secret pity thresholds, baseline chances, and the Update 92 event rates.",
     keywords: ["pity", "spin", "lucky", "secret", "evo", "drop rate"],
   },
 ];

@@ -12,7 +12,7 @@ export function getRerollAdvice(keep: boolean, slots: SlotStatus, available: Slo
     href: "/style-return-dates", action: "Check return dates",
   };
   if (spins <= 0) return { headline: "Build your spin budget", body: "You have no Lucky Spins entered. Check available codes and decide how many spins you want to save for your target.", href: "/codes", action: "View current codes" };
-  if (target === "Ultra") return { headline: "Check Ultra odds in-game", body: "Update 91’s announced boost applies to Secret Styles and Abilities. Do not apply the Secret chance or pity threshold to an Ultra target.", href: "/updates/update-91", action: "Read Update 91 details" };
+  if (target === "Ultra") return { headline: "Check Ultra odds in-game", body: "Update 92’s announced boost applies to Secret Styles and Abilities. Do not apply the Secret chance or pity threshold to an Ultra target.", href: "/updates/update-92", action: "Read Update 92 details" };
   return {
     headline: "Plan your budget before rolling",
     body: keep ? "Select a separate slot and check the lock on the style you are keeping. Set a spin limit and check your in-game pity progress. Secret pity does not guarantee the specific style you want." : "Confirm that you are comfortable replacing the style in the selected slot. Set a spin limit and check your in-game pity progress. Secret pity does not guarantee the specific style you want.",

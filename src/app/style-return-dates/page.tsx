@@ -49,7 +49,7 @@ export default function StyleReturnDatesPage() {
         </div>
         <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">Volleyball Legends Return Dates</h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Jinko returned in Update 90 and is available until October 17, 2026. Find its return window and earlier style and ability returns below.
+          Jinko’s announced Update 90 return window was October 3–17, 2026. Find its return window and earlier style and ability returns below.
         </p>
         <p className="mt-3 text-sm text-muted">Last updated: {latestGameUpdate.lastVerified}</p>
       </section>
@@ -98,7 +98,7 @@ export default function StyleReturnDatesPage() {
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">Has another return been announced?</h2>
-        <p className="mt-3 text-sm leading-7 text-muted">The Update 91 announcement does not include another style return. Jinko’s previously announced window runs through October 17, 2026.</p>
+        <p className="mt-3 text-sm leading-7 text-muted">Update 92 introduces Mamori as a new style; it does not announce another return. Jinko’s last announced return window was October 3–17, 2026.</p>
       </section>
     </div>
   );

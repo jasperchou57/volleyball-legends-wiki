@@ -227,7 +227,28 @@ export const update91 = {
   summary: "Instant replays, match highlights, a 2× Lucky event, and three new codes.",
 };
 // The patch tracker is separate from code-only announcement evidence.
-export const latestGameUpdate = update91;
+export const update92 = {
+  updateNumber: 92,
+  releasedAt: "October 17, 2026",
+  lastVerified: "October 17, 2026",
+  summary: "Mamori joins with parries, an aerial Charge, and five Mastery upgrades, alongside a 2× Lucky event and three new codes.",
+};
+export const latestGameUpdate = update92;
+
+export const mamoriMastery = [
+  { level: 1, name: "Perfect Parry", detail: "Unlock a tighter-timed parry that returns the ball with more impact and gravity and knocks opponents farther back." },
+  { level: 2, name: "Speed boost", detail: "+15% Speed." },
+  { level: 3, name: "Parry Dash", detail: "Hold W during a Charge toward your team’s ball to guarantee a Perfect Parry." },
+  { level: 4, name: "Block boost", detail: "+10% Block." },
+  { level: 5, name: "Iron Reflexes", detail: "Parry and Perfect Parry timing windows are 15% longer." },
+];
+
+export const update92Sections = [
+  { title: "New style: Mamori", items: ["Mamori is a middle blocker built around timed parries. Block as the ball arrives to return it and knock back opponents in front of you. Parry works on either team’s ball.", "Use Special while airborne to Charge toward the ball, with a 3.5-second cooldown. Early contact triggers a Perfect Parry; late contact pops the ball up on your side. Hold S for a pop-up to yourself.", "Five Mastery levels add Perfect Parry, +15% Speed, Parry Dash, +10% Block, and 15% longer parry windows."] },
+  { title: "2× Lucky event: October 17–19", items: ["The event runs from October 17, 2026 at 11:30 AM ET to October 19, 2026 at 11:30 AM ET.", "During this window, Secret Style/Ability chances rise from 0.5% to 1%, and Secret pity drops from 200 to 100. These changes apply to Secret rewards."] },
+  { title: "Update-day spin handout — ended", items: ["The October 17 handout ran from 10:30 AM to 12:30 PM ET, with lucky spins every 10 minutes and 12 lucky spins in total."] },
+  { title: "Three new codes", items: ["UPDATE_92: 6 Lucky Style Spins.", "MAMORI: 7 Lucky Style Spins.", "PARRY: 5 Lucky Ability Spins.", "This batch offers 13 Lucky Style Spins and 5 Lucky Ability Spins. Check the codes page for current status and redemption steps."] },
+];
 
 export const update91Sections = [
   { title: "Instant replays", items: ["After each point, a replay vote appears for a few seconds. If most players in the match vote yes, the point replays with a cinematic camera.", "Click or tap Replay, or press Z to vote. You can change the key under Replay Vote in your keybind settings.", "At the end of each match, a highlight reel starts with the MVP’s winning points."] },
@@ -252,14 +273,14 @@ export const update90Sections = [
 ];
 
 export const pageFreshness: PageFreshness = {
-  siteLastUpdated: "October 10, 2026",
-  siteLastUpdatedIso: "2026-10-10T00:00:00.000Z",
+  siteLastUpdated: "October 17, 2026",
+  siteLastUpdatedIso: "2026-10-17T00:00:00.000Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  updateTrackerLastUpdated: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
+  updateTrackerLastUpdated: update92.lastVerified,
   codesLastChecked: automatedCheckedAt("October 10, 2026"),
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
-  pityLastUpdated: "July 27, 2026 availability-history review",
+  pityLastUpdated: update92.lastVerified,
 };
 
 export const mainQueryChips: QueryChip[] = [
@@ -1161,6 +1182,13 @@ export const currentlyAvailableStyles = availabilityEvents.filter(
 
 export const updates: UpdateEntry[] = [
   {
+    slug: "update-92", title: "Volleyball Legends Update 92: Mamori, 2× Luck & Codes",
+    published: update92.releasedAt, lastChecked: update92.lastVerified, sourceTier: "Official",
+    summary: update92.summary,
+    highlights: ["Mamori introduces Parry, Perfect Parry, and an aerial Charge.", "The October 17–19 event doubles Secret chances and halves Secret pity.", "Three new codes give 13 Lucky Style Spins and 5 Lucky Ability Spins."],
+    codes: ["UPDATE_92", "MAMORI", "PARRY"], focusStyles: ["mamori"],
+  },
+  {
     slug: "update-91", title: "Volleyball Legends Update 91: Replays, 2× Luck & Codes",
     published: update91.releasedAt, summary: update91.summary,
     sourceTier: "Official", lastChecked: update91.lastVerified,
@@ -1384,9 +1412,9 @@ export const updates: UpdateEntry[] = [
 ];
 
 export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
-  { title: "Update 91", href: "/updates/update-91", sourceLabel: "Official", updatedAt: update91.lastVerified, reason: "Instant replays, match highlights, event dates, and new codes." },
-  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 91 codes for Lucky Style and Ability Spins." },
-  { title: "Jinko Mastery", href: "/styles/jinko", sourceLabel: "Official", updatedAt: update90.lastVerified, reason: "Available until October 17. Explore all five Mastery rewards." },
+  { title: "Update 92", href: "/updates/update-92", sourceLabel: "Official", updatedAt: update92.lastVerified, reason: "Mamori, the October 17–19 Lucky event, and three new codes." },
+  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 92 codes for 13 Lucky Style Spins and 5 Lucky Ability Spins." },
+  { title: "Mamori", href: "/styles/mamori", sourceLabel: "Official", updatedAt: update92.lastVerified, reason: "Learn Parry timing, Charge controls, and all five Mastery upgrades." },
   { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update90.lastVerified, reason: "Jinko’s October 3–17 return window." },
 ];
 
@@ -1463,11 +1491,11 @@ export const datamineSources: DatamineSource[] = [
 export const homepageFaq = [
   {
     question: "What is the latest verified Volleyball Legends update on this wiki?",
-    answer: `Update ${latestGameUpdate.updateNumber} was released on ${latestGameUpdate.releasedAt}. ${latestGameUpdate.summary} The new codes give 10 Lucky Style Spins and 5 Lucky Ability Spins.`,
+    answer: `Update ${latestGameUpdate.updateNumber} was released on ${latestGameUpdate.releasedAt}. ${latestGameUpdate.summary} The new codes give 13 Lucky Style Spins and 5 Lucky Ability Spins.`,
   },
   {
     question: "Are the odds and style stats on this site official?",
-    answer: "Not always. This site separates official links from community-confirmed data and site-maintained tools. Update 91 confirms Secret rates and pity for its October 10–12 event. Other rarity estimates and style stat sheets have separate review histories.",
+    answer: "Not always. This site separates official links from community-confirmed data and site-maintained tools. Update 92 confirms Secret rates and pity for its October 17–19 event. Other rarity estimates and style stat sheets have separate review histories.",
   },
   {
     question: "When will a limited style or ability return?",

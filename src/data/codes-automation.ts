@@ -24,3 +24,9 @@ export function codeRewardTotals(rows: Pick<CodeEntry, 'reward'>[]) {
   const total = (kind: string) => rows.reduce((sum, c) => sum + Number(c.reward.match(new RegExp(`([0-9,]+) (?:Lucky )?${kind} Spins?`, 'i'))?.[1]?.replaceAll(',', '') ?? 0), 0);
   return { styleSpins: total('Style'), abilitySpins: total('Ability') };
 }
+
+export function newestCodeBatch(rows: CodeEntry[]) {
+  const dates = rows.map(row => Date.parse(row.releaseDate)).filter(Number.isFinite);
+  const newest = Math.max(...dates);
+  return rows.filter(row => Date.parse(row.releaseDate) === newest);
+}

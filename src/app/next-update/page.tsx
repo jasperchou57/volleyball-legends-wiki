@@ -20,6 +20,6 @@ export default function NextUpdatePage() {
     </section>
     <div className="mt-6"><UpdateCountdown /></div>
     <div className="mt-8"><LatestUpdateSummary /></div>
-    <p className="mt-5 text-sm leading-6 text-muted">Update 91’s announcement covers the October 10 release. It does not announce the next update’s new styles or abilities.</p>
+    <p className="mt-5 text-sm leading-6 text-muted">Update 92’s announcement covers the October 17 release. It does not announce the next update’s new styles or abilities.</p>
   </div>;
 }

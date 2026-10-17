@@ -116,7 +116,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
               {style.summary}
             </p>
           </div>
-          {style.slug === "jinko" ? <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100"><p className="font-semibold text-accent-teal">October 3–17, 2026</p><p className="mt-2">Jinko returned in Update 90 and is available until October 17, 2026.</p></div> : <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100">
+          {style.slug === "jinko" ? <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100"><p className="font-semibold text-accent-teal">October 3–17, 2026</p><p className="mt-2">Jinko’s announced Update 90 return window was October 3–17, 2026.</p></div> : <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">Source tier</p>
             <p className="mt-1 font-semibold">{style.sourceTier}</p>
             <p className="mt-3 text-xs text-slate-300">Last reviewed: {pageFreshness.tierListLastUpdated}</p>
@@ -272,7 +272,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
                 {style.slug === "jinko" ? "When does the Jinko return end?" : `What is the latest recorded return for ${style.name}?`}
               </summary>
               <p className="mt-3 text-sm leading-6 text-muted">
-                {style.slug === "jinko" ? "Jinko returned on October 3 and is available until October 17, 2026. An exact closing time has not been announced." : availabilityHistory.length ? `The latest documented window was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. This historical window does not confirm current availability.` : `No dated return is documented in this snapshot. This historical window does not confirm current availability.`}
+                {style.slug === "jinko" ? "Jinko’s announced return window was October 3–17, 2026. Check the in-game banner for current availability." : availabilityHistory.length ? `The latest documented window was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. This historical window does not confirm current availability.` : `No dated return is documented in this snapshot. This historical window does not confirm current availability.`}
               </p>
             </details>}
             <details className="rounded-2xl border border-white/10 bg-background/65 p-4">

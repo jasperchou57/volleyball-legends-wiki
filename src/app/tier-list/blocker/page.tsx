@@ -32,10 +32,11 @@ export default function BlockerTierListPage() {
           Volleyball Legends Blocker Tier List
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          This page exists to capture block-and-jump style searches with a cleaner role-specific frame. The ranking is still community-maintained, but the intent is much sharper than a generic all-styles list.
+          Compare styles focused on blocking and net defense. These community rankings were last reviewed in July 2026 and do not rank Mamori.
         </p>
       </section>
 
+      <Link href="/styles/mamori" className="mt-6 block rounded-2xl border border-accent-teal/30 bg-surface/80 p-5 text-sm leading-7 text-muted"><span className="font-semibold text-accent-teal">New middle blocker: Mamori</span><br />Explore Parry, Charge, and Mastery before choosing your next style.</Link>
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {picks.map((style) => (
           <Link key={style.slug} href={`/styles/${style.slug}`} className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">

@@ -1,4 +1,4 @@
-import { codeRewardTotals, latestCodeUpdateNumber } from "@/data/codes-automation";
+import { codeRewardTotals, latestCodeUpdateNumber, newestCodeBatch } from "@/data/codes-automation";
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -39,7 +39,7 @@ function CodeTable({ entries }: { entries: CodeEntry[] }) {
             {entries.map((entry) => (
               <tr key={entry.code} role="row">
                 <td role="cell" className={styles.code}>
-                  {entry.releaseDate === latestGameUpdate.releasedAt && <span className="mb-2 block w-fit rounded bg-accent-teal/15 px-2 py-0.5 text-[10px] font-bold tracking-wider text-accent-teal">NEW</span>}
+                  {newestCodeBatch(activeCodes).some(code => code.code === entry.code) && <span className="mb-2 block w-fit rounded bg-accent-teal/15 px-2 py-0.5 text-[10px] font-bold tracking-wider text-accent-teal">NEW</span>}
                   <code>{entry.code}</code>
                 </td>
                 <td role="cell" className={styles.reward}>{entry.reward}</td>
@@ -63,7 +63,8 @@ function CodeTable({ entries }: { entries: CodeEntry[] }) {
 }
 
 export default function CodesPage() {
-  const totals = codeRewardTotals(activeCodes);
+  const newestCodes = newestCodeBatch(activeCodes);
+  const totals = codeRewardTotals(newestCodes);
 
 
   return (
@@ -84,9 +85,9 @@ export default function CodesPage() {
             <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
               Volleyball Legends Codes
             </h1>
-            <p className="mt-4 text-lg font-semibold text-accent-teal">Update {latestCodeUpdateNumber(latestGameUpdate.updateNumber)} · {activeCodes.length} announced active codes</p>
-            <p className="mt-2 text-sm leading-6 text-slate-200">Listed rewards — {totals.styleSpins} Lucky Style Spins &amp; {totals.abilitySpins} Lucky Ability Spins.</p>
-            <p className="mt-2 text-sm leading-6 text-muted">Listed codes include {activeCodes.map((entry) => entry.code).join(", ")}, offering free Lucky Style and Ability Spins.</p>
+            <p className="mt-4 text-lg font-semibold text-accent-teal">Update {latestCodeUpdateNumber(latestGameUpdate.updateNumber)} · {newestCodes.length} new codes</p>
+            <p className="mt-2 text-sm leading-6 text-slate-200">New-code rewards — {totals.styleSpins} Lucky Style Spins &amp; {totals.abilitySpins} Lucky Ability Spins.</p>
+            <p className="mt-2 text-sm leading-6 text-muted">New codes: {newestCodes.map((entry) => entry.code).join(", ")}, offering free Lucky Style and Ability Spins.</p>
             <p className="mt-3 text-sm leading-6 text-muted">Copy a code below, then redeem it in-game at level 15.</p>
           </div>
         </div>
@@ -259,7 +260,7 @@ export default function CodesPage() {
           {
             href: "/tools/style-compare",
             title: "Compare target styles",
-            description: "Stack the styles you want side by side before you turn codes into a bad reroll.",
+            description: "Compare roles and strengths before choosing which style to roll for.",
           },
         ]}
       />

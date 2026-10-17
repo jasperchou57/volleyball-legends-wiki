@@ -16,7 +16,7 @@ const cardNotes = [
   },
   {
     title: "Skeleton Player Card",
-    body: "The Skeleton Player Card is included in the Skeleton Bundle, priced at 1,299 Robux and available until October 17, 2026. The bundle also includes the Rattling Jaw Ball, Skeleton Grab Score Effect, and Shield Bash Emote.",
+    body: "The Skeleton Player Card was offered in the 1,299-Robux Skeleton Bundle during Update 90, with an announced end date of October 17, 2026. Check the in-game shop for current availability. The bundle also includes the Rattling Jaw Ball, Skeleton Grab Score Effect, and Shield Bash Emote.",
   },
 ];
 

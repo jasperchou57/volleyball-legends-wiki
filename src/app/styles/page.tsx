@@ -30,6 +30,11 @@ export default function StylesPage() {
       </section>
 
       <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <Link href="/styles/mamori" className="rounded-[2rem] border border-accent-teal/35 bg-surface/80 p-6 transition hover:border-accent-teal">
+          <p className="text-xs font-semibold uppercase tracking-wider text-accent-teal">Introduced in Update 92 · Middle blocker</p>
+          <h2 className="mt-4 text-2xl font-heading font-bold text-white">Mamori</h2>
+          <p className="mt-4 text-sm leading-6 text-muted">Learn timed parries, aerial Charge controls, and five Mastery upgrades.</p>
+        </Link>
         {featuredStyles.map((style) => (
           <Link
             key={style.slug}
