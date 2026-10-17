@@ -27,7 +27,7 @@ GitHub repository Settings → Secrets and variables → Actions:
 
 ## Operation
 
-The workflow runs at minutes 7 and 37 each hour; schedule times are approximate. GitHub Actions may delay jobs. Public repository schedules can be disabled after inactivity; inspect the Actions tab if runs stop. State commits normally provide ongoing activity. There is also a Run workflow button. GitHub sends configured failure notifications; the job summary and `official-codes-run` artifact identify the affected site/message without credentials.
+The workflow runs at minutes 7 and 37 each hour; schedule times are approximate. GitHub Actions may delay jobs. Public repository schedules can be disabled after inactivity; inspect the Actions tab if runs stop. State commits normally provide ongoing activity. There is also a Run workflow button. For first-time cloud validation while the schedule is paused, select validation_only: this reads Discord, runs fixture/evidence checks and saves durable state, but makes no model calls or website writes. Leave it unchecked for a normal retry after enabling the schedule. GitHub sends configured failure notifications; the job summary and `official-codes-run` artifact identify the affected site/message without credentials.
 
 Durable progress lives on `codes-automation-state`, separately from source. Its `vercel.json` disables automatic deployments of state commits. GitHub workflow concurrency serializes cloud runs. Local runs also take a filesystem lock. Never run two independent schedulers against different copies of the state. Never delete the state to retry a deployment.
 

@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: '7,37 * * * *'
   workflow_dispatch:
+    inputs:
+      validation_only:
+        description: 'Collect and validate cloud state without model calls or website writes'
+        type: boolean
+        default: false
 permissions:
   contents: write
 concurrency:
@@ -11,7 +16,7 @@ concurrency:
 jobs:
   update:
     # First-time credentials must be configured before enabling this repository variable.
-    if: vars.OFFICIAL_CODES_ENABLED == 'true'
+    if: vars.OFFICIAL_CODES_ENABLED == 'true' || (github.event_name == 'workflow_dispatch' && inputs.validation_only)
     runs-on: ubuntu-latest
     timeout-minutes: 40
     env:
@@ -28,6 +33,10 @@ jobs:
       - name: Restore durable state
         id: state
         run: node automation/state-branch.mjs load
+      - name: Validate deterministic automation
+        run: |
+          node --test automation/test/*.test.mjs
+          node scripts/check-codes.mjs
       - name: Read trusted announcements
         id: collect
         continue-on-error: true
@@ -35,7 +44,7 @@ jobs:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: node automation/cli.mjs prepare
       - name: Isolate the extraction account
-        if: steps.collect.outputs.has_work == 'true'
+        if: steps.collect.outputs.has_work == 'true' && inputs.validation_only != true
         run: |
           sudo useradd --create-home --shell /bin/bash codex-extract
           sudo chgrp codex-extract .run
@@ -43,7 +52,7 @@ jobs:
           chmod 700 .git .state
       - name: Extract announcement facts
         id: extract
-        if: steps.collect.outputs.has_work == 'true'
+        if: steps.collect.outputs.has_work == 'true' && inputs.validation_only != true
         uses: openai/codex-action@1d82a3dba7c7988ec71ecae1ed5b8e8db96495c5 # v1
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
@@ -56,7 +65,7 @@ jobs:
           sandbox: read-only
           safety-strategy: unprivileged-user
       - name: Independently read images
-        if: steps.collect.outputs.has_images == 'true' && steps.extract.outcome == 'success'
+        if: inputs.validation_only != true && steps.collect.outputs.has_images == 'true' && steps.extract.outcome == 'success'
         uses: openai/codex-action@1d82a3dba7c7988ec71ecae1ed5b8e8db96495c5 # v1
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
@@ -72,16 +81,16 @@ jobs:
         if: always() && steps.state.outcome == 'success' && steps.extract.outcome == 'success'
         run: node automation/cli.mjs accept
       - uses: actions/checkout@v4
-        if: always() && steps.state.outcome == 'success'
+        if: inputs.validation_only != true && always() && steps.state.outcome == 'success'
         with:
           ref: main
           path: .publish/volleyball
       - name: Install website dependencies
-        if: always() && steps.state.outcome == 'success'
+        if: inputs.validation_only != true && always() && steps.state.outcome == 'success'
         working-directory: .publish/volleyball
         run: npm ci
       - name: Update sites and verify production
-        if: always() && steps.state.outcome == 'success'
+        if: inputs.validation_only != true && always() && steps.state.outcome == 'success'
         env:
           VOLLEYBALL_CHECKOUT: ${{ github.workspace }}/.publish/volleyball
           BRIXUMI_UPDATE_TOKEN: ${{ secrets.BRIXUMI_UPDATE_TOKEN }}
