@@ -1,3 +1,4 @@
+import { mergeAutomatedCodes, automatedCheckedAt } from "./codes-automation";
 export type SourceTier = "Official" | "Community" | "Site";
 export type VerificationStatus = "Official" | "Community verified" | "Monitoring" | "Review required";
 export type CodeStatus = "Officially announced" | "Community verified" | "Needs verification";
@@ -225,6 +226,7 @@ export const update91 = {
   lastVerified: "October 10, 2026",
   summary: "Instant replays, match highlights, a 2× Lucky event, and three new codes.",
 };
+// The patch tracker is separate from code-only announcement evidence.
 export const latestGameUpdate = update91;
 
 export const update91Sections = [
@@ -254,7 +256,7 @@ export const pageFreshness: PageFreshness = {
   siteLastUpdatedIso: "2026-10-10T00:00:00.000Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
   updateTrackerLastUpdated: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  codesLastChecked: "October 10, 2026",
+  codesLastChecked: automatedCheckedAt("October 10, 2026"),
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
   pityLastUpdated: "July 27, 2026 availability-history review",
@@ -300,7 +302,7 @@ export const update90Codes: CodeEntry[] = [
   sourceNote: "Code and reward checked against the official Update 90 Discord announcement in screenshots supplied by the site owner. Not tested in-game.",
 }));
 
-export const activeCodes: CodeEntry[] = [
+const baselineActiveCodes: CodeEntry[] = [
   { code: "UPDATE_91", reward: "5 Lucky Style Spins" },
   { code: "REPLAYS", reward: "5 Lucky Style Spins" },
   { code: "MVP", reward: "5 Lucky Ability Spins" },
@@ -310,7 +312,7 @@ export const activeCodes: CodeEntry[] = [
   sourceNote: "Code and reward checked against the official Update 91 announcement supplied by the site owner. Not tested in-game.",
 }));
 
-export const previousCodes: CodeEntry[] = [
+const baselinePreviousCodes: CodeEntry[] = [
   ...update90Codes.map((entry): CodeEntry => ({ ...entry, status: "Needs verification", availability: "Unconfirmed" })),
   {
     code: "UPDATE_89",
@@ -347,7 +349,7 @@ export const previousCodes: CodeEntry[] = [
   },
 ];
 
-export const expiredCodes: ExpiredCodeEntry[] = [
+const baselineExpiredCodes: ExpiredCodeEntry[] = [
   // Internal archive evidence for the following Update 82 records:
   // Explicitly listed as expired by Beebom and MrGuider on September 29, 2026. Historical reward matches MrGuider and GamesRadar; not tested in-game.
   { code: "UPDATE_82", reward: "5 Lucky Style Spins", releaseDate: "August 8, 2026", expiredNote: "Released with Update 82." },
@@ -409,6 +411,8 @@ export const expiredCodes: ExpiredCodeEntry[] = [
   { code: "LEAD_FEET", reward: "5 Lucky Ability Spins", releaseDate: "February 7, 2026" },
   { code: "LIMITED_ABILITY", reward: "5 Lucky Ability Spins", releaseDate: "February 7, 2026" },
 ];
+
+export const { activeCodes, previousCodes, expiredCodes } = mergeAutomatedCodes(baselineActiveCodes, baselinePreviousCodes, baselineExpiredCodes);
 
 export const featuredStyles: StyleEntry[] = [
   {

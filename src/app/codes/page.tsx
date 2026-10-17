@@ -1,3 +1,4 @@
+import { codeRewardTotals, latestCodeUpdateNumber } from "@/data/codes-automation";
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 function formatCheckDate(value: string) {
-  return `${value} (ET)`;
+  return value;
 }
 
 function CodeTable({ entries }: { entries: CodeEntry[] }) {
@@ -62,6 +63,7 @@ function CodeTable({ entries }: { entries: CodeEntry[] }) {
 }
 
 export default function CodesPage() {
+  const totals = codeRewardTotals(activeCodes);
 
 
   return (
@@ -82,9 +84,9 @@ export default function CodesPage() {
             <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
               Volleyball Legends Codes
             </h1>
-            <p className="mt-4 text-lg font-semibold text-accent-teal">Update {latestGameUpdate.updateNumber} · {activeCodes.length} new codes</p>
-            <p className="mt-2 text-sm leading-6 text-slate-200">Added {latestGameUpdate.releasedAt} (ET) — 10 Lucky Style Spins &amp; 5 Lucky Ability Spins.</p>
-            <p className="mt-2 text-sm leading-6 text-muted">Update {latestGameUpdate.updateNumber} codes include {activeCodes.map((entry) => entry.code).join(", ")}, offering free Lucky Style and Ability Spins.</p>
+            <p className="mt-4 text-lg font-semibold text-accent-teal">Update {latestCodeUpdateNumber(latestGameUpdate.updateNumber)} · {activeCodes.length} announced active codes</p>
+            <p className="mt-2 text-sm leading-6 text-slate-200">Listed rewards — {totals.styleSpins} Lucky Style Spins &amp; {totals.abilitySpins} Lucky Ability Spins.</p>
+            <p className="mt-2 text-sm leading-6 text-muted">Listed codes include {activeCodes.map((entry) => entry.code).join(", ")}, offering free Lucky Style and Ability Spins.</p>
             <p className="mt-3 text-sm leading-6 text-muted">Copy a code below, then redeem it in-game at level 15.</p>
           </div>
         </div>
@@ -234,7 +236,7 @@ export default function CodesPage() {
           </details>
           <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
             <summary className="cursor-pointer list-none text-lg font-semibold text-white">What rewards do codes usually give?</summary>
-            <p className="mt-3 text-sm leading-6 text-muted">Update 91 codes give Lucky Style Spins and Lucky Ability Spins. Check the reward next to each code before redeeming.</p>
+            <p className="mt-3 text-sm leading-6 text-muted">Listed codes give Lucky Style Spins and Lucky Ability Spins. Check the reward next to each code before redeeming.</p>
           </details>
         </div>
       </section>

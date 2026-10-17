@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore",
-    "check:content": "node scripts/check-content-freshness.mjs"
+    "check:content": "node scripts/check-content-freshness.mjs",
+    "check:codes": "node scripts/check-codes.mjs",
+    "test:automation": "node --test automation/test/*.test.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
