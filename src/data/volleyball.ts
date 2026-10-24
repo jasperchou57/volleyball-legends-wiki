@@ -1391,7 +1391,7 @@ export const updates: UpdateEntry[] = [
     title: "Volleyball Legends Update 60: Kijo, Super Tilts, 2x Luck & New Codes",
     published: "2026-03-07",
     bodySummary: "Update 60 introduced Kijo and Super Tilts, alongside a weekend 2x Lucky Event and three codes.",
-    summary: "Update 60 drove a major search spike around Kijo, the Super Tilt mechanic, a weekend 2x luck event, and three fresh codes.",
+    summary: "Update 60 introduced Kijo and Super Tilts, alongside a weekend 2x Lucky Event and three codes.",
     sourceTier: "Community",
     highlights: [
       "New limited secret style: Kijo.",
@@ -1408,7 +1408,7 @@ export const updates: UpdateEntry[] = [
     title: "Volleyball Legends Update 59: Taichou 2026, Duels & Lucky Ability Spins",
     published: "2026-03-01",
     bodySummary: "Update 59 covered Taichou 2026, Duels, and a new set of spin codes.",
-    summary: "The pre-Kijo patch pushed duel-focused searches and seeded several still-circulating codes.",
+    summary: "Update 59 covered Taichou 2026, Duels, and a new set of spin codes.",
     sourceTier: "Community",
     highlights: [
       "Community code trackers reported UPDATE_59, TAICHOU_2026, and DUELS on March 1, 2026.",
@@ -1421,13 +1421,12 @@ export const updates: UpdateEntry[] = [
     slug: "update-56-jinko-lead-feet",
     title: "Volleyball Legends Update 56: Jinko Return, Lead Feet & 2x Lucky Event",
     published: "2026-02-07",
-    summary: "Update 56 matters because it connected a high-demand returning style with a new secret ability and a major pity conversation.",
+    summary: "Update 56 brought back Jinko, introduced the Lead Feet Secret ability, and included a 2x Lucky Event.",
     sourceTier: "Community",
     highlights: [
       "Jinko returned for a limited event window.",
       "Lead Feet launched as a new secret ability focused on momentum cancels.",
       "The update included a 2x Lucky Event affecting Secret chances and pity.",
-      "The update raised player questions about normal pity odds and whether Lead Feet was worth spinning for.",
     ],
     codes: ["UPDATE_56", "LEAD_FEET", "LIMITED_ABILITY"],
     focusStyles: ["jinko", "kisuki", "yogan"],
@@ -1502,10 +1501,10 @@ export const patchDiffs: PatchDiffSection[] = [
 
 
 export const datamineSources: DatamineSource[] = [
-  { label: "@Protori_ on X", url: "https://x.com/Protori_", kind: "Official", watchFor: "Teaser screenshots, short clips, countdown posts — usually drop 1–3 days before Saturday's update." },
-  { label: "Official Discord announcements", url: siteConfig.officialLinks.discord, kind: "Official", watchFor: "Full patch notes ship here first. Pinned messages in #announcements carry the canonical code list." },
-  { label: "Roblox game page", url: siteConfig.officialLinks.roblox, kind: "Official", watchFor: "Game-page updates and preview image refreshes are the earliest visual signal that a patch is staged." },
-  { label: "Official Roblox group", url: siteConfig.officialLinks.group, kind: "Official", watchFor: "Group activity is another lightweight signal that the patch pipeline is moving, especially when the main game page refreshes." },
+  { label: "@Protori_ on X", url: "https://x.com/Protori_", kind: "Official", watchFor: "See posts and previews from the developer." },
+  { label: "Official Discord announcements", url: siteConfig.officialLinks.discord, kind: "Official", watchFor: "Read official patch notes, event announcements, and new code rewards." },
+  { label: "Roblox game page", url: siteConfig.officialLinks.roblox, kind: "Official", watchFor: "Open the game on Roblox and view its description and preview images." },
+  { label: "Official Roblox group", url: siteConfig.officialLinks.group, kind: "Official", watchFor: "Visit the official Volleyball Legends group on Roblox." },
   { label: "Fandom Updates page", url: "https://volleyball-legends.fandom.com/wiki/Updates", kind: "Community", watchFor: "Community editors usually have a full writeup within 24–48 hours of release." },
   { label: "MrGuider patch recaps", url: "https://www.mrguider.org/", kind: "Community", watchFor: "Same-day blog-style patch recap with code list." },
   { label: "gamestratwiki", url: "https://gamestratwiki.com/", kind: "Community", watchFor: "Style-specific pages (first-look style breakdowns after release)." },
@@ -1513,12 +1512,12 @@ export const datamineSources: DatamineSource[] = [
 
 export const homepageFaq = [
   {
-    question: "What is the latest verified Volleyball Legends update on this wiki?",
+    question: "What is the latest Volleyball Legends update?",
     answer: `Update ${latestGameUpdate.updateNumber} was released on ${latestGameUpdate.releasedAt}. ${latestGameUpdate.summary} The new codes give 10 Lucky Style Spins and 5 Lucky Ability Spins.`,
   },
   {
     question: "Are the odds and style stats on this site official?",
-    answer: "Not always. This site separates official links from community-confirmed data and site-maintained tools. Update 93 confirms Secret rates and pity for its October 24–26 event. Other rarity estimates and style stat sheets have separate review histories.",
+    answer: "Not all values are official. The Update 93 announcement gives a 1% Secret chance and 100-spin pity for its October 24–26 event. Some other rarity odds and style stats are community estimates; check the values shown in-game before spending spins.",
   },
   {
     question: "When will a limited style or ability return?",
@@ -1570,7 +1569,7 @@ export const guideCards = [
   {
     title: "Player Cards",
     href: "/guides/player-cards",
-    description: "See player-card rewards from Jinko Mastery and the Skeleton Bundle.",
+    description: "Find Cursed Tournament player cards, Jinko Mastery rewards, and past bundle cards.",
   },
   {
     title: "Beginner Guide",
@@ -1618,17 +1617,17 @@ export const toolCards = [
   {
     title: "Spin Budget Calculator",
     href: "/tools/spin-budget",
-    description: "Enter your spin stack and target rarity — get the probability, 50%/95% milestones, and hard-pity ceiling. 2x Luck toggle built in.",
+    description: "Estimate your chances from your Lucky Spins and target rarity. Secret rates follow the announced event dates automatically, with normal and event rates available for comparison.",
   },
   {
     title: "Style Compare",
     href: "/tools/style-compare",
-    description: "Put two high-demand styles next to each other and compare role fit, offense, control, defense, and mobility.",
+    description: "Compare two styles by role, offense, control, defense, and mobility.",
   },
   {
     title: "Reroll Advisor",
     href: "/tools/reroll-advisor",
-    description: "A heuristic tool, not an official calculator. Helps decide whether to push spins now or wait for a stronger event.",
+    description: "Plan your next roll around the style you want to keep, your available slots, and your Lucky Spins.",
   },
   {
     title: "Update Countdown",

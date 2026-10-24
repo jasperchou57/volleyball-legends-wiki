@@ -438,7 +438,7 @@ export default function Home() {
             <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Official sources</p>
-                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Where official signals come from</h2>
+                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Official game and community links</h2>
               </div>
 
             </div>
@@ -464,7 +464,7 @@ export default function Home() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Update archive</p>
-                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Indexed Saturday notes</h2>
+                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Recent update notes</h2>
                 </div>
                 <Clock3 className="h-6 w-6 text-accent-orange" />
               </div>
@@ -505,8 +505,8 @@ export default function Home() {
 
           <section className="mt-12 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
             <div className="mb-8 max-w-3xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">FAQ and sources</p>
-              <h2 className="mt-2 text-3xl font-heading font-bold text-white">Source policy</h2>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">FAQ</p>
+              <h2 className="mt-2 text-3xl font-heading font-bold text-white">Common questions</h2>
               <p className="mt-3 text-sm leading-6 text-muted">
                 Find answers about updates, return windows, and code rewards.
               </p>
