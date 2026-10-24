@@ -233,10 +233,25 @@ export const update92 = {
   lastVerified: "October 17, 2026",
   summary: "Mamori joins with parries, an aerial Charge, and five Mastery upgrades, alongside a 2× Lucky event and three new codes.",
 };
-export const latestGameUpdate = update92;
+export const update93 = {
+  updateNumber: 93,
+  releasedAt: "October 24, 2026",
+  lastVerified: "October 24, 2026",
+  summary: "The Cursed 1v1 Tournament arrives, Kijo returns, and Mamori gets a Perfect Parry adjustment, alongside a 2× Lucky event and three new codes.",
+};
+export const latestGameUpdate = update93;
+
+export const update93Sections = [
+  { title: "Cursed 1v1 Tournament", items: ["Enter the Cursed Portal in the lobby to play 1v1 matches, earn Challenger Tokens, and climb the event leaderboard. The tournament runs October 24–31, 2026, ending at 11:30 AM ET.", "Gates open at 6:00 AM and 6:00 PM ET for two hours. Matches are first to 10 points, win by two. Three losses end a run; leaving also counts as a loss.", "Each gate includes one free retry. Paid re-entry costs 2,000 Gems. Your leaderboard score keeps all Challenger Tokens earned across your runs.", "Spend tokens in the limited-stock Tournament Shop before November 7, 2026 at 10:30 AM ET. Tokens reset with the next tournament."] },
+  { title: "Kijo return", items: ["Kijo returns for a limited window from October 24 until November 7, 2026 at 11:30 AM ET."] },
+  { title: "Mamori adjustments", items: ["Perfect Parry now launches opponents in a short arc in the direction of the parried ball, instead of pushing them flat along the floor.", "Another version of the snake-jump bug has been fixed."] },
+  { title: "2× Lucky event: October 24–26", items: ["The event runs from October 24, 2026 at 11:30 AM ET to October 26, 2026 at 11:30 AM ET.", "Secret Style/Ability chances increase from 0.5% to 1%, and Secret pity drops from 200 to 100 during this window."] },
+  { title: "Update-day spin handout — ended", items: ["The October 24 handout ran from 10:30 AM to 12:30 PM ET, with lucky spins every 10 minutes and 12 lucky spins in total."] },
+  { title: "Three new codes", items: ["UPDATE_93: 5 Lucky Style Spins.", "CURSED: 5 Lucky Style Spins.", "TOURNAMENT: 5 Lucky Ability Spins.", "This batch offers 10 Lucky Style Spins and 5 Lucky Ability Spins. See the codes page for current status and redemption steps."] },
+];
 
 export const mamoriMastery = [
-  { level: 1, name: "Perfect Parry", detail: "Unlock a tighter-timed parry that returns the ball with more impact and gravity and knocks opponents farther back." },
+  { level: 1, name: "Perfect Parry", detail: "Unlock a tighter-timed parry that returns the ball with more impact and gravity and launches opponents in a short arc in the direction of the parried ball." },
   { level: 2, name: "Speed boost", detail: "+15% Speed." },
   { level: 3, name: "Parry Dash", detail: "Hold W during a Charge toward your team’s ball to guarantee a Perfect Parry." },
   { level: 4, name: "Block boost", detail: "+10% Block." },
@@ -273,14 +288,14 @@ export const update90Sections = [
 ];
 
 export const pageFreshness: PageFreshness = {
-  siteLastUpdated: "October 17, 2026",
-  siteLastUpdatedIso: "2026-10-17T00:00:00.000Z",
+  siteLastUpdated: "October 24, 2026",
+  siteLastUpdatedIso: "2026-10-24T00:00:00.000Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  updateTrackerLastUpdated: update92.lastVerified,
+  updateTrackerLastUpdated: update93.lastVerified,
   codesLastChecked: automatedCheckedAt("October 10, 2026"),
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
-  pityLastUpdated: update92.lastVerified,
+  pityLastUpdated: update93.lastVerified,
 };
 
 export const mainQueryChips: QueryChip[] = [
@@ -1085,6 +1100,7 @@ export const abilities: AbilityEntry[] = [
 ];
 
 export const availabilityEvents: AvailabilityEvent[] = [
+  { subjectType: "Style", subjectSlug: "kijo", label: "Kijo return", window: "October 24 – November 7, 2026 at 11:30 AM ET", updateNumber: 93, status: "Limited window", sourceTier: "Official", note: "Kijo returns in Update 93 for a limited window." },
   { subjectType: "Style", subjectSlug: "jinko", label: "Jinko return", window: "October 3–17, 2026", updateNumber: 90, status: "Limited window", sourceTier: "Official", note: "Returned with Update 90 alongside five Mastery reward levels. The announcement does not give an exact closing time." },
   {
     subjectType: "Style",
@@ -1114,7 +1130,7 @@ export const availabilityEvents: AvailabilityEvent[] = [
     updateNumber: 75,
     status: "Not currently available",
     sourceTier: "Community",
-    note: "Kijo returned with profile inspect and spectating. No future rotation is announced.",
+    note: "Kijo returned with profile inspect and spectating. This June window has ended.",
   },
   {
     subjectType: "Style",
@@ -1181,6 +1197,13 @@ export const currentlyAvailableStyles = availabilityEvents.filter(
 );
 
 export const updates: UpdateEntry[] = [
+  {
+    slug: "update-93", title: "Volleyball Legends Update 93: Cursed Tournament & Kijo",
+    published: update93.releasedAt, lastChecked: update93.lastVerified, sourceTier: "Official",
+    summary: update93.summary,
+    highlights: ["Play the Cursed 1v1 Tournament and earn Challenger Tokens.", "Kijo returns until November 7 at 11:30 AM ET.", "Mamori’s Perfect Parry now launches opponents in an arc.", "Three new codes offer 10 Lucky Style Spins and 5 Lucky Ability Spins."],
+    codes: ["UPDATE_93", "CURSED", "TOURNAMENT"], focusStyles: ["kijo", "mamori"],
+  },
   {
     slug: "update-92", title: "Volleyball Legends Update 92: Mamori, 2× Luck & Codes",
     published: update92.releasedAt, lastChecked: update92.lastVerified, sourceTier: "Official",
@@ -1412,10 +1435,10 @@ export const updates: UpdateEntry[] = [
 ];
 
 export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
-  { title: "Update 92", href: "/updates/update-92", sourceLabel: "Official", updatedAt: update92.lastVerified, reason: "Mamori, the October 17–19 Lucky event, and three new codes." },
-  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 92 codes for 13 Lucky Style Spins and 5 Lucky Ability Spins." },
-  { title: "Mamori", href: "/styles/mamori", sourceLabel: "Official", updatedAt: update92.lastVerified, reason: "Learn Parry timing, Charge controls, and all five Mastery upgrades." },
-  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update90.lastVerified, reason: "Jinko’s October 3–17 return window." },
+  { title: "Update 93", href: "/updates/update-93", sourceLabel: "Official", updatedAt: update93.lastVerified, reason: "Cursed Tournament, Kijo’s return, Mamori changes, and new codes." },
+  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 93 codes for 10 Lucky Style Spins and 5 Lucky Ability Spins." },
+  { title: "Cursed Tournament", href: "/guides/cursed-tournament", sourceLabel: "Official", updatedAt: update93.lastVerified, reason: "Gate times, retries, Challenger Tokens, and tournament rewards." },
+  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update93.lastVerified, reason: "Kijo’s October 24 – November 7 return window." },
 ];
 
 export const heroImages: HeroImage[] = [
@@ -1491,11 +1514,11 @@ export const datamineSources: DatamineSource[] = [
 export const homepageFaq = [
   {
     question: "What is the latest verified Volleyball Legends update on this wiki?",
-    answer: `Update ${latestGameUpdate.updateNumber} was released on ${latestGameUpdate.releasedAt}. ${latestGameUpdate.summary} The new codes give 13 Lucky Style Spins and 5 Lucky Ability Spins.`,
+    answer: `Update ${latestGameUpdate.updateNumber} was released on ${latestGameUpdate.releasedAt}. ${latestGameUpdate.summary} The new codes give 10 Lucky Style Spins and 5 Lucky Ability Spins.`,
   },
   {
     question: "Are the odds and style stats on this site official?",
-    answer: "Not always. This site separates official links from community-confirmed data and site-maintained tools. Update 92 confirms Secret rates and pity for its October 17–19 event. Other rarity estimates and style stat sheets have separate review histories.",
+    answer: "Not always. This site separates official links from community-confirmed data and site-maintained tools. Update 93 confirms Secret rates and pity for its October 24–26 event. Other rarity estimates and style stat sheets have separate review histories.",
   },
   {
     question: "When will a limited style or ability return?",
@@ -1508,6 +1531,7 @@ export const homepageFaq = [
 ];
 
 export const guideCards = [
+  { title: "Cursed Tournament", href: "/guides/cursed-tournament", description: "Find the 1v1 gate times, retry rules, Challenger Token rewards, and shop prices." },
   {
     title: "Style & Ability Slots",
     href: "/guides/style-ability-slots",

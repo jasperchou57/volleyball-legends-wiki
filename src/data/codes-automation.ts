@@ -10,7 +10,7 @@ export function mergeAutomatedCodes(active: CodeEntry[], previous: CodeEntry[], 
   const rows: CodeEntry[] = data.codes.filter(c => c.status === 'active').map(c => ({ code: c.code, reward: c.reward, releaseDate: date(c.addedAt),
     status: 'Officially announced', sourceTier: 'Official', lastChecked: date(c.sourceCheckedAt), availability: 'Active',
     sourceNote: 'Official Discord announcement reviewed. Not tested in-game.', sources: [{ label: 'Official Discord announcement', url: `https://discord.com/channels/${c.sourceId}` }] }));
-  return { activeCodes: [...rows, ...active.filter(c => !replaced.has(c.code))], previousCodes: previous.filter(c => !replaced.has(c.code)),
+  return { activeCodes: [...rows, ...active.filter(c => !replaced.has(c.code))].sort((a, b) => Date.parse(b.releaseDate) - Date.parse(a.releaseDate)), previousCodes: previous.filter(c => !replaced.has(c.code)),
     expiredCodes: [...data.codes.filter(c => c.status === 'expired').map(c => ({ code: c.code, reward: c.reward, releaseDate: date(c.addedAt), expiredNote: `Explicitly announced expired: https://discord.com/channels/${c.sourceId}` })), ...expired.filter(c => !replaced.has(c.code))] };
 }
 export function automatedCheckedAt(fallback: string) {

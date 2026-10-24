@@ -21,11 +21,16 @@ export default function MamoriPage() {
       <p className="mt-4 text-lg leading-8 text-muted">Mamori, the Shieldbearer, turns a well-timed block into a parry that knocks opponents back. Use Charge in the air to reach the ball, then choose between a harder return and a controlled pop-up.</p>
       <nav aria-label="On this page" className="mt-6 flex flex-wrap gap-3">{[["skills", "Skills"], ["charge", "Charge controls"], ["mastery", "Mastery"], ["practice", "Practice tips"]].map(([id, label]) => <a key={id} href={`#${id}`} className="rounded-full border border-white/15 px-4 py-2 text-sm text-white hover:border-accent-teal">{label}</a>)}</nav>
     </section>
+    <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
+      <h2 className="text-2xl font-heading font-bold text-white">What changed in Update 93?</h2>
+      <p className="mt-3 text-sm leading-7 text-muted">Perfect Parry now launches opponents in a short arc in the direction of the parried ball, rather than pushing them flat along the floor. Another version of the snake-jump bug was also fixed.</p>
+      <Link href="/updates/update-93" className="mt-4 inline-block text-sm text-accent-teal underline underline-offset-4">Read Update 93 patch notes</Link>
+    </section>
     <section id="skills" className="mt-8 scroll-mt-44 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
       <h2 className="text-2xl font-heading font-bold text-white">How Mamori’s Parry works</h2>
       <div className="mt-5 grid gap-4 md:grid-cols-2">
         <div className="rounded-2xl border border-white/10 bg-background/65 p-5"><h3 className="text-lg font-semibold text-accent-teal">Parry</h3><p className="mt-3 text-sm leading-7 text-muted">Block just as the ball reaches you. A successful parry returns the ball and knocks back opponents in front of you. It works on your team’s ball as well as the opposing team’s.</p></div>
-        <div className="rounded-2xl border border-white/10 bg-background/65 p-5"><h3 className="text-lg font-semibold text-accent-orange">Perfect Parry</h3><p className="mt-3 text-sm leading-7 text-muted">Mastery 1 unlocks Perfect Parry. Its timing is tighter, but the return has more impact and gravity, and opponents are knocked farther back.</p></div>
+        <div className="rounded-2xl border border-white/10 bg-background/65 p-5"><h3 className="text-lg font-semibold text-accent-orange">Perfect Parry</h3><p className="mt-3 text-sm leading-7 text-muted">Mastery 1 unlocks Perfect Parry. Its timing is tighter, but the return has more impact and gravity, and opponents are launched in a short arc in the direction of the parried ball.</p></div>
       </div>
     </section>
     <section id="charge" className="mt-8 scroll-mt-44 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">

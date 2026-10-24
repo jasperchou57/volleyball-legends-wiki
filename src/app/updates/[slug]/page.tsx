@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { update92Sections, update91Sections, update90Sections, featuredStyles, getUpdate, siteConfig, updates } from "@/data/volleyball";
+import { update93Sections, update92Sections, update91Sections, update90Sections, featuredStyles, getUpdate, siteConfig, updates } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 
 type PageProps = {
@@ -36,7 +36,7 @@ export default async function UpdateDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const officialSections = update.slug === "update-92" ? update92Sections : update.slug === "update-91" ? update91Sections : update.slug === "update-90" ? update90Sections : null;
+  const officialSections = update.slug === "update-93" ? update93Sections : update.slug === "update-92" ? update92Sections : update.slug === "update-91" ? update91Sections : update.slug === "update-90" ? update90Sections : null;
 
   const focusStyles = (update.focusStyles ?? [])
     .map((slug) => featuredStyles.find((style) => style.slug === slug))
@@ -72,9 +72,9 @@ export default async function UpdateDetailPage({ params }: PageProps) {
         </div>
 
         </>}
-        {officialSections && officialSections.map((section) => <section key={section.title} className="mt-8 rounded-3xl border border-white/10 bg-background/65 p-6"><h2 className="text-2xl font-heading font-bold text-white">{section.title}</h2><ul className="mt-4 space-y-3 text-sm leading-7 text-muted">{section.items.map((item) => <li key={item}>{item}</li>)}</ul>{section.title === "New style: Mamori" && <Link href="/styles/mamori" className="mt-4 inline-block text-accent-teal underline underline-offset-4 hover:text-white">Explore Mamori skills and Mastery</Link>}{section.title === "Style and Ability slot rework" && <Link href="/guides/style-ability-slots" className="mt-4 inline-block text-accent-teal underline underline-offset-4 hover:text-white">View slot prices and buying guide</Link>}</section>)}
+        {officialSections && officialSections.map((section) => <section key={section.title} className="mt-8 rounded-3xl border border-white/10 bg-background/65 p-6"><h2 className="text-2xl font-heading font-bold text-white">{section.title}</h2><ul className="mt-4 space-y-3 text-sm leading-7 text-muted">{section.items.map((item) => <li key={item}>{item}</li>)}</ul>{section.title === "Cursed 1v1 Tournament" && <Link href="/guides/cursed-tournament" className="mt-4 inline-block text-accent-teal underline underline-offset-4">See tournament times, rules, and rewards</Link>}{section.title === "Kijo return" && <Link href="/styles/kijo" className="mt-4 inline-block text-accent-teal underline underline-offset-4">Kijo skills and return window</Link>}{section.title === "Mamori adjustments" && <Link href="/styles/mamori" className="mt-4 inline-block text-accent-teal underline underline-offset-4">Mamori skills and Mastery</Link>}{section.title === "New style: Mamori" && <Link href="/styles/mamori" className="mt-4 inline-block text-accent-teal underline underline-offset-4 hover:text-white">Explore Mamori skills and Mastery</Link>}{section.title === "Style and Ability slot rework" && <Link href="/guides/style-ability-slots" className="mt-4 inline-block text-accent-teal underline underline-offset-4 hover:text-white">View slot prices and buying guide</Link>}</section>)}
 
-        {!["update-91", "update-92"].includes(update.slug) && <div className="mt-8 rounded-[2rem] border border-white/10 bg-background/65 p-6">
+        {!["update-91", "update-92", "update-93"].includes(update.slug) && <div className="mt-8 rounded-[2rem] border border-white/10 bg-background/65 p-6">
           <h2 className="text-2xl font-heading font-bold text-white">Key patch takeaways</h2>
           <ul className="mt-5 space-y-3 text-sm leading-7 text-muted">
             {update.highlights.map((highlight) => (

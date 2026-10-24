@@ -6,7 +6,7 @@ import { guideCards } from "@/data/volleyball";
 export const metadata: Metadata = {
   title: "Volleyball Legends Guides",
   description:
-    "Beginner-friendly Volleyball Legends guides for controls, ranked, Discord, and pity-system questions that keep appearing in search.",
+    "Volleyball Legends guides for the Cursed Tournament, controls, ranked play, Style and Ability slots, Discord, and the pity system.",
   alternates: { canonical: "/guides" },
 };
 
@@ -24,7 +24,7 @@ export default function GuidesPage() {
           Volleyball Legends Guides
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Find help with controls, ranked play, slots, and spins, or open the official Discord guide for community links.
+          Find help with the Cursed Tournament, controls, ranked play, slots, and spins, or open the official Discord guide for community links.
         </p>
       </section>
 

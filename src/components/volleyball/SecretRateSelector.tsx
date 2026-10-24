@@ -35,10 +35,10 @@ export function SecretRateSelector({ mode, setMode, now, eligible = true }: {
     <select id={id} value={mode} disabled={!eligible} onChange={e => setMode(e.target.value as RateMode)} className="mt-2 w-full rounded-xl border border-white/15 bg-background px-3 py-3 text-white disabled:opacity-50">
       <option value="auto">Automatic — follow event dates</option>
       <option value="baseline">Compare normal rates</option>
-      <option value="event">Compare Update 92 event rates</option>
+      <option value="event">Compare Update 93 event rates</option>
     </select>
     <p className="mt-3 font-semibold text-accent-teal">{!eligible ? "Secret boost does not apply to this rarity." : now === null ? "Checking event schedule…" : `${boosted ? "Event" : "Normal"} rates: ${boosted ? "1% per spin · Pity at 100 spins" : "0.5% per spin · Pity at 200 spins"}`}</p>
-    <p className="mt-2 leading-6 text-muted">{status === "active" ? "Update 92 event · Scheduled to end October 19, 2026 at 11:30 AM ET." : status === "ended" ? "Update 92 event · Scheduled window ended October 19, 2026 at 11:30 AM ET." : "Update 92 event · October 17 at 11:30 AM ET – October 19, 2026 at 11:30 AM ET."}</p>
+    <p className="mt-2 leading-6 text-muted">{status === "active" ? "Update 93 event · Scheduled to end October 26, 2026 at 11:30 AM ET." : status === "ended" ? "Update 93 event · Scheduled window ended October 26, 2026 at 11:30 AM ET." : "Update 93 event · October 24 at 11:30 AM ET – October 26, 2026 at 11:30 AM ET."}</p>
     {eligible && <p className="mt-2 text-xs leading-5 text-muted">{mode === "auto" ? "Rates return to normal after the scheduled end. Check in-game for any changes." : "For comparison only. Choose Automatic to use rates for the announced event dates."}</p>}
   </div>;
 }

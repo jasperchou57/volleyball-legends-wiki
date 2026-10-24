@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${style.name} Style Guide & Stats`,
     description: style.slug === "kijo"
-      ? "Explore Kijo in Volleyball Legends: learn how Super Tilt works, compare community-reported stats, and find practice tips and past return details."
+      ? "Learn Kijo’s Super Tilt in Volleyball Legends, compare community stats, and check the Update 93 return ending November 7, 2026 at 11:30 AM ET."
       : style.slug === "feiko"
       ? "Learn Feiko’s Stop Set and Dump Set in Volleyball Legends, explore community-reported stats, and find practice tips and past return details."
       : style.slug === "jinko"

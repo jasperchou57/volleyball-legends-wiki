@@ -20,6 +20,7 @@ function subjectName(subjectType: "Style" | "Ability", slug: string) {
 
 function returnNote(updateNumber: number, fallback: string) {
   const notes: Record<number, string> = {
+    93: "Kijo returns in Update 93 until November 7, 2026 at 11:30 AM ET.",
     90: "Jinko returned with Update 90 alongside five Mastery reward levels.",
     80: "Hidari returned in Update 80.",
     76: "Encho returned after its original Update 63 window.",
@@ -49,7 +50,7 @@ export default function StyleReturnDatesPage() {
         </div>
         <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">Volleyball Legends Return Dates</h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Jinko’s announced Update 90 return window was October 3–17, 2026. Find its return window and earlier style and ability returns below.
+          Kijo’s Update 93 return runs from October 24 until November 7, 2026 at 11:30 AM ET. Find this window and earlier style and ability returns below.
         </p>
         <p className="mt-3 text-sm text-muted">Last updated: {latestGameUpdate.lastVerified}</p>
       </section>
@@ -87,7 +88,7 @@ export default function StyleReturnDatesPage() {
                     <Link href={subjectLink(event.subjectType, event.subjectSlug)} className="transition hover:text-accent-teal">{event.label}</Link>
                   </h3>
                 </div>
-                <span className="rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">{event.updateNumber === 90 ? "Announced window" : "Historical record"}</span>
+                <span className="rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">{event.updateNumber === 93 ? "Announced window" : "Historical record"}</span>
               </div>
               <p className="mt-3 text-sm font-semibold text-slate-100">{event.window}</p>
               <p className="mt-2 text-sm leading-6 text-muted">{returnNote(event.updateNumber, event.note)}</p>
@@ -97,8 +98,8 @@ export default function StyleReturnDatesPage() {
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Has another return been announced?</h2>
-        <p className="mt-3 text-sm leading-7 text-muted">Update 92 introduces Mamori as a new style; it does not announce another return. Jinko’s last announced return window was October 3–17, 2026.</p>
+        <h2 className="text-2xl font-heading font-bold text-white">When does Kijo’s return end?</h2>
+        <p className="mt-3 text-sm leading-7 text-muted">Kijo’s announced return ends November 7, 2026 at 11:30 AM ET. This is one hour after the Cursed Tournament Shop closes. Earlier returns remain listed as history.</p>
       </section>
     </div>
   );

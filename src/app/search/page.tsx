@@ -31,6 +31,7 @@ type SearchResult = {
 };
 
 const staticResults: SearchResult[] = [
+  { title: "Cursed Tournament", href: "/guides/cursed-tournament", type: "Guide", source: "Official", summary: "1v1 gate times, retries, Challenger Tokens, leaderboard rewards, and shop prices.", keywords: ["cursed", "tournament", "tokens", "shop", "1v1", "rewards"] },
   { title: "Mamori", href: "/styles/mamori", type: "Style", source: "Official", summary: "Middle blocker with Parry, Perfect Parry, aerial Charge, and five Mastery upgrades.", keywords: ["mamori", "shieldbearer", "parry", "charge", "mastery", "blocker"] },
   {
     title: "Codes",
@@ -61,7 +62,7 @@ const staticResults: SearchResult[] = [
     href: "/guides/pity-system",
     type: "Guide",
     source: "Community",
-    summary: "Secret pity thresholds, baseline chances, and the Update 92 event rates.",
+    summary: "Secret pity thresholds, baseline chances, and the Update 93 event rates.",
     keywords: ["pity", "spin", "lucky", "secret", "evo", "drop rate"],
   },
 ];

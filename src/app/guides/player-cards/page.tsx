@@ -5,11 +5,13 @@ import { ChevronRight } from "lucide-react";
 export const metadata: Metadata = {
   title: "Volleyball Legends Player Cards Guide",
   description:
-    "Community-focused Volleyball Legends player cards guide covering secret card searches, event card demand, and where to verify limited card drops.",
+    "Find Volleyball Legends player cards from the Cursed Tournament, Jinko Mastery, and past bundles, with unlock requirements and token costs.",
   alternates: { canonical: "/guides/player-cards" },
 };
 
 const cardNotes = [
+  { title: "Cosmic Horror Player Card", body: "Costs 10,000 Challenger Tokens in the Cursed Tournament Shop. The shop has limited stock and closes November 7, 2026 at 10:30 AM ET." },
+  { title: "Cursed Tournament Top 1 custom card", body: "Finish first on the Cursed Tournament leaderboard to earn a custom player card made by the developers, alongside the Cursed Top 1 title and Cursed 1 Flame Jersey. Tournament scoring ends October 31, 2026 at 11:30 AM ET." },
   {
     title: "Jinko Cooked Player Card",
     body: "Complete quests with Jinko and reach Mastery Level 4 to unlock the Jinko Cooked Player Card.",
@@ -36,7 +38,7 @@ export default function PlayerCardsGuidePage() {
           Volleyball Legends Player Cards
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Find the player cards announced in Update 90 and how to unlock them through Jinko Mastery or the Skeleton Bundle.
+          Find Cursed Tournament player cards, Jinko Mastery rewards, and past bundle cards. Each entry explains how the card is earned or purchased.
         </p>
       </section>
 
@@ -50,6 +52,7 @@ export default function PlayerCardsGuidePage() {
       </div>
 
       <section className="mt-8 grid gap-4 md:grid-cols-2">
+        <Link href="/guides/cursed-tournament" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20"><h2 className="text-xl font-heading font-bold text-white">Cursed Tournament rewards</h2><p className="mt-3 text-sm leading-6 text-muted">See gate times, Challenger Tokens, leaderboard prizes, and the full shop list.</p></Link>
         <Link href="/updates/update-90" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
           <h2 className="text-xl font-heading font-bold text-white">Update 90 rewards</h2>
           <p className="mt-3 text-sm leading-6 text-muted">Read the announcement details for Jinko Mastery and the Skeleton Bundle.</p>
