@@ -1,5 +1,6 @@
 import { codeRewardTotals, latestCodeUpdateNumber, newestCodeBatch } from "@/data/codes-automation";
 import { Metadata } from "next";
+import { buildCodesMetadata } from "@/lib/volleyball/codes-metadata";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight, Clock3, Gift, ShieldCheck } from "lucide-react";
@@ -9,14 +10,12 @@ import { CodeCheckStatus } from "./CodeCheckStatus";
 import { CodeCopyButton } from "./CodeCopyButton";
 import styles from "./CodesTable.module.css";
 
-export const metadata: Metadata = {
-  title: "Volleyball Legends Codes",
-  description:
-    "Track Volleyball Legends codes, recent update codes, reward notes, and the fastest official places to verify fresh drops.",
-  alternates: {
-    canonical: "/codes",
-  },
-};
+// Revalidate on visits after one hour so metadata follows the current month.
+export const revalidate = 3600;
+
+export function generateMetadata(): Metadata {
+  return buildCodesMetadata(latestCodeUpdateNumber(latestGameUpdate.updateNumber), activeCodes);
+}
 
 function formatCheckDate(value: string) {
   return value;
