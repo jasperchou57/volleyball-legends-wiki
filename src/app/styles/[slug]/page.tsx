@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react";
 import { jinkoMasteryRewards, abilities, currentGameState, featuredStyles, getAvailabilityHistory, getStyle, pageFreshness } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 import { FocusedStyleGuide } from "@/components/volleyball/FocusedStyleGuide";
+import { TimeskipOkazuGuide } from "@/components/volleyball/TimeskipOkazuGuide";
 import { KijoGuide } from "@/components/volleyball/KijoGuide";
 import { RadarChart } from "@/components/volleyball/RadarChart";
 
@@ -25,8 +26,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${style.name} Style Guide & Stats`,
-    description: style.slug === "kijo"
+    title: style.slug === "timeskip-okazu" ? "Timeskip Okazu (TSO) Guide: Anger & Border Set" : `${style.name} Style Guide & Stats`,
+    description: style.slug === "timeskip-okazu"
+      ? "Learn Timeskip Okazu’s Update 94 rework in Volleyball Legends: Anger, Rainbow Serves, Border Set and the return ending November 14, 2026."
+      : style.slug === "kijo"
       ? "Learn Kijo’s Super Tilt in Volleyball Legends, compare community stats, and check the Update 93 return ending November 7, 2026 at 11:30 AM ET."
       : style.slug === "feiko"
       ? "Learn Feiko’s Stop Set and Dump Set in Volleyball Legends, explore community-reported stats, and find practice tips and past return details."
@@ -78,6 +81,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  if (style.slug === "timeskip-okazu") return <TimeskipOkazuGuide />;
   if (style.slug === "kijo") return <KijoGuide />;
   if (style.slug === "feiko" || style.slug === "jinko") return <FocusedStyleGuide slug={style.slug} />;
 

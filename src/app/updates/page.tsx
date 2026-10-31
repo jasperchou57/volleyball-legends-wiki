@@ -6,7 +6,7 @@ import { latestGameUpdate, updates } from "@/data/volleyball";
 export const metadata: Metadata = {
   title: "Volleyball Legends Updates",
   description:
-    "Track Volleyball Legends update notes, rising patch queries, and the code drops that usually follow Saturday resets.",
+    "Read Volleyball Legends patch notes, new codes, limited return windows, event schedules, and gameplay changes.",
   alternates: { canonical: "/updates" },
 };
 

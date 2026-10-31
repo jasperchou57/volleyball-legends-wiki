@@ -23,8 +23,8 @@ const serveTips = [
     body: "Jump serves add pressure, but only if your timing is stable. If your jump serve is spraying free points, drop back to a safer serve until your rhythm improves.",
   },
   {
-    title: "Abilities change serve plans",
-    body: "Curve Spike and other directional tools make your serve game far more dangerous. Build your serve patterns around what your current ability actually does well.",
+    title: "Timeskip Okazu: Anger and Rainbow Serves",
+    body: "TSO gains one Anger level from a non-Rainbow Serve, and another after every 6 scored rallies in which you are not the server. Each level adds a rainbow segment to the power bar. Landing a Rainbow Serve uses one level.",
   },
 ];
 
@@ -58,9 +58,9 @@ export default function HowToServePage() {
       </div>
 
       <section className="mt-8 grid gap-4 md:grid-cols-2">
-        <Link href="/abilities/curve-spike" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
-          <h2 className="text-xl font-heading font-bold text-white">Curve Spike</h2>
-          <p className="mt-3 text-sm leading-6 text-muted">One of the most important ability pages for serve-focused players.</p>
+        <Link href="/styles/timeskip-okazu" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
+          <h2 className="text-xl font-heading font-bold text-white">Timeskip Okazu</h2>
+          <p className="mt-3 text-sm leading-6 text-muted">Learn TSO’s Anger, Rainbow Serve, and Border Set mechanics.</p>
         </Link>
         <Link href="/styles/jinko" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
           <h2 className="text-xl font-heading font-bold text-white">Jinko</h2>

@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/next-update`, lastModified: siteLastUpdated, changeFrequency: "daily", priority: 0.82 },
     { url: `${base}/style-return-dates`, lastModified: siteLastUpdated, changeFrequency: "weekly", priority: 0.87 },
     { url: `${base}/styles/mamori`, lastModified: siteLastUpdated, changeFrequency: "weekly", priority: 0.84 },
-    { url: `${base}/styles`, lastModified: new Date("2026-10-17"), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/styles`, lastModified: siteLastUpdated, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/abilities`, changeFrequency: "weekly", priority: 0.85 },
     { url: `${base}/updates`, lastModified: siteLastUpdated, changeFrequency: "daily", priority: 0.85 },
     { url: `${base}/tier-list`, changeFrequency: "weekly", priority: 0.82 },
@@ -55,6 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const styleRoutes: MetadataRoute.Sitemap = featuredStyles.map((style) => ({
     url: `${base}/styles/${style.slug}`,
+    ...(style.slug === "timeskip-okazu" ? { lastModified: siteLastUpdated } : {}),
     ...(style.slug === "kijo" ? { lastModified: siteLastUpdated } : {}),
     ...(style.slug === "jinko" ? { lastModified: new Date("2026-10-17") } : {}),
     changeFrequency: "weekly" as const,

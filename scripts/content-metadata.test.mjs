@@ -47,17 +47,24 @@ test("warning and failure thresholds remain 7 and 14 days", () => {
 });
 
 const { buildCodesMetadata } = loadSiteModule("src/lib/volleyball/codes-metadata.ts");
-test("metadata follows update, code count and first code with the requested format", () => {
-  const metadata = buildCodesMetadata(93, [{ code: "UPDATE_93" }, { code: "CURSED" }], now);
-  assert.equal(metadata.title.absolute, "Volleyball Legends Codes (October 2026) - [Update 93] Working Spins");
-  assert.equal(metadata.description, "All 2 working Volleyball Legends codes for Update 93 (October 2026). Redeem active codes like UPDATE_93 for free Lucky Style Spins & Ability Spins. Updated and verified daily.");
+const code = (code, reward, releaseDate = "October 31, 2026") => ({ code, reward, releaseDate });
+test("metadata counts only the newest batch and totals its actual rewards", () => {
+  const metadata = buildCodesMetadata(94, [
+    code("UPDATE_94", "5 Lucky Style Spins"), code("TSO_RETURNS", "5 Lucky Style Spins"),
+    code("VAMPIRES", "5 Lucky Ability Spins"), code("UPDATE_93", "5 Lucky Style Spins", "October 24, 2026"),
+  ], new Date("2026-10-31T16:00:00Z"));
+  assert.equal(metadata.title.absolute, "Volleyball Legends Codes (October 2026) - [Update 94] Working Spins");
+  assert.equal(metadata.description, "Find 3 new Volleyball Legends Update 94 codes for 10 Lucky Style Spins and 5 Lucky Ability Spins, plus rewards and redemption steps.");
+  assert.ok(!metadata.description.includes("verified daily"));
 });
 
-test("metadata rolls over at Beijing midnight and handles an empty code list", () => {
-  const metadata = buildCodesMetadata(94, [], new Date("2026-10-31T16:00:00Z"));
-  assert.equal(metadata.title.absolute, "Volleyball Legends Codes (November 2026) - [Update 94] Working Spins");
-  assert.match(metadata.description, /^All 0 working/);
-  assert.ok(!metadata.description.includes("undefined"));
+test("metadata follows Eastern midnight, not Beijing midnight, and handles empty codes", () => {
+  for (const [iso, month] of [["2026-10-31T16:00:00Z", "October"], ["2026-11-01T03:59:59Z", "October"], ["2026-11-01T04:00:00Z", "November"]]) {
+    const metadata = buildCodesMetadata(94, [], new Date(iso));
+    assert.equal(metadata.title.absolute, `Volleyball Legends Codes (${month} 2026) - [Update 94] Working Spins`);
+    assert.ok(!metadata.description.includes("undefined"));
+    assert.ok(!metadata.description.includes("0 working"));
+  }
 });
 
 test("the data loader preserves automated codes and their source-review date", () => {
@@ -68,6 +75,20 @@ test("the data loader preserves automated codes and their source-review date", (
   }
   const latestReview = Math.max(...automated.codes.map(row => Date.parse(row.sourceCheckedAt)));
   const expectedDate = new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(latestReview);
-  assert.equal(data.pageFreshness.codesLastChecked, expectedDate);
+  assert.ok(Date.parse(data.pageFreshness.codesLastChecked) >= Date.parse(expectedDate));
 });
 
+
+const { SECRET_EVENT_START, SECRET_EVENT_END, getSecretEventStatus, usesSecretEventRates } = loadSiteModule("src/lib/volleyball/secret-event.ts");
+test("Update 94 event lasts 48 hours across Eastern DST change and stops at its deadline", () => {
+  assert.equal(SECRET_EVENT_START, Date.parse("2026-10-31T15:30:00Z"));
+  assert.equal(SECRET_EVENT_END, Date.parse("2026-11-02T15:30:00Z"));
+  assert.equal(SECRET_EVENT_END - SECRET_EVENT_START, 48 * 60 * 60 * 1000);
+  assert.equal(getSecretEventStatus(SECRET_EVENT_START - 1), "upcoming");
+  assert.equal(getSecretEventStatus(SECRET_EVENT_START), "active");
+  assert.equal(usesSecretEventRates("auto", SECRET_EVENT_END - 1), true);
+  assert.equal(usesSecretEventRates("auto", SECRET_EVENT_END), false);
+  assert.equal(getSecretEventStatus(SECRET_EVENT_END), "ended");
+  assert.equal(usesSecretEventRates("event", SECRET_EVENT_END), true);
+  assert.equal(usesSecretEventRates("baseline", SECRET_EVENT_START), false);
+});

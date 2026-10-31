@@ -79,7 +79,7 @@ export default function CodesPage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-accent-orange/20 bg-accent-orange/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-accent-orange">
               <Gift className="h-4 w-4" />
-              Last checked: {formatCheckDate(pageFreshness.codesLastChecked)}
+              New codes added: {newestCodes[0]?.releaseDate ?? formatCheckDate(pageFreshness.codesLastChecked)}
             </div>
             <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
               Volleyball Legends Codes

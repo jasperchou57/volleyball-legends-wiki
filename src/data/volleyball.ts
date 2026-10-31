@@ -239,7 +239,36 @@ export const update93 = {
   lastVerified: "October 24, 2026",
   summary: "The Cursed 1v1 Tournament arrives, Kijo returns, and Mamori gets a Perfect Parry adjustment, alongside a 2× Lucky event and three new codes.",
 };
-export const latestGameUpdate = update93;
+// Update 94 facts transcribed from official announcement screenshots supplied by the site owner.
+// All display dates are US Eastern; announcement review is not an in-game redemption test.
+export const update94 = {
+  updateNumber: 94,
+  releasedAt: "October 31, 2026",
+  lastVerified: "October 31, 2026",
+  summary: "Timeskip Okazu returns with Anger and Border Set mechanics. Update 94 also adds the Vampire Bundle, a 2× Lucky event, three new codes, and bug fixes.",
+};
+export const latestGameUpdate = update94;
+
+export const tsoAngerMechanics = [
+  "A flame icon on your hotbar shows your Anger level.",
+  "Serving anything other than a Rainbow Serve adds one Anger level.",
+  "Gain another Anger level after every 6 scored rallies in which you are not the server.",
+  "Each level adds an extra rainbow segment to the power bar, making Rainbow Serves easier to hit.",
+  "Landing a Rainbow Serve uses one Anger level. Rainbow Serves still knock opponents back.",
+];
+export const tsoBorderSet = "Use Jump Set with tilt to perform a Border Set. The ball travels toward the line you aim at and slows down just before the sideline, end line or net.";
+
+export const update94Sections = [
+  { title: "Timeskip Okazu rework and return", items: ["Timeskip Okazu (TSO) returns on October 31 and is available until November 14, 2026 at 11:30 AM ET."] },
+  { title: "How Anger works", items: tsoAngerMechanics },
+  { title: "How to use Border Set", items: [tsoBorderSet] },
+  { title: "Vampire Bundle", items: ["Available until November 7, 2026 at 11:30 AM ET.", "Includes the Blood Moon score effect (Godly), Vampire Jersey (Godly), and Blood Moon profile art (Legendary).", "Look for the coffin in the lobby."] },
+  { title: "2× Lucky event: October 31 – November 2", items: ["Starts October 31, 2026 at 11:30 AM ET and ends November 2, 2026 at 10:30 AM ET. The 48-hour window crosses the end of US daylight saving time.", "Secret Style and Ability chances increase from 0.5% to 1%, and Secret pity drops from 200 to 100 spins during this event."] },
+  { title: "Lucky Spin handout", items: ["Scheduled for October 31, 2026, from 10:30 AM to 12:30 PM ET. Lucky Spins are handed out every 10 minutes, for a total of 12 spins."] },
+  { title: "Cursed Tournament rewards and shop deadline", items: ["The Cursed Tournament ended on October 31. Placement rewards are awarded automatically on your next login.", "The Tournament Shop stays open until November 7, 2026 at 10:30 AM ET. Spend your Challenger Tokens before it closes; tokens reset with the next tournament.", "Kijo remains available until November 7, 2026 at 11:30 AM ET."] },
+  { title: "Bug fixes", items: ["Fixed Riku’s special wall sometimes not appearing.", "Fixed serving getting stuck in Training if you died before tossing the ball.", "Match history now shows your team’s score first.", "You can inspect the owner of a Beach Ball or Row Boat collaborative emote again after another player joins.", "Fixed an issue with the emote wheel remembering the last selection after closing."] },
+  { title: "Three new codes", items: ["UPDATE_94: 5 Lucky Style Spins.", "TSO_RETURNS: 5 Lucky Style Spins.", "VAMPIRES: 5 Lucky Ability Spins.", "This batch offers 10 Lucky Style Spins and 5 Lucky Ability Spins. See the codes page for current status and redemption steps."] },
+];
 
 export const update93Sections = [
   { title: "Cursed 1v1 Tournament", items: ["Enter the Cursed Portal in the lobby to play 1v1 matches, earn Challenger Tokens, and climb the event leaderboard. The tournament runs October 24–31, 2026, ending at 11:30 AM ET.", "Gates open at 6:00 AM and 6:00 PM ET for two hours. Matches are first to 10 points, win by two. Three losses end a run; leaving also counts as a loss.", "Each gate includes one free retry. Paid re-entry costs 2,000 Gems. Your leaderboard score keeps all Challenger Tokens earned across your runs.", "Spend tokens in the limited-stock Tournament Shop before November 7, 2026 at 10:30 AM ET. Tokens reset with the next tournament."] },
@@ -288,14 +317,14 @@ export const update90Sections = [
 ];
 
 export const pageFreshness: PageFreshness = {
-  siteLastUpdated: "October 24, 2026",
-  siteLastUpdatedIso: "2026-10-24T00:00:00.000Z",
+  siteLastUpdated: update94.lastVerified,
+  siteLastUpdatedIso: "2026-10-31T16:13:03.392132Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  updateTrackerLastUpdated: update93.lastVerified,
-  codesLastChecked: automatedCheckedAt("October 10, 2026"),
+  updateTrackerLastUpdated: update94.lastVerified,
+  codesLastChecked: automatedCheckedAt(update94.lastVerified),
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
-  pityLastUpdated: update93.lastVerified,
+  pityLastUpdated: update94.lastVerified,
 };
 
 export const mainQueryChips: QueryChip[] = [
@@ -332,21 +361,33 @@ export const update90Codes: CodeEntry[] = [
   { code: "SKELETON_BUNDLE", reward: "5 Lucky Style Spins" },
   { code: "JINX", reward: "5 Lucky Ability Spins" },
   { code: "SLOT_REWORK", reward: "100 Gems" },
-].map((entry) => ({
+].map((entry): CodeEntry => ({
   ...entry, releaseDate: "October 3, 2026", status: "Officially announced",
   availability: "Active", sourceTier: "Official", lastChecked: "October 3, 2026",
   sourceNote: "Code and reward checked against the official Update 90 Discord announcement in screenshots supplied by the site owner. Not tested in-game.",
 }));
 
-const baselineActiveCodes: CodeEntry[] = [
+const update94Codes: CodeEntry[] = [
+  { code: "UPDATE_94", reward: "5 Lucky Style Spins" },
+  { code: "TSO_RETURNS", reward: "5 Lucky Style Spins" },
+  { code: "VAMPIRES", reward: "5 Lucky Ability Spins" },
+].map((entry): CodeEntry => ({
+  ...entry, releaseDate: update94.releasedAt, status: "Officially announced",
+  availability: "Active", sourceTier: "Official", lastChecked: update94.lastVerified,
+  sourceNote: "Code and reward checked against official Update 94 Discord announcement screenshots supplied by the site owner. Not tested in-game.",
+}));
+
+const update91Codes: CodeEntry[] = [
   { code: "UPDATE_91", reward: "5 Lucky Style Spins" },
   { code: "REPLAYS", reward: "5 Lucky Style Spins" },
   { code: "MVP", reward: "5 Lucky Ability Spins" },
-].map((entry) => ({
+].map((entry): CodeEntry => ({
   ...entry, releaseDate: update91.releasedAt, status: "Officially announced",
   availability: "Active", sourceTier: "Official", lastChecked: update91.lastVerified,
   sourceNote: "Code and reward checked against the official Update 91 announcement supplied by the site owner. Not tested in-game.",
 }));
+
+const baselineActiveCodes: CodeEntry[] = [...update94Codes, ...update91Codes];
 
 const baselinePreviousCodes: CodeEntry[] = [
   ...update90Codes.map((entry): CodeEntry => ({ ...entry, status: "Needs verification", availability: "Unconfirmed" })),
@@ -881,10 +922,10 @@ export const featuredStyles: StyleEntry[] = [
     rarity: "Secret",
     role: "Setter",
     communityTier: "S",
-    summary: "Limited secret setter-server hybrid famous for rainbow-serve pressure and premium tempo control.",
-    signature: "Timeskip Okazu mixes elite setup quality with a much scarier serve package than most setter-first styles.",
+    summary: "Timeskip Okazu (TSO) returns in Update 94 with Anger to make Rainbow Serves easier to hit, plus a new Border Set.",
+    signature: "Anger adds rainbow segments to the serve power bar. Jump Set with tilt performs a Border Set that slows before the sideline, end line or net.",
     whyPlayersSearch: "Timeskip Okazu combines setting with serve pressure for players who want both support and attacking options.",
-    availability: "Legacy limited Secret style in community-maintained style pages.",
+    availability: "Update 94 return: October 31 – November 14, 2026 at 11:30 AM ET.",
     sourceTier: "Community",
     bestAbilities: ["curve-spike", "zero-gravity-set", "magnetic-pull"],
     bestRoles: ["Setter", "All-Rounder"],
@@ -1100,6 +1141,7 @@ export const abilities: AbilityEntry[] = [
 ];
 
 export const availabilityEvents: AvailabilityEvent[] = [
+  { subjectType: "Style", subjectSlug: "timeskip-okazu", label: "Timeskip Okazu return", window: "October 31 – November 14, 2026 at 11:30 AM ET", updateNumber: 94, status: "Limited window", sourceTier: "Official", note: "TSO returns in Update 94 with Anger and Border Set mechanics." },
   { subjectType: "Style", subjectSlug: "kijo", label: "Kijo return", window: "October 24 – November 7, 2026 at 11:30 AM ET", updateNumber: 93, status: "Limited window", sourceTier: "Official", note: "Kijo returns in Update 93 for a limited window." },
   { subjectType: "Style", subjectSlug: "jinko", label: "Jinko return", window: "October 3–17, 2026", updateNumber: 90, status: "Limited window", sourceTier: "Official", note: "Returned with Update 90 alongside five Mastery reward levels. The announcement does not give an exact closing time." },
   {
@@ -1197,6 +1239,14 @@ export const currentlyAvailableStyles = availabilityEvents.filter(
 );
 
 export const updates: UpdateEntry[] = [
+  {
+    slug: "update-94", title: "Volleyball Legends Update 94: TSO Rework & Vampire Bundle",
+    published: update94.releasedAt, lastChecked: update94.lastVerified, sourceTier: "Official",
+    summary: "See the Update 94 changes: Timeskip Okazu’s rework and return, Vampire Bundle, new codes, 2× Lucky event and bug fixes.",
+    bodySummary: "Update 94 reworks Timeskip Okazu with Anger and Border Set mechanics and brings him back for two weeks. It also adds the Vampire Bundle, three new codes and a 2× Lucky event. The Cursed Tournament has ended, but its shop remains open for a limited time.",
+    highlights: ["TSO returns until November 14, 2026 at 11:30 AM ET.", "Build Anger for Rainbow Serves and use Jump Set with tilt for Border Set.", "The Vampire Bundle includes a score effect, jersey and profile art.", "Three new codes offer 10 Lucky Style Spins and 5 Lucky Ability Spins."],
+    codes: ["UPDATE_94", "TSO_RETURNS", "VAMPIRES"], focusStyles: ["timeskip-okazu"],
+  },
   {
     slug: "update-93", title: "Volleyball Legends Update 93: Cursed Tournament & Kijo",
     published: update93.releasedAt, lastChecked: update93.lastVerified, sourceTier: "Official",
@@ -1434,10 +1484,11 @@ export const updates: UpdateEntry[] = [
 ];
 
 export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
-  { title: "Update 93", href: "/updates/update-93", sourceLabel: "Official", updatedAt: update93.lastVerified, reason: "Cursed Tournament, Kijo’s return, Mamori changes, and new codes." },
-  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 93 codes for 10 Lucky Style Spins and 5 Lucky Ability Spins." },
-  { title: "Cursed Tournament", href: "/guides/cursed-tournament", sourceLabel: "Official", updatedAt: update93.lastVerified, reason: "Gate times, retries, Challenger Tokens, and tournament rewards." },
-  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update93.lastVerified, reason: "Kijo’s October 24 – November 7 return window." },
+  { title: "Update 94", href: "/updates/update-94", sourceLabel: "Official", updatedAt: update94.lastVerified, reason: "TSO rework, Vampire Bundle, event times, and bug fixes." },
+  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 94 codes for 10 Lucky Style Spins and 5 Lucky Ability Spins." },
+  { title: "Timeskip Okazu", href: "/styles/timeskip-okazu", sourceLabel: "Official", updatedAt: update94.lastVerified, reason: "Anger, Rainbow Serves, Border Set, and the November 14 return deadline." },
+  { title: "Cursed Tournament", href: "/guides/cursed-tournament", sourceLabel: "Official", updatedAt: update94.lastVerified, reason: "Placement rewards and the November 7 Tournament Shop deadline." },
+  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update94.lastVerified, reason: "TSO and Kijo return windows." },
 ];
 
 export const heroImages: HeroImage[] = [
@@ -1517,7 +1568,7 @@ export const homepageFaq = [
   },
   {
     question: "Are the odds and style stats on this site official?",
-    answer: "Not all values are official. The Update 93 announcement gives a 1% Secret chance and 100-spin pity for its October 24–26 event. Some other rarity odds and style stats are community estimates; check the values shown in-game before spending spins.",
+    answer: "Not all values are official. The Update 94 announcement gives a 1% Secret chance and 100-spin pity for its October 31 – November 2 event. Some other rarity odds and style stats are community estimates; check the values shown in-game before spending spins.",
   },
   {
     question: "When will a limited style or ability return?",
@@ -1530,7 +1581,7 @@ export const homepageFaq = [
 ];
 
 export const guideCards = [
-  { title: "Cursed Tournament", href: "/guides/cursed-tournament", description: "Find the 1v1 gate times, retry rules, Challenger Token rewards, and shop prices." },
+  { title: "Cursed Tournament", href: "/guides/cursed-tournament", description: "The tournament has ended. Check placement rewards, Challenger Token shop prices, and the November 7 shop deadline." },
   {
     title: "Style & Ability Slots",
     href: "/guides/style-ability-slots",

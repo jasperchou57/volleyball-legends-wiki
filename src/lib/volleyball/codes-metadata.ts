@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import type { CodeEntry } from "@/data/volleyball";
+import { codeRewardTotals, newestCodeBatch } from "../../data/codes-automation";
 
-export function buildCodesMetadata(updateNumber: number, activeCodes: Pick<CodeEntry, "code">[], now = new Date()): Metadata {
-  const latestUpdateName = `Update ${updateNumber}`;
+export function buildCodesMetadata(updateNumber: number, activeCodes: CodeEntry[], now = new Date()): Metadata {
   const monthYear = new Intl.DateTimeFormat("en-US", {
-    month: "long", year: "numeric", timeZone: "Asia/Shanghai",
+    month: "long", year: "numeric", timeZone: "America/New_York",
   }).format(now);
-  const exampleCode = activeCodes[0]?.code;
-  const redemptionDescription = exampleCode
-    ? `Redeem active codes like ${exampleCode} for free Lucky Style Spins & Ability Spins.`
-    : "Check back for new codes offering free Lucky Style Spins & Ability Spins.";
+  const newest = newestCodeBatch(activeCodes);
+  const rewards = codeRewardTotals(newest);
+  const rewardText = [rewards.styleSpins ? `${rewards.styleSpins} Lucky Style Spins` : "", rewards.abilitySpins ? `${rewards.abilitySpins} Lucky Ability Spins` : ""].filter(Boolean).join(" and ");
   return {
-    title: { absolute: `Volleyball Legends Codes (${monthYear}) - [${latestUpdateName}] Working Spins` },
-    description: `All ${activeCodes.length} working Volleyball Legends codes for ${latestUpdateName} (${monthYear}). ${redemptionDescription} Updated and verified daily.`,
+    title: { absolute: `Volleyball Legends Codes (${monthYear}) - [Update ${updateNumber}] Working Spins` },
+    description: newest.length
+      ? `Find ${newest.length} new Volleyball Legends Update ${updateNumber} codes${rewardText ? ` for ${rewardText}` : ""}, plus rewards and redemption steps.`
+      : "Find Volleyball Legends code updates and redemption steps. Check back for newly announced codes.",
     alternates: { canonical: "/codes" },
   };
 }

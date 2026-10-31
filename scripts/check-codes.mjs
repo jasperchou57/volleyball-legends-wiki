@@ -21,7 +21,12 @@ const metadata = buildCodesMetadata(latestCodeUpdateNumber(site.latestGameUpdate
 assert.match(page, /export function generateMetadata\(\)/);
 assert.ok(page.includes('return buildCodesMetadata(latestCodeUpdateNumber(latestGameUpdate.updateNumber), activeCodes)'));
 assert.match(metadata.title.absolute, /^Volleyball Legends Codes \([A-Za-z]+ \d{4}\) - \[Update \d+\] Working Spins$/);
-assert.ok(metadata.description.startsWith(`All ${site.activeCodes.length} working Volleyball Legends codes for Update `));
-if (site.activeCodes.length) assert.ok(metadata.description.includes(`like ${site.activeCodes[0].code}`));
+const { newestCodeBatch, codeRewardTotals } = loadSiteModule('src/data/codes-automation.ts');
+const newest = newestCodeBatch(site.activeCodes);
+const rewards = codeRewardTotals(newest);
+assert.ok(metadata.description.startsWith(`Find ${newest.length} new Volleyball Legends Update `));
+assert.ok(metadata.description.includes(`${rewards.styleSpins} Lucky Style Spins`));
+assert.ok(metadata.description.includes(`${rewards.abilitySpins} Lucky Ability Spins`));
+assert.ok(!metadata.description.includes('verified daily'));
 assert.match(page, /<h1[^>]*>\s*Volleyball Legends Codes\s*<\/h1>/);
 console.log('Codes evidence, unique records, source references, dynamic metadata and unchanged H1 passed. Gameplay snapshots were not refreshed.');

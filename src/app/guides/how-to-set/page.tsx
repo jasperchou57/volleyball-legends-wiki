@@ -45,6 +45,11 @@ export default function HowToSetPage() {
         ))}
       </div>
 
+      <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
+        <h2 className="text-2xl font-heading font-bold text-white">Timeskip Okazu’s Border Set</h2>
+        <p className="mt-3 text-sm leading-7 text-muted">Use Jump Set with tilt to perform a Border Set. The ball travels toward the line you aim at and slows down just before the sideline, end line or net.</p>
+        <Link href="/styles/timeskip-okazu" className="mt-4 inline-block text-accent-teal underline">Timeskip Okazu mechanics and return dates</Link>
+      </section>
       <section className="mt-8 grid gap-4 md:grid-cols-3">
         <Link href="/styles/kyamo" className="rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20">
           <h2 className="text-xl font-heading font-bold text-white">Kyamo</h2>

@@ -7,7 +7,7 @@ import { UpdateCountdown } from "@/components/volleyball/UpdateCountdown";
 export const metadata: Metadata = {
   title: "Volleyball Legends Next Update — Official Watch",
   description:
-    "Live monitoring board for the next Volleyball Legends update. Tracks Roblox game-page changes, dev teasers on X, Discord announcements, and the latest public patch status between Saturday releases.",
+    "Check the next scheduled Volleyball Legends update time and catch up on the latest patch notes, codes, and limited events.",
   alternates: { canonical: "/next-update" },
 };
 
@@ -20,6 +20,6 @@ export default function NextUpdatePage() {
     </section>
     <div className="mt-6"><UpdateCountdown /></div>
     <div className="mt-8"><LatestUpdateSummary /></div>
-    <p className="mt-5 text-sm leading-6 text-muted">Update 93’s announcement covers the October 24 release. It does not announce the next update’s new styles or abilities.</p>
+    <p className="mt-5 text-sm leading-6 text-muted">Update 94’s announcement covers the October 31 release. It does not announce the next update’s new styles or abilities.</p>
   </div>;
 }
