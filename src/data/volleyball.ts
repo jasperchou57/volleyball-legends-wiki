@@ -327,6 +327,15 @@ export const pageFreshness: PageFreshness = {
   pityLastUpdated: update94.lastVerified,
 };
 
+// Codes-specific editorial dates, independent of game release dates and site-wide edits.
+// contentUpdatedAt: Update 94 code/content change recorded by commit 60b5600.
+// Update only after a substantive Codes edit, never on builds or metadata-only changes.
+// Verification records currently have day precision; do not invent a midnight review time.
+export const codesPageFreshness = {
+  contentUpdatedAt: "2026-10-31T16:23:52Z",
+  verifiedAt: pageFreshness.codesLastChecked,
+};
+
 export const mainQueryChips: QueryChip[] = [
   { label: "Codes", href: "/codes" },
   { label: "Styles", href: "/styles" },

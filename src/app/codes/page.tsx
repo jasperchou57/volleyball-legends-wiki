@@ -1,20 +1,20 @@
 import { codeRewardTotals, latestCodeUpdateNumber, newestCodeBatch } from "@/data/codes-automation";
 import { Metadata } from "next";
-import { buildCodesMetadata } from "@/lib/volleyball/codes-metadata";
+import { buildCodesMetadata, buildCodesWebPageSchema, formatCodesDate, normalizeCodesDate } from "@/lib/volleyball/codes-metadata";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight, Clock3, Gift, ShieldCheck } from "lucide-react";
-import { activeCodes, latestGameUpdate, previousCodes, expiredCodes, pageFreshness, siteConfig, updates, type CodeEntry } from "@/data/volleyball";
+import { activeCodes, codesPageFreshness, latestGameUpdate, previousCodes, expiredCodes, pageFreshness, siteConfig, updates, type CodeEntry } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 import { CodeCheckStatus } from "./CodeCheckStatus";
 import { CodeCopyButton } from "./CodeCopyButton";
 import styles from "./CodesTable.module.css";
 
-// Revalidate on visits after one hour so metadata follows the current month.
+// Revalidation never advances editorial dates; they come from recorded Codes data.
 export const revalidate = 3600;
 
 export function generateMetadata(): Metadata {
-  return buildCodesMetadata(latestCodeUpdateNumber(latestGameUpdate.updateNumber), activeCodes);
+  return buildCodesMetadata(latestCodeUpdateNumber(latestGameUpdate.updateNumber), activeCodes, codesPageFreshness.contentUpdatedAt);
 }
 
 function formatCheckDate(value: string) {
@@ -64,10 +64,15 @@ function CodeTable({ entries }: { entries: CodeEntry[] }) {
 export default function CodesPage() {
   const newestCodes = newestCodeBatch(activeCodes);
   const totals = codeRewardTotals(newestCodes);
+  const verifiedAt = normalizeCodesDate(codesPageFreshness.verifiedAt);
+  const contentUpdatedAt = normalizeCodesDate(codesPageFreshness.contentUpdatedAt);
+  const metadata = generateMetadata();
+  const webPageSchema = buildCodesWebPageSchema(metadata.description!, contentUpdatedAt, verifiedAt);
 
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-6 md:py-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema).replace(/</g, "\\u003c") }} />
       <div className="flex items-center gap-2 text-sm text-muted">
         <Link href="/" className="hover:text-white transition-colors">Home</Link>
         <ChevronRight className="h-4 w-4" />
@@ -84,6 +89,13 @@ export default function CodesPage() {
             <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
               Volleyball Legends Codes
             </h1>
+            <p className="mt-3 text-base font-semibold text-accent-teal">
+              Last verified: <time dateTime={verifiedAt}>{formatCodesDate(verifiedAt)}</time>
+            </p>
+            <p className="mt-1 text-xs leading-5 text-muted">
+              Latest code announcement checked.
+              {" "}Content updated: <time dateTime={contentUpdatedAt}>{formatCodesDate(contentUpdatedAt)}</time>.
+            </p>
             <p className="mt-4 text-lg font-semibold text-accent-teal">Update {latestCodeUpdateNumber(latestGameUpdate.updateNumber)} · {newestCodes.length} new codes</p>
             <p className="mt-2 text-sm leading-6 text-slate-200">New-code rewards — {totals.styleSpins} Lucky Style Spins &amp; {totals.abilitySpins} Lucky Ability Spins.</p>
             <p className="mt-2 text-sm leading-6 text-muted">New codes: {newestCodes.map((entry) => entry.code).join(", ")}, offering free Lucky Style and Ability Spins.</p>
