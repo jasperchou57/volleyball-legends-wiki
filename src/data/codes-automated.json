@@ -60,6 +60,36 @@
       "eventTime": "2026-10-24T15:30:30.977Z",
       "sourceId": "1328110081136398427/1328110082226913470/1563575424288559296",
       "evidenceHash": "8fa3c9f867f485ecd64f52eb580bf94737da2d041d52795cff844cd79be897d4"
+    },
+    {
+      "code": "UPDATE_94",
+      "reward": "5 Lucky Style Spins",
+      "status": "active",
+      "addedAt": "2026-10-31",
+      "sourceCheckedAt": "2026-11-01",
+      "eventTime": "2026-10-31T15:30:49.710Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1566112217919656097",
+      "evidenceHash": "20bfa328f04a1009cf6ba23e9852700101615676cd3d202d500ebe501073c36e"
+    },
+    {
+      "code": "TSO_RETURNS",
+      "reward": "5 Lucky Style Spins",
+      "status": "active",
+      "addedAt": "2026-10-31",
+      "sourceCheckedAt": "2026-11-01",
+      "eventTime": "2026-10-31T15:30:49.710Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1566112217919656097",
+      "evidenceHash": "20bfa328f04a1009cf6ba23e9852700101615676cd3d202d500ebe501073c36e"
+    },
+    {
+      "code": "VAMPIRES",
+      "reward": "5 Lucky Ability Spins",
+      "status": "active",
+      "addedAt": "2026-10-31",
+      "sourceCheckedAt": "2026-11-01",
+      "eventTime": "2026-10-31T15:30:49.710Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1566112217919656097",
+      "evidenceHash": "20bfa328f04a1009cf6ba23e9852700101615676cd3d202d500ebe501073c36e"
     }
   ],
   "announcements": [
@@ -154,14 +184,60 @@
         "quote": "UPDATE 93 IS OUT NOW!"
       },
       "hash": "8fa3c9f867f485ecd64f52eb580bf94737da2d041d52795cff844cd79be897d4"
+    },
+    {
+      "gameId": "volleyball-legends",
+      "guildId": "1328110081136398427",
+      "channelId": "1328110082226913470",
+      "messageId": "1566112217919656097",
+      "receivedChannelId": "1328110082226913470",
+      "receivedMessageId": "1566112217919656097",
+      "timestamp": "2026-10-31T15:30:49.710Z",
+      "editedTimestamp": null,
+      "capturedAt": "2026-11-01T01:00:14.308Z",
+      "segments": [
+        {
+          "id": "browser-text",
+          "text": "UPDATE 94 IS OUT NOW!\nTSO REWORK + RETURN\nVAMPIRE BUNDLE\n2X Luck Event\nLucky Spin Handout\nBug fixes\nCodes\n\nNEW CODES\nUPDATE_94 = 5 Lucky Style Spins\nTSO_RETURNS = 5 Lucky Style Spins\nVAMPIRES = 5 Lucky Ability Spins"
+        }
+      ],
+      "observations": [
+        {
+          "code": "UPDATE_94",
+          "status": "active",
+          "reward": "5 Lucky Style Spins",
+          "segment": "browser-text",
+          "quote": "UPDATE_94 = 5 Lucky Style Spins"
+        },
+        {
+          "code": "TSO_RETURNS",
+          "status": "active",
+          "reward": "5 Lucky Style Spins",
+          "segment": "browser-text",
+          "quote": "TSO_RETURNS = 5 Lucky Style Spins"
+        },
+        {
+          "code": "VAMPIRES",
+          "status": "active",
+          "reward": "5 Lucky Ability Spins",
+          "segment": "browser-text",
+          "quote": "VAMPIRES = 5 Lucky Ability Spins"
+        }
+      ],
+      "update": {
+        "number": 94,
+        "segment": "browser-text",
+        "quote": "UPDATE 94 IS OUT NOW!"
+      },
+      "hash": "20bfa328f04a1009cf6ba23e9852700101615676cd3d202d500ebe501073c36e"
     }
   ],
   "update": {
-    "number": 93,
+    "number": 94,
     "segment": "browser-text",
-    "quote": "UPDATE 93 IS OUT NOW!",
-    "announcedAt": "2026-10-24",
-    "checkedAt": "2026-10-24"
+    "quote": "UPDATE 94 IS OUT NOW!",
+    "announcedAt": "2026-10-31",
+    "checkedAt": "2026-11-01"
   },
-  "revision": "4efff3441020e5ddd8191ea4178d4025e0d7a44eb47d6704ec82f97e51834212"
+  "revision": "d16361a91003a3ecc98bb911dcf6ec0cb97e7f39655a5be40350bab39ae28d73"
 }
