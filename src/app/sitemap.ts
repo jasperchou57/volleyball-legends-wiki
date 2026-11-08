@@ -1,9 +1,9 @@
 import { MetadataRoute } from "next";
-import { abilities, featuredStyles, pageFreshness, siteConfig, updates } from "@/data/volleyball";
+import { abilities, codesPageFreshness, featuredStyles, pageFreshness, siteConfig, updates } from "@/data/volleyball";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteLastUpdated = new Date(pageFreshness.siteLastUpdatedIso);
-  const codesLastUpdated = new Date(pageFreshness.codesLastChecked);
+  const codesLastUpdated = new Date(codesPageFreshness.contentUpdatedAt);
   const base = siteConfig.domain;
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -55,6 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const styleRoutes: MetadataRoute.Sitemap = featuredStyles.map((style) => ({
     url: `${base}/styles/${style.slug}`,
+    ...(style.slug === "twins" ? { lastModified: siteLastUpdated } : {}),
     ...(style.slug === "timeskip-okazu" ? { lastModified: siteLastUpdated } : {}),
     ...(style.slug === "kijo" ? { lastModified: siteLastUpdated } : {}),
     ...(style.slug === "jinko" ? { lastModified: new Date("2026-10-17") } : {}),

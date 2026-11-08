@@ -80,9 +80,9 @@ test("the data loader preserves automated codes and their source-review date", (
 
 
 const { SECRET_EVENT_START, SECRET_EVENT_END, getSecretEventStatus, usesSecretEventRates } = loadSiteModule("src/lib/volleyball/secret-event.ts");
-test("Update 94 event lasts 48 hours across Eastern DST change and stops at its deadline", () => {
-  assert.equal(SECRET_EVENT_START, Date.parse("2026-10-31T15:30:00Z"));
-  assert.equal(SECRET_EVENT_END, Date.parse("2026-11-02T15:30:00Z"));
+test("Update 95 event lasts 48 hours and stops at its deadline", () => {
+  assert.equal(SECRET_EVENT_START, Date.parse("2026-11-07T16:30:00Z"));
+  assert.equal(SECRET_EVENT_END, Date.parse("2026-11-09T16:30:00Z"));
   assert.equal(SECRET_EVENT_END - SECRET_EVENT_START, 48 * 60 * 60 * 1000);
   assert.equal(getSecretEventStatus(SECRET_EVENT_START - 1), "upcoming");
   assert.equal(getSecretEventStatus(SECRET_EVENT_START), "active");

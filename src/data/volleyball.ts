@@ -247,7 +247,68 @@ export const update94 = {
   lastVerified: "October 31, 2026",
   summary: "Timeskip Okazu returns with Anger and Border Set mechanics. Update 94 also adds the Vampire Bundle, a 2× Lucky event, three new codes, and bug fixes.",
 };
-export const latestGameUpdate = update94;
+export const update95 = {
+  updateNumber: 95,
+  releasedAt: "November 7, 2026",
+  lastVerified: "November 8, 2026",
+  summary: "Season 20 brings a Wild West theme, the Easy Money Bundle, and the Twins’ return. Update 95 also adds three new codes, a 2× Luck Weekend, and fixes for TSO and Roketto.",
+};
+export const latestGameUpdate = update95;
+export const update95Sections = [
+  {
+    "title": "Season 20: Wild West",
+    "items": [
+      "Season 20 brings a Wild West theme and new Cowboy Season Classic and Pro maps.",
+      "Score effects: Dust Devil, Bottle Shootout, Mad Bull Run, and Season 20 Pro.",
+      "Emotes: Bottle Standoff (a collaborative emote) and Mechanical Bull Ride.",
+      "Balls: Copper Ore, Silver Ore, Gold Ore, Diamond Inclusions, Tumbleweed, and Cactus.",
+      "Player cards: Saloon, Spiky Camo, and the Season 20 Dynamic Ranked Card. The season also adds the SHERIFF jersey."
+    ]
+  },
+  {
+    "title": "Easy Money Bundle",
+    "items": [
+      "Available until November 21, 2026 at 11:30 AM ET.",
+      "Includes the Money Bag ball, Coin Flip emote, Outlaw player card, John Hood score effect, and Sundown profile art."
+    ]
+  },
+  {
+    "title": "Twins return",
+    "items": [
+      "The Twins return following the community poll. Their limited window runs from November 7 to November 14, 2026 at 11:30 AM ET.",
+      "Timeskip Okazu also remains available until November 14, 2026 at 11:30 AM ET."
+    ]
+  },
+  {
+    "title": "2× Luck Weekend: November 7–9",
+    "items": [
+      "Runs from November 7, 2026 at 11:30 AM ET to November 9, 2026 at 11:30 AM ET.",
+      "Secret Style and Ability chances increase from 0.5% to 1%, and Secret pity drops from 200 to 100 spins during this event."
+    ]
+  },
+  {
+    "title": "Update-day spin handout — ended",
+    "items": [
+      "The November 7 handout ran from 10:30 AM to 12:30 PM ET. Lucky Spins were handed out every 10 minutes, for 13 Lucky Spins in total. This handout has ended."
+    ]
+  },
+  {
+    "title": "Bug fixes",
+    "items": [
+      "Fixed Roketto’s jetpack staying on after switching to another style.",
+      "Fixed TSO gaining Anger from a Rainbow Serve that came out too low."
+    ]
+  },
+  {
+    "title": "Three new codes",
+    "items": [
+      "UPDATE_95: 5 Lucky Style Spins.",
+      "YEEHAW: 5 Lucky Style Spins.",
+      "TWINS_STANDOFF: 5 Lucky Ability Spins.",
+      "These three codes offer 10 Lucky Style Spins and 5 Lucky Ability Spins. See the codes page for current status and redemption steps."
+    ]
+  }
+];
 
 export const tsoAngerMechanics = [
   "A flame icon on your hotbar shows your Anger level.",
@@ -317,22 +378,22 @@ export const update90Sections = [
 ];
 
 export const pageFreshness: PageFreshness = {
-  siteLastUpdated: update94.lastVerified,
-  siteLastUpdatedIso: "2026-10-31T16:13:03.392132Z",
+  siteLastUpdated: update95.lastVerified,
+  siteLastUpdatedIso: "2026-11-08T05:12:33Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  updateTrackerLastUpdated: update94.lastVerified,
-  codesLastChecked: automatedCheckedAt(update94.lastVerified),
+  updateTrackerLastUpdated: update95.lastVerified,
+  codesLastChecked: automatedCheckedAt(update95.lastVerified),
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
-  pityLastUpdated: update94.lastVerified,
+  pityLastUpdated: update95.lastVerified,
 };
 
 // Codes-specific editorial dates, independent of game release dates and site-wide edits.
-// contentUpdatedAt: Update 94 code/content change recorded by commit 60b5600.
+// contentUpdatedAt: substantive Update 95 Codes batch update, November 8 review.
 // Update only after a substantive Codes edit, never on builds or metadata-only changes.
 // Verification records currently have day precision; do not invent a midnight review time.
 export const codesPageFreshness = {
-  contentUpdatedAt: "2026-10-31T16:23:52Z",
+  contentUpdatedAt: "2026-11-08T05:12:33Z",
   verifiedAt: pageFreshness.codesLastChecked,
 };
 
@@ -540,10 +601,10 @@ export const featuredStyles: StyleEntry[] = [
     rarity: "Secret",
     role: "All-Rounder",
     communityTier: "S",
-    summary: "Dual-character limited Secret style that rotates back into the pool during Tournament Week and similar event windows.",
+    summary: "Dual-character limited Secret style. The Twins return in Update 95 until November 14, 2026 at 11:30 AM ET.",
     signature: "Twins use swap-based plays: community writeups describe coordinated positioning and shared ability triggers between the two characters.",
     whyPlayersSearch: "Twins uses swap-based plays for coordinated attacks. Its documented return windows are listed below.",
-    availability: "Returning limited. The last documented Twins window was Update 64 (April 4–11, 2026). A later return is not announced in this snapshot.",
+    availability: "Update 95 return: November 7–14, 2026, ending at 11:30 AM ET. Selected by the community poll.",
     sourceTier: "Community",
     bestAbilities: ["team-spirit", "lead-feet", "redirection-jump"],
     bestRoles: ["All-Rounder", "Spiker"],
@@ -560,7 +621,7 @@ export const featuredStyles: StyleEntry[] = [
     summary: "High-skill secret spiker built around charged super tilts and explosive point-ending pressure.",
     signature: "Hold a tilt direction to charge a super tilt that sends the ball much farther left or right.",
     whyPlayersSearch: "Kijo rewards precise tilt timing. Charging different directions helps you attack around blockers.",
-    availability: "Limited Secret. Released in Update 60 and most recently returned for one week in Update 75 (June 20, 2026). No next return date is announced.",
+    availability: "Kijo’s Update 93 return ended November 7, 2026 at 11:30 AM ET. A new return date has not been announced.",
     sourceTier: "Community",
     bestAbilities: ["lead-feet", "redirection-jump", "shield-breaker"],
     bestRoles: ["Spiker"],
@@ -1150,9 +1211,10 @@ export const abilities: AbilityEntry[] = [
 ];
 
 export const availabilityEvents: AvailabilityEvent[] = [
+  { subjectType: "Style", subjectSlug: "twins", label: "Twins return", window: "November 7–14, 2026 at 11:30 AM ET", updateNumber: 95, status: "Limited window", sourceTier: "Official", note: "The Twins returned in Update 95 following the community poll." },
   { subjectType: "Style", subjectSlug: "timeskip-okazu", label: "Timeskip Okazu return", window: "October 31 – November 14, 2026 at 11:30 AM ET", updateNumber: 94, status: "Limited window", sourceTier: "Official", note: "TSO returns in Update 94 with Anger and Border Set mechanics." },
-  { subjectType: "Style", subjectSlug: "kijo", label: "Kijo return", window: "October 24 – November 7, 2026 at 11:30 AM ET", updateNumber: 93, status: "Limited window", sourceTier: "Official", note: "Kijo returns in Update 93 for a limited window." },
-  { subjectType: "Style", subjectSlug: "jinko", label: "Jinko return", window: "October 3–17, 2026", updateNumber: 90, status: "Limited window", sourceTier: "Official", note: "Returned with Update 90 alongside five Mastery reward levels. The announcement does not give an exact closing time." },
+  { subjectType: "Style", subjectSlug: "kijo", label: "Kijo return", window: "October 24 – November 7, 2026 at 11:30 AM ET", updateNumber: 93, status: "Not currently available", sourceTier: "Official", note: "Kijo’s Update 93 return ended November 7, 2026 at 11:30 AM ET." },
+  { subjectType: "Style", subjectSlug: "jinko", label: "Jinko return", window: "October 3–17, 2026", updateNumber: 90, status: "Not currently available", sourceTier: "Official", note: "Returned with Update 90 alongside five Mastery reward levels. The announcement does not give an exact closing time." },
   {
     subjectType: "Style",
     subjectSlug: "hidari",
@@ -1248,6 +1310,13 @@ export const currentlyAvailableStyles = availabilityEvents.filter(
 );
 
 export const updates: UpdateEntry[] = [
+  {
+    slug: "update-95", title: "Volleyball Legends Update 95: Season 20 & Twins Return",
+    published: update95.releasedAt, lastChecked: update95.lastVerified, sourceTier: "Official",
+    summary: update95.summary, bodySummary: update95.summary,
+    highlights: ["Season 20 adds Wild West cosmetics and Cowboy Season maps.", "The Twins and TSO are available until November 14 at 11:30 AM ET.", "Easy Money Bundle available until November 21 at 11:30 AM ET.", "Three new codes offer 10 Lucky Style Spins and 5 Lucky Ability Spins."],
+    codes: ["UPDATE_95", "YEEHAW", "TWINS_STANDOFF"], focusStyles: ["twins", "timeskip-okazu"],
+  },
   {
     slug: "update-94", title: "Volleyball Legends Update 94: TSO Rework & Vampire Bundle",
     published: update94.releasedAt, lastChecked: update94.lastVerified, sourceTier: "Official",
@@ -1493,11 +1562,11 @@ export const updates: UpdateEntry[] = [
 ];
 
 export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
-  { title: "Update 94", href: "/updates/update-94", sourceLabel: "Official", updatedAt: update94.lastVerified, reason: "TSO rework, Vampire Bundle, event times, and bug fixes." },
-  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 94 codes for 10 Lucky Style Spins and 5 Lucky Ability Spins." },
-  { title: "Timeskip Okazu", href: "/styles/timeskip-okazu", sourceLabel: "Official", updatedAt: update94.lastVerified, reason: "Anger, Rainbow Serves, Border Set, and the November 14 return deadline." },
-  { title: "Cursed Tournament", href: "/guides/cursed-tournament", sourceLabel: "Official", updatedAt: update94.lastVerified, reason: "Placement rewards and the November 7 Tournament Shop deadline." },
-  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update94.lastVerified, reason: "TSO and Kijo return windows." },
+  { title: "Update 95", href: "/updates/update-95", sourceLabel: "Official", updatedAt: update95.lastVerified, reason: "Season 20, Easy Money Bundle, Twins return, and bug fixes." },
+  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 95 codes for 10 Lucky Style Spins and 5 Lucky Ability Spins." },
+  { title: "Twins", href: "/styles/twins", sourceLabel: "Official", updatedAt: update95.lastVerified, reason: "Community poll return, available until November 14 at 11:30 AM ET." },
+  { title: "Player Cards", href: "/guides/player-cards", sourceLabel: "Official", updatedAt: update95.lastVerified, reason: "Season 20 cards and the Easy Money Bundle’s Outlaw card." },
+  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update95.lastVerified, reason: "Twins and TSO windows; Kijo’s return has ended." },
 ];
 
 export const heroImages: HeroImage[] = [
@@ -1577,7 +1646,7 @@ export const homepageFaq = [
   },
   {
     question: "Are the odds and style stats on this site official?",
-    answer: "Not all values are official. The Update 94 announcement gives a 1% Secret chance and 100-spin pity for its October 31 – November 2 event. Some other rarity odds and style stats are community estimates; check the values shown in-game before spending spins.",
+    answer: "Not all values are official. The Update 95 announcement gives a 1% Secret chance and 100-spin pity for its November 7–9 event. Outside that window, the announced baseline is 0.5% and 200 spins. Some other rarity odds and style stats are community estimates; check the values shown in-game before spending spins.",
   },
   {
     question: "When will a limited style or ability return?",
@@ -1590,7 +1659,7 @@ export const homepageFaq = [
 ];
 
 export const guideCards = [
-  { title: "Cursed Tournament", href: "/guides/cursed-tournament", description: "The tournament has ended. Check placement rewards, Challenger Token shop prices, and the November 7 shop deadline." },
+  { title: "Cursed Tournament", href: "/guides/cursed-tournament", description: "The tournament and its shop have ended. Review placement rewards and past Challenger Token prices." },
   {
     title: "Style & Ability Slots",
     href: "/guides/style-ability-slots",

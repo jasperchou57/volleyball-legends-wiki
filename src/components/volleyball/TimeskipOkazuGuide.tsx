@@ -34,6 +34,7 @@ export function TimeskipOkazuGuide() {
       <p className="mt-3 text-sm leading-7 text-muted">These stats were last reviewed {pageFreshness.tierListLastUpdated}, before the Update 94 rework. Check current attributes in-game.</p>
       <dl className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">{Object.entries(style.stats ?? {}).map(([label,value]) => <div key={label} className="rounded-2xl border border-border bg-background/60 p-4"><dt className="text-sm text-muted">{label}</dt><dd className="mt-2 text-xl font-bold text-white">{value}</dd></div>)}</dl>
     </section>
+    <p className="mt-6 text-sm leading-7 text-muted">Update 95 fixed TSO gaining Anger from a Rainbow Serve that came out too low.</p>
     <footer className="mt-8 flex flex-wrap gap-4 text-sm"><Link href="/updates/update-94" className="text-accent-teal underline underline-offset-4">Update 94 patch notes</Link><Link href="/guides/how-to-serve" className="text-accent-teal underline underline-offset-4">Serving guide</Link><Link href="/tools/reroll-advisor" className="text-accent-teal underline underline-offset-4">Plan your Lucky Spins</Link></footer>
   </div>;
 }

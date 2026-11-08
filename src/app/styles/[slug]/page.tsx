@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: style.slug === "timeskip-okazu"
       ? "Learn Timeskip Okazu’s Update 94 rework in Volleyball Legends: Anger, Rainbow Serves, Border Set and the return ending November 14, 2026."
       : style.slug === "kijo"
-      ? "Learn Kijo’s Super Tilt in Volleyball Legends, compare community stats, and check the Update 93 return ending November 7, 2026 at 11:30 AM ET."
+      ? "Learn Kijo’s Super Tilt in Volleyball Legends, compare community stats, and check the Update 93 return that ended November 7, 2026 at 11:30 AM ET."
       : style.slug === "feiko"
       ? "Learn Feiko’s Stop Set and Dump Set in Volleyball Legends, explore community-reported stats, and find practice tips and past return details."
       : style.slug === "jinko"
@@ -128,6 +128,12 @@ export default async function StyleDetailPage({ params }: PageProps) {
         </div>
       </section>
 
+      {style.slug === "twins" && <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
+        <h2 className="text-2xl font-heading font-bold text-white">Twins return in Update 95</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-100">Selected in the community poll, the Twins are available from November 7 until November 14, 2026 at 11:30 AM ET.</p>
+        <Link href="/updates/update-95" className="mt-4 inline-block text-accent-teal underline">Read Update 95 notes</Link>
+      </section>}
+
       {style.slug === "jinko" && <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-surface/80 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">Jinko Mastery rewards</h2>
         <p className="mt-3 text-sm leading-7 text-muted">Added in Update 90. Complete quests with Jinko to unlock these five reward levels.</p>
@@ -144,7 +150,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
               <strong className="text-white">Signature mechanic:</strong> {style.signature}
             </p>
             {style.slug !== "jinko" && <p className="mt-4 text-sm leading-6 text-muted">
-              <strong className="text-white">{style.slug === "jinko" ? "Return window:" : `Last verified availability (Update ${currentGameState.updateNumber}):`}</strong> {style.slug === "jinko" ? "October 3–17, 2026 return window." : style.availability}
+              <strong className="text-white">{style.slug === "jinko" ? "Return window:" : style.slug === "twins" ? "Official return (Update 95):" : `Last verified availability (Update ${currentGameState.updateNumber}):`}</strong> {style.slug === "jinko" ? "October 3–17, 2026 return window." : style.availability}
             </p>}
             {style.slug !== "jinko" && currentGameState.reviewNote && <p className="mt-4 rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-sm leading-6 text-slate-200">{currentGameState.reviewNote}</p>}
           </div>

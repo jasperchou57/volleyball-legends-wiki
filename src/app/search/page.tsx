@@ -62,7 +62,7 @@ const staticResults: SearchResult[] = [
     href: "/guides/pity-system",
     type: "Guide",
     source: "Community",
-    summary: "Secret pity thresholds, baseline chances, and the Update 94 event rates.",
+    summary: "Secret pity thresholds, baseline chances, and the Update 95 event rates.",
     keywords: ["pity", "spin", "lucky", "secret", "evo", "drop rate"],
   },
 ];

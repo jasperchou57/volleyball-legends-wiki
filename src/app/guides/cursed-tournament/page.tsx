@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Cursed Tournament: Rewards & Shop Deadline",
-  description: "The Cursed Tournament has ended. Check placement reward delivery, Challenger Token shop prices and the November 7, 2026 shop deadline.",
+  description: "The Cursed Tournament and its shop have ended. Review placement rewards, past Challenger Token prices, and tournament rules.",
   alternates: { canonical: "/guides/cursed-tournament" },
 };
 
@@ -29,9 +29,9 @@ export default function CursedTournamentPage() {
   return <div className="container mx-auto max-w-5xl px-4 py-10">
     <nav aria-label="Breadcrumb" className="flex flex-wrap gap-3 text-sm text-muted"><Link href="/">Home</Link><span>/</span><Link href="/guides">Guides</Link><span>/</span><span className="text-white">Cursed Tournament</span></nav>
     <header className="mt-6 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-teal">Tournament ended · Shop closes November 7</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-teal">Tournament and shop ended</p>
       <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">Volleyball Legends Cursed Tournament</h1>
-      <p className="mt-5 text-lg leading-8 text-muted">The Cursed Tournament ended on October 31. Placement rewards are awarded automatically on your next login. Spend Challenger Tokens in the Tournament Shop before it closes on November 7, 2026 at 10:30 AM ET.</p>
+      <p className="mt-5 text-lg leading-8 text-muted">The Cursed Tournament ended on October 31. Placement rewards are awarded automatically on your next login. The Tournament Shop window ended November 7, 2026 at 10:30 AM ET.</p>
       <nav aria-label="On this page" className="mt-6 flex flex-wrap gap-2">{[["rewards", "Placement rewards"], ["shop", "Shop & deadline"], ["past-rules", "Past tournament rules"]].map(([id, label]) => <a key={id} href={`#${id}`} className="rounded-full border border-border px-4 py-2 text-sm text-slate-200 hover:border-accent-teal">{label}</a>)}</nav>
     </header>
     <section id="rewards" className={sectionClass}>
@@ -41,9 +41,9 @@ export default function CursedTournamentPage() {
     </section>
     <section id="shop" className={sectionClass}>
       <h2 className="text-2xl font-heading font-bold text-white">Tournament Shop prices</h2>
-      <p className="mt-3 text-sm leading-7 text-muted">All prices use Challenger Tokens. Stock is limited, and the shop closes November 7, 2026 at 10:30 AM ET. Spend your tokens before then: they reset with the next tournament.</p>
+      <p className="mt-3 text-sm leading-7 text-muted">These are the past Challenger Token prices. The limited-stock shop window ended November 7, 2026 at 10:30 AM ET. The announcement states that tokens reset with the next tournament.</p>
       <table className="mt-5 w-full text-left text-sm"><caption className="sr-only">Cursed Tournament Shop items and Challenger Token prices</caption><thead className="border-b border-border text-slate-200"><tr><th scope="col" className="py-3 pr-4">Reward</th><th scope="col" className="py-3">Tokens</th></tr></thead><tbody>{shop.map(([item, cost]) => <tr key={item} className="border-b border-border/60"><th scope="row" className="py-4 pr-4 font-normal leading-6 text-muted">{item}</th><td className="py-4 font-semibold text-white">{cost}</td></tr>)}</tbody></table>
-      <p className="mt-4 text-sm leading-7 text-muted">“From” prices are the starting cost. Check each pack’s price in the shop before buying.</p>
+      <p className="mt-4 text-sm leading-7 text-muted">“From” prices were the starting cost; larger packs had separate prices.</p>
     </section>
     <details id="past-rules" className="mt-8 scroll-mt-44"><summary className="cursor-pointer text-lg font-semibold text-white">Past tournament rules — event ended</summary><p className="mt-3 text-sm text-muted">These rules describe the October 24–31 event. Entry has ended.</p>
     <section id="schedule" className={sectionClass}>
@@ -54,7 +54,7 @@ export default function CursedTournamentPage() {
         <div className="rounded-2xl border border-accent-orange/20 bg-accent-orange/10 p-5"><h3 className="font-semibold text-white">Evening gate</h3><p className="mt-2 text-2xl font-bold text-accent-orange">6:00–8:00 PM ET</p></div>
       </div>
       <p className="mt-4 text-sm leading-7 text-muted">Gates opened twice daily for two hours during the tournament. The first gate was October 24 at 6:00 PM ET; the last scheduled gate was October 31 at 6:00 AM ET.</p>
-      <dl className="mt-5 space-y-3 text-sm leading-7"><div><dt className="font-semibold text-white">Tournament ended</dt><dd className="text-muted">October 31, 2026 · 11:30 AM ET</dd></div><div><dt className="font-semibold text-white">Shop closes</dt><dd className="text-muted">November 7, 2026 · 10:30 AM ET</dd></div><div><dt className="font-semibold text-white">Kijo return ends</dt><dd className="text-muted">November 7, 2026 · 11:30 AM ET — one hour after the shop closes.</dd></div></dl>
+      <dl className="mt-5 space-y-3 text-sm leading-7"><div><dt className="font-semibold text-white">Tournament ended</dt><dd className="text-muted">October 31, 2026 · 11:30 AM ET</dd></div><div><dt className="font-semibold text-white">Shop ended</dt><dd className="text-muted">November 7, 2026 · 10:30 AM ET</dd></div><div><dt className="font-semibold text-white">Kijo return ended</dt><dd className="text-muted">November 7, 2026 · 11:30 AM ET — one hour after the shop window ended.</dd></div></dl>
     </section>
     <section id="enter" className={sectionClass}>
       <h2 className="text-2xl font-heading font-bold text-white">How entry worked</h2>

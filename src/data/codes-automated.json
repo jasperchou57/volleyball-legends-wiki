@@ -90,6 +90,36 @@
       "eventTime": "2026-10-31T15:30:49.710Z",
       "sourceId": "1328110081136398427/1328110082226913470/1566112217919656097",
       "evidenceHash": "20bfa328f04a1009cf6ba23e9852700101615676cd3d202d500ebe501073c36e"
+    },
+    {
+      "code": "UPDATE_95",
+      "reward": "5 Lucky Style Spins",
+      "status": "active",
+      "addedAt": "2026-11-07",
+      "sourceCheckedAt": "2026-11-08",
+      "eventTime": "2026-11-07T16:32:27.360Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1568664442047045923",
+      "evidenceHash": "fac34f6538e7bf84f34c5aad1f6df1e22c8910dde56b90fa91f27ccea78ba23f"
+    },
+    {
+      "code": "YEEHAW",
+      "reward": "5 Lucky Style Spins",
+      "status": "active",
+      "addedAt": "2026-11-07",
+      "sourceCheckedAt": "2026-11-08",
+      "eventTime": "2026-11-07T16:32:27.360Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1568664442047045923",
+      "evidenceHash": "fac34f6538e7bf84f34c5aad1f6df1e22c8910dde56b90fa91f27ccea78ba23f"
+    },
+    {
+      "code": "TWINS_STANDOFF",
+      "reward": "5 Lucky Ability Spins",
+      "status": "active",
+      "addedAt": "2026-11-07",
+      "sourceCheckedAt": "2026-11-08",
+      "eventTime": "2026-11-07T16:32:27.360Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1568664442047045923",
+      "evidenceHash": "fac34f6538e7bf84f34c5aad1f6df1e22c8910dde56b90fa91f27ccea78ba23f"
     }
   ],
   "announcements": [
@@ -230,14 +260,60 @@
         "quote": "UPDATE 94 IS OUT NOW!"
       },
       "hash": "20bfa328f04a1009cf6ba23e9852700101615676cd3d202d500ebe501073c36e"
+    },
+    {
+      "gameId": "volleyball-legends",
+      "guildId": "1328110081136398427",
+      "channelId": "1328110082226913470",
+      "messageId": "1568664442047045923",
+      "receivedChannelId": "1328110082226913470",
+      "receivedMessageId": "1568664442047045923",
+      "timestamp": "2026-11-07T16:32:27.360Z",
+      "editedTimestamp": null,
+      "capturedAt": "2026-11-08T01:01:09.902Z",
+      "segments": [
+        {
+          "id": "browser-text",
+          "text": "UPDATE 95 IS OUT NOW!\nSEASON 20\nEASY MONEY BUNDLE\nTWINS RETURN\n2X Luck Weekend\nLucky Spin Handout\nBug fixes\nCodes\n\nNEW CODES\nUPDATE_95 = 5 Lucky Style Spins\nYEEHAW = 5 Lucky Style Spins\nTWINS_STANDOFF = 5 Lucky Ability Spins"
+        }
+      ],
+      "observations": [
+        {
+          "code": "UPDATE_95",
+          "status": "active",
+          "reward": "5 Lucky Style Spins",
+          "segment": "browser-text",
+          "quote": "UPDATE_95 = 5 Lucky Style Spins"
+        },
+        {
+          "code": "YEEHAW",
+          "status": "active",
+          "reward": "5 Lucky Style Spins",
+          "segment": "browser-text",
+          "quote": "YEEHAW = 5 Lucky Style Spins"
+        },
+        {
+          "code": "TWINS_STANDOFF",
+          "status": "active",
+          "reward": "5 Lucky Ability Spins",
+          "segment": "browser-text",
+          "quote": "TWINS_STANDOFF = 5 Lucky Ability Spins"
+        }
+      ],
+      "update": {
+        "number": 95,
+        "segment": "browser-text",
+        "quote": "UPDATE 95 IS OUT NOW!"
+      },
+      "hash": "fac34f6538e7bf84f34c5aad1f6df1e22c8910dde56b90fa91f27ccea78ba23f"
     }
   ],
   "update": {
-    "number": 94,
+    "number": 95,
     "segment": "browser-text",
-    "quote": "UPDATE 94 IS OUT NOW!",
-    "announcedAt": "2026-10-31",
-    "checkedAt": "2026-11-01"
+    "quote": "UPDATE 95 IS OUT NOW!",
+    "announcedAt": "2026-11-07",
+    "checkedAt": "2026-11-08"
   },
-  "revision": "d16361a91003a3ecc98bb911dcf6ec0cb97e7f39655a5be40350bab39ae28d73"
+  "revision": "702d262a9d3d9af17bc90264af341efdf69a6d08c9358428f0734497dfb0534e"
 }
