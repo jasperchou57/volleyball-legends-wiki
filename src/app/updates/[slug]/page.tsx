@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { update95Sections, update94Sections, update93Sections, update92Sections, update91Sections, update90Sections, featuredStyles, getUpdate, siteConfig, updates } from "@/data/volleyball";
+import { update95Sections, update94Sections, update93Sections, update92Sections, update91Sections, update90Sections, featuredStyles, getUpdate, latestGameUpdate, siteConfig, updates } from "@/data/volleyball";
 import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 
 type PageProps = {
@@ -60,6 +60,16 @@ export default async function UpdateDetailPage({ params }: PageProps) {
           {update.slug === "update-94" ? "Volleyball Legends Update 94 Patch Notes" : update.title}
         </h1>
         <p className="mt-3 text-sm uppercase tracking-[0.18em] text-muted">{update.published}</p>
+        {update.slug !== `update-${latestGameUpdate.updateNumber}` && (
+          <aside aria-label="Historical update" className="mt-5 rounded-2xl border border-accent-gold/30 bg-accent-gold/10 p-4">
+            <p className="font-semibold text-white">Historical update</p>
+            <p className="mt-2 text-sm leading-6 text-slate-200">
+              These notes describe this release. Limited events and offers may have ended. See the{" "}
+              <Link href={`/updates/update-${latestGameUpdate.updateNumber}`} className="text-accent-teal underline underline-offset-4">latest update</Link>{" "}
+              for current announcements.
+            </p>
+          </aside>
+        )}
         <p className="mt-5 text-base leading-7 text-muted md:text-lg">{update.bodySummary ?? update.summary}</p>
 
         {!officialSections && <>

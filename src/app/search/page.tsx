@@ -31,7 +31,7 @@ type SearchResult = {
 };
 
 const staticResults: SearchResult[] = [
-  { title: "Cursed Tournament", href: "/guides/cursed-tournament", type: "Guide", source: "Official", summary: "The tournament has ended. Check placement rewards and the Challenger Token shop deadline.", keywords: ["cursed", "tournament", "tokens", "shop", "1v1", "rewards"] },
+  { title: "Cursed Tournament", href: "/guides/cursed-tournament", type: "Guide", source: "Official", summary: "The tournament and its shop have ended. Review placement rewards, past shop items, and tournament rules.", keywords: ["cursed", "tournament", "tokens", "shop", "1v1", "rewards"] },
   { title: "Mamori", href: "/styles/mamori", type: "Style", source: "Official", summary: "Middle blocker with Parry, Perfect Parry, aerial Charge, and five Mastery upgrades.", keywords: ["mamori", "shieldbearer", "parry", "charge", "mastery", "blocker"] },
   {
     title: "Codes",

@@ -638,7 +638,7 @@ export const featuredStyles: StyleEntry[] = [
     summary: "Curve-focused secret spiker that bends serves and spikes into nasty off-angle lanes.",
     signature: "Tilt in different directions to add curve, backspin, or float behavior to serves and spikes.",
     whyPlayersSearch: "Jinko adds curve to serves and spikes, helping you send the ball into angled lanes.",
-    availability: "Returned in Update 90. Available October 3–17, 2026.",
+    availability: "The Update 90 return window ended on October 17, 2026.",
     sourceTier: "Community",
     bestAbilities: ["curve-spike", "lead-feet", "redirection-jump"],
     bestRoles: ["Spiker", "All-Rounder"],
@@ -1698,7 +1698,7 @@ export const guideCards = [
   {
     title: "Player Cards",
     href: "/guides/player-cards",
-    description: "Find Cursed Tournament player cards, Jinko Mastery rewards, and past bundle cards.",
+    description: "Explore Season 20 player cards, the Outlaw bundle card, Jinko Mastery rewards, and past tournament cards.",
   },
   {
     title: "Beginner Guide",

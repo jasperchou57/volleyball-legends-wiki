@@ -37,7 +37,7 @@ const guides = {
     ],
     statsNote: "The recorded attributes favor Jump, Serve, Spike and Tilt over Speed. Practice court positioning alongside shot placement.",
     faqs: [
-      ["When does Jinko’s return end?", "The Update 90 announcement gives October 17, 2026 as the end date. It does not specify an exact closing time."],
+      ["When does Jinko’s return end?", "Jinko’s Update 90 return ended on October 17, 2026. The announcement did not specify an exact closing time."],
       ["How do I unlock Jinko Mastery rewards?", "Complete quests with Jinko to progress through the five reward levels. The reward table above lists what each level unlocks."],
       ["Does Mastery give Lucky Spins?", "Yes. Level 2 awards 3 Lucky Style Spins and Level 3 awards 6 Lucky Style Spins, for 9 across those two levels."],
       ["Is Jinko worth keeping?", "Consider keeping Jinko if you enjoy curved serves and spikes and want to practice their placement. Its Mastery quests also offer rewards while you play with the style."],
@@ -58,7 +58,7 @@ export function FocusedStyleGuide({ slug }: { slug: keyof typeof guides }) {
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-teal">{guide.label}</p>
       <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">{style.name} Style Guide &amp; Community Stats</h1>
       <p className="mt-5 max-w-3xl text-lg leading-8 text-muted">{guide.intro}</p>
-      {slug === "jinko" && <div className="mt-5 rounded-2xl border border-accent-teal/30 bg-accent-teal/10 p-4"><p className="font-semibold text-accent-teal">Update 90 return · October 3–17, 2026</p><p className="mt-2 text-sm leading-6 text-slate-200">Jinko’s announced return window was October 3–17, 2026. Check the in-game banner for current availability.</p></div>}
+      {slug === "jinko" && <div className="mt-5 rounded-2xl border border-accent-teal/30 bg-accent-teal/10 p-4"><p className="font-semibold text-accent-teal">Update 90 return · October 3–17, 2026</p><p className="mt-2 text-sm leading-6 text-slate-200">Jinko’s Update 90 return ended on October 17, 2026. Players who already own Jinko can still work through its Mastery rewards.</p></div>}
       <nav aria-label="On this page" className="mt-6 flex flex-wrap gap-2">{sections.map(([id, label]) => <a key={id} href={`#${id}`} className="rounded-full border border-border px-4 py-2 text-sm text-slate-200 transition hover:border-accent-teal hover:text-white">{label}</a>)}</nav>
     </header>
 
