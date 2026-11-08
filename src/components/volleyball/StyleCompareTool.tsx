@@ -81,7 +81,7 @@ export function StyleCompareTool() {
           <div><dt className="font-semibold text-white">{style.constraint ? "Keep in mind" : "Before choosing"}</dt><dd className="mt-1 text-slate-300">{style.constraint ?? "Not rechecked for Update 95. Compare these notes with the current in-game description before spending spins."}</dd></div>
         </dl>
         {style.olderNotes && <p className="mt-4 text-xs leading-6 text-muted">Playstyle information: July 2026.</p>}
-        <Link href={style.href} className="mt-5 inline-block text-sm font-semibold text-accent-teal underline underline-offset-4">{style.slug === "roketto" ? "Read the Update 95 fix" : `View ${style.name} guide`} →</Link>
+        {style.href && <Link href={style.href} className="mt-5 inline-block text-sm font-semibold text-accent-teal underline underline-offset-4">{style.slug === "roketto" ? "Read the Update 95 fix" : `View ${style.name} guide`} →</Link>}
       </section>)}
     </div>
 

@@ -1,5 +1,6 @@
 import { featuredStyles } from "./volleyball";
-import { tierStyles } from "./style-reviews";
+import { additionalStyles, styleAliases, conciseMechanics, catalogRoles } from "./style-catalog";
+import { tierStyles, type TierStyle } from "./style-reviews";
 
 // Mechanics already documented in the style guides and the tier-list evidence review.
 // Keep unreviewed legacy notes visibly separate from recent mechanics.
@@ -48,26 +49,38 @@ const earlierNotes: Record<string, string> = {
   bakuri: "Godly spiker focused on finishing attacks from a teammate’s set.",
   hirakumi: "Block-focused style with a tradeoff in movement speed.",
   "timeskip-kyamo": "Super Set sends the ball toward a fixed point, where it floats before dropping.",
-  akari: "Dash-based air movement allows additional airborne actions around the dash.",
 };
 
-export const comparisonStyles = tierStyles.map(style => {
+type ComparisonStyle = Omit<TierStyle, "role" | "bestRoles" | "href"> & {
+  role: string; bestRoles: string[]; href: string | null;
+  mechanic: string; constraint: string | null; olderNotes: boolean;
+  scores: (typeof featuredStyles)[number]["scores"] | null;
+};
+export const comparisonStyles: ComparisonStyle[] = [...tierStyles.map(style => {
   const legacy = featuredStyles.find(entry => entry.slug === style.slug);
   const detail = mechanics[style.slug];
   return {
     ...style,
-    mechanic: detail?.mechanic ?? style.review?.reason ?? earlierNotes[style.slug] ?? legacy?.signature ?? style.summary,
+    bestRoles: catalogRoles[style.slug] ?? style.bestRoles,
+    mechanic: conciseMechanics[style.slug] ?? detail?.mechanic ?? style.review?.reason ?? earlierNotes[style.slug] ?? legacy?.signature ?? style.summary,
     constraint: detail?.constraint ?? style.review?.limitation ?? null,
     olderNotes: !detail && !style.review,
     scores: legacy?.scores ?? null,
   };
-});
+}), ...additionalStyles.map(style => ({
+  slug: style.slug, name: style.name, rarity: style.rarity,
+  role: style.roles[0], bestRoles: style.roles, tier: null,
+  summary: style.mechanic, mechanic: style.mechanic, constraint: style.constraint,
+  href: null, olderNotes: false, scores: null,
+}))];
 
 export type ComparisonPair = { a: string; b: string };
 export const defaultComparison: ComparisonPair = { a: "mamori", b: "timeskip-okazu" };
 export function resolveComparisonSlug(value: unknown): string | undefined {
   if (typeof value !== "string") return undefined;
-  const slug = value === "kosumi" ? "kyoshin" : value === "sazuroku" ? "sagafura" : value;
+  const normalized = value.toLowerCase().replaceAll(" ", "-");
+  const aliasSlug = Object.entries(styleAliases).find(([, aliases]) => aliases.some(alias => alias.toLowerCase().replaceAll(" ", "-") === normalized))?.[0];
+  const slug = normalized === "sazuroku" ? "sagafura" : aliasSlug ?? normalized;
   return comparisonStyles.some(style => style.slug === slug) ? slug : undefined;
 }
 export function comparisonPair(a: unknown, b: unknown): ComparisonPair {

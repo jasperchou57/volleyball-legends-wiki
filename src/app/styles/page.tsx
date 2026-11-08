@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { featuredStyles } from "@/data/volleyball";
-
-import { styleDisplayName, styleRatingLabel } from "@/data/style-reviews";
+import { availabilityEvents } from "@/data/volleyball";
+import { styleAliases } from "@/data/style-catalog";
+import { comparisonStyles } from "@/data/style-comparison";
+import { StyleDirectory } from "@/components/volleyball/StyleDirectory";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Styles Wiki",
@@ -13,6 +14,25 @@ export const metadata: Metadata = {
 };
 
 export default function StylesPage() {
+  const styles = comparisonStyles.map(style => {
+    const latestReturn = availabilityEvents
+      .filter(event => event.subjectType === "Style" && event.subjectSlug === style.slug)
+      .sort((a, b) => b.updateNumber - a.updateNumber)[0];
+    return {
+      slug: style.slug, name: style.name, rarity: style.rarity,
+      roles: style.bestRoles,
+      mechanic: style.slug === "roketto" ? "Jetpack adds an aerial movement option." : style.mechanic,
+      href: style.href,
+      olderNotes: style.olderNotes,
+      aliases: styleAliases[style.slug] ?? [],
+      returnWindow: latestReturn ? {
+        window: /^[A-Za-z]+ \d{1,2}, \d{4}$/.test(latestReturn.window)
+          ? `Started ${latestReturn.window}`
+          : latestReturn.window.replace(/^Began /, "Started "),
+        update: latestReturn.updateNumber,
+      } : null,
+    };
+  }).sort((a, b) => a.name.localeCompare(b.name));
   return (
     <div className="container mx-auto max-w-6xl px-4 py-10">
       <div className="flex items-center gap-2 text-sm text-muted">
@@ -26,39 +46,15 @@ export default function StylesPage() {
           Volleyball Legends Styles
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Browse the styles covered by this wiki, then open a guide for role fit, mechanics, tier context, and any documented limited-return history.
+          Find a style for your position. Search by name, filter by role or rarity, and compare two styles to see how their mechanics differ.
         </p>
-        <p className="mt-3 text-sm text-muted">Planning around a limited style? <Link href="/style-return-dates" className="font-semibold text-accent-teal hover:text-white">See the return-date history</Link>; future banners are marked not announced until confirmed.</p>
+        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+          <Link href="/tier-list/styles" className="text-accent-teal underline underline-offset-4 hover:text-white">View style rankings</Link>
+          <Link href="/style-return-dates" className="text-accent-teal underline underline-offset-4 hover:text-white">Check limited return dates</Link>
+        </div>
       </section>
 
-      <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        <Link href="/styles/mamori" className="rounded-[2rem] border border-accent-teal/35 bg-surface/80 p-6 transition hover:border-accent-teal">
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent-teal">Introduced in Update 92 · Middle blocker</p>
-          <h2 className="mt-4 text-2xl font-heading font-bold text-white">Mamori</h2>
-          <p className="mt-4 text-sm leading-6 text-muted">Learn timed parries, aerial Charge controls, and five Mastery upgrades.</p>
-        </Link>
-        {featuredStyles.map((style) => (
-          <Link
-            key={style.slug}
-            href={`/styles/${style.slug}`}
-            className="group rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-white/20 hover:bg-surface-raised/80"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="inline-flex rounded-full border border-white/10 bg-background/70 px-3 py-1 text-xs uppercase tracking-[0.18em] text-muted">
-                  {style.rarity} · {style.role}
-                </div>
-                <h2 className="mt-4 text-2xl font-heading font-bold text-white">{styleDisplayName(style.slug, style.name)}</h2>
-              </div>
-              <div className="rounded-full border border-accent-orange/20 bg-accent-orange/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent-orange">
-                {styleRatingLabel(style.slug, style.communityTier)}
-              </div>
-            </div>
-            <p className="mt-4 text-sm leading-6 text-muted">{style.summary}</p>
-            <p className="mt-5 text-xs uppercase tracking-[0.16em] text-muted">{style.availability}</p>
-          </Link>
-        ))}
-      </div>
+      <StyleDirectory styles={styles} />
     </div>
   );
 }

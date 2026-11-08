@@ -1,0 +1,139 @@
+{
+  "reviewDate": "2026-11-08",
+  "scope": "Styles directory roster, aliases, conservative mechanics and comparison reachability. Not an in-game test or full current balance audit.",
+  "roster": {
+    "before": 29,
+    "after": 45,
+    "basis": [
+      "https://volleyball-legends.fandom.com/wiki/Styles",
+      "https://rblxguide.com/games/volleyball-legends/styles"
+    ],
+    "limitation": "The current secondary directory corroborates 45 entries; it also derives from the community wiki, so these are not two independent gameplay verifications. Do not claim official complete current roster."
+  },
+  "additionalEntries": [
+    {
+      "name": "Hakka",
+      "source": "https://volleyball-legends.fandom.com/wiki/Hakka",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Timeskip Hinto",
+      "source": "https://volleyball-legends.fandom.com/wiki/Timeskip_Hinto",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Kazana",
+      "source": "https://volleyball-legends.fandom.com/wiki/Kazana",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Ibara",
+      "source": "https://volleyball-legends.fandom.com/wiki/Ibara",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Kumo",
+      "source": "https://volleyball-legends.fandom.com/wiki/Kumo",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Yomosuke",
+      "source": "https://volleyball-legends.fandom.com/wiki/Yomosuke",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Hinto",
+      "source": "https://volleyball-legends.fandom.com/wiki/Hinto",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Tonkura",
+      "source": "https://volleyball-legends.fandom.com/wiki/Tonkura",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Hakochi",
+      "source": "https://volleyball-legends.fandom.com/wiki/Hakochi",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Kishoti",
+      "source": "https://volleyball-legends.fandom.com/wiki/Kishoti",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Ninyoku",
+      "source": "https://volleyball-legends.fandom.com/wiki/Ninyoku",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Tsuchiro",
+      "source": "https://volleyball-legends.fandom.com/wiki/Tsuchiro",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Oyatsu",
+      "source": "https://volleyball-legends.fandom.com/wiki/Oyatsu",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Imaezi",
+      "source": "https://volleyball-legends.fandom.com/wiki/Imaezi",
+      "use": "Identity, rarity, role, concise core mechanic only. Search-indexed text is older; do not import availability, exact stats, cooldowns, or mastery tables."
+    },
+    {
+      "name": "Riku",
+      "sources": [
+        "https://rblxguide.com/games/volleyball-legends/styles/riku",
+        "User-supplied official Update 94 screenshot: special-wall visibility bug fix"
+      ],
+      "use": "Secret spiker with Hologram Walls; no precise ricochet nerf percentage or current availability claim."
+    },
+    {
+      "name": "Shiro",
+      "source": "https://rblxguide.com/games/volleyball-legends/styles/shiro",
+      "use": "Community-documented Secret Blocker/Setter and block-mode summary. No in-game validation; no stats, cooldown, mastery or tier claim."
+    }
+  ],
+  "corrections": [
+    {
+      "slug": "yachikusai",
+      "change": "Directory/comparison role is Server / Blocker, not Spiker / All-Rounder. Existing tier-list scores are not regraded.",
+      "source": "https://volleyball-legends.fandom.com/wiki/Yachikusai"
+    },
+    {
+      "slug": "akari",
+      "change": "Remove claim about additional airborne actions; retain Dash repositioning only. Historical and later balance accounts differ.",
+      "sources": [
+        "https://volleyball-legends.fandom.com/wiki/Akari",
+        "https://rblxguide.com/games/volleyball-legends/update-log"
+      ]
+    },
+    {
+      "slug": "ronin",
+      "change": "Retain charged airborne spike; omit specific mastery/knockdown dependencies.",
+      "source": "https://volleyball-legends.fandom.com/wiki/Ronin"
+    },
+    {
+      "change": "Former names searchable; stable existing slugs preserved.",
+      "source": "https://volleyball-legends.fandom.com/wiki/Updates"
+    },
+    {
+      "change": "Server filter also includes documented serving specialists/hybrids Okazu, Kyamo, Timeskip Kyamo, Timeskip Okazu, Twins and Jinko. Role fit is not an official strength rating.",
+      "sources": [
+        "https://volleyball-legends.fandom.com/wiki/Okazu",
+        "https://volleyball-legends.fandom.com/wiki/The_Twins",
+        "https://volleyball-legends.fandom.com/wiki/Jinko",
+        "https://rblxguide.com/games/volleyball-legends/updates/styles-guide"
+      ]
+    }
+  ],
+  "retainedLimitations": [
+    "Older entries still carry July playstyle dates; no fresh verification timestamp is invented.",
+    "Existing comparison scores remain explicitly historical and are not regenerated.",
+    "New entries have null tier, scores and guide URL; no placeholder guide links.",
+    "Recorded return windows are historical records, not a live available-now assertion.",
+    "Local forwarded Discord export contained no official messages; it was not treated as proof of no updates. User-supplied Update 92–95 official announcements remain the primary evidence for those updates."
+  ],
+  "publicCopy": "Internal source notes are not rendered in the website. No competitor links added to page UI."
+}
