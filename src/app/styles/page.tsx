@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { featuredStyles } from "@/data/volleyball";
 
+import { styleDisplayName, styleRatingLabel } from "@/data/style-reviews";
+
 export const metadata: Metadata = {
   title: "Volleyball Legends Styles Wiki",
   description:
@@ -46,10 +48,10 @@ export default function StylesPage() {
                 <div className="inline-flex rounded-full border border-white/10 bg-background/70 px-3 py-1 text-xs uppercase tracking-[0.18em] text-muted">
                   {style.rarity} · {style.role}
                 </div>
-                <h2 className="mt-4 text-2xl font-heading font-bold text-white">{style.name}</h2>
+                <h2 className="mt-4 text-2xl font-heading font-bold text-white">{styleDisplayName(style.slug, style.name)}</h2>
               </div>
               <div className="rounded-full border border-accent-orange/20 bg-accent-orange/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent-orange">
-                {style.communityTier}
+                {styleRatingLabel(style.slug, style.communityTier)}
               </div>
             </div>
             <p className="mt-4 text-sm leading-6 text-muted">{style.summary}</p>

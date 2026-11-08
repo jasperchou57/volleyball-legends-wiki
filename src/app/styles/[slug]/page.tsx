@@ -7,6 +7,7 @@ import { NextStepPanel } from "@/components/volleyball/NextStepPanel";
 import { FocusedStyleGuide } from "@/components/volleyball/FocusedStyleGuide";
 import { TimeskipOkazuGuide } from "@/components/volleyball/TimeskipOkazuGuide";
 import { KijoGuide } from "@/components/volleyball/KijoGuide";
+import { getStyleReview, styleRatingLabel } from "@/data/style-reviews";
 import { RadarChart } from "@/components/volleyball/RadarChart";
 
 type PageProps = {
@@ -14,7 +15,7 @@ type PageProps = {
 };
 
 export function generateStaticParams() {
-  return featuredStyles.map((style) => ({ slug: style.slug }));
+  return [...featuredStyles.map((style) => ({ slug: style.slug })), { slug: "kosumi" }];
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -43,6 +44,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 function getStrengthLines(slug: string) {
   const style = getStyle(slug);
   if (!style) return [];
+  const review = getStyleReview(slug);
+  if (review) return [review.reason];
 
   const lines: string[] = [];
 
@@ -52,7 +55,7 @@ function getStrengthLines(slug: string) {
   if (style.scores.mobility >= 8) lines.push("Can cover more of the court than most styles, which raises its value in broken plays.");
   if (style.role === "Setter") lines.push("Fits players who care about tempo, readability, and enabling teammates instead of only finishing points.");
   if (style.role === "Spiker") lines.push("Fits players who want a clearer front-row identity and more ways to convert good sets into points.");
-  if (style.role === "Libero") lines.push("Rewards players who would rather stabilize games than coinflip every rally on offense.");
+  if (style.role === "Libero") lines.push("Fits players who enjoy receiving attacks and keeping rallies alive.");
 
   return lines.slice(0, 4);
 }
@@ -60,15 +63,17 @@ function getStrengthLines(slug: string) {
 function getWatchoutLines(slug: string) {
   const style = getStyle(slug);
   if (!style) return [];
+  const review = getStyleReview(slug);
+  if (review) return [review.limitation];
 
   const lines: string[] = [];
 
-  if (style.scores.difficulty >= 8) lines.push("This style punishes weak mechanics quickly, so it is a poor fit if your timing is still unstable.");
+  if (style.scores.difficulty >= 8) lines.push("Practice the timing before using this style in competitive matches.");
   if (style.scores.defense <= 4) lines.push("You will feel exposed in longer rallies if your team cannot end points quickly.");
   if (style.scores.control <= 4) lines.push("It is easier to overcommit with this style because it gives you fewer safe adjustments once the play breaks down.");
   if (style.scores.mobility <= 4) lines.push("Positioning mistakes hurt more because the recovery tools are limited.");
-  if (style.role === "Setter") lines.push("If your team cannot read your tempo, the style will feel much worse than it looks on paper.");
-  if (style.role === "Spiker") lines.push("This is still not a free carry button; poor reads into the block will erase a lot of its upside.");
+  if (style.role === "Setter") lines.push("Coordinate your set timing with your teammates so they can reach the ball.");
+  if (style.role === "Spiker") lines.push("Watch the opposing block and adjust your spike direction.");
 
   return lines.slice(0, 4);
 }
@@ -111,7 +116,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="max-w-3xl">
             <div className="inline-flex rounded-full border border-white/10 bg-background/70 px-4 py-2 text-xs uppercase tracking-[0.2em] text-muted">
-              {style.rarity} · {style.role} · Community Tier {style.communityTier}
+              {style.rarity} · {style.role} · {styleRatingLabel(style.slug, style.communityTier)}
             </div>
             <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
               {style.name} Style Guide & Community Stats
@@ -121,11 +126,15 @@ export default async function StyleDetailPage({ params }: PageProps) {
             </p>
           </div>
           {style.slug === "jinko" ? <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100"><p className="font-semibold text-accent-teal">October 3–17, 2026</p><p className="mt-2">Jinko’s announced Update 90 return window was October 3–17, 2026.</p></div> : <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">Source tier</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">Information source</p>
             <p className="mt-1 font-semibold">{style.sourceTier}</p>
-            <p className="mt-3 text-xs text-slate-300">Last reviewed: {pageFreshness.tierListLastUpdated}</p>
+            <p className="mt-3 text-xs text-slate-300">Earlier scores: {pageFreshness.tierListLastUpdated}</p>
           </div>}
         </div>
+        {(style.slug === "kosumi" || style.slug === "kyoshin") && <p className="mt-4 text-sm leading-7 text-muted">Kosumi is the former name of Kyoshin. Both names refer to the same Legendary receiver. <Link href="/styles/kyoshin" className="text-accent-teal underline">View Kyoshin</Link>.</p>}
+        {style.slug === "twins" && <p className="mt-4 text-sm leading-7 text-muted">Akuto focuses on serving and setting; Okuro focuses on spiking and blocking. Their attributes change when you switch forms.</p>}
+        {style.slug === "sagafura" && <p className="mt-4 text-sm leading-7 text-muted">This style is now named Sazuroku; Sagafura is its former name.</p>}
+        {getStyleReview(style.slug) && <p className="mt-4 text-sm leading-7 text-muted">Site rating reviewed November 8, 2026. See strengths and limitations below.</p>}
       </section>
 
       {style.slug === "twins" && <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
@@ -152,14 +161,14 @@ export default async function StyleDetailPage({ params }: PageProps) {
             {style.slug !== "jinko" && <p className="mt-4 text-sm leading-6 text-muted">
               <strong className="text-white">{style.slug === "jinko" ? "Return window:" : style.slug === "twins" ? "Official return (Update 95):" : `Last verified availability (Update ${currentGameState.updateNumber}):`}</strong> {style.slug === "jinko" ? "October 3–17, 2026 return window." : style.availability}
             </p>}
-            {style.slug !== "jinko" && currentGameState.reviewNote && <p className="mt-4 rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-sm leading-6 text-slate-200">{currentGameState.reviewNote}</p>}
+            {style.slug !== "jinko" && !getStyleReview(style.slug) && currentGameState.reviewNote && <p className="mt-4 rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-sm leading-6 text-slate-200">{currentGameState.reviewNote}</p>}
           </div>
 
           {availabilityHistory.length > 0 && <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
                 <h2 className="text-2xl font-heading font-bold text-white">Release and return history</h2>
-                {style.slug !== "jinko" && <p className="mt-2 text-sm leading-6 text-muted">Past windows are evidence, not a prediction of the next return.</p>}
+                {style.slug !== "jinko" && <p className="mt-2 text-sm leading-6 text-muted">Past return dates do not guarantee the next return.</p>}
               </div>
               <Link href="/style-return-dates" className="text-sm font-semibold text-accent-teal hover:text-white">All return dates</Link>
             </div>
@@ -179,7 +188,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
           <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
             <h2 className="text-2xl font-heading font-bold text-white">Community snapshot</h2>
             <p className="mt-2 text-sm leading-6 text-muted">
-              Five-axis radar comparing {style.name}&rsquo;s offensive pressure, ball control, defense, mobility, and mechanical difficulty. Values are community-tracked and should be treated as relative rather than absolute.
+              Five-axis radar comparing {style.name}&rsquo;s offensive pressure, ball control, defense, mobility, and mechanical difficulty. These July 2026 community estimates may not reflect recent changes. They are not measured in-game attributes.
             </p>
             <div className="mt-5 grid gap-6 md:grid-cols-[1fr_1fr]">
               <div className="flex items-center justify-center">
@@ -241,6 +250,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
           {style.stats && (
             <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
               <h2 className="text-2xl font-heading font-bold text-white">Community stat sheet</h2>
+              <p className="mt-3 text-xs leading-6 text-muted">{style.slug === "kyoshin" || style.slug === "kosumi" ? "Community-reported attributes, checked November 8, 2026. These values have not been independently measured in-game." : "Community estimates from July 2026; current in-game values may differ."}</p>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {Object.entries(style.stats).map(([label, value]) => (
                   <div key={label} className="rounded-3xl border border-white/10 bg-background/65 p-4">
@@ -290,7 +300,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
                 Who should use {style.name}?
               </summary>
               <p className="mt-3 text-sm leading-6 text-muted">
-                Players who want a <strong className="text-white">{style.role.toLowerCase()}</strong>-leaning style with community-tier <strong className="text-white">{style.communityTier}</strong> upside and are comfortable with a difficulty score of <strong className="text-white">{style.scores.difficulty}/10</strong>.
+                {style.whyPlayersSearch}
               </p>
             </details>
             <details className="rounded-2xl border border-white/10 bg-background/65 p-4">

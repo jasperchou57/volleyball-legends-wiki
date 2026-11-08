@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { featuredStyles } from "@/data/volleyball";
 
+import { styleDisplayName, styleRatingLabel } from "@/data/style-reviews";
+
 const scoreLabels = [
   ["Offense", "offense"],
   ["Control", "control"],
@@ -64,7 +66,7 @@ export function StyleCompareTool() {
           >
             {featuredStyles.map((style) => (
               <option key={style.slug} value={style.slug}>
-                {style.name}
+                {styleDisplayName(style.slug, style.name)}
               </option>
             ))}
           </select>
@@ -80,7 +82,7 @@ export function StyleCompareTool() {
           >
             {featuredStyles.map((style) => (
               <option key={style.slug} value={style.slug}>
-                {style.name}
+                {styleDisplayName(style.slug, style.name)}
               </option>
             ))}
           </select>
@@ -95,9 +97,9 @@ export function StyleCompareTool() {
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
                   {index === 0 ? "Left pick" : "Right pick"}
                 </p>
-                <h3 className="mt-2 text-2xl font-heading font-bold text-white">{style.name}</h3>
+                <h3 className="mt-2 text-2xl font-heading font-bold text-white">{styleDisplayName(style.slug, style.name)}</h3>
                 <p className="mt-1 text-sm text-muted">
-                  {style.rarity} {style.role} · Community Tier {style.communityTier}
+                  {style.rarity} {style.role} · {styleRatingLabel(style.slug, style.communityTier)}
                 </p>
               </div>
               <Link
@@ -109,6 +111,7 @@ export function StyleCompareTool() {
             </div>
             <p className="mt-4 text-sm leading-6 text-muted">{style.summary}</p>
 
+            <p className="mt-4 text-xs leading-6 text-muted">Scores below are July 2026 estimates, not newly measured game stats.</p>
             <div className="mt-5 space-y-4">
               {scoreLabels.map(([label, key]) => (
                 <div key={key}>

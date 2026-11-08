@@ -1,0 +1,156 @@
+{
+  "reviewedOn": "2026-11-08",
+  "scope": "Source audit, not in-game testing. Reviewed in local preview; publication approved by the user on 2026-11-08.",
+  "method": "Conservative editorial recommendations for team play. Official announcements establish mechanics and dates, not letter tiers. External opinions are not counted as votes or consensus. Unreviewed July 27 grades remain explicitly historical.",
+  "sources": [
+    {
+      "id": "official92-95",
+      "source": "User-supplied official Discord screenshots in this conversation; transcribed in src/data/volleyball.ts",
+      "facts": [
+        "Mamori Parry and Charge (3.5s); Mastery 1 unlocks Perfect Parry; Update 93 changes knockback trajectory.",
+        "Update 94 TSO Anger and Border Set; Update 95 fixes false Anger gain on a low Rainbow Serve.",
+        "Twins return does not establish a buff. Roketto jetpack persisting after switching is a bug fix, not evidence for a higher rating."
+      ],
+      "limitations": "Does not establish a full roster ranking, current numerical stats, win rate, or gameplay test results."
+    },
+    {
+      "id": "kyoshin",
+      "url": "https://volleyball-legends.fandom.com/wiki/Kosumi",
+      "facts": [
+        "Kosumi is previous name of Kyoshin; Legendary Libero.",
+        "Community estimates: Block70 Bump100 Dive95 Jump75 Serve20 Set85 Speed50 Spike35."
+      ],
+      "limitations": "Search-indexed source, crawled five months ago. Identity correction supported by Update 26 rename log. Numerical values remain community estimates, not November in-game measurements."
+    },
+    {
+      "id": "sazuroku",
+      "url": "https://volleyball-legends.fandom.com/wiki/Sazuroku",
+      "facts": [
+        "Formerly Sagafura; Legendary Libero/Setter."
+      ],
+      "limitations": "Cached community source. Do not treat as a recent balance announcement."
+    },
+    {
+      "id": "rename-log",
+      "url": "https://volleyball-legends.fandom.com/wiki/Updates",
+      "facts": [
+        "Update 26 lists Kosumi -> Kyoshin and Sagafura -> Sazuroku."
+      ]
+    },
+    {
+      "id": "player-discussion",
+      "url": "https://www.reddit.com/r/VolleyballLegends/comments/1xnzzf1/community_tier_list/",
+      "facts": [
+        "Early-November individual opinions; substantial disagreement for TSO, Kijo, Shiro and others.",
+        "Taichou described as teammate spike-power support; the author and one commenter place it A."
+      ],
+      "limitations": "Small self-selected sample with unverified player skill. Not consensus, not systematic evidence of strength, not a benchmark."
+    },
+    {
+      "id": "taichou-kit",
+      "url": "https://volleyball-legends.fandom.com/wiki/Taichou",
+      "facts": [
+        "Community description of set effects supporting teammate attack."
+      ],
+      "limitations": "Letter grade is our editorial judgment, not a source fact."
+    },
+    {
+      "id": "mamori",
+      "url": "https://rblxguide.com/games/volleyball-legends/styles/mamori",
+      "facts": [
+        "Community-sourced Ultra rarity corroboration."
+      ],
+      "limitations": "AI-assisted wiki-derived secondary source; roughly four-second Charge conflicts with official 3.5s. Use official mechanics, do not import estimated scores or rate formulas."
+    },
+    {
+      "id": "roketto",
+      "url": "https://pocket-codes.com/volleyball-legends-update-82-roketto-style-and-2x-luck-event.html",
+      "facts": [
+        "Secret style; jetpack aerial movement and stalling."
+      ],
+      "limitations": "Secondary report, not performance testing. No letter assigned."
+    },
+    {
+      "id": "rejected-ranking",
+      "url": "https://www.pocketgamer.com/roblox/haikyuu-legends-tier-list/",
+      "facts": [
+        "Page says Nov 6 update and includes Mamori."
+      ],
+      "limitations": "Uses older names, duplicate TSK and Twins entries, and Shield Breaker among styles. Not adopted as current complete roster or ranking."
+    },
+    {
+      "id": "twins",
+      "url": "https://volleyball-legends.fandom.com/wiki/The_Twins",
+      "facts": [
+        "Akuto is Server/Setter, Okuro is Spiker/Blocker. Switch changes form. Akuto back tilt produces Float Serve."
+      ],
+      "limitations": "Cached community mechanics. Remove invented shared-ability description and blended stats; retain historical grade and official Update95 return dates."
+    },
+    {
+      "id": "mikage",
+      "url": "https://volleyball-legends.fandom.com/wiki/Mikage",
+      "facts": [
+        "Bump/dive/set charge Ghost Arms; wider blocking reach and directional tilt."
+      ],
+      "limitations": "Cached community mechanics, not new ranking or current measured numbers. Do not import conflicting old return date."
+    }
+  ],
+  "decisions": [
+    {
+      "style": "Kyoshin / Kosumi",
+      "before": "C and A under duplicate entries",
+      "after": "B editorial",
+      "reason": "One receiver/support identity. Correct the contradictory roster and evaluate support utility, without claiming an official buff."
+    },
+    {
+      "style": "Sazuroku / Sagafura",
+      "before": "A",
+      "after": "B editorial",
+      "reason": "Support-oriented recommendation; reconsider general A claim. Preserve existing Sagafura URL/TDH, show current name on tier and directory cards."
+    },
+    {
+      "style": "Taichou",
+      "before": "S",
+      "after": "A editorial",
+      "reason": "Conditional teammate-attack support recommendation. No nerf or gameplay win-rate claim."
+    },
+    {
+      "style": "TSO",
+      "before": "S",
+      "after": "S provisional",
+      "reason": "Serving and setting options documented by official rework. Retain high recommendation for that use, not claim universal S performance."
+    },
+    {
+      "style": "Mamori",
+      "before": "Absent",
+      "after": "A provisional",
+      "reason": "Official timed blocking tools support a specialist recommendation, constrained by timing and Mastery 1. Grade is editorial."
+    },
+    {
+      "style": "Roketto",
+      "before": "Absent",
+      "after": "Not rated, mechanics shown",
+      "reason": "Conflicting assessments; bug fix is not a strength ranking."
+    }
+  ],
+  "remaining": "23 earlier entries retain July 27 ratings, visibly separated. No claim that all styles or current meta have been fully ranked. Existing arbitrary 1-10 scores were not fabricated or refreshed.",
+  "agyReview": {
+    "transcript": "/tmp/volleyball-tier-review-agy.txt",
+    "used": [
+      "Separate old/new dates",
+      "Explain that rating reassessment is not a nerf",
+      "Explain role pages filter overall grades"
+    ],
+    "rejected": [
+      "Claim TSO rework greatly increases failure cost: unsupported",
+      "Claim unmastered Mamori performance falls off a cliff: unsupported",
+      "Claim Roketto Update 95 changed feel or caused disagreement: unsupported",
+      "Pending Evaluation (Update95) as workflow-oriented public copy"
+    ]
+  },
+  "seo": "Codes untouched. Existing Title/Description/H1 and canonical retained. Legacy Kosumi URL retained with canonical body data; no redirects or competitor outbound links added.",
+  "additionalCorrections": [
+    "Twins added to setter and blocker views based on forms. Removed single blended stat sheet.",
+    "Mikage summary/signature now names actual Ghost Arms instead of generic max-stat claim."
+  ]
+}
