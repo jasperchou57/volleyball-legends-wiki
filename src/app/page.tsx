@@ -6,6 +6,8 @@ import Script from "next/script";
 import {
   ArrowRight,
   Clock3,
+  Calculator,
+  Gift,
   Gamepad2,
   ListChecks,
   Search,
@@ -16,7 +18,7 @@ import {
 } from "lucide-react";
 import {
   abilities,
-  activeCodes,
+  currentGameState,
   latestGameUpdate,
   datamineSources,
   featuredStyles,
@@ -30,7 +32,6 @@ import {
   updates,
 } from "@/data/volleyball";
 import { UpdateCountdown } from "@/components/volleyball/UpdateCountdown";
-import { CodeCopyButton as CopyCodeButton } from "./codes/CodeCopyButton";
 
 export const metadata: Metadata = {
   alternates: {
@@ -56,6 +57,30 @@ const siteSchema = {
   ],
 };
 
+const featuredTools = [
+  {
+    title: "Style Tier List",
+    description: "Explore community rankings by role and find styles that fit the way you play.",
+    href: "/tier-list/styles",
+    action: "Explore the tier list",
+    icon: Swords,
+  },
+  {
+    title: "Compare Styles",
+    description: "Put two styles side by side to compare their strengths, roles, and recorded stats.",
+    href: "/tools/style-compare",
+    action: "Compare two styles",
+    icon: ListChecks,
+  },
+  {
+    title: "Spin Budget",
+    description: "Choose a rarity and enter your Lucky Spins to estimate your chances. Compare normal and event rates for Secret rewards.",
+    href: "/tools/spin-budget",
+    action: "Plan your spins",
+    icon: Calculator,
+  },
+];
+
 const decisionCards = [
   {
     title: "Return Dates",
@@ -66,7 +91,7 @@ const decisionCards = [
   },
   {
     title: "Style Tier List",
-    description: "Community-ranked style tiers with links into the underlying style pages.",
+    description: "Compare community rankings, then explore each style’s strengths and role.",
     href: "/tier-list/styles",
     source: "Community",
     icon: Swords,
@@ -86,9 +111,9 @@ const decisionCards = [
     icon: Trophy,
   },
   {
-    title: "Best Style + Ability Pairs",
-    description: "Find style and ability combinations for your preferred role.",
-    href: "/guides/best-builds",
+    title: "Style & Ability Slots",
+    description: "Check slot prices in Gems, storage limits, and how to buy or gift extra slots.",
+    href: "/guides/style-ability-slots",
     source: "Site + Community",
     icon: ShieldCheck,
   },
@@ -102,11 +127,11 @@ const decisionCards = [
 ];
 
 const roleCards = [
-  { title: "Best Spiker Styles", description: "Front-row pressure, timing, and direct point conversion.", href: "/tier-list/spiker" },
-  { title: "Best Setter Styles", description: "Tempo, accuracy, and teammate-enabling picks.", href: "/tier-list/setter" },
-  { title: "Best Libero Styles", description: "Rally stability, coverage, and defensive recovery.", href: "/tier-list/libero" },
-  { title: "Best Blocker Styles", description: "Net control and denial-focused decisions.", href: "/tier-list/blocker" },
-  { title: "Overall Style Tier List", description: "Use this only after you know the role you want to play.", href: "/tier-list/styles" },
+  { title: "Best Spiker Styles", description: "Compare styles for spikes and front-row attacks.", href: "/tier-list/spiker" },
+  { title: "Best Setter Styles", description: "Compare styles for accurate sets and setting up teammates.", href: "/tier-list/setter" },
+  { title: "Best Libero Styles", description: "Compare styles for receiving, court coverage, and keeping rallies alive.", href: "/tier-list/libero" },
+  { title: "Best Blocker Styles", description: "Compare styles for blocking attacks and covering the net.", href: "/tier-list/blocker" },
+  { title: "Overall Style Tier List", description: "Browse community rankings across all roles.", href: "/tier-list/styles" },
 ];
 
 const categoryLinks = [
@@ -123,10 +148,15 @@ const categoryLinks = [
   { label: "Return Dates", href: "/style-return-dates" },
 ];
 
+const homepageGuideDescriptions: Record<string, string> = {
+  "/guides/tutorial": "Learn the controls, then follow guides for serving and spiking.",
+  "/guides/how-to-spike": "Learn spike timing, approach, and tilt direction to aim your attacks.",
+};
+
 const beginnerGuideTitles = new Set(["Beginner Guide", "Tutorial", "Controls", "How to Spike", "How to Serve", "How to Set"]);
 
 export default function Home() {
-  const codeSummary = activeCodes.slice(0, 5);
+  const latestCodeCount = updates.find((update) => update.slug === `update-${latestGameUpdate.updateNumber}`)?.codes.length ?? 0;
   const heroImage = heroImages[0]?.cdnUrl;
   const beginnerGuides = guideCards.filter((guide) => beginnerGuideTitles.has(guide.title)).slice(0, 4);
   const officialSources = datamineSources.filter((source) => source.kind === "Official").slice(0, 4);
@@ -163,7 +193,7 @@ export default function Home() {
                 Volleyball Legends Wiki: Codes, Styles, Tier List, Abilities & Update Tracker
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-7 text-slate-200 md:text-lg">
-                Check current codes, limited-return history, style choices, abilities, and update notes in one place.
+                Find your next style, compare your options, and plan your spins. Explore role guides, return dates, and the latest game updates.
               </p>
 
               <form action="/search" className="mt-6 flex max-w-2xl flex-col gap-3 rounded-3xl border border-white/10 bg-background/70 p-3 sm:flex-row">
@@ -174,7 +204,7 @@ export default function Home() {
                   id="homepage-search"
                   name="q"
                   type="search"
-                  placeholder="Search codes, styles, abilities, pity, updates..."
+                  placeholder="Search styles, abilities, guides, tools..."
                   className="min-h-12 flex-1 rounded-2xl border border-white/10 bg-surface/80 px-4 text-sm text-white outline-none transition placeholder:text-muted focus:border-accent-teal"
                 />
                 <button
@@ -187,24 +217,14 @@ export default function Home() {
               </form>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link
-                  href="/codes"
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_44px_rgba(255,106,43,0.28)] transition hover:translate-y-[-1px]"
-                >
-                  Get Codes
-                  <ArrowRight className="h-4 w-4" />
+                <Link href="/tier-list/styles" className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_44px_rgba(255,106,43,0.28)] transition hover:translate-y-[-1px]">
+                  Style Tier List <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link
-                  href="/style-return-dates"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-background/70 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/30"
-                >
-                  Check Return Dates
+                <Link href="/tools/style-compare" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-background/70 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/30">
+                  Compare Styles
                 </Link>
-                <Link
-                  href="/tier-list/styles"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-background/50 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-white/30 hover:text-white"
-                >
-                  Style Tier List
+                <Link href="/tools/spin-budget" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-background/50 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-white/30 hover:text-white">
+                  Spin Budget <Calculator className="h-4 w-4" />
                 </Link>
               </div>
 
@@ -224,39 +244,38 @@ export default function Home() {
         </section>
 
         <main className="container mx-auto px-4">
-          <section className="mt-10 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
-            <div className="flex flex-wrap items-start justify-between gap-4">
+          <aside aria-label="Latest codes" className="mt-10 flex flex-col gap-4 rounded-3xl border border-border bg-surface/60 p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-4">
+              <Gift className="h-6 w-6 shrink-0 text-accent-orange" aria-hidden="true" />
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Codes first</p>
-                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Active codes</h2>
-                <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
-                  Copy a code below, or view the full list for redemption steps.
-                </p>
+                <p className="font-semibold text-white">Update {latestGameUpdate.updateNumber}{latestCodeCount > 0 ? ` · ${latestCodeCount} new codes` : " codes"}</p>
+                <p className="mt-1 text-sm leading-6 text-muted">Find the latest rewards and redemption steps.</p>
               </div>
-              <Link href="/codes" className="rounded-full bg-gradient-to-r from-accent-orange to-accent-teal px-5 py-3 text-sm font-semibold text-white">
-                View all codes
-              </Link>
             </div>
-            <div className="mt-5 grid gap-3 md:grid-cols-3">
-              {codeSummary.map((entry) => (
-                <div key={entry.code} className="rounded-3xl border border-accent-gold/20 bg-background/65 p-4">
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <p className="select-text break-all font-heading text-lg font-bold text-white">{entry.code}</p>
-                    <CopyCodeButton code={entry.code} />
-                  </div>
-                  <p className="mt-2 text-sm text-slate-200">{entry.reward}</p>
-                  <p className="mt-2 text-sm leading-5 text-accent-teal">{entry.availability ?? entry.status}</p>
-                  <p className="mt-1 text-xs leading-5 text-muted">
-                    Last checked: {entry.lastChecked ? `${entry.lastChecked} (ET)` : "Not recorded"}
-                  </p>
-                </div>
-              ))}
+            <Link href="/codes" className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-accent-orange/60">
+              View Latest Codes <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </aside>
+
+          <section className="mt-10" aria-labelledby="player-tools-heading">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-teal">Choose. Compare. Plan.</p>
+            <h2 id="player-tools-heading" className="mt-2 text-3xl font-heading font-bold text-white">Find your next move</h2>
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              {featuredTools.map((tool) => {
+                const Icon = tool.icon;
+                return <Link key={tool.href} href={tool.href} className="group flex flex-col rounded-[2rem] border border-border bg-surface/80 p-6 transition hover:border-accent-teal/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-teal">
+                  <Icon className="h-7 w-7 text-accent-teal" aria-hidden="true" />
+                  <h3 className="mt-5 text-2xl font-heading font-bold text-white">{tool.title}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-6 text-muted">{tool.description}</p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent-teal">{tool.action}<ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" /></span>
+                </Link>;
+              })}
             </div>
-            <p className="mt-3 text-xs leading-5 text-muted">Last checked is a list review date, not an in-game test.</p>
           </section>
 
+
           <section className="mt-10 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
-            <LatestUpdateSummary />
+            <LatestUpdateSummary showCodeDetails={false} />
 
             <div>
               <UpdateCountdown />
@@ -268,7 +287,8 @@ export default function Home() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Choose by role</p>
-                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Find the right style before the best tier</h2>
+                  <h2 className="mt-2 text-3xl font-heading font-bold text-white">Find a style for your role</h2>
+                  <p className="mt-3 text-sm leading-6 text-muted">Community rankings last reviewed {currentGameState.lastVerified}; later balance changes may affect them.</p>
                 </div>
                 <Swords className="h-6 w-6 text-accent-orange" />
               </div>
@@ -285,7 +305,7 @@ export default function Home() {
             <div className="rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
               <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Decision hub</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Plan your next step</p>
                   <h2 className="mt-2 text-3xl font-heading font-bold text-white">Make the next play or spin count</h2>
                 </div>
                 <span className="text-xs leading-5 text-muted">Compare styles, plan spins, and check return dates.</span>
@@ -340,8 +360,8 @@ export default function Home() {
           <section className="mt-12">
             <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Top wiki pages</p>
-                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Styles and abilities players keep checking</h2>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Browse the wiki</p>
+                <h2 className="mt-2 text-3xl font-heading font-bold text-white">Explore styles and abilities</h2>
               </div>
               <div className="flex gap-3">
                 <Link href="/styles" className="text-sm font-semibold text-accent-teal transition hover:text-white">Styles</Link>
@@ -358,9 +378,6 @@ export default function Home() {
                       </div>
                       <h3 className="mt-4 text-2xl font-heading font-bold text-white">{style.name}</h3>
                     </div>
-                    <span className="rounded-full border border-accent-orange/20 bg-accent-orange/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent-orange">
-                      Tier {style.communityTier}
-                    </span>
                   </div>
                   <p className="mt-4 text-sm leading-6 text-muted">{style.slug === "hidari" ? "A limited Secret spiker. Explore its playstyle, stats, and recorded return history." : style.summary}</p>
 
@@ -372,7 +389,7 @@ export default function Home() {
                     {ability.rarity} / {ability.kind}
                   </div>
                   <h3 className="mt-4 text-2xl font-heading font-bold text-white">{ability.name}</h3>
-                  <p className="mt-4 text-sm leading-6 text-muted">{ability.summary}</p>
+                  <p className="mt-4 text-sm leading-6 text-muted">{ability.slug === "lead-feet" ? "Stop mid-air and drop early to change your timing and bait opponents." : ability.summary}</p>
 
                 </Link>
               ))}
@@ -403,7 +420,7 @@ export default function Home() {
                 {beginnerGuides.map((guide) => (
                   <Link key={guide.href} href={guide.href} className="block rounded-3xl border border-border bg-surface/80 p-5 transition hover:border-white/25">
                     <h3 className="text-lg font-heading font-bold text-white">{guide.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted">{guide.description}</p>
+                    <p className="mt-2 text-sm leading-6 text-muted">{homepageGuideDescriptions[guide.href] ?? guide.description}</p>
                   </Link>
                 ))}
               </div>
@@ -416,7 +433,7 @@ export default function Home() {
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">Official media</p>
                 <h2 className="mt-2 text-3xl font-heading font-bold text-white">Roblox preview images</h2>
               </div>
-              <p className="text-xs text-muted">Source: Roblox game media API. Images © the Volleyball Legends developers.</p>
+              <p className="text-xs text-muted">Game images from Roblox. © the Volleyball Legends developers.</p>
             </div>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
               {heroImages.slice(0, 4).map((img) => (
