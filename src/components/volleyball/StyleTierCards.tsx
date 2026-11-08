@@ -17,7 +17,10 @@ function StyleCard({ style }: { style: TierStyle }) {
       <p className="mt-4 text-sm leading-7 text-slate-200">{style.review.reason}</p>
       <p className="mt-4 text-sm leading-7 text-muted"><strong className="text-slate-200">Keep in mind: </strong>{style.review.limitation}</p>
     </> : <p className="mt-4 text-sm leading-7 text-muted">{style.summary}</p>}
-    <Link href={style.href} className="mt-auto pt-5 text-sm font-semibold text-accent-teal hover:text-white">{style.slug === "roketto" ? "Read the Update 95 fix" : "Explore this style"} →</Link>
+    <div className="mt-auto flex flex-wrap items-center gap-4 pt-5 text-sm font-semibold">
+      <Link href={style.href} className="text-accent-teal hover:text-white">{style.slug === "roketto" ? "Read the Update 95 fix" : "Explore this style"} →</Link>
+      <Link href={`/tools/style-compare?a=${style.slug}`} aria-label={`Compare ${style.name}`} className="rounded-full border border-white/20 px-4 py-2 text-white hover:border-accent-teal">Compare</Link>
+    </div>
   </article>;
 }
 
