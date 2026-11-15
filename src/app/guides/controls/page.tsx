@@ -63,6 +63,16 @@ export default function ControlsGuidePage() {
         <Link href="/updates/update-91" className="mt-4 inline-block text-accent-teal underline">Read about replays and match highlights</Link>
       </section>
 
+      <section id="riku-special" className="mt-8 scroll-mt-44 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
+        <h2 className="text-2xl font-heading font-bold text-white">Riku’s Special</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-100">
+          With Riku equipped, charge <strong>REBOUND</strong> with 3–4 spikes. Use <strong>Special</strong> to raise the hologram walls.
+          Either team’s ball can bounce off them. The walls break after one bounce.
+        </p>
+        <p className="mt-3 text-sm leading-7 text-muted">Check the <strong>Special</strong> input for your device in the game’s controls.</p>
+        <Link href="/styles/riku#rebound" className="mt-4 inline-block text-accent-teal underline">Read the Riku REBOUND guide</Link>
+      </section>
+
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         {controlCards.map((card) => (
           <div key={card.platform} className="rounded-[2rem] border border-border bg-surface/80 p-6">

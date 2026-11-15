@@ -1,4 +1,5 @@
 import { getLatestAvailability, latestGameUpdate, update96 } from "../../data/volleyball";
+import { getReturnWindowStatus, type ReturnWindowStatus } from "./return-window";
 
 export const rerollStyles = [
   { slug: "riku", name: "Riku" },
@@ -6,19 +7,7 @@ export const rerollStyles = [
   { slug: "twins", name: "Twins" },
 ];
 
-export type StyleRollStatus = {
-  kind: "out-of-rotation" | "return-window" | "window-ended";
-  text: string;
-};
-
-const easternDeadline = new Intl.DateTimeFormat("en-US", {
-  timeZone: "America/New_York",
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-  hour: "numeric",
-  minute: "2-digit",
-});
+export type StyleRollStatus = ReturnWindowStatus | { kind: "out-of-rotation"; text: string };
 
 export function getStyleRollStatus(slug: string, now: number | null): StyleRollStatus | undefined {
   if (slug === "riku" && latestGameUpdate.updateNumber === update96.updateNumber) {
@@ -28,12 +17,5 @@ export function getStyleRollStatus(slug: string, now: number | null): StyleRollS
   const latestReturn = getLatestAvailability("Style", slug);
   if (latestReturn?.sourceTier !== "Official" || !latestReturn.endsAt) return undefined;
 
-  const end = Date.parse(latestReturn.endsAt);
-  if (!Number.isFinite(end)) return undefined;
-
-  const deadline = easternDeadline.format(end) + " ET";
-  const ended = now === null ? latestReturn.status === "Not currently available" : now >= end;
-  return ended
-    ? { kind: "window-ended", text: `Announced return window ended ${deadline}.` }
-    : { kind: "return-window", text: `Announced return window ends ${deadline}.` };
+  return getReturnWindowStatus(latestReturn.endsAt, now, latestReturn.status === "Not currently available");
 }

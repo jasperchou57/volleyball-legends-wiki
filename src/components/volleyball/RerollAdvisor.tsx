@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getRerollAdvice, type SlotStatus, type ChaseTarget } from "@/lib/volleyball/reroll-advice";
 import { getStyleRollStatus, rerollStyles, type StyleRollStatus } from "@/lib/volleyball/style-roll-status";
+import { usesSecretEventRates } from "@/lib/volleyball/secret-event";
 import { SecretRateSelector, useSecretRates } from "./SecretRateSelector";
 
 type SavedPlan = {
@@ -24,6 +25,17 @@ const choices = ["unsure", "yes", "no"] as const;
 const rarities = ["Secret", "Limited Secret", "Ultra"] as const;
 const choiceLabel = { unsure: "Not sure yet", yes: "Yes", no: "No" };
 const selectClass = "mt-2 w-full rounded-xl border border-white/15 bg-background px-3 py-3 text-white";
+const savedDateFormat = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/New_York",
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+
+function getPlanSavedDate(id: string) {
+  // The v2 storage key has used the save time in milliseconds as the ID.
+  return /^\d{13}$/.test(id) ? new Date(Number(id)) : null;
+}
 
 function validPlan(value: unknown): value is SavedPlan {
   if (!value || typeof value !== "object") return false;
@@ -48,6 +60,7 @@ export function RerollAdvisor() {
   const [saved, setSaved] = useState<SavedPlan[]>([]);
   const [saveMessage, setSaveMessage] = useState("");
   const rates = useSecretRates();
+  const announcedEventRates = rates.now === null ? null : usesSecretEventRates("auto", rates.now);
 
   const style = rerollStyles.find(entry => entry.slug === styleSlug);
   const rollStatus = style ? getStyleRollStatus(style.slug, rates.now) : undefined;
@@ -184,20 +197,38 @@ export function RerollAdvisor() {
 
       <section className="mt-6">
         <h3 className="font-semibold text-white">Saved plans</h3>
-        <p className="mt-2 text-xs leading-6 text-muted">Check the current pool and rates before rolling.</p>
+        <p className="mt-2 text-xs leading-6 text-muted">Check the current pool and rates in-game before using a saved plan.</p>
         <div className="mt-3 space-y-3">
           {saved.length ? saved.map(plan => {
             const styleName = rerollStyles.find(entry => entry.slug === plan.styleSlug)?.name;
-            const rateLabel = plan.target === "Ultra" ? "Check Ultra odds in-game" : plan.event ? "Event rates when saved" : "Normal rates when saved";
+            const savedDate = getPlanSavedDate(plan.id);
+            const latestStatus = plan.styleSlug ? getStyleRollStatus(plan.styleSlug, rates.now) : undefined;
+            const showRateLabel = !styleName || plan.available !== "no";
+            const ratesDiffer = showRateLabel && plan.target !== "Ultra" &&
+              announcedEventRates !== null && plan.event !== announcedEventRates;
+            const rateLabel = plan.target === "Ultra" ? "Check Ultra odds in-game" : plan.event ? "Plan uses event rates" : "Plan uses normal rates";
             return (
               <div key={plan.id} className="rounded-2xl border border-border bg-background/60 p-4 text-sm leading-6 text-muted">
-                <p className="font-semibold text-white">Target: {styleName ?? plan.target}</p>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+                  <p className="font-semibold text-white">Target: {styleName ?? plan.target}</p>
+                  <p className="text-xs">
+                    {savedDate ? (
+                      <>Saved <time dateTime={savedDate.toISOString()}>{savedDateFormat.format(savedDate)}</time> ET</>
+                    ) : "Save date unavailable"}
+                  </p>
+                </div>
                 <p>{plan.keep ? "Keep current style" : "May replace current style"} · {plan.spins} Lucky Spins</p>
                 <p>
                   Pool check when saved: {choiceLabel[plan.available]}
                   {plan.keep && <> · Separate slot: {choiceLabel[plan.slots]}</>}
                 </p>
-                {(!styleName || plan.available !== "no") && <p>{rateLabel}</p>}
+                {showRateLabel && <p>{rateLabel}</p>}
+                {latestStatus && latestStatus.kind !== "return-window" && (
+                  <p className="mt-2 text-slate-200">{latestStatus.text}</p>
+                )}
+                {ratesDiffer && (
+                  <p className="mt-2 text-accent-gold">Plan rates differ from the announced schedule. Check in-game.</p>
+                )}
               </div>
             );
           }) : <p className="text-sm text-muted">No saved plans yet.</p>}

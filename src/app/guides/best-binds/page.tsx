@@ -43,6 +43,14 @@ export default function BestBindsPage() {
         <Link href="/guides/controls" className="mt-4 inline-block text-accent-teal underline">View replay controls</Link>
       </section>
 
+      <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
+        <h2 className="text-2xl font-heading font-bold text-white">Special input for Riku</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-100">
+          With Riku equipped, use <strong>Special</strong> after 3–4 spikes charge REBOUND. Check its input in-game.
+        </p>
+        <Link href="/guides/controls#riku-special" className="mt-4 inline-block text-accent-teal underline">See how to use Riku’s Special</Link>
+      </section>
+
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {bindPrinciples.map((item, index) => (
           <section key={item} className="rounded-[2rem] border border-border bg-surface/80 p-6">

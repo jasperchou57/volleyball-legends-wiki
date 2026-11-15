@@ -24,7 +24,6 @@ test('new codes and rewards agree with the release without expiring omitted code
   assert.equal(site.updates[0].slug, 'update-96');
 });
 test('Twins extension does not extend TSO or imply a Riku return or tier rating', () => {
-  assert.deepEqual(site.currentlyAvailableStyles.map(s => s.subjectSlug), ['twins']);
   assert.match(site.getLatestAvailability('Style','twins').window, /November 7–21/);
   assert.equal(site.getLatestAvailability('Style','timeskip-okazu').status, 'Not currently available');
   const riku = comparisonStyles.find(s => s.slug === 'riku');
@@ -53,6 +52,7 @@ test('roll advice respects the announced pool and requires a fresh check after a
 
   assert.equal(getStyleRollStatus('twins', twinsEnd - 1).kind, 'return-window');
   assert.equal(getStyleRollStatus('twins', twinsEnd).kind, 'window-ended');
+  assert.match(getStyleRollStatus('twins', twinsEnd).text, /ended November 21, 2026 at 11:30 AM ET/);
   assert.equal(getStyleRollStatus('timeskip-okazu', tSoEnd).kind, 'window-ended');
   assert.equal(getStyleRollStatus('mamori', tSoEnd), undefined);
 

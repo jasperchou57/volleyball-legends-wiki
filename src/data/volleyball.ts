@@ -623,10 +623,10 @@ export const featuredStyles: StyleEntry[] = [
     rarity: "Secret",
     role: "All-Rounder",
     communityTier: "S",
-    summary: "Dual-character limited Secret style. Update 96 extends the Twins’ return until November 21, 2026 at 11:30 AM ET.",
+    summary: "A limited Secret style that switches between Akuto and Okuro.",
     signature: "Switch between Akuto for serving and setting, and Okuro for spiking and blocking. Akuto can use back tilt on a serve to perform a Float Serve.",
     whyPlayersSearch: "Choose Twins if you want to switch between serving/setting and spiking/blocking roles. Practice the two forms separately.",
-    availability: "Update 96 extension: available until November 21, 2026 at 11:30 AM ET. The return began November 7 following the community poll.",
+    availability: "Update 96 extended the announced window to November 21, 2026 at 11:30 AM ET.",
     sourceTier: "Community",
     bestAbilities: ["team-spirit", "lead-feet", "redirection-jump"],
     bestRoles: ["All-Rounder", "Spiker", "Setter", "Blocker"],
@@ -1215,7 +1215,7 @@ export const abilities: AbilityEntry[] = [
 ];
 
 export const availabilityEvents: AvailabilityEvent[] = [
-  { subjectType: "Style", subjectSlug: "twins", label: "Twins return extended", window: "November 7–21, 2026 at 11:30 AM ET", updateNumber: 96, status: "Limited window", endsAt: "2026-11-21T11:30:00-05:00", sourceTier: "Official", note: "Update 96 extends the Twins’ existing return by one week." },
+  { subjectType: "Style", subjectSlug: "twins", label: "Twins return extended", window: "November 7–21, 2026 at 11:30 AM ET", updateNumber: 96, status: "Limited window", endsAt: "2026-11-21T11:30:00-05:00", sourceTier: "Official", note: "Update 96 extended the Twins’ return by one week." },
   { subjectType: "Style", subjectSlug: "twins", label: "Twins return", window: "November 7–14, 2026 at 11:30 AM ET", updateNumber: 95, status: "Not currently available", sourceTier: "Official", note: "Original return window; extended by Update 96 to November 21 at 11:30 AM ET." },
   { subjectType: "Style", subjectSlug: "timeskip-okazu", label: "Timeskip Okazu return", window: "October 31 – November 14, 2026 at 11:30 AM ET", updateNumber: 94, status: "Not currently available", endsAt: "2026-11-14T11:30:00-05:00", sourceTier: "Official", note: "TSO’s announced return window ended November 14 at 11:30 AM ET." },
   { subjectType: "Style", subjectSlug: "kijo", label: "Kijo return", window: "October 24 – November 7, 2026 at 11:30 AM ET", updateNumber: 93, status: "Not currently available", sourceTier: "Official", note: "Kijo’s Update 93 return ended November 7, 2026 at 11:30 AM ET." },
@@ -1309,10 +1309,6 @@ export function getAvailabilityHistory(subjectType: AvailabilityEvent["subjectTy
 export function getLatestAvailability(subjectType: AvailabilityEvent["subjectType"], subjectSlug: string) {
   return getAvailabilityHistory(subjectType, subjectSlug)[0];
 }
-
-export const currentlyAvailableStyles = availabilityEvents.filter(
-  (event) => event.subjectType === "Style" && event.status === "Limited window"
-);
 
 export const updates: UpdateEntry[] = [
   {

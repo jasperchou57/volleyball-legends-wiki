@@ -9,7 +9,7 @@ export function LatestUpdateSummary({ showCodeDetails = true }: { showCodeDetail
     <div className="mt-5 grid gap-3 sm:grid-cols-2">
       {[
         ["Riku rework", "Charge REBOUND with 3–4 spikes, then press Special to raise walls that break after one bounce. Riku has not returned to the style rotation."],
-        ["Twins extended", "The Twins’ return has been extended until November 21, 2026 at 11:30 AM ET. TSO’s announced return window ended November 14."],
+        ["Twins extended", "Update 96 extended the Twins’ announced return to November 21, 2026 at 11:30 AM ET. TSO’s announced window ended November 14."],
         ["2× Luck Weekend", "November 14–16, 2026, from 11:30 AM ET to 11:30 AM ET: 1% Secret chance and 100-spin pity."],
         showCodeDetails
           ? ["Three new codes", "UPDATE_96, RIKU_REWORK, and NEW_CHAT_BUBBLES offer a combined total of 10 Lucky Style Spins and 5 Lucky Ability Spins."]

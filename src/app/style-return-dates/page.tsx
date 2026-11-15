@@ -1,7 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { CalendarDays, ChevronRight, CircleAlert } from "lucide-react";
-import { availabilityEvents, latestGameUpdate, featuredStyles } from "@/data/volleyball";
+import { availabilityEvents, latestGameUpdate, featuredStyles, getLatestAvailability } from "@/data/volleyball";
+import { getStyleRollStatus } from "@/lib/volleyball/style-roll-status";
+import { StyleReturnStatus } from "@/components/volleyball/StyleReturnStatus";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Style Return Dates",
@@ -20,7 +22,6 @@ function subjectName(subjectType: "Style" | "Ability", slug: string) {
 
 function returnNote(updateNumber: number, fallback: string) {
   const notes: Record<number, string> = {
-    96: "Update 96 extends the Twins’ existing return by one week, until November 21, 2026 at 11:30 AM ET.",
     95: "The original November 7–14 window was extended by Update 96 to November 21 at 11:30 AM ET.",
     94: "Timeskip Okazu’s Update 94 return ended November 14, 2026 at 11:30 AM ET.",
     93: "Kijo’s Update 93 return ended November 7, 2026 at 11:30 AM ET.",
@@ -36,7 +37,12 @@ function returnNote(updateNumber: number, fallback: string) {
 
 export default function StyleReturnDatesPage() {
   const newestFirst = [...availabilityEvents].sort((a, b) => b.updateNumber - a.updateNumber);
-  const latestReports = newestFirst.filter((event) => event.updateNumber === 96);
+  const latestReports = newestFirst.filter(event =>
+    event.sourceTier === "Official" &&
+    getLatestAvailability(event.subjectType, event.subjectSlug) === event &&
+    (event.endsAt || event.updateNumber === latestGameUpdate.updateNumber)
+  );
+  const rikuStatus = getStyleRollStatus("riku", null);
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-10">
@@ -53,7 +59,7 @@ export default function StyleReturnDatesPage() {
         </div>
         <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">Volleyball Legends Return Dates</h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Update 96 extends the Twins’ return until November 21, 2026 at 11:30 AM ET. TSO’s announced return window ended November 14. Riku was reworked but has not returned to the style rotation. Browse current windows and earlier returns below.
+          Check the announced return windows and past dates. Confirm the current Style pool in-game before spending spins.
         </p>
         <p className="mt-3 text-sm text-muted">Last updated: {latestGameUpdate.lastVerified}</p>
       </section>
@@ -62,12 +68,28 @@ export default function StyleReturnDatesPage() {
         <div className="flex items-start gap-3">
           <CircleAlert className="mt-0.5 h-5 w-5 shrink-0 text-accent-teal" />
           <div>
-            <h2 className="text-2xl font-heading font-bold text-white">Announced return windows</h2>
+            <h2 className="text-2xl font-heading font-bold text-white">Latest return status</h2>
             {latestReports.length ? latestReports.map((event) => (
               <p key={`${event.subjectType}-${event.subjectSlug}`} className="mt-2 text-sm leading-6 text-slate-100">
-                <Link href={subjectLink(event.subjectType, event.subjectSlug)} className="font-semibold underline decoration-accent-teal/50 underline-offset-4">{subjectName(event.subjectType, event.subjectSlug)}</Link> — {event.window}.
+                <Link href={subjectLink(event.subjectType, event.subjectSlug)} className="font-semibold underline decoration-accent-teal/50 underline-offset-4">
+                  {subjectName(event.subjectType, event.subjectSlug)}
+                </Link>
+                {" · "}
+                {event.endsAt ? (
+                  <StyleReturnStatus
+                    endsAt={event.endsAt}
+                    recordedEnded={event.status === "Not currently available"}
+                    fallback={event.window + "."}
+                  />
+                ) : event.window + "."}
               </p>
-            )) : <p className="mt-2 text-sm text-slate-100">No return window has been announced for this update.</p>}
+            )) : <p className="mt-2 text-sm text-slate-100">Browse earlier returns in the history below.</p>}
+            {rikuStatus && (
+              <p className="mt-2 text-sm leading-6 text-slate-100">
+                <Link href="/styles/riku" className="font-semibold underline decoration-accent-teal/50 underline-offset-4">Riku</Link>
+                {" · "}{rikuStatus.text}
+              </p>
+            )}
 
           </div>
         </div>
@@ -84,15 +106,10 @@ export default function StyleReturnDatesPage() {
         <div className="mt-6 space-y-3">
           {newestFirst.map((event) => (
             <article key={`${event.subjectType}-${event.subjectSlug}-${event.updateNumber}`} className="rounded-3xl border border-white/10 bg-background/65 p-5">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Update {event.updateNumber} · {event.subjectType}</p>
-                  <h3 className="mt-2 text-xl font-heading font-bold text-white">
-                    <Link href={subjectLink(event.subjectType, event.subjectSlug)} className="transition hover:text-accent-teal">{event.label}</Link>
-                  </h3>
-                </div>
-                <span className="rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">{event.updateNumber === 96 ? "Announced window" : "Historical record"}</span>
-              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Update {event.updateNumber} · {event.subjectType}</p>
+              <h3 className="mt-2 text-xl font-heading font-bold text-white">
+                <Link href={subjectLink(event.subjectType, event.subjectSlug)} className="transition hover:text-accent-teal">{event.label}</Link>
+              </h3>
               <p className="mt-3 text-sm font-semibold text-slate-100">{event.window}</p>
               <p className="mt-2 text-sm leading-6 text-muted">{returnNote(event.updateNumber, event.note)}</p>
             </article>
@@ -102,7 +119,7 @@ export default function StyleReturnDatesPage() {
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">When does the Twins’ return end?</h2>
-        <p className="mt-3 text-sm leading-7 text-muted">Update 96 extends the Twins’ return until November 21, 2026 at 11:30 AM ET.</p>
+        <p className="mt-3 text-sm leading-7 text-muted">Update 96 set the announced deadline for the Twins’ return at November 21, 2026 at 11:30 AM ET.</p>
         <h2 className="mt-6 text-2xl font-heading font-bold text-white">When does Timeskip Okazu’s return end?</h2>
         <p className="mt-3 text-sm leading-7 text-muted">TSO’s announced Update 94 return ended November 14, 2026 at 11:30 AM ET.</p>
         <h2 className="mt-6 text-2xl font-heading font-bold text-white">When did Kijo’s last return end?</h2>
