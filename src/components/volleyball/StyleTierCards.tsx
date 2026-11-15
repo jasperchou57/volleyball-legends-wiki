@@ -3,6 +3,8 @@ import { getTierStyles, styleReviewDate, type TierStyle } from "@/data/style-rev
 import type { Role } from "@/data/volleyball";
 
 function StyleCard({ style }: { style: TierStyle }) {
+  const reviewedAt = style.review?.reviewedAt ?? styleReviewDate;
+  const reviewLabel = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${reviewedAt}T12:00:00Z`));
   return <article className="flex flex-col rounded-3xl border border-border bg-surface/80 p-6">
     <div className="flex items-start justify-between gap-3">
       <h2 className="text-2xl font-heading font-bold text-white">{style.name}</h2>
@@ -12,7 +14,7 @@ function StyleCard({ style }: { style: TierStyle }) {
     {style.slug === "kyoshin" && <p className="mt-2 text-xs text-muted">Formerly Kosumi</p>}
     {style.slug === "sagafura" && <p className="mt-2 text-xs text-muted">Formerly Sagafura</p>}
     {style.slug === "twins" && <p className="mt-3 text-sm leading-7 text-muted">Akuto: serve and set. Okuro: spike and block. Switch forms to fit the next play.</p>}
-    <p className="mt-3 text-xs text-muted">{style.review ? <>{style.tier ? style.review.status === "Provisional" ? "Provisional rating" : "Site rating" : "Mechanics reviewed"} · <time dateTime={styleReviewDate}>Nov 8, 2026</time></> : "Earlier rating · July 27, 2026"}</p>
+    <p className="mt-3 text-xs text-muted">{style.review ? <>{style.tier ? style.review.status === "Provisional" ? "Provisional rating" : "Site rating" : "Mechanics reviewed"} · <time dateTime={reviewedAt}>{reviewLabel}</time></> : "Earlier rating · July 27, 2026"}</p>
     {style.review ? <>
       <p className="mt-4 text-sm leading-7 text-slate-200">{style.review.reason}</p>
       <p className="mt-4 text-sm leading-7 text-muted"><strong className="text-slate-200">Keep in mind: </strong>{style.review.limitation}</p>
@@ -35,7 +37,7 @@ export function StyleTierCards({ role }: { role?: Role }) {
     </section>}
     {earlier.length > 0 && <section className="mt-10" aria-label="Earlier community ratings">
       <p className="text-lg font-semibold text-white">Earlier community ratings</p>
-      <p className="mb-5 mt-2 max-w-3xl text-sm leading-7 text-muted">These ratings date from July 27, 2026 and have not been checked against Update 95. Use them as an older reference when comparing styles.</p>
+      <p className="mb-5 mt-2 max-w-3xl text-sm leading-7 text-muted">These ratings date from July 27, 2026 and may not reflect later changes. Use them as an older reference when comparing styles.</p>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{earlier.map(style => <StyleCard key={style.slug} style={style} />)}</div>
     </section>}
   </>;

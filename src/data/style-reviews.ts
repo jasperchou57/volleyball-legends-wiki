@@ -1,17 +1,27 @@
 import { featuredStyles, type CommunityTier, type Role } from "./volleyball";
+import { additionalStyles } from "./style-catalog";
 
 // Evidence and decisions: review-notes/tier-list-2026-11-08.json.
 // This is a source review, not an in-game test or an official ranking.
 export const styleReviewDate = "2026-11-08";
 export interface StyleReview {
   status: "Reviewed" | "Provisional";
+  reviewedAt?: string;
   reason: string;
   limitation: string;
   basis: string;
   href?: string;
 }
 
+const riku = additionalStyles.find(style => style.slug === "riku")!;
+
 export const styleReviews: Record<string, StyleReview> = {
+  riku: {
+    status: "Reviewed", reviewedAt: "2026-11-15",
+    reason: riku.mechanic, limitation: riku.constraint,
+    basis: "Official Update 96 announcement. Mechanics only; no post-rework tier or numeric stats assigned.",
+    href: "/styles/riku",
+  },
   "timeskip-okazu": {
     status: "Provisional",
     reason: "Anger makes Rainbow Serves easier to time, while Border Set helps place sets near court boundaries. Suits players who want both serving and setting options.",
@@ -72,6 +82,10 @@ export interface TierStyle {
 }
 
 export const tierStyles: TierStyle[] = [
+  {
+    slug: "riku", name: riku.name, rarity: riku.rarity, role: "Spiker", bestRoles: ["Spiker"],
+    tier: null, summary: riku.mechanic, href: "/styles/riku", review: styleReviews.riku,
+  },
   ...featuredStyles.map(style => ({
     slug: style.slug, name: styleDisplayName(style.slug, style.name), rarity: style.rarity,
     role: style.role, bestRoles: style.bestRoles, tier: style.communityTier,

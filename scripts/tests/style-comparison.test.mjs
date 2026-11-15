@@ -32,7 +32,7 @@ test('saved comparisons migrate old names and reject invalid or duplicate record
 test('additional directory styles compare without fabricated ratings, scores or guide URLs', () => {
   assert.equal(comparisonStyles.length, 45);
   const added = comparisonStyles.filter(s => !tierStyles.some(t => t.slug === s.slug));
-  assert.equal(added.length, 16);
+  assert.equal(added.length, 15);
   for (const style of added) {
     assert.equal(style.tier, null);
     assert.equal(style.scores, null);
@@ -43,4 +43,14 @@ test('additional directory styles compare without fabricated ratings, scores or 
   assert.deepEqual(comparisonPair('hinoto', 'tso'), { a: 'hinto', b: 'timeskip-okazu' });
   for (const slug of ['okazu', 'timeskip-okazu', 'twins']) assert.ok(comparisonStyles.find(s => s.slug === slug).bestRoles.includes('Server'));
   assert.deepEqual(comparisonStyles.find(s => s.slug === 'yachikusai').bestRoles, ['Server', 'Blocker']);
+});
+
+
+test('Riku has one guide-backed comparison entry without borrowing a numeric rating', () => {
+  const entries = comparisonStyles.filter(s => s.slug === 'riku');
+  assert.equal(entries.length, 1);
+  assert.equal(entries[0].href, '/styles/riku');
+  assert.equal(entries[0].tier, null);
+  assert.equal(entries[0].scores, null);
+  assert.equal(tierStyles.find(s => s.slug === 'riku').review.reviewedAt, '2026-11-15');
 });

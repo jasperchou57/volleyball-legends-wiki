@@ -67,7 +67,7 @@ export const comparisonStyles: ComparisonStyle[] = [...tierStyles.map(style => {
     olderNotes: !detail && !style.review,
     scores: legacy?.scores ?? null,
   };
-}), ...additionalStyles.map(style => ({
+}), ...additionalStyles.filter(style => !tierStyles.some(entry => entry.slug === style.slug)).map(style => ({
   slug: style.slug, name: style.name, rarity: style.rarity,
   role: style.roles[0], bestRoles: style.roles, tier: null,
   summary: style.mechanic, mechanic: style.mechanic, constraint: style.constraint,

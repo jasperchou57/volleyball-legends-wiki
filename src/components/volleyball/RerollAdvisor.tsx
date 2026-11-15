@@ -48,7 +48,15 @@ export function RerollAdvisor() {
       <label className="text-sm text-white">Is your target in the current in-game selection?<select value={available} onChange={e => setAvailable(e.target.value as SlotStatus)} className={selectClass}>{choices.map(c => <option key={c} value={c}>{choiceLabel[c]}</option>)}</select></label>
       <label className="text-sm text-white">Your Lucky Spins<input type="number" min={0} max={100000} step={1} value={spins} onChange={e => setSpins(Math.min(100000, Math.max(0, Math.floor(Number(e.target.value) || 0))))} className={selectClass}/></label>
     </div>
-    <div className="mt-6"><SecretRateSelector {...rates} eligible={target !== "Ultra"}/></div>
+    <div className="mt-6">
+      {target === "Ultra" ? (
+        <p className="rounded-2xl border border-white/10 bg-background/65 p-4 text-sm leading-6 text-slate-200">
+          Check your Ultra odds in-game. Update 96’s luck boost applies to Secret rolls.
+        </p>
+      ) : (
+        <SecretRateSelector {...rates} />
+      )}
+    </div>
     <div className="mt-6 rounded-2xl border border-accent-teal/25 bg-accent-teal/5 p-5" aria-live="polite">
       <h3 className="text-xl font-bold text-white">{advice.headline}</h3>
       <p className="mt-3 text-sm leading-7 text-muted">{advice.body}</p>

@@ -30,7 +30,17 @@ test('Twins extension does not extend TSO or imply a Riku return or tier rating'
   const riku = comparisonStyles.find(s => s.slug === 'riku');
   assert.match(riku.mechanic, /3–4 spikes/);
   assert.match(riku.mechanic, /one bounce/);
-  assert.match(riku.mechanic, /has not returned/);
+  assert.match(riku.mechanic, /unavailable to roll in Update 96/);
   assert.equal(riku.tier, null);
   assert.equal(riku.scores, null);
+});
+
+
+test('Ultra advice links the latest release while slot, availability and budget checks take priority', () => {
+  const { getRerollAdvice } = loadSiteModule('src/lib/volleyball/reroll-advice.ts');
+  assert.equal(getRerollAdvice(true, 'yes', 'yes', 10, 'Ultra').href, `/updates/update-${site.latestGameUpdate.updateNumber}`);
+  assert.equal(getRerollAdvice(true, 'no', 'yes', 10, 'Ultra').href, '/guides/style-ability-slots');
+  assert.equal(getRerollAdvice(false, 'yes', 'no', 10, 'Ultra').href, '/style-return-dates');
+  assert.equal(getRerollAdvice(false, 'yes', 'yes', 0, 'Ultra').href, '/codes');
+  assert.equal(getRerollAdvice(false, 'yes', 'yes', 10, 'Secret').href, '/tools/spin-budget');
 });

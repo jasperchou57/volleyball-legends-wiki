@@ -32,7 +32,7 @@ export default function StyleTierListPage() {
           Choose a style for the way you play. Compare its role, useful mechanics, and limitations before deciding what to keep or roll for.
         </p>
         <p className="mt-3 max-w-3xl text-xs leading-6 text-muted">
-          Last reviewed: <time dateTime={styleReviewDate} className="text-slate-200">November 8, 2026</time> · Includes Update 95 changes. Older July ratings are listed separately below.
+          Selected ratings reviewed <time dateTime={styleReviewDate} className="text-slate-200">November 8, 2026</time>.
         </p>
       </section>
 
@@ -45,6 +45,11 @@ export default function StyleTierListPage() {
       </section>
 
       <p className="mt-4 text-sm text-muted">Looking for a limited pick? <Link href="/style-return-dates" className="font-semibold text-accent-teal hover:text-white">Check return dates</Link> to see its announced availability.</p>
+
+      <aside className="mt-6 rounded-2xl border border-accent-teal/25 bg-accent-teal/10 p-5 text-sm leading-7 text-slate-200">
+        <p><strong className="text-white">Update 96</strong> reworked Riku’s REBOUND.</p>
+        <Link href="/styles/riku" className="mt-3 inline-block font-semibold text-accent-teal underline underline-offset-4">View the Riku guide</Link>
+      </aside>
 
       <StyleTierCards />
     </div>

@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/patch-diff`, lastModified: siteLastUpdated, changeFrequency: "weekly", priority: 0.88 },
     { url: `${base}/next-update`, lastModified: siteLastUpdated, changeFrequency: "daily", priority: 0.82 },
     { url: `${base}/style-return-dates`, lastModified: siteLastUpdated, changeFrequency: "weekly", priority: 0.87 },
+    { url: `${base}/styles/riku`, lastModified: new Date("2026-11-15"), changeFrequency: "weekly", priority: 0.84 },
     { url: `${base}/styles/mamori`, lastModified: siteLastUpdated, changeFrequency: "weekly", priority: 0.84 },
     { url: `${base}/styles`, lastModified: siteLastUpdated, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/abilities`, changeFrequency: "weekly", priority: 0.85 },
