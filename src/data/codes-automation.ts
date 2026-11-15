@@ -2,7 +2,7 @@ import raw from './codes-automated.json';
 import type { CodeEntry, ExpiredCodeEntry } from './volleyball';
 type Managed = { code: string; reward: string; status: string; addedAt: string; sourceCheckedAt: string; sourceId: string };
 type Announcement = { guildId: string; channelId: string; messageId: string };
-const data = raw as { codes: Managed[]; announcements: Announcement[]; revision: string; update: { number: number; announcedAt: string; checkedAt: string } | null };
+const data = raw as { codes: Managed[]; announcements: Announcement[]; revision: string; contentUpdatedAt?: string; update: { number: number; announcedAt: string; checkedAt: string } | null };
 export const codeDataRevision = data.revision;
 const date = (value: string) => new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(new Date(value));
 export function mergeAutomatedCodes(active: CodeEntry[], previous: CodeEntry[], expired: ExpiredCodeEntry[]) {
@@ -29,4 +29,10 @@ export function newestCodeBatch(rows: CodeEntry[]) {
   const dates = rows.map(row => Date.parse(row.releaseDate)).filter(Number.isFinite);
   const newest = Math.max(...dates);
   return rows.filter(row => Date.parse(row.releaseDate) === newest);
+}
+
+// Written by the importer only when codes or the release actually change.
+export function automatedContentUpdatedAt(fallback: string) {
+  const recorded = data.contentUpdatedAt;
+  return recorded && Number.isFinite(Date.parse(recorded)) && Date.parse(recorded) > Date.parse(fallback) ? recorded : fallback;
 }

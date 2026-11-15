@@ -12,7 +12,7 @@ export type ManagedCode = {
   code: string; reward: string; status: "active" | "expired";
   addedAt: string; sourceCheckedAt: string; eventTime: string; sourceId: string; evidenceHash: string;
 }
-export type CodeData = { version: 1; codes: ManagedCode[]; announcements: Announcement[]; update: Announcement["update"] & { announcedAt: string; checkedAt: string } | null }
+export type CodeData = { version: 1; contentUpdatedAt?: string; codes: ManagedCode[]; announcements: Announcement[]; update: Announcement["update"] & { announcedAt: string; checkedAt: string } | null }
 export type Baseline = { code: string; reward: string; status: string; sourceCheckedAt?: string; addedAt?: string }
 export const emptyData = (): CodeData => ({ version: 1, codes: [], announcements: [], update: null })
 export const SOURCES: Record<string, { guildId: string; channelIds: string[] }> = {

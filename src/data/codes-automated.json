@@ -120,6 +120,36 @@
       "eventTime": "2026-11-07T16:32:27.360Z",
       "sourceId": "1328110081136398427/1328110082226913470/1568664442047045923",
       "evidenceHash": "fac34f6538e7bf84f34c5aad1f6df1e22c8910dde56b90fa91f27ccea78ba23f"
+    },
+    {
+      "code": "UPDATE_96",
+      "reward": "5 Lucky Style Spins",
+      "status": "active",
+      "addedAt": "2026-11-14",
+      "sourceCheckedAt": "2026-11-15",
+      "eventTime": "2026-11-14T16:30:20.001Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1571200622924013588",
+      "evidenceHash": "3d25de0feaa1d2b737074414a08eea22884975f7258e981f4ec39014ec79bbae"
+    },
+    {
+      "code": "RIKU_REWORK",
+      "reward": "5 Lucky Style Spins",
+      "status": "active",
+      "addedAt": "2026-11-14",
+      "sourceCheckedAt": "2026-11-15",
+      "eventTime": "2026-11-14T16:30:20.001Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1571200622924013588",
+      "evidenceHash": "3d25de0feaa1d2b737074414a08eea22884975f7258e981f4ec39014ec79bbae"
+    },
+    {
+      "code": "NEW_CHAT_BUBBLES",
+      "reward": "5 Lucky Ability Spins",
+      "status": "active",
+      "addedAt": "2026-11-14",
+      "sourceCheckedAt": "2026-11-15",
+      "eventTime": "2026-11-14T16:30:20.001Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1571200622924013588",
+      "evidenceHash": "3d25de0feaa1d2b737074414a08eea22884975f7258e981f4ec39014ec79bbae"
     }
   ],
   "announcements": [
@@ -306,14 +336,61 @@
         "quote": "UPDATE 95 IS OUT NOW!"
       },
       "hash": "fac34f6538e7bf84f34c5aad1f6df1e22c8910dde56b90fa91f27ccea78ba23f"
+    },
+    {
+      "gameId": "volleyball-legends",
+      "guildId": "1328110081136398427",
+      "channelId": "1328110082226913470",
+      "messageId": "1571200622924013588",
+      "receivedChannelId": "1328110082226913470",
+      "receivedMessageId": "1571200622924013588",
+      "timestamp": "2026-11-14T16:30:20.001Z",
+      "editedTimestamp": null,
+      "capturedAt": "2026-11-15T01:01:51.703Z",
+      "segments": [
+        {
+          "id": "browser-text",
+          "text": "UPDATE 96 NOW LIVE!\nRIKU REWORK\nNEW CHAT BUBBLES\nNew Gamepass\nTwins +1 week\n2x Lucky Event\nLucky Spin Handout\nCodes\n\nNEW CODES\nUPDATE_96 = 5 Lucky Style Spins\nRIKU_REWORK = 5 Lucky Style Spins\nNEW_CHAT_BUBBLES = 5 Lucky Ability Spins"
+        }
+      ],
+      "observations": [
+        {
+          "code": "UPDATE_96",
+          "status": "active",
+          "reward": "5 Lucky Style Spins",
+          "segment": "browser-text",
+          "quote": "UPDATE_96 = 5 Lucky Style Spins"
+        },
+        {
+          "code": "RIKU_REWORK",
+          "status": "active",
+          "reward": "5 Lucky Style Spins",
+          "segment": "browser-text",
+          "quote": "RIKU_REWORK = 5 Lucky Style Spins"
+        },
+        {
+          "code": "NEW_CHAT_BUBBLES",
+          "status": "active",
+          "reward": "5 Lucky Ability Spins",
+          "segment": "browser-text",
+          "quote": "NEW_CHAT_BUBBLES = 5 Lucky Ability Spins"
+        }
+      ],
+      "update": {
+        "number": 96,
+        "segment": "browser-text",
+        "quote": "UPDATE 96 NOW LIVE!"
+      },
+      "hash": "3d25de0feaa1d2b737074414a08eea22884975f7258e981f4ec39014ec79bbae"
     }
   ],
   "update": {
-    "number": 95,
+    "number": 96,
     "segment": "browser-text",
-    "quote": "UPDATE 95 IS OUT NOW!",
-    "announcedAt": "2026-11-07",
-    "checkedAt": "2026-11-08"
+    "quote": "UPDATE 96 NOW LIVE!",
+    "announcedAt": "2026-11-14",
+    "checkedAt": "2026-11-15"
   },
-  "revision": "702d262a9d3d9af17bc90264af341efdf69a6d08c9358428f0734497dfb0534e"
+  "contentUpdatedAt": "2026-11-15T06:49:38Z",
+  "revision": "04468a7fc1b524b6175e2e82c901716c5c50d0f555996acda0ca5408dc53aeae"
 }

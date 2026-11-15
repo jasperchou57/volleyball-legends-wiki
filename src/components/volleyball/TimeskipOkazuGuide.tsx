@@ -11,7 +11,7 @@ export function TimeskipOkazuGuide() {
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-teal">TSO rework · Update 94</p>
       <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">Timeskip Okazu Style Guide &amp; Community Stats</h1>
       <p className="mt-5 text-lg leading-8 text-muted">Timeskip Okazu (TSO) builds Anger to make Rainbow Serves easier to hit. His new Border Set slows the ball before the line you aim at, giving you another way to place a set.</p>
-      <p className="mt-5 rounded-2xl border border-accent-teal/20 bg-accent-teal/10 p-4 text-sm leading-7 text-slate-100">Announced return: October 31 – November 14, 2026 at 11:30 AM ET.</p>
+      <p className="mt-5 rounded-2xl border border-accent-teal/20 bg-accent-teal/10 p-4 text-sm leading-7 text-slate-100">Return window ended: November 14, 2026 at 11:30 AM ET.</p>
       <nav aria-label="On this page" className="mt-6 flex flex-wrap gap-2">{[["anger", "Anger & Rainbow Serves"], ["border-set", "Border Set"], ["return", "Return window"], ["stats", "Earlier stats"]].map(([id, text]) => <a key={id} href={`#${id}`} className="rounded-full border border-border px-4 py-2 text-sm text-slate-200 hover:border-accent-teal">{text}</a>)}</nav>
     </header>
     <section id="anger" className={sectionClass}>
@@ -25,8 +25,8 @@ export function TimeskipOkazuGuide() {
     </section>
     <section id="return" className={sectionClass}>
       <h2 className="text-2xl font-heading font-bold text-white">When does Timeskip Okazu leave?</h2>
-      <p className="mt-4 text-sm leading-7 text-muted">TSO’s two-week return ends November 14, 2026 at 11:30 AM ET. Check the in-game style banner before spending spins.</p>
-      <p className="mt-3 text-sm leading-7 text-muted">The Update 94 code <Link href="/codes" className="font-semibold text-accent-teal underline">TSO_RETURNS</Link> gives 5 Lucky Style Spins.</p>
+      <p className="mt-4 text-sm leading-7 text-muted">TSO’s announced two-week return ended November 14, 2026 at 11:30 AM ET. Update 96 extends the Twins’ return only; it does not announce an extension for TSO.</p>
+      <p className="mt-3 text-sm leading-7 text-muted">TSO_RETURNS was released with Update 94 for 5 Lucky Style Spins. <Link href="/codes" className="font-semibold text-accent-teal underline">Check its current status on the Codes page.</Link></p>
       <Link href="/style-return-dates" className="mt-4 inline-block text-accent-teal underline underline-offset-4">All announced return windows</Link>
     </section>
     <section id="stats" className={sectionClass}>

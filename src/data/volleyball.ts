@@ -1,4 +1,4 @@
-import { mergeAutomatedCodes, automatedCheckedAt } from "./codes-automation";
+import { mergeAutomatedCodes, automatedCheckedAt, automatedContentUpdatedAt } from "./codes-automation";
 export type SourceTier = "Official" | "Community" | "Site";
 export type VerificationStatus = "Official" | "Community verified" | "Monitoring" | "Review required";
 export type CodeStatus = "Officially announced" | "Community verified" | "Needs verification";
@@ -253,7 +253,28 @@ export const update95 = {
   lastVerified: "November 8, 2026",
   summary: "Season 20 brings a Wild West theme, the Easy Money Bundle, and the Twins’ return. Update 95 also adds three new codes, a 2× Luck Weekend, and fixes for TSO and Roketto.",
 };
-export const latestGameUpdate = update95;
+export const update96 = {
+  updateNumber: 96,
+  releasedAt: "November 14, 2026",
+  lastVerified: "November 15, 2026",
+  summary: "Riku’s REBOUND now needs charging and activates with Special. Update 96 also adds chat bubbles, extends the Twins’ return, and brings a 2× Lucky event and three new codes.",
+};
+export const latestGameUpdate = update96;
+export const update96Sections = [
+  { title: "Riku rework: REBOUND", items: [
+    "Riku’s hologram walls are no longer always active. Charge REBOUND with 3–4 spikes, then press Special to raise the walls.",
+    "Any ball can bounce off the walls, including the opposing team’s ball. The walls break after one bounce.",
+    "Riku has not returned to the style rotation. This rework changes how existing owners use him; it is not a new chance to roll him."
+  ] },
+  { title: "Twins return extended", items: ["The Twins’ return has been extended by one week, until November 21, 2026 at 11:30 AM ET."] },
+  { title: "New chat bubbles", items: ["New chat bubbles and a 2x Bubble Chat Gamepass have been added."] },
+  { title: "2× Lucky event: November 14–16", items: [
+    "The event runs from November 14, 2026 at 11:30 AM ET to November 16, 2026 at 11:30 AM ET.",
+    "During this window, Secret Style and Ability chances increase from 0.5% to 1%, and Secret pity drops from 200 to 100 spins."
+  ] },
+  { title: "Update-day spin handout — ended", items: ["The November 14 handout ran from 10:30 AM to 12:30 PM ET, with Lucky Spins every 10 minutes and 13 Lucky Spins in total. This handout has ended."] },
+  { title: "Three new codes", items: ["UPDATE_96: 5 Lucky Style Spins.", "RIKU_REWORK: 5 Lucky Style Spins.", "NEW_CHAT_BUBBLES: 5 Lucky Ability Spins.", "Together, these codes offer 10 Lucky Style Spins and 5 Lucky Ability Spins. See the codes page for redemption steps and status."] },
+];
 export const update95Sections = [
   {
     "title": "Season 20: Wild West",
@@ -378,22 +399,22 @@ export const update90Sections = [
 ];
 
 export const pageFreshness: PageFreshness = {
-  siteLastUpdated: update95.lastVerified,
-  siteLastUpdatedIso: "2026-11-08T05:12:33Z",
+  siteLastUpdated: update96.lastVerified,
+  siteLastUpdatedIso: "2026-11-15T06:49:38Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  updateTrackerLastUpdated: update95.lastVerified,
+  updateTrackerLastUpdated: update96.lastVerified,
   codesLastChecked: automatedCheckedAt(update95.lastVerified),
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
-  pityLastUpdated: update95.lastVerified,
+  pityLastUpdated: update96.lastVerified,
 };
 
 // Codes-specific editorial dates, independent of game release dates and site-wide edits.
-// contentUpdatedAt: substantive Update 95 Codes batch update, November 8 review.
+// contentUpdatedAt: substantive Codes data write, separate from announcement review.
 // Update only after a substantive Codes edit, never on builds or metadata-only changes.
 // Verification records currently have day precision; do not invent a midnight review time.
 export const codesPageFreshness = {
-  contentUpdatedAt: "2026-11-08T05:12:33Z",
+  contentUpdatedAt: automatedContentUpdatedAt("2026-11-08T05:12:33Z"),
   verifiedAt: pageFreshness.codesLastChecked,
 };
 
@@ -601,10 +622,10 @@ export const featuredStyles: StyleEntry[] = [
     rarity: "Secret",
     role: "All-Rounder",
     communityTier: "S",
-    summary: "Dual-character limited Secret style. The Twins return in Update 95 until November 14, 2026 at 11:30 AM ET.",
+    summary: "Dual-character limited Secret style. Update 96 extends the Twins’ return until November 21, 2026 at 11:30 AM ET.",
     signature: "Switch between Akuto for serving and setting, and Okuro for spiking and blocking. Akuto can use back tilt on a serve to perform a Float Serve.",
     whyPlayersSearch: "Choose Twins if you want to switch between serving/setting and spiking/blocking roles. Practice the two forms separately.",
-    availability: "Update 95 return: November 7–14, 2026, ending at 11:30 AM ET. Selected by the community poll.",
+    availability: "Update 96 extension: available until November 21, 2026 at 11:30 AM ET. The return began November 7 following the community poll.",
     sourceTier: "Community",
     bestAbilities: ["team-spirit", "lead-feet", "redirection-jump"],
     bestRoles: ["All-Rounder", "Spiker", "Setter", "Blocker"],
@@ -977,7 +998,7 @@ export const featuredStyles: StyleEntry[] = [
     summary: "Timeskip Okazu (TSO) returns in Update 94 with Anger to make Rainbow Serves easier to hit, plus a new Border Set.",
     signature: "Anger adds rainbow segments to the serve power bar. Jump Set with tilt performs a Border Set that slows before the sideline, end line or net.",
     whyPlayersSearch: "Timeskip Okazu combines setting with serve pressure for players who want both support and attacking options.",
-    availability: "Update 94 return: October 31 – November 14, 2026 at 11:30 AM ET.",
+    availability: "The announced Update 94 return ended November 14, 2026 at 11:30 AM ET. No extension was announced in Update 96.",
     sourceTier: "Community",
     bestAbilities: ["curve-spike", "zero-gravity-set", "magnetic-pull"],
     bestRoles: ["Setter", "All-Rounder"],
@@ -1193,8 +1214,9 @@ export const abilities: AbilityEntry[] = [
 ];
 
 export const availabilityEvents: AvailabilityEvent[] = [
-  { subjectType: "Style", subjectSlug: "twins", label: "Twins return", window: "November 7–14, 2026 at 11:30 AM ET", updateNumber: 95, status: "Limited window", sourceTier: "Official", note: "The Twins returned in Update 95 following the community poll." },
-  { subjectType: "Style", subjectSlug: "timeskip-okazu", label: "Timeskip Okazu return", window: "October 31 – November 14, 2026 at 11:30 AM ET", updateNumber: 94, status: "Limited window", sourceTier: "Official", note: "TSO returns in Update 94 with Anger and Border Set mechanics." },
+  { subjectType: "Style", subjectSlug: "twins", label: "Twins return extended", window: "November 7–21, 2026 at 11:30 AM ET", updateNumber: 96, status: "Limited window", sourceTier: "Official", note: "Update 96 extends the Twins’ existing return by one week." },
+  { subjectType: "Style", subjectSlug: "twins", label: "Twins return", window: "November 7–14, 2026 at 11:30 AM ET", updateNumber: 95, status: "Not currently available", sourceTier: "Official", note: "Original return window; extended by Update 96 to November 21 at 11:30 AM ET." },
+  { subjectType: "Style", subjectSlug: "timeskip-okazu", label: "Timeskip Okazu return", window: "October 31 – November 14, 2026 at 11:30 AM ET", updateNumber: 94, status: "Not currently available", sourceTier: "Official", note: "TSO’s announced return window ended November 14 at 11:30 AM ET." },
   { subjectType: "Style", subjectSlug: "kijo", label: "Kijo return", window: "October 24 – November 7, 2026 at 11:30 AM ET", updateNumber: 93, status: "Not currently available", sourceTier: "Official", note: "Kijo’s Update 93 return ended November 7, 2026 at 11:30 AM ET." },
   { subjectType: "Style", subjectSlug: "jinko", label: "Jinko return", window: "October 3–17, 2026", updateNumber: 90, status: "Not currently available", sourceTier: "Official", note: "Returned with Update 90 alongside five Mastery reward levels. The announcement does not give an exact closing time." },
   {
@@ -1203,7 +1225,7 @@ export const availabilityEvents: AvailabilityEvent[] = [
     label: "Hidari return",
     window: "Began July 25, 2026",
     updateNumber: 80,
-    status: "Limited window",
+    status: "Unknown",
     sourceTier: "Community",
     note: "Hidari returned in Update 80. This record does not establish the end date or current availability.",
   },
@@ -1292,6 +1314,13 @@ export const currentlyAvailableStyles = availabilityEvents.filter(
 );
 
 export const updates: UpdateEntry[] = [
+  {
+    slug: "update-96", title: "Volleyball Legends Update 96: Riku Rework & Chat Bubbles",
+    published: update96.releasedAt, lastChecked: update96.lastVerified, sourceTier: "Official",
+    summary: update96.summary, bodySummary: update96.summary,
+    highlights: ["Charge Riku’s REBOUND with 3–4 spikes, then activate the walls with Special.", "Riku has not returned to the style rotation.", "The Twins’ return is extended until November 21 at 11:30 AM ET.", "Three new codes offer 10 Lucky Style Spins and 5 Lucky Ability Spins."],
+    codes: ["UPDATE_96", "RIKU_REWORK", "NEW_CHAT_BUBBLES"], focusStyles: ["twins"],
+  },
   {
     slug: "update-95", title: "Volleyball Legends Update 95: Season 20 & Twins Return",
     published: update95.releasedAt, lastChecked: update95.lastVerified, sourceTier: "Official",
@@ -1544,11 +1573,11 @@ export const updates: UpdateEntry[] = [
 ];
 
 export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
-  { title: "Update 95", href: "/updates/update-95", sourceLabel: "Official", updatedAt: update95.lastVerified, reason: "Season 20, Easy Money Bundle, Twins return, and bug fixes." },
-  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 95 codes for 10 Lucky Style Spins and 5 Lucky Ability Spins." },
-  { title: "Twins", href: "/styles/twins", sourceLabel: "Official", updatedAt: update95.lastVerified, reason: "Community poll return, available until November 14 at 11:30 AM ET." },
-  { title: "Player Cards", href: "/guides/player-cards", sourceLabel: "Official", updatedAt: update95.lastVerified, reason: "Season 20 cards and the Easy Money Bundle’s Outlaw card." },
-  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update95.lastVerified, reason: "Twins and TSO windows; Kijo’s return has ended." },
+  { title: "Update 96", href: "/updates/update-96", sourceLabel: "Official", updatedAt: update96.lastVerified, reason: "Riku rework, chat bubbles, and the Twins’ extended return." },
+  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 96 codes for 10 Lucky Style Spins and 5 Lucky Ability Spins." },
+  { title: "Twins", href: "/styles/twins", sourceLabel: "Official", updatedAt: update96.lastVerified, reason: "Return extended until November 21 at 11:30 AM ET." },
+  { title: "Spin Budget", href: "/tools/spin-budget", sourceLabel: "Official", updatedAt: update96.lastVerified, reason: "Plan with the November 14–16 Secret event rates." },
+  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update96.lastVerified, reason: "Twins extension and the end of TSO’s announced return window." },
 ];
 
 export const heroImages: HeroImage[] = [
@@ -1628,7 +1657,7 @@ export const homepageFaq = [
   },
   {
     question: "Are the odds and style stats on this site official?",
-    answer: "Not all values are official. The Update 95 announcement gives a 1% Secret chance and 100-spin pity for its November 7–9 event. Outside that window, the announced baseline is 0.5% and 200 spins. Some other rarity odds and style stats are community estimates; check the values shown in-game before spending spins.",
+    answer: "Not all values are official. The Update 96 announcement gives a 1% Secret chance and 100-spin pity for its November 14–16 event. Outside that window, the announced baseline is 0.5% and 200 spins. Some other rarity odds and style stats are community estimates; check the values shown in-game before spending spins.",
   },
   {
     question: "When will a limited style or ability return?",

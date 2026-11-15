@@ -138,9 +138,9 @@ export default async function StyleDetailPage({ params }: PageProps) {
       </section>
 
       {style.slug === "twins" && <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Twins return in Update 95</h2>
-        <p className="mt-3 text-sm leading-7 text-slate-100">Selected in the community poll, the Twins are available from November 7 until November 14, 2026 at 11:30 AM ET.</p>
-        <Link href="/updates/update-95" className="mt-4 inline-block text-accent-teal underline">Read Update 95 notes</Link>
+        <h2 className="text-2xl font-heading font-bold text-white">Twins return extended in Update 96</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-100">The Twins returned on November 7 following the community poll. Update 96 extends their availability until November 21, 2026 at 11:30 AM ET.</p>
+        <Link href="/updates/update-96" className="mt-4 inline-block text-accent-teal underline">Read Update 96 notes</Link>
       </section>}
 
       {style.slug === "jinko" && <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-surface/80 p-6">
@@ -159,7 +159,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
               <strong className="text-white">Signature mechanic:</strong> {style.signature}
             </p>
             {style.slug !== "jinko" && <p className="mt-4 text-sm leading-6 text-muted">
-              <strong className="text-white">{style.slug === "jinko" ? "Return window:" : style.slug === "twins" ? "Official return (Update 95):" : `Last verified availability (Update ${currentGameState.updateNumber}):`}</strong> {style.slug === "jinko" ? "October 3–17, 2026 return window." : style.availability}
+              <strong className="text-white">{style.slug === "jinko" ? "Return window:" : style.slug === "twins" ? "Official return extension (Update 96):" : `Last verified availability (Update ${currentGameState.updateNumber}):`}</strong> {style.slug === "jinko" ? "October 3–17, 2026 return window." : style.availability}
             </p>}
             {style.slug !== "jinko" && !getStyleReview(style.slug) && currentGameState.reviewNote && <p className="mt-4 rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-sm leading-6 text-slate-200">{currentGameState.reviewNote}</p>}
           </div>
@@ -292,7 +292,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
                 {style.slug === "jinko" ? "When does the Jinko return end?" : `What is the latest recorded return for ${style.name}?`}
               </summary>
               <p className="mt-3 text-sm leading-6 text-muted">
-                {style.slug === "twins" ? "The Twins returned in Update 95. The official return window runs from November 7 to November 14, 2026 at 11:30 AM ET." : style.slug === "jinko" ? "Jinko’s Update 90 return ended on October 17, 2026." : availabilityHistory.length ? `The latest documented window was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. This historical window does not confirm current availability.` : `No dated return is documented in this snapshot. This historical window does not confirm current availability.`}
+                {style.slug === "twins" ? "The Twins returned in Update 95. Update 96 extends their return until November 21, 2026 at 11:30 AM ET." : style.slug === "jinko" ? "Jinko’s Update 90 return ended on October 17, 2026." : availabilityHistory.length ? `The latest documented window was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. This historical window does not confirm current availability.` : `No dated return is documented in this snapshot. This historical window does not confirm current availability.`}
               </p>
             </details>}
             <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
@@ -308,7 +308,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
                 Is {style.name} official data on this site?
               </summary>
               <p className="mt-3 text-sm leading-6 text-muted">
-                {style.slug === "twins" ? "The return dates come from the official Update 95 announcement. Stats and tier ratings are older community estimates, not new ratings from this update." : style.slug === "jinko" ? "The return dates and Mastery rewards come from the official Update 90 announcement. Stats and tier ratings are community estimates." : <>No. This page is openly labeled as <strong className="text-white">{style.sourceTier}</strong> data. Treat the summary, stat sheet, and ranking notes as community-maintained unless the game itself publishes the same details in an official place.</>}
+                {style.slug === "twins" ? "The extension comes from the official Update 96 announcement. Stats and tier ratings are older community estimates, not new ratings from this update." : style.slug === "jinko" ? "The return dates and Mastery rewards come from the official Update 90 announcement. Stats and tier ratings are community estimates." : <>No. This page is openly labeled as <strong className="text-white">{style.sourceTier}</strong> data. Treat the summary, stat sheet, and ranking notes as community-maintained unless the game itself publishes the same details in an official place.</>}
               </p>
             </details>
           </div>

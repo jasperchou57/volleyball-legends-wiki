@@ -193,3 +193,28 @@ test('source message absent from relay produces an explicit coverage gap', async
   assert.equal(state.sourceCoverage[channel.channelId].reason, 'latest-source-message-not-delivered');
   assert.equal(state.sourceCoverage[channel.channelId].status, 'unverified');
 });
+
+test('content timestamp advances for substantive writes, not retries or source-only edits', async () => {
+  const dir = await fixture();
+  try {
+    const file = join(dir, 'src/data/codes-automated.json');
+    const start = Date.now();
+    const a = event();
+    await writeVolleyball(dir, [a]);
+    const first = JSON.parse(await readFile(file, 'utf8'));
+    assert.ok(Date.parse(first.contentUpdatedAt) >= start);
+    assert.ok(Date.parse(first.contentUpdatedAt) <= Date.now());
+    await writeVolleyball(dir, [a]);
+    assert.equal(JSON.parse(await readFile(file, 'utf8')).contentUpdatedAt, first.contentUpdatedAt);
+    const old = '2026-10-17T13:00:00Z';
+    await writeFile(file, JSON.stringify({...first, contentUpdatedAt:old}));
+    const recheck = {...a, hash:hash('source-only'), editedTimestamp:'2026-10-17T14:00:00Z', capturedAt:'2026-10-18T00:00:00Z'};
+    await writeVolleyball(dir, [recheck]);
+    assert.equal(JSON.parse(await readFile(file, 'utf8')).contentUpdatedAt, old);
+    const correction = {...recheck, hash:hash('corrected-reward'), editedTimestamp:'2026-10-17T15:00:00Z', segments:[{id:'body',text:'New code TEST_ONLY_ALPHA: 10 Lucky Style Spins'}], observations:[{...a.observations[0],reward:'10 Lucky Style Spins',quote:'New code TEST_ONLY_ALPHA: 10 Lucky Style Spins'}]};
+    await writeVolleyball(dir,[correction]);
+    const corrected=JSON.parse(await readFile(file,'utf8'));
+    assert.equal(corrected.codes[0].reward,'10 Lucky Style Spins');
+    assert.ok(Date.parse(corrected.contentUpdatedAt)>Date.parse(old));
+  } finally { await rm(dir,{recursive:true}); }
+});

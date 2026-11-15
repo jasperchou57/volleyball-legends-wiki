@@ -78,7 +78,7 @@ export function StyleCompareTool() {
         <dl className="mt-5 space-y-5 text-sm leading-7">
           <div><dt className="font-semibold text-white">Role fit</dt><dd className="mt-1 text-slate-300">{style.bestRoles.join(" · ")}</dd></div>
           <div><dt className="font-semibold text-white">{style.olderNotes ? "Earlier playstyle notes" : "How it plays"}</dt><dd className="mt-1 text-slate-300">{style.mechanic}</dd></div>
-          <div><dt className="font-semibold text-white">{style.constraint ? "Keep in mind" : "Before choosing"}</dt><dd className="mt-1 text-slate-300">{style.constraint ?? "Not rechecked for Update 95. Compare these notes with the current in-game description before spending spins."}</dd></div>
+          <div><dt className="font-semibold text-white">{style.constraint ? "Keep in mind" : "Before choosing"}</dt><dd className="mt-1 text-slate-300">{style.constraint ?? "These earlier notes may not reflect recent changes. Check the current in-game description before choosing."}</dd></div>
         </dl>
         {style.olderNotes && <p className="mt-4 text-xs leading-6 text-muted">Playstyle information: July 2026.</p>}
         {style.href && <Link href={style.href} className="mt-5 inline-block text-sm font-semibold text-accent-teal underline underline-offset-4">{style.slug === "roketto" ? "Read the Update 95 fix" : `View ${style.name} guide`} →</Link>}

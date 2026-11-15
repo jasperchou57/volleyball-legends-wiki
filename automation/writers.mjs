@@ -12,6 +12,13 @@ export async function writeVolleyball(checkout, events) {
   for (const event of events.filter(e => e.gameId === 'volleyball-legends')) {
     const result = applyAnnouncement(data, event, baseline); data = result.data; conflicts.push(...result.conflicts);
   }
+  // Only substantive code/release changes advance the content timestamp.
+  // Source rechecks and publication retries keep the earlier timestamp.
+  const substance = value => JSON.stringify({
+    codes: value.codes.map(({ code, reward, status, addedAt }) => ({ code, reward, status, addedAt })).sort((a, b) => a.code.localeCompare(b.code)),
+    update: value.update ? { number: value.update.number, announcedAt: value.update.announcedAt } : null,
+  });
+  if (substance(data) !== substance(before)) data.contentUpdatedAt = new Date().toISOString();
   const { revision: _revision, ...content } = data;
   const changed = JSON.stringify(content) !== JSON.stringify((({ revision, ...rest }) => rest)(before));
   const revision = changed ? hash(content) : before.revision;

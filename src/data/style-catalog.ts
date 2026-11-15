@@ -19,7 +19,7 @@ export const additionalStyles: CatalogEntry[] = [
   { slug: "tsuchiro", name: "Tsuchiro", rarity: "Rare", roles: ["Setter", "Blocker"], aliases: ["Tsuzichiwa"], mechanic: "A Rare option for setting up attacks and blocking at the net.", constraint: "Coordinate with your spiker so you can prepare the next set." },
   { slug: "oyatsu", name: "Oyatsu", rarity: "Rare", roles: ["Server"], aliases: ["Ojiri"], mechanic: "Serve-focused Rare style for players practicing serve placement and timing.", constraint: "Serving is one part of a rally; keep working on your receiving and setting." },
   { slug: "imaezi", name: "Imaezi", rarity: "Rare", roles: ["Spiker"], aliases: ["Iwaezeni"], mechanic: "A Rare attacking option focused on jumps and spikes.", constraint: "Work with a setter to get into position for an attack." },
-  { slug: "riku", name: "Riku", rarity: "Secret", roles: ["Spiker"], mechanic: "Hologram Walls let spikes ricochet off the sides of the court.", constraint: "Aim for the return angle rather than only the first direction of the spike." },
+  { slug: "riku", name: "Riku", rarity: "Secret", roles: ["Spiker"], mechanic: "Charge REBOUND with 3–4 spikes, then press Special to raise hologram walls. Either team’s ball can bounce off them; the walls break after one bounce. Riku has not returned to the style rotation.", constraint: "Charge REBOUND before using Special and plan for one bounce, rather than relying on continuously active walls." },
   { slug: "shiro", name: "Shiro", rarity: "Secret", roles: ["Blocker", "Setter"], mechanic: "Switch between Slam Block and Boosted Block to return the ball down or set up a stronger follow-up touch.", constraint: "Choose the block mode to suit the next touch your team needs." },
 ];
 
