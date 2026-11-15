@@ -169,6 +169,7 @@ export interface AvailabilityEvent {
   window: string;
   updateNumber: number;
   status: AvailabilityStatus;
+  endsAt?: string;
   sourceTier: SourceTier;
   note: string;
 }
@@ -1214,9 +1215,9 @@ export const abilities: AbilityEntry[] = [
 ];
 
 export const availabilityEvents: AvailabilityEvent[] = [
-  { subjectType: "Style", subjectSlug: "twins", label: "Twins return extended", window: "November 7–21, 2026 at 11:30 AM ET", updateNumber: 96, status: "Limited window", sourceTier: "Official", note: "Update 96 extends the Twins’ existing return by one week." },
+  { subjectType: "Style", subjectSlug: "twins", label: "Twins return extended", window: "November 7–21, 2026 at 11:30 AM ET", updateNumber: 96, status: "Limited window", endsAt: "2026-11-21T11:30:00-05:00", sourceTier: "Official", note: "Update 96 extends the Twins’ existing return by one week." },
   { subjectType: "Style", subjectSlug: "twins", label: "Twins return", window: "November 7–14, 2026 at 11:30 AM ET", updateNumber: 95, status: "Not currently available", sourceTier: "Official", note: "Original return window; extended by Update 96 to November 21 at 11:30 AM ET." },
-  { subjectType: "Style", subjectSlug: "timeskip-okazu", label: "Timeskip Okazu return", window: "October 31 – November 14, 2026 at 11:30 AM ET", updateNumber: 94, status: "Not currently available", sourceTier: "Official", note: "TSO’s announced return window ended November 14 at 11:30 AM ET." },
+  { subjectType: "Style", subjectSlug: "timeskip-okazu", label: "Timeskip Okazu return", window: "October 31 – November 14, 2026 at 11:30 AM ET", updateNumber: 94, status: "Not currently available", endsAt: "2026-11-14T11:30:00-05:00", sourceTier: "Official", note: "TSO’s announced return window ended November 14 at 11:30 AM ET." },
   { subjectType: "Style", subjectSlug: "kijo", label: "Kijo return", window: "October 24 – November 7, 2026 at 11:30 AM ET", updateNumber: 93, status: "Not currently available", sourceTier: "Official", note: "Kijo’s Update 93 return ended November 7, 2026 at 11:30 AM ET." },
   { subjectType: "Style", subjectSlug: "jinko", label: "Jinko return", window: "October 3–17, 2026", updateNumber: 90, status: "Not currently available", sourceTier: "Official", note: "Returned with Update 90 alongside five Mastery reward levels. The announcement does not give an exact closing time." },
   {

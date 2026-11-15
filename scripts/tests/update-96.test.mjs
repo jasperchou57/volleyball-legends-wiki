@@ -44,3 +44,22 @@ test('Ultra advice links the latest release while slot, availability and budget 
   assert.equal(getRerollAdvice(false, 'yes', 'yes', 0, 'Ultra').href, '/codes');
   assert.equal(getRerollAdvice(false, 'yes', 'yes', 10, 'Secret').href, '/tools/spin-budget');
 });
+
+test('roll advice respects the announced pool and requires a fresh check after a return window', () => {
+  const { getStyleRollStatus } = loadSiteModule('src/lib/volleyball/style-roll-status.ts');
+  const { getRerollAdvice } = loadSiteModule('src/lib/volleyball/reroll-advice.ts');
+  const twinsEnd = Date.parse('2026-11-21T16:30:00Z');
+  const tSoEnd = Date.parse('2026-11-14T16:30:00Z');
+
+  assert.equal(getStyleRollStatus('twins', twinsEnd - 1).kind, 'return-window');
+  assert.equal(getStyleRollStatus('twins', twinsEnd).kind, 'window-ended');
+  assert.equal(getStyleRollStatus('timeskip-okazu', tSoEnd).kind, 'window-ended');
+  assert.equal(getStyleRollStatus('mamori', tSoEnd), undefined);
+
+  const riku = { name: 'Riku', rollStatus: getStyleRollStatus('riku', tSoEnd).kind };
+  assert.equal(getRerollAdvice(true, 'no', 'yes', 50, 'Secret', riku).href, '/style-return-dates');
+
+  const twins = { name: 'Twins', rollStatus: getStyleRollStatus('twins', twinsEnd).kind };
+  assert.equal(getRerollAdvice(false, 'yes', 'unsure', 50, 'Secret', twins).href, '/style-return-dates');
+  assert.equal(getRerollAdvice(false, 'yes', 'yes', 50, 'Secret', twins).href, '/tools/spin-budget');
+});

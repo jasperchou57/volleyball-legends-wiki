@@ -1,7 +1,27 @@
 import { latestGameUpdate } from "../../data/volleyball";
+import type { StyleRollStatus } from "./style-roll-status";
+
 export type SlotStatus = "unsure" | "yes" | "no";
 export type ChaseTarget = "Secret" | "Limited Secret" | "Ultra";
-export function getRerollAdvice(keep: boolean, slots: SlotStatus, available: SlotStatus, spins: number, target: ChaseTarget) {
+
+export function getRerollAdvice(
+  keep: boolean,
+  slots: SlotStatus,
+  available: SlotStatus,
+  spins: number,
+  target: ChaseTarget,
+  style?: { name: string; rollStatus?: StyleRollStatus["kind"] },
+) {
+  if (style?.rollStatus === "out-of-rotation") return {
+    headline: `Save your spins for ${style.name}`,
+    body: `Wait for ${style.name} to return to the Style pool before rolling for this style.`,
+    href: "/style-return-dates", action: "Check return dates",
+  };
+  if (style?.rollStatus === "window-ended" && available !== "yes") return {
+    headline: `Save your spins for ${style.name}`,
+    body: `Check for ${style.name} in the current in-game Style pool before rolling.`,
+    href: "/style-return-dates", action: "Check return dates",
+  };
   if (keep && slots !== "yes") return {
     headline: slots === "no" ? "Make room before rolling" : "Check your slots first",
     body: "Keep the style you want to save in its own slot. Check its lock and your selected slot in-game before rolling. If you need more room, additional Style slots can be bought with Gems.",

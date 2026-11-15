@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { comparisonStyles, comparisonPair, comparisonHref, defaultComparison, readSavedComparisons, type ComparisonPair } from "@/data/style-comparison";
 import { styleRatingLabel } from "@/data/style-reviews";
+import { rikuReboundMechanic } from "@/data/style-catalog";
+import { getStyleRollStatus, rerollStyles } from "@/lib/volleyball/style-roll-status";
+import { useCurrentTime } from "./useCurrentTime";
 
 const storageKey = "vl-style-comparisons";
 const scoreLabels = [["Offense", "offense"], ["Control", "control"], ["Defense", "defense"], ["Mobility", "mobility"], ["Difficulty", "difficulty"]] as const;
@@ -14,6 +17,7 @@ export function StyleCompareTool() {
   const [saved, setSaved] = useState<ComparisonPair[]>([]);
   const [message, setMessage] = useState("");
   const [shareFallback, setShareFallback] = useState("");
+  const now = useCurrentTime();
 
   useEffect(() => {
     function readUrl() {
@@ -71,18 +75,39 @@ export function StyleCompareTool() {
     </div>
 
     <div className="mt-5 grid gap-4 md:grid-cols-2">
-      {[left, right].map((style, index) => <section key={`${index}-${style.slug}`} aria-label={`${style.name} comparison`} className="min-w-0 rounded-2xl border border-white/10 bg-background/70 p-5">
-        <p className={`text-xs font-semibold uppercase tracking-widest ${index === 0 ? "text-accent-orange" : "text-accent-teal"}`}>Style {index === 0 ? "A" : "B"}</p>
-        <h3 className="mt-2 text-2xl font-heading font-bold text-white">{style.name}</h3>
-        <p className="mt-2 text-sm text-muted">{style.rarity} · {style.tier ? styleRatingLabel(style.slug, style.tier) : "Not rated"}</p>
-        <dl className="mt-5 space-y-5 text-sm leading-7">
-          <div><dt className="font-semibold text-white">Role fit</dt><dd className="mt-1 text-slate-300">{style.bestRoles.join(" · ")}</dd></div>
-          <div><dt className="font-semibold text-white">{style.olderNotes ? "Earlier playstyle notes" : "How it plays"}</dt><dd className="mt-1 text-slate-300">{style.mechanic}</dd></div>
-          <div><dt className="font-semibold text-white">{style.constraint ? "Keep in mind" : "Before choosing"}</dt><dd className="mt-1 text-slate-300">{style.constraint ?? "These earlier notes may not reflect recent changes. Check the current in-game description before choosing."}</dd></div>
-        </dl>
-        {style.olderNotes && <p className="mt-4 text-xs leading-6 text-muted">Playstyle information: July 2026.</p>}
-        {style.href && <Link href={style.href} className="mt-5 inline-block text-sm font-semibold text-accent-teal underline underline-offset-4">{style.slug === "roketto" ? "Read the Update 95 fix" : `View ${style.name} guide`} →</Link>}
-      </section>)}
+      {[left, right].map((style, index) => {
+        const rollStatus = getStyleRollStatus(style.slug, now);
+        const canPlan = rerollStyles.some(entry => entry.slug === style.slug);
+        const outOfRotation = rollStatus?.kind === "out-of-rotation";
+        return (
+          <section key={`${index}-${style.slug}`} aria-label={`${style.name} comparison`} className="min-w-0 rounded-2xl border border-white/10 bg-background/70 p-5">
+            <p className={`text-xs font-semibold uppercase tracking-widest ${index === 0 ? "text-accent-orange" : "text-accent-teal"}`}>Style {index === 0 ? "A" : "B"}</p>
+            <h3 className="mt-2 text-2xl font-heading font-bold text-white">{style.name}</h3>
+            <p className="mt-2 text-sm text-muted">{style.rarity} · {style.tier ? styleRatingLabel(style.slug, style.tier) : "Not rated"}</p>
+            <dl className="mt-5 space-y-5 text-sm leading-7">
+              <div className="rounded-xl border border-white/10 bg-surface/65 px-4 py-3">
+                <dt className="font-semibold text-white">Roll availability</dt>
+                <dd className="mt-1 text-slate-300">
+                  <p>{rollStatus?.text ?? "Check the in-game Style pool."}</p>
+                  {canPlan && (
+                    <Link
+                      href={outOfRotation ? "/style-return-dates" : `/tools/reroll-advisor?target=${style.slug}`}
+                      className="mt-1 inline-block font-semibold text-accent-teal underline underline-offset-4"
+                    >
+                      {outOfRotation ? "Check return dates" : `Check reroll advice for ${style.name}`}
+                    </Link>
+                  )}
+                </dd>
+              </div>
+              <div><dt className="font-semibold text-white">Role fit</dt><dd className="mt-1 text-slate-300">{style.bestRoles.join(" · ")}</dd></div>
+              <div><dt className="font-semibold text-white">{style.olderNotes ? "Earlier playstyle notes" : "How it plays"}</dt><dd className="mt-1 text-slate-300">{style.slug === "riku" ? rikuReboundMechanic : style.mechanic}</dd></div>
+              <div><dt className="font-semibold text-white">{style.constraint ? "Keep in mind" : "Before choosing"}</dt><dd className="mt-1 text-slate-300">{style.constraint ?? "These earlier notes may not reflect recent changes. Check the current in-game description before choosing."}</dd></div>
+            </dl>
+            {style.olderNotes && <p className="mt-4 text-xs leading-6 text-muted">Playstyle information: July 2026.</p>}
+            {style.href && <Link href={style.href} className="mt-5 inline-block text-sm font-semibold text-accent-teal underline underline-offset-4">{style.slug === "roketto" ? "Read the Update 95 fix" : `View ${style.name} guide`} →</Link>}
+          </section>
+        );
+      })}
     </div>
 
     <details className="mt-6 rounded-2xl border border-white/10 bg-background/60 p-5">
