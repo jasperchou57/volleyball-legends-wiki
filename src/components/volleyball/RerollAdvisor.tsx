@@ -6,6 +6,7 @@ import { getRerollAdvice, type SlotStatus, type ChaseTarget } from "@/lib/volley
 import { getStyleRollStatus, rerollStyles, type StyleRollStatus } from "@/lib/volleyball/style-roll-status";
 import { getSecretRatePeriod, usesSecretEventRates } from "@/lib/volleyball/secret-event";
 import { SecretRateSelector, useSecretRates } from "./SecretRateSelector";
+import { MAX_SPIN_BUDGET, spinBudgetHref } from "@/lib/volleyball/spin-budget-params";
 
 type SavedPlan = {
   id: string;
@@ -74,6 +75,9 @@ export function RerollAdvisor() {
     keep, slots, available, spins, target,
     style ? { name: style.name, rollStatus: rollStatus?.kind } : undefined,
   );
+  const adviceHref = advice.href === "/tools/spin-budget"
+    ? spinBudgetHref(spins, rates.mode, style?.slug)
+    : advice.href;
 
   useEffect(() => {
     const targetSlug = new URLSearchParams(window.location.search).get("target");
@@ -166,8 +170,8 @@ export function RerollAdvisor() {
         )}
         <label className="text-sm text-white">
           Your Lucky Spins
-          <input type="number" min={0} max={100000} step={1} value={spins}
-            onChange={e => setSpins(Math.min(100000, Math.max(0, Math.floor(Number(e.target.value) || 0))))}
+          <input type="number" min={0} max={MAX_SPIN_BUDGET} step={1} value={spins}
+            onChange={e => setSpins(Math.min(MAX_SPIN_BUDGET, Math.max(0, Math.floor(Number(e.target.value) || 0))))}
             className={selectClass}
           />
         </label>
@@ -189,7 +193,7 @@ export function RerollAdvisor() {
         <h3 className="text-xl font-bold text-white">{advice.headline}</h3>
         <p className="mt-3 text-sm leading-7 text-muted">{advice.body}</p>
         <div className="mt-5 flex flex-wrap items-center gap-4">
-          <Link href={advice.href} className="font-semibold text-accent-teal underline">{advice.action}</Link>
+          <Link href={adviceHref} className="font-semibold text-accent-teal underline">{advice.action}</Link>
           <button type="button" disabled={rates.now === null} onClick={savePlan}
             className="rounded-full border border-white/20 px-4 py-2 text-sm text-white disabled:opacity-50">
             Save this plan

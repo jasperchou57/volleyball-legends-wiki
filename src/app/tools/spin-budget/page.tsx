@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { SpinBudgetCalculator } from "@/components/volleyball/SpinBudgetCalculator";
 import Link from "next/link";
 import { ChevronRight, Calculator } from "lucide-react";
+import { readSpinBudgetParams, type SpinBudgetQuery } from "@/lib/volleyball/spin-budget-params";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Spin Budget Calculator",
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/tools/spin-budget" },
 };
 
-export default function SpinBudgetPage() {
+export default async function SpinBudgetPage({ searchParams }: { searchParams?: Promise<SpinBudgetQuery> }) {
+  const initialPlan = readSpinBudgetParams(await searchParams ?? {});
   return (
     <div className="container mx-auto max-w-5xl px-4 py-10">
       <div className="flex items-center gap-2 text-sm text-muted">
@@ -35,7 +37,7 @@ export default function SpinBudgetPage() {
       </section>
 
       <div className="mt-8">
-        <SpinBudgetCalculator />
+        <SpinBudgetCalculator key={JSON.stringify(initialPlan)} initialPlan={initialPlan} />
       </div>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">

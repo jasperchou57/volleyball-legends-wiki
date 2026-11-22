@@ -7,6 +7,17 @@ const site = loadSiteModule('src/data/volleyball.ts');
 const { getStyleRollStatus, rerollStyles } = loadSiteModule('src/lib/volleyball/style-roll-status.ts');
 const { newestCodeBatch, codeRewardTotals } = loadSiteModule('src/data/codes-automation.ts');
 
+test('each announced window changes its status at the exact start and end', () => {
+  for (const window of rates.SECRET_EVENT_WINDOWS) {
+    const start = Date.parse(window.startsAt);
+    const end = Date.parse(window.endsAt);
+    assert.equal(rates.getSecretWindowStatus(window, start - 1), 'upcoming');
+    assert.equal(rates.getSecretWindowStatus(window, start), 'active');
+    assert.equal(rates.getSecretWindowStatus(window, end - 1), 'active');
+    assert.equal(rates.getSecretWindowStatus(window, end), 'ended');
+  }
+});
+
 test('both Update 97 windows use the announced timezones and exclude their end instants', () => {
   const expected = [
     ['2026-11-21T16:30:00Z', '2026-11-23T16:30:00Z', 48],

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { SecretEventSchedule } from "@/components/volleyball/SecretEventSchedule";
 
 export const metadata: Metadata = {
   title: "Volleyball Legends Beginner Guide",
@@ -19,8 +20,9 @@ const steps = [
     body: "Bad serves and weak receives throw points faster than almost anything else. Before you care about a tier list, make sure you can serve with intent and keep the ball playable on defense.",
   },
   {
-    title: "3. Do not overspend spins before a Saturday event",
-    body: "Codes and weekend updates create the best reroll windows. If your current style is playable, saving spins can be stronger than chasing every midweek rumor.",
+    title: "3. Check the event dates and Style pool before rolling",
+    body: "Confirm your target is in the current Style pool and check the slot you will reroll. Follow the announced event dates when planning your Lucky Spins.",
+    spinPlanning: true,
   },
   {
     title: "4. Hit ranked only after your fundamentals stop collapsing",
@@ -53,6 +55,15 @@ export default function BeginnerGuidePage() {
           <section key={step.title} className="rounded-[2rem] border border-border bg-surface/80 p-6">
             <h2 className="text-2xl font-heading font-bold text-white">{step.title}</h2>
             <p className="mt-3 text-sm leading-7 text-muted">{step.body}</p>
+            {step.spinPlanning && <div className="mt-5 rounded-2xl border border-accent-teal/20 bg-accent-teal/5 p-4">
+              <SecretEventSchedule />
+              <p className="mt-3 text-sm leading-6 text-muted">During each window: 1% Secret Style/Ability chance and 100-spin Secret pity. Normal rates apply between windows.</p>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+                <Link href="/style-return-dates" className="text-accent-teal underline underline-offset-4">Check return dates</Link>
+                <Link href="/guides/pity-system" className="text-accent-teal underline underline-offset-4">Understand Secret pity</Link>
+                <Link href="/tools/spin-budget" className="text-accent-teal underline underline-offset-4">Estimate your spin budget</Link>
+              </div>
+            </div>}
           </section>
         ))}
       </div>

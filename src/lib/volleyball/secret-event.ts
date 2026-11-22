@@ -8,12 +8,17 @@ export const SECRET_SPIN_RATES = {
 };
 export type RateMode = "auto" | "baseline" | "event";
 
+export function getSecretWindowStatus(window: { startsAt: string; endsAt: string }, now: number) {
+  if (now < Date.parse(window.startsAt)) return "upcoming";
+  return now < Date.parse(window.endsAt) ? "active" : "ended";
+}
+
 export function getActiveSecretEvent(now: number) {
-  return SECRET_EVENT_WINDOWS.find(event => now >= Date.parse(event.startsAt) && now < Date.parse(event.endsAt));
+  return SECRET_EVENT_WINDOWS.find(event => getSecretWindowStatus(event, now) === "active");
 }
 
 export function getNextSecretEvent(now: number) {
-  return SECRET_EVENT_WINDOWS.find(event => now < Date.parse(event.startsAt));
+  return SECRET_EVENT_WINDOWS.find(event => getSecretWindowStatus(event, now) === "upcoming");
 }
 
 export function getSecretEventStatus(now: number) {

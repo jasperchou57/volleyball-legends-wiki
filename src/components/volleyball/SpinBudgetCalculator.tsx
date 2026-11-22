@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { getSecretRatePeriod, SECRET_SPIN_RATES } from "@/lib/volleyball/secret-event";
 import { SecretRateSelector, useSecretRates } from "./SecretRateSelector";
+import { MAX_SPIN_BUDGET, type SpinBudgetPlan } from "@/lib/volleyball/spin-budget-params";
+import { getStyleRollStatus } from "@/lib/volleyball/style-roll-status";
 
 type Target = "Secret" | "Evo";
 type PityEntry = { remaining: string; period: string };
 
 const evoEstimate = { rate: 0.0025, pity: 400 };
-const maxBudget = 1000;
 
 function cumulative(spins: number, rate: number, spinsToPity: number) {
   return spins >= spinsToPity ? 1 : 1 - Math.pow(1 - rate, spins);
@@ -19,13 +20,17 @@ function spinsFor(probability: number, rate: number, spinsToPity: number) {
   return Math.min(spins, spinsToPity);
 }
 
-export function SpinBudgetCalculator() {
+export function SpinBudgetCalculator({ initialPlan }: { initialPlan: SpinBudgetPlan }) {
   const [target, setTarget] = useState<Target>("Secret");
-  const [budget, setBudget] = useState(50);
+  const [budget, setBudget] = useState(initialPlan.spins);
+  const [sliderMax, setSliderMax] = useState(Math.max(1000, initialPlan.spins));
   const [pityEntry, setPityEntry] = useState<PityEntry | null>(null);
-  const rates = useSecretRates();
+  const rates = useSecretRates(initialPlan.mode);
   const { now, mode, eventActive } = rates;
   const isSecret = target === "Secret";
+  const stylePool = isSecret && initialPlan.pool === "style";
+  const plannedStyle = stylePool ? initialPlan.style : undefined;
+  const rollStatus = plannedStyle ? getStyleRollStatus(plannedStyle.slug, now) : undefined;
   const period = now === null ? null : getSecretRatePeriod(now);
   const { rate, pity } = isSecret ? SECRET_SPIN_RATES[eventActive ? "event" : "baseline"] : evoEstimate;
 
@@ -52,6 +57,10 @@ export function SpinBudgetCalculator() {
     <div className="rounded-[2rem] border border-border bg-surface/80 p-6">
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-5">
+          {stylePool && <div className="rounded-xl border border-accent-teal/25 bg-accent-teal/5 px-4 py-3 text-sm text-slate-200">
+            <p>{plannedStyle ? <>Your target: <strong className="text-white">{plannedStyle.name}</strong> · Style pool</> : "Style pool"}</p>
+            {rollStatus && <p className="mt-2 leading-6 text-muted">{rollStatus.text}</p>}
+          </div>}
           <fieldset>
             <legend className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Target rarity</legend>
             <div className="mt-2 flex gap-2">
@@ -81,17 +90,21 @@ export function SpinBudgetCalculator() {
               id="spin-stack"
               type="number"
               min={0}
-              max={maxBudget}
+              max={MAX_SPIN_BUDGET}
               step={1}
               value={budget}
-              onChange={e => setBudget(Math.min(maxBudget, Math.max(0, Math.floor(e.target.valueAsNumber || 0))))}
+              onChange={e => {
+                const next = Math.min(MAX_SPIN_BUDGET, Math.max(0, Math.floor(e.target.valueAsNumber || 0)));
+                setBudget(next);
+                setSliderMax(Math.max(1000, next));
+              }}
               className="mt-2 w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-lg font-semibold text-white outline-none focus:border-accent-teal/50"
             />
             <input
               aria-label="Lucky Spin budget"
               type="range"
               min={0}
-              max={maxBudget}
+              max={sliderMax}
               value={budget}
               onChange={e => setBudget(e.target.valueAsNumber)}
               className="mt-3 w-full"
@@ -119,7 +132,7 @@ export function SpinBudgetCalculator() {
                 className="mt-2 w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-lg font-semibold text-white outline-none focus:border-accent-teal/50 aria-[invalid=true]:border-accent-orange"
               />
               <p id="secret-pity-help" className="mt-2 text-xs leading-5 text-muted">
-                Use your in-game counter. If it shows {pity - 30} of {pity}, enter 30. Leave blank to start from zero.
+                If your in-game counter shows {pity - 30}/{pity}, enter 30. Blank estimates from zero pity.
               </p>
               {invalidPity && (
                 <p id="secret-pity-error" className="mt-2 text-sm text-accent-orange">Enter a whole number from 1 to {pity}.</p>
@@ -139,15 +152,25 @@ export function SpinBudgetCalculator() {
             <>
               <div className={`rounded-2xl border p-5 ${chanceColor}`}>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em]">
-                  {isSecret ? "Secret chance estimate" : "Historical Evo estimate"}
+                  {isSecret ? stylePool ? "Any Secret Style chance" : "Any Secret chance" : "Historical Evo estimate"}
                 </p>
+                {isSecret && <p className="mt-2 text-sm font-semibold">
+                  {mode === "auto" ? "Automatic · Announced rates" : mode === "baseline" ? "Normal-rate comparison" : "Event-rate comparison"}
+                </p>}
                 <p className="mt-2 text-4xl font-heading font-black text-white">{(chance * 100).toFixed(1)}%</p>
                 <p className="mt-2 text-sm leading-6">
-                  At least one {target} from your pool in {budget} {budget === 1 ? "spin" : "spins"}.
+                  At least one {stylePool ? "Secret Style" : target} from your pool in {budget} {budget === 1 ? "spin" : "spins"}.
                 </p>
-                {isSecret && <p className="mt-2 text-sm leading-6">Secret pity guarantees the rarity, not a specific style or ability.</p>}
+                {isSecret && <p className="mt-2 text-sm leading-6">
+                  {plannedStyle
+                    ? `Secret pity does not guarantee ${plannedStyle.name}.`
+                    : "Secret pity guarantees the rarity, not a specific style or ability."}
+                </p>}
                 <p className="mt-2 text-sm leading-6 text-slate-200">
-                  {remaining === null ? "Starting from zero pity" : "Using your pity counter"} · {pityBudget}
+                  {!isSecret ? "Estimated from zero pity"
+                    : mode !== "auto" ? "Compared from zero pity"
+                      : remaining === null ? "No pity entered; estimated from zero"
+                        : "Using your entered pity counter"} · {pityBudget}
                 </p>
                 {counterNeedsCheck && (
                   <p className="mt-2 text-sm leading-6 text-accent-gold">The event window changed. Recheck your in-game counter.</p>

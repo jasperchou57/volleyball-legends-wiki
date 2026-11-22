@@ -9,8 +9,8 @@ const eventTimeFormat = new Intl.DateTimeFormat("en-US", {
 });
 const formatEventTime = (value: string) => `${eventTimeFormat.format(new Date(value))} ET`;
 
-export function useSecretRates() {
-  const [mode, setMode] = useState<RateMode>("auto");
+export function useSecretRates(initialMode: RateMode = "auto") {
+  const [mode, setMode] = useState<RateMode>(initialMode);
   const now = useCurrentTime();
   return { mode, setMode, now, eventActive: now !== null && usesSecretEventRates(mode, now) };
 }
@@ -29,12 +29,13 @@ export function SecretRateSelector({ mode, setMode, now }: {
   return <div className="rounded-2xl border border-white/10 bg-background/65 p-4 text-sm">
     <label htmlFor={id} className="font-semibold text-white">Secret spin rates</label>
     <select id={id} value={mode} onChange={e => setMode(e.target.value as RateMode)} className="mt-2 w-full rounded-xl border border-white/15 bg-background px-3 py-3 text-white">
-      <option value="auto">Automatic — follow event dates</option>
-      <option value="baseline">Compare normal rates</option>
-      <option value="event">Compare Update 97 event rates</option>
+      <option value="auto">Automatic — event dates</option>
+      <option value="baseline">Normal-rate comparison</option>
+      <option value="event">Event-rate comparison</option>
     </select>
-    <p className="mt-3 font-semibold text-accent-teal">{now === null ? "Checking event schedule…" : `${boosted ? "Event" : "Normal"} rates: ${rate * 100}% per spin · Pity at ${pity} spins`}</p>
+    <p className="mt-3 font-semibold text-accent-teal">{now === null ? "Checking event schedule…" : `${mode === "auto" ? "Announced rates" : "Comparison"}: ${rate * 100}% per spin · Pity at ${pity} spins`}</p>
     <p className="mt-2 leading-6 text-muted">
+      <span className="font-semibold">Announced schedule: </span>
       {active ? `${active.label} · Scheduled to end ${formatEventTime(active.endsAt)}.`
         : next ? `${status === "between" ? "Normal rates between events. " : ""}Next: ${next.label}, ${formatEventTime(next.startsAt)}.`
           : status === "ended" ? "Both announced Update 97 event windows have ended."
@@ -48,6 +49,6 @@ export function SecretRateSelector({ mode, setMode, now }: {
         {event.id === "update-97-thanksgiving" && " (24 hours)"}
       </li>)}
     </ul>
-    <p className="mt-2 text-xs leading-5 text-muted">{mode === "auto" ? "Rates follow the announced schedule. Check in-game for any changes." : "For comparison only. Choose Automatic to use rates for the announced event dates."}</p>
+    <p className="mt-2 text-xs leading-5 text-muted">{mode === "auto" ? "Check rates in-game before rolling." : "Comparison only. Automatic follows the schedule."}</p>
   </div>;
 }
