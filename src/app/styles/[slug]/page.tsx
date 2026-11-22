@@ -128,7 +128,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
             </p>
           </div>
           {style.slug === "jinko" ? <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100"><p className="font-semibold text-accent-teal">October 3–17, 2026</p><p className="mt-2">Jinko’s announced Update 90 return window was October 3–17, 2026.</p></div> : <div className="rounded-3xl border border-accent-teal/20 bg-accent-teal/10 px-4 py-3 text-sm text-slate-100">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">Information source</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">{style.slug === "yogan" ? "Stats & playstyle" : "Information source"}</p>
             <p className="mt-1 font-semibold">{style.sourceTier}</p>
             <p className="mt-3 text-xs text-slate-300">Earlier scores: {pageFreshness.tierListLastUpdated}</p>
           </div>}
@@ -139,8 +139,9 @@ export default async function StyleDetailPage({ params }: PageProps) {
         {getStyleReview(style.slug) && <p className="mt-4 text-sm leading-7 text-muted">Site rating reviewed November 8, 2026. See strengths and limitations below.</p>}
       </section>
 
-      {style.slug === "twins" && <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Twins return status</h2>
+      {(style.slug === "twins" || style.slug === "yogan") && <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
+        {style.slug === "yogan" && <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent-teal">Official · Update 97</p>}
+        <h2 className="text-2xl font-heading font-bold text-white">{style.name} return status</h2>
         <p className="mt-3 text-sm leading-7 text-slate-100">
           {latestReturn?.sourceTier === "Official" && latestReturn.endsAt ? (
             <StyleReturnStatus
@@ -150,7 +151,11 @@ export default async function StyleDetailPage({ params }: PageProps) {
             />
           ) : style.availability}
         </p>
-        <Link href="/updates/update-96" className="mt-4 inline-block text-accent-teal underline">Read Update 96 notes</Link>
+        <Link href={style.slug === "yogan" ? "/updates/update-97" : "/updates/update-96"} className="mt-4 inline-block text-accent-teal underline">Read Update {style.slug === "yogan" ? "97" : "96"} notes</Link>
+        {style.slug === "yogan" && <div className="mt-4 flex flex-wrap gap-5 text-sm font-semibold">
+          <Link href="/tools/reroll-advisor?target=yogan" className="text-accent-teal underline underline-offset-4">Plan spins for Yogan</Link>
+          <Link href="/tools/style-compare?a=yogan" className="text-accent-teal underline underline-offset-4">Compare Yogan</Link>
+        </div>}
       </section>}
 
       {style.slug === "jinko" && <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-surface/80 p-6">
@@ -168,7 +173,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
             <p className="mt-4 rounded-3xl border border-white/10 bg-background/65 p-4 text-sm leading-6 text-slate-200">
               <strong className="text-white">Signature mechanic:</strong> {style.signature}
             </p>
-            {style.slug !== "jinko" && style.slug !== "twins" && <p className="mt-4 text-sm leading-6 text-muted">
+            {style.slug !== "jinko" && style.slug !== "twins" && style.slug !== "yogan" && <p className="mt-4 text-sm leading-6 text-muted">
               <strong className="text-white">Last verified availability (Update {currentGameState.updateNumber}):</strong> {style.availability}
             </p>}
             {style.slug !== "jinko" && !getStyleReview(style.slug) && currentGameState.reviewNote && <p className="mt-4 rounded-3xl border border-accent-gold/20 bg-accent-gold/10 p-4 text-sm leading-6 text-slate-200">{currentGameState.reviewNote}</p>}
@@ -302,7 +307,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
                 {style.slug === "jinko" ? "When does the Jinko return end?" : `What is the latest recorded return for ${style.name}?`}
               </summary>
               <p className="mt-3 text-sm leading-6 text-muted">
-                {style.slug === "twins" ? "The Twins returned on November 7 after the community poll. Update 96 extended the announced window by one week." : style.slug === "jinko" ? "Jinko’s Update 90 return ended on October 17, 2026." : availabilityHistory.length ? `The latest documented window was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. This historical window does not confirm current availability.` : `No dated return is documented in this snapshot. This historical window does not confirm current availability.`}
+                {style.slug === "yogan" ? "Update 97 announces a two-week return ending December 5, 2026 at 11:30 AM ET. Check the return status above and confirm the Style pool in-game before rolling." : style.slug === "twins" ? "The Twins returned on November 7 after the community poll. Update 96 extended the announced window by one week." : style.slug === "jinko" ? "Jinko’s Update 90 return ended on October 17, 2026." : availabilityHistory.length ? `The latest documented window was ${availabilityHistory[0]?.window} in Update ${availabilityHistory[0]?.updateNumber}. This historical window does not confirm current availability.` : `No dated return is documented in this snapshot. This historical window does not confirm current availability.`}
               </p>
             </details>}
             <details className="rounded-2xl border border-white/10 bg-background/65 p-4">
@@ -318,7 +323,7 @@ export default async function StyleDetailPage({ params }: PageProps) {
                 Is {style.name} official data on this site?
               </summary>
               <p className="mt-3 text-sm leading-6 text-muted">
-                {style.slug === "twins" ? "The extension comes from the official Update 96 announcement. Stats and tier ratings are older community estimates, not new ratings from this update." : style.slug === "jinko" ? "The return dates and Mastery rewards come from the official Update 90 announcement. Stats and tier ratings are community estimates." : <>No. This page is openly labeled as <strong className="text-white">{style.sourceTier}</strong> data. Treat the summary, stat sheet, and ranking notes as community-maintained unless the game itself publishes the same details in an official place.</>}
+                {style.slug === "yogan" ? "The return deadline comes from the official Update 97 announcement. Playstyle notes, stats, and the tier rating remain older community information." : style.slug === "twins" ? "The extension comes from the official Update 96 announcement. Stats and tier ratings are older community estimates, not new ratings from this update." : style.slug === "jinko" ? "The return dates and Mastery rewards come from the official Update 90 announcement. Stats and tier ratings are community estimates." : <>No. This page is openly labeled as <strong className="text-white">{style.sourceTier}</strong> data. Treat the summary, stat sheet, and ranking notes as community-maintained unless the game itself publishes the same details in an official place.</>}
               </p>
             </details>
           </div>

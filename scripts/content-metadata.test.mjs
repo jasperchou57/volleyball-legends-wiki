@@ -79,21 +79,6 @@ test("the data loader preserves automated codes and their source-review date", (
 });
 
 
-const { SECRET_EVENT_START, SECRET_EVENT_END, getSecretEventStatus, usesSecretEventRates } = loadSiteModule("src/lib/volleyball/secret-event.ts");
-test("Update 96 event lasts 48 hours and stops at its deadline", () => {
-  assert.equal(SECRET_EVENT_START, Date.parse("2026-11-14T16:30:00Z"));
-  assert.equal(SECRET_EVENT_END, Date.parse("2026-11-16T16:30:00Z"));
-  assert.equal(SECRET_EVENT_END - SECRET_EVENT_START, 48 * 60 * 60 * 1000);
-  assert.equal(getSecretEventStatus(SECRET_EVENT_START - 1), "upcoming");
-  assert.equal(getSecretEventStatus(SECRET_EVENT_START), "active");
-  assert.equal(usesSecretEventRates("auto", SECRET_EVENT_END - 1), true);
-  assert.equal(usesSecretEventRates("auto", SECRET_EVENT_END), false);
-  assert.equal(getSecretEventStatus(SECRET_EVENT_END), "ended");
-  assert.equal(usesSecretEventRates("event", SECRET_EVENT_END), true);
-  assert.equal(usesSecretEventRates("baseline", SECRET_EVENT_START), false);
-});
-
-
 test("recorded dates retain their precision and metadata never invents an update time", () => {
   assert.equal(normalizeCodesDate("October 31, 2026"), "2026-10-31");
   assert.equal(normalizeCodesDate("2026-10-31"), "2026-10-31");

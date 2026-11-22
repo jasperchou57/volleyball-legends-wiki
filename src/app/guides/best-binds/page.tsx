@@ -46,7 +46,7 @@ export default function BestBindsPage() {
       <section className="mt-8 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">Special input for Riku</h2>
         <p className="mt-3 text-sm leading-7 text-slate-100">
-          With Riku equipped, use <strong>Special</strong> after 3–4 spikes charge REBOUND. Check its input in-game.
+          With Riku equipped, use <strong>Special</strong> once REBOUND is charged. Update 97 reduces the charge requirement by one spike. Check the Special input in-game.
         </p>
         <Link href="/guides/controls#riku-special" className="mt-4 inline-block text-accent-teal underline">See how to use Riku’s Special</Link>
       </section>

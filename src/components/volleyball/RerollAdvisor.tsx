@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getRerollAdvice, type SlotStatus, type ChaseTarget } from "@/lib/volleyball/reroll-advice";
 import { getStyleRollStatus, rerollStyles, type StyleRollStatus } from "@/lib/volleyball/style-roll-status";
-import { usesSecretEventRates } from "@/lib/volleyball/secret-event";
+import { getSecretRatePeriod, usesSecretEventRates } from "@/lib/volleyball/secret-event";
 import { SecretRateSelector, useSecretRates } from "./SecretRateSelector";
 
 type SavedPlan = {
@@ -16,6 +16,7 @@ type SavedPlan = {
   target: ChaseTarget;
   event: boolean;
   styleSlug?: string;
+  ratePeriod?: string;
 };
 
 type PoolCheck = { answer: SlotStatus; status?: StyleRollStatus["kind"] };
@@ -47,6 +48,7 @@ function validPlan(value: unknown): value is SavedPlan {
     Number.isInteger(plan.spins) && plan.spins >= 0 &&
     rarities.includes(plan.target) &&
     typeof plan.event === "boolean" &&
+    (plan.ratePeriod === undefined || typeof plan.ratePeriod === "string") &&
     (plan.styleSlug === undefined || rerollStyles.some(style => style.slug === plan.styleSlug));
 }
 
@@ -95,6 +97,7 @@ export function RerollAdvisor() {
       keep, slots, available, spins, target,
       event: !outOfRotation && target !== "Ultra" && rates.eventActive,
       styleSlug: style?.slug,
+      ratePeriod: rates.now === null ? undefined : getSecretRatePeriod(rates.now),
     };
     const next = [plan, ...saved].slice(0, 4);
     setSaved(next);
@@ -174,7 +177,7 @@ export function RerollAdvisor() {
         <div className="mt-6">
           {target === "Ultra" ? (
             <p className="rounded-2xl border border-white/10 bg-background/65 p-4 text-sm leading-6 text-slate-200">
-              Check your Ultra odds in-game. Update 96’s luck boost applies to Secret rolls.
+              Check your Ultra odds in-game. Update 97’s luck boost applies to Secret rolls.
             </p>
           ) : (
             <SecretRateSelector {...rates} />
@@ -206,6 +209,9 @@ export function RerollAdvisor() {
             const showRateLabel = !styleName || plan.available !== "no";
             const ratesDiffer = showRateLabel && plan.target !== "Ultra" &&
               announcedEventRates !== null && plan.event !== announcedEventRates;
+            const savedPeriod = plan.ratePeriod ?? (savedDate ? getSecretRatePeriod(savedDate.getTime()) : undefined);
+            const periodChanged = showRateLabel && plan.target !== "Ultra" && savedPeriod !== undefined &&
+              rates.now !== null && savedPeriod !== getSecretRatePeriod(rates.now);
             const rateLabel = plan.target === "Ultra" ? "Check Ultra odds in-game" : plan.event ? "Plan uses event rates" : "Plan uses normal rates";
             return (
               <div key={plan.id} className="rounded-2xl border border-border bg-background/60 p-4 text-sm leading-6 text-muted">
@@ -228,6 +234,9 @@ export function RerollAdvisor() {
                 )}
                 {ratesDiffer && (
                   <p className="mt-2 text-accent-gold">Plan rates differ from the announced schedule. Check in-game.</p>
+                )}
+                {!ratesDiffer && periodChanged && (
+                  <p className="mt-2 text-accent-gold">This plan was saved in an earlier event period. Recheck rates and pity in-game.</p>
                 )}
               </div>
             );

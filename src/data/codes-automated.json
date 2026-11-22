@@ -150,6 +150,36 @@
       "eventTime": "2026-11-14T16:30:20.001Z",
       "sourceId": "1328110081136398427/1328110082226913470/1571200622924013588",
       "evidenceHash": "3d25de0feaa1d2b737074414a08eea22884975f7258e981f4ec39014ec79bbae"
+    },
+    {
+      "code": "UPDATE_97",
+      "reward": "5 Lucky Style Spins",
+      "status": "active",
+      "addedAt": "2026-11-21",
+      "sourceCheckedAt": "2026-11-22",
+      "eventTime": "2026-11-21T16:31:10.877Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1573737551372747054",
+      "evidenceHash": "06dc1346174f38c290e8ed5324014b83aa13683d79971930e40758ff71b0644b"
+    },
+    {
+      "code": "YOGAN_RETURNS",
+      "reward": "5 Lucky Style Spins",
+      "status": "active",
+      "addedAt": "2026-11-21",
+      "sourceCheckedAt": "2026-11-22",
+      "eventTime": "2026-11-21T16:31:10.877Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1573737551372747054",
+      "evidenceHash": "06dc1346174f38c290e8ed5324014b83aa13683d79971930e40758ff71b0644b"
+    },
+    {
+      "code": "TURKEY_STAMPEDE",
+      "reward": "5 Lucky Ability Spins",
+      "status": "active",
+      "addedAt": "2026-11-21",
+      "sourceCheckedAt": "2026-11-22",
+      "eventTime": "2026-11-21T16:31:10.877Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1573737551372747054",
+      "evidenceHash": "06dc1346174f38c290e8ed5324014b83aa13683d79971930e40758ff71b0644b"
     }
   ],
   "announcements": [
@@ -382,15 +412,61 @@
         "quote": "UPDATE 96 NOW LIVE!"
       },
       "hash": "3d25de0feaa1d2b737074414a08eea22884975f7258e981f4ec39014ec79bbae"
+    },
+    {
+      "gameId": "volleyball-legends",
+      "guildId": "1328110081136398427",
+      "channelId": "1328110082226913470",
+      "messageId": "1573737551372747054",
+      "receivedChannelId": "1328110082226913470",
+      "receivedMessageId": "1573737551372747054",
+      "timestamp": "2026-11-21T16:31:10.877Z",
+      "editedTimestamp": null,
+      "capturedAt": "2026-11-22T02:13:26.287Z",
+      "segments": [
+        {
+          "id": "browser-text",
+          "text": "UPDATE 97 IS NOW!\nYOGAN RETURNS\nTHANKSGIVING BUNDLE\nRiku Buff\n2x Lucky Event\nLucky Spin Handout\nCodes\n\nYOGAN RETURNS\nYou guys voted for it... Yogan is back for 2 weeks!\nHe leaves again on 2026年12月6日星期日 00:30. Get him while you can!\n\nTHANKSGIVING BUNDLE\nBrand new limited time bundle!\nTurkey Stampede score effect (turkeys run the other team over!!)\nThanksgiving Dinner collaborative emote (up to 5 players)\nRoast Turkey player card\n\nRIKU BUFF - REBOUND now needs 1 less spike to charge\n\n2x Lucky Weekend AND 2x Lucky Thanksgiving!\nANOTHER 2X Luck event incoming so y'all can get the styles & abilities you want, this time we're doing an extra day for Thanksgiving!\nFROM 2026年11月22日星期日 00:30 to 2026年11月24日星期二 00:30\nAND ON THANKSGIVING: FROM 2026年11月26日星期四 13:00 to 2026年11月27日星期五 13:00\nSECRET PITY IS HALVED: 200 -> 100\nSECRET STYLE/ABILITY CHANCES ARE DOUBLED: 0.5% -> 1%\n\nLUCKY STYLE/ABILITY SPIN HANDOUT\nLUCKY STYLE/ABILITY SPINS ARE BEING HANDED OUT from 2026年11月21日星期六 23:30 to 01:30\nEvery 10 mins!!!\n13 lucky spins total...\n\nNEW CODES\nUPDATE_97 = 5 Lucky Style Spins\nYOGAN_RETURNS = 5 Lucky Style Spins\nTURKEY_STAMPEDE = 5 Lucky Ability Spins"
+        }
+      ],
+      "observations": [
+        {
+          "code": "UPDATE_97",
+          "reward": "5 Lucky Style Spins",
+          "status": "active",
+          "segment": "browser-text",
+          "quote": "UPDATE_97 = 5 Lucky Style Spins"
+        },
+        {
+          "code": "YOGAN_RETURNS",
+          "reward": "5 Lucky Style Spins",
+          "status": "active",
+          "segment": "browser-text",
+          "quote": "YOGAN_RETURNS = 5 Lucky Style Spins"
+        },
+        {
+          "code": "TURKEY_STAMPEDE",
+          "reward": "5 Lucky Ability Spins",
+          "status": "active",
+          "segment": "browser-text",
+          "quote": "TURKEY_STAMPEDE = 5 Lucky Ability Spins"
+        }
+      ],
+      "update": {
+        "number": 97,
+        "segment": "browser-text",
+        "quote": "UPDATE 97 IS NOW!"
+      },
+      "hash": "06dc1346174f38c290e8ed5324014b83aa13683d79971930e40758ff71b0644b"
     }
   ],
   "update": {
-    "number": 96,
+    "number": 97,
     "segment": "browser-text",
-    "quote": "UPDATE 96 NOW LIVE!",
-    "announcedAt": "2026-11-14",
-    "checkedAt": "2026-11-15"
+    "quote": "UPDATE 97 IS NOW!",
+    "announcedAt": "2026-11-21",
+    "checkedAt": "2026-11-22"
   },
-  "contentUpdatedAt": "2026-11-15T06:49:38Z",
-  "revision": "04468a7fc1b524b6175e2e82c901716c5c50d0f555996acda0ca5408dc53aeae"
+  "contentUpdatedAt": "2026-11-22T02:13:26.307Z",
+  "revision": "a88a78464351e50e97cfc912ee9221c7561ea2715adc511e683eaadea66703e9"
 }

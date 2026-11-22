@@ -17,9 +17,9 @@ const riku = additionalStyles.find(style => style.slug === "riku")!;
 
 export const styleReviews: Record<string, StyleReview> = {
   riku: {
-    status: "Reviewed", reviewedAt: "2026-11-15",
+    status: "Reviewed", reviewedAt: "2026-11-22",
     reason: riku.mechanic, limitation: riku.constraint,
-    basis: "Official Update 96 announcement. Mechanics only; no post-rework tier or numeric stats assigned.",
+    basis: "Official Updates 96–97: REBOUND rework and one fewer spike to charge. Mechanics only; no new tier or numeric stats assigned.",
     href: "/styles/riku",
   },
   "timeskip-okazu": {

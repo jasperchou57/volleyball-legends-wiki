@@ -39,22 +39,26 @@ export default function PitySystemGuidePage() {
 
       <section className="mt-6 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
         <div className="inline-flex items-center gap-2 rounded-full border border-accent-orange/20 bg-accent-orange/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-orange">
-          Secret pity · Update 96
+          Secret pity · Update 97
         </div>
         <h1 className="mt-4 text-4xl font-heading font-black text-white md:text-5xl">
           Volleyball Legends Pity System
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          The pity system controls how many spins you can go without pulling a high-rarity reward before the game forces one. Secret pity is 200 Lucky Spins at baseline. The Update 96 event lowers it to 100 and raises the Secret chance from 0.5% to 1%.
+          Secret pity is 200 Lucky Spins at baseline. Each announced Update 97 event lowers it to 100 and raises the Secret Style/Ability chance from 0.5% to 1%.
         </p>
 
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">Secret pity: baseline vs. Update 96</h2>
+        <h2 className="text-2xl font-heading font-bold text-white">Secret pity: baseline vs. Update 97</h2>
         <p className="mt-2 text-sm leading-6 text-muted">
-          The Update 96 event runs November 14 at 11:30 AM ET through November 16, 2026 at 11:30 AM ET. During this window, Secret pity is 100 instead of 200 and the Secret Style/Ability chance is 1% instead of 0.5%.
+          Two separate 2× Lucky events are announced. Normal rates apply between them. During each window, Secret pity is 100 and the Secret Style/Ability chance is 1%.
         </p>
+        <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-200">
+          <li>Weekend: November 21, 2026 at 11:30 AM ET to November 23 at 11:30 AM ET.</li>
+          <li>Thanksgiving: November 26, 2026 at 12:00 AM ET – November 27 at 12:00 AM ET (24 hours).</li>
+        </ul>
         <div className="mt-5 overflow-x-auto rounded-3xl border border-white/10">
           <table className="min-w-full divide-y divide-white/10 text-left text-sm">
             <thead className="bg-background/70">
@@ -129,7 +133,7 @@ export default function PitySystemGuidePage() {
           </table>
         </div>
         <p className="mt-3 text-xs leading-6 text-muted">
-          Secret pity guarantees the rarity, not a specific character. Your chance of getting a particular character depends on the available pool and its individual drop rate.
+          Secret pity guarantees the rarity, not a specific style or ability.
         </p>
       </section>
 
@@ -141,7 +145,7 @@ export default function PitySystemGuidePage() {
           Enter your budget in the <Link href="/tools/spin-budget" className="text-accent-teal underline">Spin Budget Calculator</Link> to estimate your Secret chance, or use the <Link href="/tools/reroll-advisor" className="text-accent-teal underline">Reroll Advisor</Link> to compare saving and rerolling.
         </p>
         <p className="mt-3 text-sm leading-6 text-muted">
-          Find free spins on the <Link href="/codes" className="text-accent-teal underline">active codes page</Link>. Check the <Link href="/updates/update-96" className="text-accent-teal underline">Update 96 event details</Link> for the November 14–16 Secret boost.
+          Find free spins on the <Link href="/codes" className="text-accent-teal underline">active codes page</Link>. Check the <Link href="/updates/update-97" className="text-accent-teal underline">Update 97 event details</Link> for the weekend and Thanksgiving windows.
         </p>
       </section>
     </div>

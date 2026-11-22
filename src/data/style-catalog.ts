@@ -4,7 +4,8 @@ export type CatalogEntry = {
   slug: string; name: string; rarity: string; roles: string[];
   mechanic: string; constraint: string; aliases?: string[];
 };
-export const rikuReboundMechanic = "Charge REBOUND with 3–4 spikes, then press Special to raise the hologram walls. Either team’s ball can bounce off them. The walls break after one bounce.";
+import { rikuChargeChange, rikuRotationNotice } from "./update-97";
+export const rikuReboundMechanic = `Spike to charge REBOUND, then press Special to raise the hologram walls. ${rikuChargeChange} Either team’s ball can bounce off them. The walls break after one bounce.`;
 
 export const additionalStyles: CatalogEntry[] = [
   { slug: "hakka", name: "Hakka", rarity: "Ultra", roles: ["Setter"], mechanic: "Use a clone to make a follow-up touch after setting.", constraint: "Plan where the clone will meet the ball after your set." },
@@ -23,7 +24,7 @@ export const additionalStyles: CatalogEntry[] = [
   { slug: "imaezi", name: "Imaezi", rarity: "Rare", roles: ["Spiker"], aliases: ["Iwaezeni"], mechanic: "A Rare attacking option focused on jumps and spikes.", constraint: "Work with a setter to get into position for an attack." },
   {
     slug: "riku", name: "Riku", rarity: "Secret", roles: ["Spiker"],
-    mechanic: `${rikuReboundMechanic} Riku is unavailable to roll in Update 96.`,
+    mechanic: `${rikuReboundMechanic} ${rikuRotationNotice}`,
     constraint: "Be ready for the next touch after the rebound.",
   },
   { slug: "shiro", name: "Shiro", rarity: "Secret", roles: ["Blocker", "Setter"], mechanic: "Switch between Slam Block and Boosted Block to return the ball down or set up a stronger follow-up touch.", constraint: "Choose the block mode to suit the next touch your team needs." },

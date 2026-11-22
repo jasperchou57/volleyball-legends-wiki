@@ -118,7 +118,9 @@ export default function StyleReturnDatesPage() {
       </section>
 
       <section className="mt-8 rounded-[2rem] border border-border bg-surface/80 p-6">
-        <h2 className="text-2xl font-heading font-bold text-white">When does the Twins’ return end?</h2>
+        <h2 className="text-2xl font-heading font-bold text-white">When does Yogan’s return end?</h2>
+        <p className="mt-3 text-sm leading-7 text-muted">Update 97 announces Yogan’s return until December 5, 2026 at 11:30 AM ET. Check the current Style pool before rolling.</p>
+        <h2 className="mt-6 text-2xl font-heading font-bold text-white">When does the Twins’ return end?</h2>
         <p className="mt-3 text-sm leading-7 text-muted">Update 96 set the announced deadline for the Twins’ return at November 21, 2026 at 11:30 AM ET.</p>
         <h2 className="mt-6 text-2xl font-heading font-bold text-white">When does Timeskip Okazu’s return end?</h2>
         <p className="mt-3 text-sm leading-7 text-muted">TSO’s announced Update 94 return ended November 14, 2026 at 11:30 AM ET.</p>

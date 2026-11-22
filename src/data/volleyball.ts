@@ -1,4 +1,6 @@
 import { mergeAutomatedCodes, automatedCheckedAt, automatedContentUpdatedAt } from "./codes-automation";
+import { update97 } from "./update-97";
+export { update97 } from "./update-97";
 export type SourceTier = "Official" | "Community" | "Site";
 export type VerificationStatus = "Official" | "Community verified" | "Monitoring" | "Review required";
 export type CodeStatus = "Officially announced" | "Community verified" | "Needs verification";
@@ -260,7 +262,19 @@ export const update96 = {
   lastVerified: "November 15, 2026",
   summary: "Riku’s REBOUND now needs charging and activates with Special. Update 96 also adds chat bubbles, extends the Twins’ return, and brings a 2× Lucky event and three new codes.",
 };
-export const latestGameUpdate = update96;
+export const latestGameUpdate = update97;
+export const update97Sections = [
+  { title: "Yogan returns", items: ["Yogan returns for two weeks following the community vote. His announced return ends December 5, 2026 at 11:30 AM ET."] },
+  { title: "Riku REBOUND buff", items: ["REBOUND now needs one fewer spike to charge. Use Special once charged to raise the hologram walls.", "Update 97 does not announce a Riku return."] },
+  { title: "Thanksgiving Bundle", items: ["Includes the Turkey Stampede score effect, Thanksgiving Dinner collaborative emote for up to five players, and Roast Turkey player card."] },
+  { title: "Two separate 2× Lucky events", items: [
+    "Weekend: November 21, 2026 at 11:30 AM ET to November 23 at 11:30 AM ET.",
+    "Thanksgiving: November 26, 2026 at 12:00 AM ET – November 27 at 12:00 AM ET (24 hours).",
+    "During each event, Secret Style and Ability chances rise from 0.5% to 1%, and Secret pity drops from 200 to 100 spins. Normal rates apply between the two windows."
+  ] },
+  { title: "Update-day spin handout — ended", items: ["The November 21 handout ran from 10:30 AM to 12:30 PM ET, with Lucky Spins every 10 minutes and 13 Lucky Spins in total. This handout has ended."] },
+  { title: "Three new codes", items: ["UPDATE_97: 5 Lucky Style Spins.", "YOGAN_RETURNS: 5 Lucky Style Spins.", "TURKEY_STAMPEDE: 5 Lucky Ability Spins.", "Total: 10 Lucky Style Spins and 5 Lucky Ability Spins."] },
+];
 export const update96Sections = [
   { title: "Riku rework: REBOUND", items: [
     "Riku’s hologram walls are no longer always active. Charge REBOUND with 3–4 spikes, then press Special to raise the walls.",
@@ -400,14 +414,14 @@ export const update90Sections = [
 ];
 
 export const pageFreshness: PageFreshness = {
-  siteLastUpdated: update96.lastVerified,
-  siteLastUpdatedIso: "2026-11-15T06:49:38Z",
+  siteLastUpdated: update97.lastVerified,
+  siteLastUpdatedIso: "2026-11-22T02:13:26.287Z",
   officialDataLastSynced: currentGameState.officialActivity?.observedAt ?? currentGameState.lastVerified,
-  updateTrackerLastUpdated: update96.lastVerified,
+  updateTrackerLastUpdated: update97.lastVerified,
   codesLastChecked: automatedCheckedAt(update95.lastVerified),
   tierListLastUpdated: "July 27, 2026 community snapshot",
   tradingLastUpdated: "July 27, 2026 availability-history review",
-  pityLastUpdated: update96.lastVerified,
+  pityLastUpdated: update97.lastVerified,
 };
 
 // Codes-specific editorial dates, independent of game release dates and site-wide edits.
@@ -758,8 +772,8 @@ export const featuredStyles: StyleEntry[] = [
     rarity: "Secret",
     role: "All-Rounder",
     communityTier: "A",
-    summary: "Rage-based secret style that spikes much harder once you manage the meter correctly.",
-    signature: "Build rage through touches or dives, then temporarily push every stat toward full power.",
+    summary: "A Secret style with a Rage meter for a temporary power increase.",
+    signature: "Touches and dives build Rage for a temporary power increase.",
     whyPlayersSearch: "Yogan rewards careful rage management when switching between attack and defense.",
     availability: "Community sources usually treat Yogan as a limited return style.",
     sourceTier: "Community",
@@ -1215,6 +1229,7 @@ export const abilities: AbilityEntry[] = [
 ];
 
 export const availabilityEvents: AvailabilityEvent[] = [
+  { subjectType: "Style", subjectSlug: "yogan", label: "Yogan return", window: "November 21 – December 5, 2026 (ends 11:30 AM ET)", updateNumber: 97, status: "Limited window", endsAt: "2026-12-05T11:30:00-05:00", sourceTier: "Official", note: "Yogan returns for two weeks following the community vote." },
   { subjectType: "Style", subjectSlug: "twins", label: "Twins return extended", window: "November 7–21, 2026 at 11:30 AM ET", updateNumber: 96, status: "Limited window", endsAt: "2026-11-21T11:30:00-05:00", sourceTier: "Official", note: "Update 96 extended the Twins’ return by one week." },
   { subjectType: "Style", subjectSlug: "twins", label: "Twins return", window: "November 7–14, 2026 at 11:30 AM ET", updateNumber: 95, status: "Not currently available", sourceTier: "Official", note: "Original return window; extended by Update 96 to November 21 at 11:30 AM ET." },
   { subjectType: "Style", subjectSlug: "timeskip-okazu", label: "Timeskip Okazu return", window: "October 31 – November 14, 2026 at 11:30 AM ET", updateNumber: 94, status: "Not currently available", endsAt: "2026-11-14T11:30:00-05:00", sourceTier: "Official", note: "TSO’s announced return window ended November 14 at 11:30 AM ET." },
@@ -1311,6 +1326,13 @@ export function getLatestAvailability(subjectType: AvailabilityEvent["subjectTyp
 }
 
 export const updates: UpdateEntry[] = [
+  {
+    slug: "update-97", title: "Volleyball Legends Update 97: Yogan Return & Riku Buff",
+    published: update97.releasedAt, lastChecked: update97.lastVerified, sourceTier: "Official",
+    summary: update97.summary, bodySummary: update97.summary,
+    highlights: ["Yogan returns until December 5 at 11:30 AM ET.", "Riku’s REBOUND needs one fewer spike to charge.", "Separate 2× Lucky events run November 21–23 and November 26–27.", "Three new codes offer 10 Lucky Style Spins and 5 Lucky Ability Spins."],
+    codes: ["UPDATE_97", "YOGAN_RETURNS", "TURKEY_STAMPEDE"], focusStyles: ["yogan"],
+  },
   {
     slug: "update-96", title: "Volleyball Legends Update 96: Riku Rework & Chat Bubbles",
     published: update96.releasedAt, lastChecked: update96.lastVerified, sourceTier: "Official",
@@ -1570,11 +1592,12 @@ export const updates: UpdateEntry[] = [
 ];
 
 export const homepageRecentlyUpdatedPages: HomepageRecentlyUpdatedPage[] = [
-  { title: "Update 96", href: "/updates/update-96", sourceLabel: "Official", updatedAt: update96.lastVerified, reason: "Riku rework, chat bubbles, and the Twins’ extended return." },
-  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 96 codes for 10 Lucky Style Spins and 5 Lucky Ability Spins." },
-  { title: "Twins", href: "/styles/twins", sourceLabel: "Official", updatedAt: update96.lastVerified, reason: "Return extended until November 21 at 11:30 AM ET." },
-  { title: "Spin Budget", href: "/tools/spin-budget", sourceLabel: "Official", updatedAt: update96.lastVerified, reason: "Plan with the November 14–16 Secret event rates." },
-  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update96.lastVerified, reason: "Twins extension and the end of TSO’s announced return window." },
+  { title: "Update 97", href: "/updates/update-97", sourceLabel: "Official", updatedAt: update97.lastVerified, reason: "Yogan returns, Riku charges faster, and the Thanksgiving Bundle arrives." },
+  { title: "Codes", href: "/codes", sourceLabel: "Official", updatedAt: pageFreshness.codesLastChecked, reason: "Three Update 97 codes for 10 Lucky Style Spins and 5 Lucky Ability Spins." },
+  { title: "Yogan", href: "/styles/yogan", sourceLabel: "Official", updatedAt: update97.lastVerified, reason: "Two-week return ending December 5 at 11:30 AM ET." },
+  { title: "Riku", href: "/styles/riku", sourceLabel: "Official", updatedAt: update97.lastVerified, reason: "REBOUND now needs one fewer spike to charge." },
+  { title: "Spin Budget", href: "/tools/spin-budget", sourceLabel: "Official", updatedAt: update97.lastVerified, reason: "Separate weekend and Thanksgiving Secret event windows." },
+  { title: "Return Dates", href: "/style-return-dates", sourceLabel: "Official", updatedAt: update97.lastVerified, reason: "Yogan’s announced return and earlier return deadlines." },
 ];
 
 export const heroImages: HeroImage[] = [
@@ -1654,7 +1677,7 @@ export const homepageFaq = [
   },
   {
     question: "Are the odds and style stats on this site official?",
-    answer: "Not all values are official. The Update 96 announcement gives a 1% Secret chance and 100-spin pity for its November 14–16 event. Outside that window, the announced baseline is 0.5% and 200 spins. Some other rarity odds and style stats are community estimates; check the values shown in-game before spending spins.",
+    answer: "Update 97 announces a 1% Secret chance and 100-spin pity during two separate events: November 21–23 and November 26–27. Outside these windows, the announced baseline is 0.5% and 200 spins. Other rarity odds and style stats may be community estimates; check the values shown in-game before spending spins.",
   },
   {
     question: "When will a limited style or ability return?",

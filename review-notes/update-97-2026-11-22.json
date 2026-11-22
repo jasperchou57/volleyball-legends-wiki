@@ -1,0 +1,38 @@
+{
+  "update": 97,
+  "reviewDate": "2026-11-22",
+  "source": "Official Discord announcement read in signed-in Chrome reese UI and checked against the site owner's screenshots",
+  "messageUrl": "https://discord.com/channels/1328110081136398427/1328110082226913470/1573737551372747054",
+  "displayedDate": "2026-11-22",
+  "displayedTime": "00:31",
+  "timeBasis": "Discord timestamps displayed in Asia/Shanghai; site dates use America/New_York (EST). November 22 00:30 CST is November 21 11:30 AM EST. Thanksgiving November 26 13:00 CST is November 26 midnight EST.",
+  "text": "UPDATE 97 IS NOW!\nYOGAN RETURNS\nTHANKSGIVING BUNDLE\nRiku Buff\n2x Lucky Event\nLucky Spin Handout\nCodes\n\nYOGAN RETURNS\nYou guys voted for it... Yogan is back for 2 weeks!\nHe leaves again on 2026年12月6日星期日 00:30. Get him while you can!\n\nTHANKSGIVING BUNDLE\nBrand new limited time bundle!\nTurkey Stampede score effect (turkeys run the other team over!!)\nThanksgiving Dinner collaborative emote (up to 5 players)\nRoast Turkey player card\n\nRIKU BUFF - REBOUND now needs 1 less spike to charge\n\n2x Lucky Weekend AND 2x Lucky Thanksgiving!\nANOTHER 2X Luck event incoming so y'all can get the styles & abilities you want, this time we're doing an extra day for Thanksgiving!\nFROM 2026年11月22日星期日 00:30 to 2026年11月24日星期二 00:30\nAND ON THANKSGIVING: FROM 2026年11月26日星期四 13:00 to 2026年11月27日星期五 13:00\nSECRET PITY IS HALVED: 200 -> 100\nSECRET STYLE/ABILITY CHANCES ARE DOUBLED: 0.5% -> 1%\n\nLUCKY STYLE/ABILITY SPIN HANDOUT\nLUCKY STYLE/ABILITY SPINS ARE BEING HANDED OUT from 2026年11月21日星期六 23:30 to 01:30\nEvery 10 mins!!!\n13 lucky spins total...\n\nNEW CODES\nUPDATE_97 = 5 Lucky Style Spins\nYOGAN_RETURNS = 5 Lucky Style Spins\nTURKEY_STAMPEDE = 5 Lucky Ability Spins",
+  "limits": [
+    "Announcement review only, no in-game redemption test or balance testing",
+    "No new tier ratings, numeric attributes, or fixed post-buff Riku charge count assigned",
+    "Update 97 announces no Riku return, Twins extension, bundle price, or bundle deadline",
+    "Omitted old codes are not treated as expired",
+    "Separate 00:44 promotional image is not used as code/reward evidence; no independent image extraction claimed",
+    "Reviewed the visible official announcement history from Update 96 through Update 97; no claim of a complete historical attachment audit"
+  ],
+  "reviewedAt": "2026-11-22T02:13:26.287Z",
+  "announcementTimestamp": "2026-11-21T16:31:10.877Z",
+  "validation": {
+    "testsPassed": 48,
+    "productionBuildPages": 130,
+    "browserChecks": [
+      "Automatic event rates switch at both announced start/end instants and use baseline rates in the gap",
+      "Pity counter is not reused across event periods",
+      "Yogan comparator link selects Yogan in Reroll Advisor",
+      "Yogan deadline clears earlier pool confirmation and prompts a new check",
+      "Earlier saved plan is flagged even when both periods use boosted rates",
+      "Codes WebPage schema uses the actual content write timestamp and source-review date; active table has 21 rows"
+    ],
+    "publication": "Publication authorized after preview approval. Production status is checked against the deployed commit and live pages."
+  },
+  "copyReview": {
+    "reviewer": "AGY CLI plus Codex source and rendered-page review",
+    "outcome": "Core facts agree with the official announcement. Clarified event dates and the 24-hour Thanksgiving window; standardized Style/Ability terms; separated official Yogan return data from older community playstyle/stat data; removed duplicate Update 97 summary and code lists."
+  },
+  "releaseApprovalRecordedAt": "2026-11-22T03:19:09.732401Z"
+}

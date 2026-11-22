@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { getSecretEventStatus, SECRET_SPIN_RATES } from "@/lib/volleyball/secret-event";
+import { getSecretRatePeriod, SECRET_SPIN_RATES } from "@/lib/volleyball/secret-event";
 import { SecretRateSelector, useSecretRates } from "./SecretRateSelector";
 
 type Target = "Secret" | "Evo";
-type PityEntry = { remaining: string; phase: ReturnType<typeof getSecretEventStatus> };
+type PityEntry = { remaining: string; period: string };
 
 const evoEstimate = { rate: 0.0025, pity: 400 };
 const maxBudget = 1000;
@@ -26,15 +26,15 @@ export function SpinBudgetCalculator() {
   const rates = useSecretRates();
   const { now, mode, eventActive } = rates;
   const isSecret = target === "Secret";
-  const phase = now === null ? null : getSecretEventStatus(now);
+  const period = now === null ? null : getSecretRatePeriod(now);
   const { rate, pity } = isSecret ? SECRET_SPIN_RATES[eventActive ? "event" : "baseline"] : evoEstimate;
 
-  // Compare from zero and use the entered counter only within its current event phase.
-  const currentPityPhase = isSecret && mode === "auto" ? phase : null;
-  const remainingText = currentPityPhase && pityEntry?.phase === currentPityPhase ? pityEntry.remaining : "";
+  // Compare from zero and use the entered counter only within its current window.
+  const currentPityPeriod = isSecret && mode === "auto" ? period : null;
+  const remainingText = currentPityPeriod && pityEntry?.period === currentPityPeriod ? pityEntry.remaining : "";
   const remaining = remainingText === "" ? null : Number(remainingText);
   const invalidPity = remaining !== null && (!Number.isInteger(remaining) || remaining < 1 || remaining > pity);
-  const counterNeedsCheck = currentPityPhase !== null && !!pityEntry?.remaining && pityEntry.phase !== currentPityPhase;
+  const counterNeedsCheck = currentPityPeriod !== null && !!pityEntry?.remaining && pityEntry.period !== currentPityPeriod;
   const spinsToPity = invalidPity ? pity : remaining ?? pity;
   const shortfall = Math.max(0, spinsToPity - budget);
   const chance = cumulative(budget, rate, spinsToPity);
@@ -85,7 +85,7 @@ export function SpinBudgetCalculator() {
               step={1}
               value={budget}
               onChange={e => setBudget(Math.min(maxBudget, Math.max(0, Math.floor(e.target.valueAsNumber || 0))))}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-background/80 px-4 py-3 text-lg font-semibold text-white outline-none focus:border-accent-teal/50"
+              className="mt-2 w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-lg font-semibold text-white outline-none focus:border-accent-teal/50"
             />
             <input
               aria-label="Lucky Spin budget"
@@ -100,7 +100,7 @@ export function SpinBudgetCalculator() {
 
           {isSecret && <SecretRateSelector {...rates} />}
 
-          {currentPityPhase && (
+          {currentPityPeriod && (
             <div>
               <label htmlFor="secret-pity-left" className="text-sm font-semibold text-white">
                 Spins left until Secret pity <span className="font-normal text-muted">(optional)</span>
@@ -113,10 +113,10 @@ export function SpinBudgetCalculator() {
                 step={1}
                 inputMode="numeric"
                 value={remainingText}
-                onChange={e => setPityEntry({ remaining: e.target.value, phase: currentPityPhase })}
+                onChange={e => setPityEntry({ remaining: e.target.value, period: currentPityPeriod })}
                 aria-invalid={invalidPity || undefined}
                 aria-describedby={invalidPity ? "secret-pity-help secret-pity-error" : "secret-pity-help"}
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-background/80 px-4 py-3 text-lg font-semibold text-white outline-none focus:border-accent-teal/50 aria-[invalid=true]:border-accent-orange"
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-lg font-semibold text-white outline-none focus:border-accent-teal/50 aria-[invalid=true]:border-accent-orange"
               />
               <p id="secret-pity-help" className="mt-2 text-xs leading-5 text-muted">
                 Use your in-game counter. If it shows {pity - 30} of {pity}, enter 30. Leave blank to start from zero.
@@ -145,6 +145,7 @@ export function SpinBudgetCalculator() {
                 <p className="mt-2 text-sm leading-6">
                   At least one {target} from your pool in {budget} {budget === 1 ? "spin" : "spins"}.
                 </p>
+                {isSecret && <p className="mt-2 text-sm leading-6">Secret pity guarantees the rarity, not a specific style or ability.</p>}
                 <p className="mt-2 text-sm leading-6 text-slate-200">
                   {remaining === null ? "Starting from zero pity" : "Using your pity counter"} · {pityBudget}
                 </p>

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { rikuChargeChange, rikuRotationNotice } from "@/data/update-97";
 
 export const metadata: Metadata = {
   title: "Riku in Volleyball Legends: REBOUND Rework Guide",
-  description: "Learn Riku’s Update 96 REBOUND rework in Volleyball Legends: charge with 3–4 spikes, activate hologram walls with Special, and check his return status.",
+  description: "Use Riku’s REBOUND in Volleyball Legends: learn the Update 97 charge buff, activate hologram walls with Special, and check his announced return status.",
   alternates: { canonical: "/styles/riku" },
 };
 
@@ -12,7 +13,7 @@ const sectionClass = "mt-8 scroll-mt-44 rounded-[2rem] border border-border bg-s
 const jumpLinkClass = "rounded-full border border-white/15 px-4 py-2 text-sm text-white hover:border-accent-teal";
 
 const reboundSteps = [
-  { title: "Charge REBOUND", description: "Use 3–4 spikes." },
+  { title: "Charge REBOUND", description: "Spike until the REBOUND meter is charged." },
   { title: "Raise the hologram walls", description: "Press Special once REBOUND is charged." },
   { title: "Play the bounce", description: "Either team’s ball can bounce off the walls. The walls break after one bounce." },
 ];
@@ -31,7 +32,7 @@ export default function RikuPage() {
       <header className="mt-6 rounded-[2rem] border border-border bg-surface/80 p-6 md:p-8">
         <h1 className="text-4xl font-heading font-black text-white md:text-5xl">Volleyball Legends Riku Guide</h1>
         <div id="availability" className="mt-5 scroll-mt-44 rounded-2xl border border-accent-orange/25 bg-accent-orange/10 p-4 text-sm leading-7 text-slate-100">
-          <p className="font-semibold">Riku is unavailable to roll in Update 96.</p>
+          <p className="font-semibold">{rikuRotationNotice}</p>
           <Link href="/style-return-dates" className="text-accent-teal underline underline-offset-4">
             Check style return dates
           </Link>
@@ -41,6 +42,11 @@ export default function RikuPage() {
           <a href="#changes" className={jumpLinkClass}>What changed</a>
         </nav>
       </header>
+
+      <aside className="mt-6 rounded-2xl border border-accent-teal/25 bg-accent-teal/10 p-5 text-sm leading-7 text-slate-200">
+        <p>{rikuChargeChange}</p>
+        <Link href="/updates/update-97" className="mt-2 inline-block font-semibold text-accent-teal underline underline-offset-4">Read Update 97 notes</Link>
+      </aside>
 
       <section id="rebound" className={sectionClass}>
         <h2 className="text-2xl font-heading font-bold text-white">How to use Riku’s REBOUND</h2>

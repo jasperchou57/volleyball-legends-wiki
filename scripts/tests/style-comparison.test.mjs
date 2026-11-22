@@ -52,5 +52,5 @@ test('Riku has one guide-backed comparison entry without borrowing a numeric rat
   assert.equal(entries[0].href, '/styles/riku');
   assert.equal(entries[0].tier, null);
   assert.equal(entries[0].scores, null);
-  assert.equal(tierStyles.find(s => s.slug === 'riku').review.reviewedAt, '2026-11-15');
+  assert.equal(tierStyles.find(s => s.slug === 'riku').review.reviewedAt, '2026-11-22');
 });

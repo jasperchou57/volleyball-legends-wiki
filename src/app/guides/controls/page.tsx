@@ -66,7 +66,7 @@ export default function ControlsGuidePage() {
       <section id="riku-special" className="mt-8 scroll-mt-44 rounded-[2rem] border border-accent-teal/20 bg-accent-teal/10 p-6">
         <h2 className="text-2xl font-heading font-bold text-white">Riku’s Special</h2>
         <p className="mt-3 text-sm leading-7 text-slate-100">
-          With Riku equipped, charge <strong>REBOUND</strong> with 3–4 spikes. Use <strong>Special</strong> to raise the hologram walls.
+          With Riku equipped, spike to charge <strong>REBOUND</strong>. Update 97 reduces the requirement by one spike. Use <strong>Special</strong> once charged to raise the hologram walls.
           Either team’s ball can bounce off them. The walls break after one bounce.
         </p>
         <p className="mt-3 text-sm leading-7 text-muted">Check the <strong>Special</strong> input for your device in the game’s controls.</p>
