@@ -1777,22 +1777,22 @@ export const toolCards = [
   {
     title: "Spin Budget Calculator",
     href: "/tools/spin-budget",
-    description: "Estimate your chances from your Lucky Spins and target rarity. Secret rates follow the announced event dates automatically, with normal and event rates available for comparison.",
+    description: "Estimate your chance of any Secret at normal or event rates.",
   },
   {
     title: "Style Compare",
     href: "/tools/style-compare",
-    description: "Compare two styles by role, offense, control, defense, and mobility.",
+    description: "Compare roles, mechanics, and limitations before choosing a style.",
   },
   {
     title: "Reroll Advisor",
     href: "/tools/reroll-advisor",
-    description: "Plan your next roll around the style you want to keep, your available slots, and your Lucky Spins.",
+    description: "Check your target and slots, plan your budget, and save a reroll plan.",
   },
   {
     title: "Update Countdown",
     href: "/tools/update-countdown",
-    description: "Track the next Saturday reset around the community-reported weekly update time.",
+    description: "See the next scheduled update in your local time.",
   },
 ];
 

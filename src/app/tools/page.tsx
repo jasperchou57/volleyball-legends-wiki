@@ -24,7 +24,7 @@ export default function ToolsPage() {
           Volleyball Legends Tools
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted md:text-lg">
-          Tools are where the site stops looking like a copy of every other code page. They are also where you need the clearest disclaimers around community data and site-generated advice.
+          Compare styles, plan rerolls, estimate Secret chances, and check update times.
         </p>
       </section>
 
