@@ -180,6 +180,16 @@
       "eventTime": "2026-11-21T16:31:10.877Z",
       "sourceId": "1328110081136398427/1328110082226913470/1573737551372747054",
       "evidenceHash": "2c17fa21b21e55fc8a063f50e61c1a72b289a7ad922a6402796e39353c619172"
+    },
+    {
+      "code": "LUCKYTURKEY",
+      "reward": "5 lucky style spins",
+      "status": "active",
+      "addedAt": "2026-11-26",
+      "sourceCheckedAt": "2026-11-28",
+      "eventTime": "2026-11-26T12:59:31.175Z",
+      "sourceId": "1328110081136398427/1328110082226913470/1575496224289849405",
+      "evidenceHash": "7315c66b7b2724a255fd3b8a1e6b27d2d7b02d7b39601583e87ba3976e4728e1"
     }
   ],
   "announcements": [
@@ -504,6 +514,34 @@
         "quote": "UPDATE 97 IS NOW!"
       },
       "hash": "2c17fa21b21e55fc8a063f50e61c1a72b289a7ad922a6402796e39353c619172"
+    },
+    {
+      "gameId": "volleyball-legends",
+      "guildId": "1328110081136398427",
+      "channelId": "1328110082226913470",
+      "messageId": "1575496224289849405",
+      "receivedChannelId": "1328110082226913470",
+      "receivedMessageId": "1575496224289849405",
+      "timestamp": "2026-11-26T12:59:31.175Z",
+      "editedTimestamp": null,
+      "capturedAt": "2026-11-28T08:24:58.589Z",
+      "segments": [
+        {
+          "id": "browser-text",
+          "text": "THANKSGIVING DAY IS NOW LIVE!\n2x Lucky Event\nANOTHER 2X Luck event incoming today for Thanksgiving!\nFROM 2026年11月26日星期四 20:00 to 2026年11月27日星期五 20:00\n\nSECRET PITY IS HALVED: 200 -> 100\nSECRET STYLE/ABILITY CHANCES ARE DOUBLED: 0.5% -> 1%\n\nWe're also giving away 5 lucky style spins for the delay. Happy thanksgiving!!\n😁\nLUCKYTURKEY  = 5 LUCKY SPINS"
+        }
+      ],
+      "observations": [
+        {
+          "code": "LUCKYTURKEY",
+          "status": "active",
+          "reward": "5 lucky style spins",
+          "segment": "browser-text",
+          "quote": "We're also giving away 5 lucky style spins for the delay. Happy thanksgiving!!\n😁\nLUCKYTURKEY  = 5 LUCKY SPINS"
+        }
+      ],
+      "update": null,
+      "hash": "7315c66b7b2724a255fd3b8a1e6b27d2d7b02d7b39601583e87ba3976e4728e1"
     }
   ],
   "update": {
@@ -513,6 +551,6 @@
     "announcedAt": "2026-11-21",
     "checkedAt": "2026-11-23"
   },
-  "contentUpdatedAt": "2026-11-22T02:13:26.307Z",
-  "revision": "bb43f727c2378895c5666332291dfa639819d3d707133ab1bf79c834c72ab1ee"
+  "contentUpdatedAt": "2026-11-28T08:25:19.192Z",
+  "revision": "786c73a55c7a9c4a8cd2e32bdd9ae32cdb89075d7f1e53dd785d8a676c77b387"
 }
